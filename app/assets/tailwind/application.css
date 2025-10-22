@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+@source not "./daisyui{,*}.mjs";
+
+@plugin "./daisyui.mjs";
+
+/* Optional for custom themes – Docs: https://daisyui.com/docs/themes/#how-to-add-a-new-custom-theme */
+@plugin "./daisyui-theme.mjs"{
+  /* custom theme here */
+}
+
+@keyframes fade-in-out {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  90% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+.animate-fade-in-out {
+  animation: fade-in-out 4s ease-in-out forwards;
+}
+
