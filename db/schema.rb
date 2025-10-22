@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_18_195231) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_22_221111) do
   create_table "journals", force: :cascade do |t|
     t.integer "subproject_id"
     t.integer "user_id"
@@ -77,6 +77,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_18_195231) do
 
   create_table "user_roles", force: :cascade do |t|
     t.integer "user_id", null: false
+    t.string "role", null: false
     t.index ["user_id"], name: "index_user_roles_on_user_id"
   end
 
