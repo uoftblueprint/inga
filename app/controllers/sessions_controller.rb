@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   skip_before_action :require_login, only: [ :login, :create ]
+
   def login; end
 
   def create
@@ -16,4 +17,8 @@ class SessionsController < ApplicationController
     session.delete(:user_id)
     redirect_to login_path, flash: { success: "Logged out successfully." }
   end
+
+  private
+
+  def has_required_roles? = true
 end

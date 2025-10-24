@@ -12,4 +12,8 @@ class FizzBuzzController < ApplicationController
     else number.to_s
     end
   end
+
+  private
+
+  def has_required_roles? = true
 end
