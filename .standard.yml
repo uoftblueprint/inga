@@ -1,0 +1,8 @@
+plugins:
+  - standard-rails
+  - standard-rspec
+  - standard-performance
+
+ignore:
+  - 'db/migrate/**/*'
+  - 'db/*schema*'
