@@ -1,4 +1,4 @@
-Dir[Rails.root.join("db", "seeds", "**", "*.rb")].each { |file| require file }
+Rails.root.glob("db/seeds/**/*.rb").each { |file| require file }
 
 return unless Rails.env.development?
 

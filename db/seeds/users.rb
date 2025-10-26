@@ -2,14 +2,14 @@ module Seeds
   class Users
     class << self
       def run
-        ActiveRecord::Base.connection.truncate_tables('users', 'user_roles')
+        ActiveRecord::Base.connection.truncate_tables("users", "user_roles")
         seed_users
       end
 
       private
 
       def seed_users
-        puts "Seeding users..."
+        Rails.logger.info "Seeding users..."
         ActiveRecord::Base.transaction do
           admin = User.create!(username: "admin", password: "a")
           super_user = User.create!(username: "super", password: "a")

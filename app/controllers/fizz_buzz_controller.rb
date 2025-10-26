@@ -2,14 +2,17 @@ class FizzBuzzController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-    return unless params[:number].present?
+    return if params[:number].blank?
 
     number = params[:number].to_i
-    @result = case
-    when number % 15 == 0 then "FizzBuzz"
-    when number % 3  == 0 then "Fizz"
-    when number % 5  == 0 then "Buzz"
-    else number.to_s
+    @result = if number % 15 == 0
+      "FizzBuzz"
+    elsif number % 3 == 0
+      "Fizz"
+    elsif number % 5 == 0
+      "Buzz"
+    else
+      number.to_s
     end
   end
 end
