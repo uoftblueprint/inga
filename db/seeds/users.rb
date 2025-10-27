@@ -13,13 +13,13 @@ module Seeds
         ActiveRecord::Base.transaction do
           admin = User.create!(username: "admin", password: "a")
           super_user = User.create!(username: "super", password: "a")
-          logger = User.create!(username: "logger", password: "a")
+          reporter = User.create!(username: "reporter", password: "a")
           analyst = User.create!(username: "analyst", password: "a")
 
           set_roles(admin, :admin)
-          set_roles(logger, :logger)
+          set_roles(reporter, :reporter)
           set_roles(analyst, :analyst)
-          set_roles(super_user, :admin, :logger, :analyst)
+          set_roles(super_user, :admin, :reporter, :analyst)
         end
       end
 
