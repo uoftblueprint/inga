@@ -1,16 +1,16 @@
 FactoryBot.define do
   factory :admin_role, class: "UserRole" do
     role { "admin" }
-    association :user
+    user
   end
 
   factory :reporter_role, class: "UserRole" do
     role { "reporter" }
-    association :user
+    user
   end
 
   factory :analyst_role, class: "UserRole" do
     role { "analyst" }
-    association :user
+    user
   end
 end
