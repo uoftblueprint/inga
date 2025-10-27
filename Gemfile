@@ -38,6 +38,8 @@ gem "kamal", require: false
 gem "thruster", require: false
 
 gem "bcrypt", "~> 3.1.7"
+gem "inline_svg"
+gem "view_component"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
