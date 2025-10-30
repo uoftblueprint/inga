@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html data-theme="light">
   <head>
     <title><%= content_for(:title) || "Inga" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -19,11 +19,10 @@
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
-    <%= stylesheet_link_tag "https://cdn.simplecss.org/simple.css" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="min-h-screen bg-base-100">
     <%= render "shared/flash" %>
     <%= yield %>
   </body>
