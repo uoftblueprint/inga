@@ -14,7 +14,7 @@ Describe the approach, implementation details, or key changes made. Mention any 
 ---
 
 ## Checklist
-- [ ] Changes have been top-hatted locally
+- [ ] Changes have been tested (by yourself and/or a teammate) locally
 - [ ] Tests have been added or updated
 - [ ] Documentation has been updated (if applicable)
 - [ ] Linked related issues
