@@ -15,5 +15,6 @@ class ApplicationController < ActionController::Base
     redirect_to root_path, flash: { error: "You do not have permission to access this page" } unless has_required_roles?
   end
 
-  def has_required_roles? = false # All controllers must override this method
+  # All controllers must override this method
+  def has_required_roles? = false
 end

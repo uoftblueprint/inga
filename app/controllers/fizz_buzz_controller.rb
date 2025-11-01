@@ -6,11 +6,11 @@ class FizzBuzzController < ApplicationController
 
     number = params[:number].to_i
     @result = case
-    when number % 15 == 0 then "FizzBuzz"
-    when number % 3  == 0 then "Fizz"
-    when number % 5  == 0 then "Buzz"
-    else number.to_s
-    end
+              when number % 15 == 0 then "FizzBuzz"
+              when number % 3  == 0 then "Fizz"
+              when number % 5  == 0 then "Buzz"
+              else number.to_s
+              end
   end
 
   private

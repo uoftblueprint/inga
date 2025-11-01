@@ -2,7 +2,7 @@ module Seeds
   class Users
     class << self
       def run
-        ActiveRecord::Base.connection.truncate_tables('users', 'user_roles')
+        ActiveRecord::Base.connection.truncate_tables("users", "user_roles")
         seed_users
       end
 

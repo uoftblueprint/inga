@@ -1,8 +1,49 @@
-# Omakase Ruby styling for Rails
-inherit_gem: { rubocop-rails-omakase: rubocop.yml }
+inherit_mode:
+  # merge exclusions with rubocop's default exclusions rather than overwriting
+  # them
+  merge:
+    - Exclude
 
-# Overwrite or add rules to create your own house style
-#
-# # Use `[a, [b, c]]` not `[ a, [ b, c ] ]`
-# Layout/SpaceInsideArrayLiteralBrackets:
-#   Enabled: false
+plugins:
+  - rubocop-rails
+  - rubocop-performance
+  - rubocop-factory_bot
+  - rubocop-rspec
+  - rubocop-rspec_rails
+  - rubocop-capybara
+
+AllCops:
+  Exclude:
+    - "db/migrate/*"
+    - "db/*schema*"
+  NewCops: enable
+
+Metrics:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/EmptyCaseCondition:
+  Enabled: false
+
+Style/NumericPredicate:
+  Enabled: false
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Rails/HasManyOrHasOneDependent:
+  Enabled: false
+
+Naming/PredicatePrefix:
+  Enabled: false
+
+Rails/Blank:
+  Enabled: false
+
+Rails/Output:
+  Enabled: false

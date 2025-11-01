@@ -6,6 +6,7 @@ class IconComponent < ViewComponent::Base
   SIZE_MAP = { xs: "12", sm: "16", md: "24", lg: "32", xl: "48" }.freeze
 
   def initialize(icon:, size: :sm, classes: "")
+    super
     @icon = icon
     @size = size
     @classes = classes
