@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   root "fizz_buzz#index"
 
   # User routes
-  resources :users, only: [ :new, :create, :show ]
+  resources :users, only: %i[new create show]
 
   # Session routes
   get "/login", to: "sessions#login"

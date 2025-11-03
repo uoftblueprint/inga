@@ -6,7 +6,7 @@ module Seeds
       RegionStruct = Struct.new(:name, :latitude, :longitude)
 
       def run
-        ActiveRecord::Base.connection.truncate_tables('projects', 'subprojects', 'regions')
+        ActiveRecord::Base.connection.truncate_tables("projects", "subprojects", "regions")
         puts "Seeding projects, subprojects, and regions..."
         projects_data.each do |project_struct|
           create_project(project_struct)
@@ -63,7 +63,8 @@ module Seeds
             "Collaborator Projects",
             true,
             [
-              SubprojectStruct.new("The Royal Botanic Gardens, Kew", "Collaborative tropical research and legume species screening", central_america),
+              SubprojectStruct.new("The Royal Botanic Gardens, Kew",
+                                   "Collaborative tropical research and legume species screening", central_america),
               SubprojectStruct.new("MOPAWI", "Local collaboration in forest and agroforestry work", honduras),
               SubprojectStruct.new("EcoLogic", "Regional environmental projects and conservation", honduras)
             ]
