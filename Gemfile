@@ -60,6 +60,8 @@ group :development, :test do
   gem "rubocop-rails", "~> 2.33", ">= 2.33.4"
   gem "rubocop-rspec", "~> 3.7"
   gem "rubocop-rspec_rails", "~> 2.31"
+
+  gem "htmlbeautifier", "~> 1.3", ">= 1.3.1"
 end
 
 group :development do
