@@ -3,9 +3,11 @@ class BadgeComponent < ViewComponent::Base
 
   COLOURS = %i[neutral primary secondary accent info success warning error].freeze
   SIZES = %i[xs sm md lg xl].freeze
-  STYLES  = %i[solid soft outline dash ghost].freeze
+  STYLES = %i[solid soft outline dash ghost].freeze
 
   def initialize(text:, colour: :neutral, size: :md, style: :solid)
+    super
+
     @text = text
 
     raise ArgumentError, "Invalid colour" unless COLOURS.include?(colour)
@@ -20,7 +22,7 @@ class BadgeComponent < ViewComponent::Base
   private
 
   def css_classes
-    classes = [ "px-2 badge", "badge-#{@size}" ]
+    classes = ["px-2 badge", "badge-#{@size}"]
     case @style
     when :solid
       classes << "badge-#{@colour}"
