@@ -38,7 +38,7 @@ jobs:
       - name: Scan for security vulnerabilities in JavaScript dependencies
         run: bin/importmap audit
 
-  lint:
+  lint_ruby:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -50,8 +50,43 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      - name: Lint code for consistent style
+      - name: Lint Ruby code for consistent style
         run: bin/rubocop -f github
+
+  lint_erb:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+
+      - name: Lint ERB/HTML files
+        run: bin/erb_lint --lint-all
+
+  lint_js_css:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Install JS/CSS dependencies
+        run: pnpm install
+
+      - name: Lint JS/CSS files
+        run: pnpm lint
 
   test:
     runs-on: ubuntu-latest
