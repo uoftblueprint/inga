@@ -6,7 +6,7 @@ class BadgeComponent < ViewComponent::Base
   STYLES = %i[solid soft outline dash ghost].freeze
 
   def initialize(text:, colour: :neutral, size: :md, style: :solid)
-    super
+    super()
 
     @text = text
 
