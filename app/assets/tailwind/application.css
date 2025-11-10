@@ -2,7 +2,9 @@
 
 @source not "./daisyui{,*}.mjs";
 
-@plugin "./daisyui.mjs";
+@plugin "./daisyui.mjs"{
+  themes: light --default
+}
 
 /* Optional for custom themes – Docs: https://daisyui.com/docs/themes/#how-to-add-a-new-custom-theme */
 @plugin "./daisyui-theme.mjs" {
