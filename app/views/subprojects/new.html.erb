@@ -1,0 +1,19 @@
+<%= form_with model: [@project, @subproject] do |form| %>
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+  <div>
+    <%= form.label :description %>
+    <%= form.text_field :description %>
+  </div>
+  <div>
+    <%= form.label :address %>
+    <%= form.text_field :address %>
+  </div>
+  <div>
+    <%= form.label :region_id %>
+    <%= form.collection_radio_buttons :region_id, @regions, :id, :name %>
+  </div>
+  <%= form.submit %>
+<% end %>
