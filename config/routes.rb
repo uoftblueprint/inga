@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   # Project routes
-  resources :projects do
+  resources :projects, only: [] do
     # Subproject routes
-    resources :subprojects
+    resources :subprojects, only: %i[new create]
   end
 
   # Health check route
