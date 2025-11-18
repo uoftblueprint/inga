@@ -62,6 +62,7 @@ group :development, :test do
   gem "rubocop-rspec_rails", "~> 2.31"
 
   gem "erb_lint", "~> 0.9.0"
+  gem "faker"
   gem "htmlbeautifier", "~> 1.3", ">= 1.3.1"
 end
 
