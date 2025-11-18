@@ -1,0 +1,23 @@
+<div class="overflow-x-auto">
+  <table class="table table-zebra">
+    <thead>
+      <tr>
+        <th></th>
+        <% headers.each do |header| %>
+          <th><%= header %></th>
+        <% end %>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% records.each_with_index do |record, index| %>
+        <tr>
+          <th><%= index + 1 %></th>
+          <% record.attributes.values.each do |value| %>
+            <td><%= render_cell_content(value: value) %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
