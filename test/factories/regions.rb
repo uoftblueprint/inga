@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :region do
-    name { "Test Region" }
-    latitude { 45.4215 }
-    longitude { -75.6972 }
+    sequence(:name) { |n| "Region #{n}" }
+    latitude { Faker::Address.latitude }
+    longitude { Faker::Address.longitude }
   end
 end
