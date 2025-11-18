@@ -1,19 +1,23 @@
-<%= form_with model: [@project, @subproject] do |form| %>
-  <div>
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+<%= form_with model: [@project, @subproject], local: true, class: "max-w-120 my-12 mx-auto flex flex-col gap-4" do |form| %>
+  <div class="flex flex-col gap-2">
+      <div class="flex flex-col gap-1">
+        <%= form.label :name, class: "label" %>
+        <%= form.text_field :name, class: "input w-full" %>
+      </div>
+      <div class="flex flex-col gap-1">
+        <%= form.label :description, class: "label" %>
+        <%= form.text_field :description, class: "input w-full" %>
+      </div>
+      <div class="flex flex-col gap-1">
+        <%= form.label :address, class: "label" %>
+        <%= form.text_field :address, class: "input w-full" %>
+      </div>
+      <div class="flex flex-col gap-1">
+        <%= form.label :region_id, class: "label" %>
+        <%= form.collection_select :region_id, Region.order(:name), :id, :name, { prompt: "Select a Region" }, { class: "w-full select" } %>
+      </div>
   </div>
-  <div>
-    <%= form.label :description %>
-    <%= form.text_field :description %>
-  </div>
-  <div>
-    <%= form.label :address %>
-    <%= form.text_field :address %>
-  </div>
-  <div>
-    <%= form.label :region_id %>
-    <%= form.collection_radio_buttons :region_id, @regions, :id, :name %>
-  </div>
-  <%= form.submit %>
+  <%= form.submit class: "btn btn-neutral w-full" %>
 <% end %>
+
+<%= render "shared/flash" %>
