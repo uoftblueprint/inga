@@ -1,6 +1,5 @@
 class SubprojectsController < ApplicationController
   before_action :set_project
-  before_action :set_regions, only: %i[new create]
 
   def new
     @subproject = @project.subprojects.build
@@ -10,8 +9,10 @@ class SubprojectsController < ApplicationController
     @subproject = @project.subprojects.build(subproject_params)
 
     if @subproject.save
-      redirect_to [@project, @subproject]
+      flash[:success] = "Subproject created successfully."
+      redirect_to new_project_subproject_path(@project)
     else
+      flash.now[:error] = "Failed to create subproject."
       render :new, status: :unprocessable_entity
     end
   end
@@ -22,13 +23,11 @@ class SubprojectsController < ApplicationController
     @project = Project.find(params[:project_id])
   end
 
-  def set_regions
-    @regions = Region.all
-  end
-
   def subproject_params
     params.expect(subproject: %i[name description address region_id])
   end
 
-  def has_required_roles? = true
+  def has_required_roles?
+    current_user.has_roles?(:admin)
+  end
 end
