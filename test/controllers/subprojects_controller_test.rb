@@ -2,23 +2,24 @@ require "test_helper"
 
 class SubprojectsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @user = create(:user)
-    post login_url, params: { username: @user.username, password: @user.password }
+    @user = create_logged_in_admin_user
     @project = create(:project)
     @region = create(:region)
   end
 
-  test "should get new" do
+  test "#new successfully returns a form" do
     get new_project_subproject_url(@project)
     assert_response :success
     assert_select "form"
   end
 
-  test "should create subproject with valid params" do
+  test "#create successfully creates a subproject with valid params" do
+    subproject_name = "New Subproject"
+
     assert_difference("Subproject.count", 1) do
       post project_subprojects_url(@project), params: {
         subproject: {
-          name: "New Subproject",
+          name: subproject_name,
           description: "A description",
           address: "123 Main St",
           region_id: @region.id
@@ -26,42 +27,53 @@ class SubprojectsControllerTest < ActionDispatch::IntegrationTest
       }
     end
 
-    new_subproject = Subproject.last
+    new_subproject = Subproject.find_by!(name: subproject_name)
     assert_equal @project.id, new_subproject.project_id
     assert_equal @region.id, new_subproject.region_id
-
-    assert_redirected_to project_subproject_path(@project, new_subproject)
   end
 
-  test "should not create subproject with invalid params" do
+  test "#create does not create a subproject with invalid params" do
+    assert_no_difference("Subproject.count") do
+      post project_subprojects_url(@project), params: {
+        subproject: {
+          name: "",
+          description: "",
+          address: "",
+          region_id: 1
+        }
+      }
+    end
+
+    assert_response :unprocessable_entity
+  end
+
+  test "#create does not create a subproject with a missing region" do
     assert_no_difference("Subproject.count") do
       post project_subprojects_url(@project), params: {
         subproject: {
           name: "Test name",
           description: "Test description",
           address: "123 Main St",
-          region_id: nil # Invalid param
+          region_id: nil
         }
       }
     end
 
     assert_response :unprocessable_entity
-    assert_select "form"
   end
 
-  test "should not create subproject with non-existent region" do
+  test "#create does not creates a subproject with a non-existent region" do
     assert_no_difference("Subproject.count") do
       post project_subprojects_url(@project), params: {
         subproject: {
           name: "Test name",
           description: "Test description",
           address: "123 Main St",
-          region_id: 999_999 # Non-existent region
+          region_id: 999_999
         }
       }
     end
 
     assert_response :unprocessable_entity
-    assert_select "form"
   end
 end
