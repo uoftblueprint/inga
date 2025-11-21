@@ -32,7 +32,7 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
 
   test "create sets project as active by default" do
     post projects_path, params: { project: { name: "Test Project", description: "Test description" } }
-    
+
     project = Project.last
     assert project.active
   end

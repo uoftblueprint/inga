@@ -1,25 +1,25 @@
 class ProjectsController < ApplicationController
-    def new
-        @project = Project.new
+  def new
+    @project = Project.new
+  end
+
+  def create
+    @project = Project.new(new_params)
+    @project.active = true
+
+    if @project.save
+      redirect_to(@project, notice: t(".create.success"))
+    else
+      flash.now[:error] = t(".create.error")
+      render :new, status: :unprocessable_entity
     end
+  end
 
-    def create
-        @project = Project.new(new_params)
-        @project.active = true
+  private
 
-        if @project.save
-            redirect_to(@project, notice: "Project was successfully created.")
-        else
-            flash.now[:error] = "Failed to create project."
-            render :new, status: :unprocessable_entity
-        end
-    end
+  def new_params
+    params.expect(project: %i[name description])
+  end
 
-    private
-
-    def new_params
-        params.require(:project).permit(:name, :description)
-    end
-
-    def has_required_roles? = true
+  def has_required_roles? = true
 end
