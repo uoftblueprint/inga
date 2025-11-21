@@ -2,7 +2,7 @@
   <div class="flex flex-col gap-2">
       <div class="flex flex-col gap-1">
         <%= form.label :name, class: "label" %>
-        <%= form.text_field :name, class: "input w-full" %>
+        <%= form.text_field :name, required: true, class: "input w-full" %>
       </div>
       <div class="flex flex-col gap-1">
         <%= form.label :description, class: "label" %>
@@ -14,10 +14,8 @@
       </div>
       <div class="flex flex-col gap-1">
         <%= form.label :region_id, class: "label" %>
-        <%= form.collection_select :region_id, Region.order(:name), :id, :name, { prompt: "Select a Region" }, { class: "w-full select" } %>
+        <%= form.collection_select :region_id, Region.order(:name), :id, :name, { prompt: "Select a Region", required: true }, { class: "w-full select" } %>
       </div>
   </div>
   <%= form.submit class: "btn btn-neutral w-full" %>
 <% end %>
-
-<%= render "shared/flash" %>
