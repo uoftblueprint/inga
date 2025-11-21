@@ -17,6 +17,7 @@
         <%= form.collection_select :region_id, Region.order(:name), :id, :name, { prompt: "Select a Region" }, { class: "w-full select" } %>
       </div>
   </div>
+  
   <%= form.submit class: "btn btn-neutral w-full" %>
 <% end %>
 
