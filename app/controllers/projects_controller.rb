@@ -8,7 +8,7 @@ class ProjectsController < ApplicationController
         @project.active = true
 
         if @project.save
-            redirect_to(@project, flash: "Project was successfully created.")
+            redirect_to(@project, notice: "Project was successfully created.")
         else
             flash.now[:error] = "Failed to create project."
             render :new, status: :unprocessable_entity
