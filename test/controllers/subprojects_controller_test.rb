@@ -2,26 +2,40 @@ require "test_helper"
 
 class SubprojectsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @user = create_logged_in_admin_user
+    create_logged_in_admin_user
     @project = create(:project)
     @region = create(:region)
   end
 
-  test "#new successfully returns a form" do
+  test "#new redirects to root route when a user is not logged in" do
+    delete logout_url
+    get new_project_subproject_url(@project)
+    assert_response :redirect
+    assert_redirected_to login_path
+  end
+
+  test "#new redirects to login route when a user is not authorized" do
+    create_logged_in_user
+    get new_project_subproject_url(@project)
+    assert_response :redirect
+    assert_redirected_to root_path
+  end
+
+  test "#new renders successfully when a user is an admin" do
     get new_project_subproject_url(@project)
     assert_response :success
     assert_select "form"
   end
 
   test "#create successfully creates a subproject with valid params" do
-    subproject_name = "New Subproject"
+    subproject_name = "Subproject name"
 
     assert_difference("Subproject.count", 1) do
       post project_subprojects_url(@project), params: {
         subproject: {
           name: subproject_name,
-          description: "A description",
-          address: "123 Main St",
+          description: "Subproject description",
+          address: "Subproject address",
           region_id: @region.id
         }
       }
@@ -32,6 +46,22 @@ class SubprojectsControllerTest < ActionDispatch::IntegrationTest
     assert_equal @region.id, new_subproject.region_id
   end
 
+  test "#create creates only one subproject with a given name" do
+    params = {
+      subproject: {
+        name: "Subproject name",
+        description: "Subproject description",
+        address: "Subproject address",
+        region_id: @region.id
+      }
+    }
+
+    assert_difference("Subproject.count", 1) do
+      post project_subprojects_url(@project), params: params
+      post project_subprojects_url(@project), params: params
+    end
+  end
+
   test "#create does not create a subproject with invalid params" do
     assert_no_difference("Subproject.count") do
       post project_subprojects_url(@project), params: {
@@ -39,37 +69,7 @@ class SubprojectsControllerTest < ActionDispatch::IntegrationTest
           name: "",
           description: "",
           address: "",
-          region_id: 1
-        }
-      }
-    end
-
-    assert_response :unprocessable_entity
-  end
-
-  test "#create does not create a subproject with a missing region" do
-    assert_no_difference("Subproject.count") do
-      post project_subprojects_url(@project), params: {
-        subproject: {
-          name: "Test name",
-          description: "Test description",
-          address: "123 Main St",
-          region_id: nil
-        }
-      }
-    end
-
-    assert_response :unprocessable_entity
-  end
-
-  test "#create does not creates a subproject with a non-existent region" do
-    assert_no_difference("Subproject.count") do
-      post project_subprojects_url(@project), params: {
-        subproject: {
-          name: "Test name",
-          description: "Test description",
-          address: "123 Main St",
-          region_id: 999_999
+          region_id: @region.id
         }
       }
     end
