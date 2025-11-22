@@ -17,8 +17,7 @@ class SubprojectsController < ApplicationController
     end
   end
 
-  #Gets single subproject by id (scoped to @project)
-    def show 
+  def show 
       @subproject = @project.subprojects.find(params[:id]) 
   end 
 
