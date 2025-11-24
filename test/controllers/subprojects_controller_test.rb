@@ -8,7 +8,7 @@ class SubprojectsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "#new redirects to root route when a user is not logged in" do
-    delete logout_url
+    log_out_user
     get new_project_subproject_url(@project)
     assert_response :redirect
     assert_redirected_to login_path
