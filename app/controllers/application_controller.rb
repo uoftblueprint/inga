@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   include ApplicationHelper
 
+  default_form_builder DefaultFormBuilder
   allow_browser versions: :modern
   before_action :require_login
   before_action :check_required_roles
