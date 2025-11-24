@@ -1,21 +1,21 @@
 <%= form_with model: [@project, @subproject], local: true, class: "max-w-120 my-12 mx-auto flex flex-col gap-4" do |form| %>
   <div class="flex flex-col gap-2">
       <div class="flex flex-col gap-1">
-        <%= form.label :name, class: "label" %>
-        <%= form.text_field :name, required: true, class: "input w-full" %>
+        <%= form.label :name %>
+        <%= form.text_field :name, required: true, class: "w-full" %>
       </div>
       <div class="flex flex-col gap-1">
-        <%= form.label :description, class: "label" %>
-        <%= form.text_field :description, class: "input w-full" %>
+        <%= form.label :description %>
+        <%= form.text_field :description, class: "w-full" %>
       </div>
       <div class="flex flex-col gap-1">
-        <%= form.label :address, class: "label" %>
-        <%= form.text_field :address, class: "input w-full" %>
+        <%= form.label :address %>
+        <%= form.text_field :address, class: "w-full" %>
       </div>
       <div class="flex flex-col gap-1">
-        <%= form.label :region_id, class: "label" %>
-        <%= form.collection_select :region_id, Region.order(:name), :id, :name, { prompt: "Select a Region", required: true }, { class: "w-full select" } %>
+        <%= form.label :region_id %>
+        <%= form.collection_select :region_id, Region.order(:name), :id, :name, { prompt: "Select a Region", required: true }, { class: "w-full" } %>
       </div>
   </div>
-  <%= form.submit class: "btn btn-neutral w-full" %>
+  <%= form.submit %>
 <% end %>
