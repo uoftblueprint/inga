@@ -2,15 +2,16 @@ require "test_helper"
 
 class SubprojectsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @user = create_logged_in_admin_user
+    create_logged_in_admin_user
     @project = create(:project)
     @region = create(:region)
   end
 
-  test "#new successfully returns a form" do
+  test "#new redirects to root route when a user is not logged in" do
+    log_out_user
     get new_project_subproject_url(@project)
-    assert_response :success
-    assert_select "form"
+    assert_response :redirect
+    assert_redirected_to login_path
   end
 
   test "#show action test where show renders subproject details" do
@@ -58,7 +59,7 @@ class SubprojectsControllerTest < ActionDispatch::IntegrationTest
           name: "",
           description: "",
           address: "",
-          region_id: 1
+          region_id: @region.id
         }
       }
     end
