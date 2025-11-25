@@ -3,8 +3,8 @@
     <thead>
       <tr>
         <th></th>
-        <% headers.each do |header| %>
-          <th><%= header %></th>
+        <% columns.each do |column| %>
+          <th><%= column.header %></th>
         <% end %>
       </tr>
     </thead>
@@ -13,8 +13,8 @@
       <% records.each_with_index do |record, index| %>
         <tr>
           <th><%= index + 1 %></th>
-          <% record.attributes.values.each do |value| %>
-            <td><%= render_cell_content(value: value) %></td>
+          <% columns.each do |column| %>
+            <td><%= render_cell_content(record, column) %></td>
           <% end %>
         </tr>
       <% end %>
