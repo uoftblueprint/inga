@@ -5,6 +5,9 @@ Rails.application.routes.draw do
     resources :subprojects, only: %i[new create]
   end
 
+  # Region routes
+  resources :regions, only: %i[index]
+
   # Health check route
   get "up" => "rails/health#show", as: :rails_health_check
 
