@@ -6,7 +6,7 @@ class DefaultFormBuilder < ActionView::Helpers::FormBuilder
     password_field: "input",
     phone_field: "input",
     search_field: "input",
-    textarea: "input",
+    textarea: "textarea",
     text_field: "input"
   }.freeze
 
