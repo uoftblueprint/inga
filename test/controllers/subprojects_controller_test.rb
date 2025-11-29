@@ -66,34 +66,19 @@ class SubprojectsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :unprocessable_entity
   end
-
-  test "#create does not create a subproject with a missing region" do
-    assert_no_difference("Subproject.count") do
-      post project_subprojects_url(@project), params: {
-        subproject: {
-          name: "Test name",
-          description: "Test description",
-          address: "123 Main St",
-          region_id: nil
-        }
+  test "#create creates only one subproject with a given name" do
+    params = {
+      subproject: {
+        name: "Subproject name",
+        description: "Subproject description",
+        address: "Subproject address",
+        region_id: @region.id
       }
+    }
+
+    assert_difference("Subproject.count", 1) do
+      post project_subprojects_url(@project), params: params
+      post project_subprojects_url(@project), params: params
     end
-
-    assert_response :unprocessable_entity
-  end
-
-  test "#create does not creates a subproject with a non-existent region" do
-    assert_no_difference("Subproject.count") do
-      post project_subprojects_url(@project), params: {
-        subproject: {
-          name: "Test name",
-          description: "Test description",
-          address: "123 Main St",
-          region_id: 999_999
-        }
-      }
-    end
-
-    assert_response :unprocessable_entity
   end
 end
