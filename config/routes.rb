@@ -20,6 +20,9 @@ Rails.application.routes.draw do
   # User routes
   resources :users, only: %i[new create show]
 
+  # Project routes
+  resources :projects, only: %i[new create show]
+
   # Session routes
   get "/login", to: "sessions#login"
   post "/login", to: "sessions#create"
