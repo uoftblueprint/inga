@@ -1,6 +1,16 @@
 class SubprojectsController < ApplicationController
   before_action :set_project
 
+  def index
+    @subprojects = @project.subprojects
+
+    name = params[:name]
+    address = params[:address]
+
+    @subprojects = @subprojects.where("LOWER(name) LIKE ?", "%#{name.downcase}%") if name.present?
+    @subprojects = @subprojects.where("LOWER(address) LIKE ?", "%#{address.downcase}%") if address.present?
+  end
+
   def new
     @subproject = @project.subprojects.build
   end
