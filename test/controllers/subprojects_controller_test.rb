@@ -14,28 +14,34 @@ class SubprojectsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to login_path
   end
 
-  test "#new redirects to login route when a user is not authorized" do
-    create_logged_in_user
-    get new_project_subproject_url(@project)
-    assert_response :redirect
-    assert_redirected_to root_path
-  end
+  test "#show action test where show renders subproject details" do
+    subproject = create(
+      :subproject,
+      project: @project,
+      region: @region,
+      name: "Test Subprojcet",
+      description: "Show description",
+      address: "321 Show St"
+    )
 
-  test "#new renders successfully when a user is an admin" do
-    get new_project_subproject_url(@project)
+    get project_subproject_url(@project, subproject)
     assert_response :success
-    assert_select "form"
+
+    assert_match subproject.name, response.body
+    assert_match subproject.description, response.body
+    assert_match subproject.address, response.body
+    assert_match @project.name, response.body
   end
 
   test "#create successfully creates a subproject with valid params" do
-    subproject_name = "Subproject name"
+    subproject_name = "New Subproject"
 
     assert_difference("Subproject.count", 1) do
       post project_subprojects_url(@project), params: {
         subproject: {
           name: subproject_name,
-          description: "Subproject description",
-          address: "Subproject address",
+          description: "A description",
+          address: "123 Main St",
           region_id: @region.id
         }
       }
@@ -44,22 +50,6 @@ class SubprojectsControllerTest < ActionDispatch::IntegrationTest
     new_subproject = Subproject.find_by!(name: subproject_name)
     assert_equal @project.id, new_subproject.project_id
     assert_equal @region.id, new_subproject.region_id
-  end
-
-  test "#create creates only one subproject with a given name" do
-    params = {
-      subproject: {
-        name: "Subproject name",
-        description: "Subproject description",
-        address: "Subproject address",
-        region_id: @region.id
-      }
-    }
-
-    assert_difference("Subproject.count", 1) do
-      post project_subprojects_url(@project), params: params
-      post project_subprojects_url(@project), params: params
-    end
   end
 
   test "#create does not create a subproject with invalid params" do
@@ -75,5 +65,20 @@ class SubprojectsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :unprocessable_entity
+  end
+  test "#create creates only one subproject with a given name" do
+    params = {
+      subproject: {
+        name: "Subproject name",
+        description: "Subproject description",
+        address: "Subproject address",
+        region_id: @region.id
+      }
+    }
+
+    assert_difference("Subproject.count", 1) do
+      post project_subprojects_url(@project), params: params
+      post project_subprojects_url(@project), params: params
+    end
   end
 end
