@@ -1,0 +1,37 @@
+<div class="flex flex-col gap-3 p-2">
+  <h1 class="font-bold text-xl"><%= @project.name %></h1>
+
+  <div>
+    <p><strong>Description: </strong> <%= @project.description %></p>
+    <p><strong>Date created: </strong> <%= @project.created_at.to_fs(:long_ordinal) %></p>
+    <p><strong>Last updated: </strong> <%= @project.updated_at.to_fs(:long_ordinal) %></p>
+    <p><strong>Active: </strong> <%= @project.active ? "Yes" : "No" %> </p>
+  </div>
+
+  <div>
+    <h3 class="font-bold">Subprojects</h3>
+    <ul>
+      <% @project.subprojects.order(:name).each do |subproj| %>
+        <li> <%= subproj.name %> </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div>
+    <h3 class="font-bold">Reports</h3>
+
+    <% if @project.reports.empty? %>
+      No reports    <% else %>
+      <ul>
+        <% @project.reports.each do |report| %>
+          <li> <%= report.name %> </li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+
+  <div>
+    <%# TODO: update this path when view of all projects is implemented %>
+    <%= link_to "Back to projects", root_path, class: "btn btn-outline btn-link" %>
+  </div>
+</div>
