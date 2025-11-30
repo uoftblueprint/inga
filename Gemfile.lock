@@ -115,12 +115,12 @@ GEM
     drb (2.2.3)
     ed25519 (1.4.0)
     erb (5.1.1)
-    erb_lint (0.5.0)
+    erb_lint (0.9.0)
       activesupport
       better_html (>= 2.0.1)
       parser (>= 2.7.1.4)
       rainbow
-      rubocop
+      rubocop (>= 1)
       smart_properties
     erubi (1.13.1)
     et-orbi (1.4.0)
@@ -130,6 +130,8 @@ GEM
     factory_bot_rails (6.5.1)
       factory_bot (~> 6.5)
       railties (>= 6.1.0)
+    faker (3.5.2)
+      i18n (>= 1.8.11, < 2)
     fugit (1.12.1)
       et-orbi (~> 1.4)
       raabro (~> 1.4)
@@ -180,7 +182,7 @@ GEM
     marcel (1.1.0)
     matrix (0.4.3)
     mini_mime (1.1.5)
-    minitest (5.26.0)
+    minitest (5.26.1)
     msgpack (1.8.0)
     net-imap (0.5.12)
       date
@@ -291,7 +293,7 @@ GEM
       rubocop-ast (>= 1.47.1, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 4.0)
-    rubocop-ast (1.47.1)
+    rubocop-ast (1.48.0)
       parser (>= 3.3.7.2)
       prism (~> 1.4)
     rubocop-capybara (2.22.1)
@@ -313,7 +315,7 @@ GEM
     rubocop-rspec (3.7.0)
       lint_roller (~> 1.1)
       rubocop (~> 1.72, >= 1.72.1)
-    rubocop-rspec_rails (2.31.0)
+    rubocop-rspec_rails (2.32.0)
       lint_roller (~> 1.1)
       rubocop (~> 1.72, >= 1.72.1)
       rubocop-rspec (~> 3.5)
@@ -326,6 +328,7 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 4.0)
       websocket (~> 1.0)
+    sin_lru_redux (2.5.2)
     smart_properties (1.17.0)
     solid_cable (3.0.12)
       actioncable (>= 7.2)
@@ -343,13 +346,13 @@ GEM
       fugit (~> 1.11)
       railties (>= 7.1)
       thor (>= 1.3.1)
-    sqlite3 (2.7.4-aarch64-linux-gnu)
-    sqlite3 (2.7.4-aarch64-linux-musl)
-    sqlite3 (2.7.4-arm-linux-gnu)
-    sqlite3 (2.7.4-arm-linux-musl)
-    sqlite3 (2.7.4-arm64-darwin)
-    sqlite3 (2.7.4-x86_64-linux-gnu)
-    sqlite3 (2.7.4-x86_64-linux-musl)
+    sqlite3 (2.8.0-aarch64-linux-gnu)
+    sqlite3 (2.8.0-aarch64-linux-musl)
+    sqlite3 (2.8.0-arm-linux-gnu)
+    sqlite3 (2.8.0-arm-linux-musl)
+    sqlite3 (2.8.0-arm64-darwin)
+    sqlite3 (2.8.0-x86_64-linux-gnu)
+    sqlite3 (2.8.0-x86_64-linux-musl)
     sshkit (1.24.0)
       base64
       logger
@@ -360,6 +363,8 @@ GEM
     stimulus-rails (1.3.4)
       railties (>= 6.0.0)
     stringio (3.1.7)
+    tailwind_merge (1.3.1)
+      sin_lru_redux (~> 2.5)
     tailwindcss-rails (4.3.0)
       railties (>= 7.0.0)
       tailwindcss-ruby (~> 4.0)
@@ -386,7 +391,8 @@ GEM
     unicode-emoji (4.1.0)
     uri (1.1.1)
     useragent (0.16.11)
-    view_component (4.1.0)
+    view_component (4.1.1)
+      actionview (>= 7.1.0, < 8.2)
       activesupport (>= 7.1.0, < 8.2)
       concurrent-ruby (~> 1)
     web-console (4.2.1)
@@ -420,8 +426,9 @@ DEPENDENCIES
   brakeman
   capybara
   debug
-  erb_lint (~> 0.5.0)
+  erb_lint (~> 0.9.0)
   factory_bot_rails
+  faker
   htmlbeautifier (~> 1.3, >= 1.3.1)
   importmap-rails
   inline_svg
@@ -436,13 +443,14 @@ DEPENDENCIES
   rubocop-performance (~> 1.26, >= 1.26.1)
   rubocop-rails (~> 2.33, >= 2.33.4)
   rubocop-rspec (~> 3.7)
-  rubocop-rspec_rails (~> 2.31)
+  rubocop-rspec_rails (~> 2.32)
   selenium-webdriver
   solid_cable
   solid_cache
   solid_queue
   sqlite3 (>= 2.1)
   stimulus-rails
+  tailwind_merge (~> 1.3)
   tailwindcss-rails (~> 4.3)
   thruster
   turbo-rails

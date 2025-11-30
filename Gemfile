@@ -59,9 +59,10 @@ group :development, :test do
   gem "rubocop-performance", "~> 1.26", ">= 1.26.1"
   gem "rubocop-rails", "~> 2.33", ">= 2.33.4"
   gem "rubocop-rspec", "~> 3.7"
-  gem "rubocop-rspec_rails", "~> 2.31"
+  gem "rubocop-rspec_rails", "~> 2.32"
 
-  gem "erb_lint", "~> 0.5.0"
+  gem "erb_lint", "~> 0.9.0"
+  gem "faker"
   gem "htmlbeautifier", "~> 1.3", ">= 1.3.1"
 end
 
@@ -77,3 +78,5 @@ group :test do
 end
 
 gem "tailwindcss-rails", "~> 4.3"
+
+gem "tailwind_merge", "~> 1.3"

@@ -1,10 +1,21 @@
 Rails.application.routes.draw do
+  # Project routes
+  resources :projects, only: [] do
+    # Subproject routes
+    resources :subprojects, only: %i[new create show]
+  end
+
+  # Region routes
+  resources :regions, only: %i[index]
+
   # Health check route
   get "up" => "rails/health#show", as: :rails_health_check
 
+  # Root route
+  root "home#index"
+
   # FizzBuzz routes
-  get  "fizz_buzz", to: "fizz_buzz#index", as: "fizz_buzz"
-  root "fizz_buzz#index"
+  get "fizz_buzz", to: "fizz_buzz#index", as: "fizz_buzz"
 
   # User routes
   resources :users, only: %i[new create show]

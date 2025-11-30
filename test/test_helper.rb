@@ -12,9 +12,19 @@ module ActiveSupport
     fixtures :all
 
     def create_logged_in_user
-      user = create(:user)
-      session[:user_id] = user.id
-      user
+      create(:user).tap do |user|
+        post login_url, params: { username: user.username, password: user.password }
+      end
+    end
+
+    def create_logged_in_admin_user
+      create_logged_in_user.tap do |user|
+        create(:admin_role, user:)
+      end
+    end
+
+    def log_out_user
+      delete logout_url
     end
   end
 end

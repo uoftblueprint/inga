@@ -1,3 +1,7 @@
+glob: "**/*.html.erb"
+exclude:
+  - "**/vendor/**/*"
+  - "**/node_modules/**/*"
 EnableDefaultLinters: true
 linters:
   Rubocop:
