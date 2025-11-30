@@ -22,5 +22,9 @@ module ActiveSupport
         create(:admin_role, user:)
       end
     end
+
+    def log_out_user
+      delete logout_url
+    end
   end
 end

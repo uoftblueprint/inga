@@ -1,0 +1,14 @@
+<div class="max-w-3xl mx-auto my-8 p-6 bg-base-100 border border-base-200">
+  <h1 class="text-2xl font-bold mb-4"><%= @subproject.name %></h1>
+  <div class="space-y-2">
+    <p><strong>Description:</strong> <%= @subproject.description %></p>
+    <p><strong>Address:</strong> <%= @subproject.address %></p>
+    <p><strong>Region:</strong> <%= @subproject.region.name %></p>
+    <p><strong>Project:</strong> <%= @project.name %></p>
+    <p class="text-sm text-muted">Created: <%= @subproject.created_at.to_fs(:short) %></p>
+  </div>
+
+  <div class="mt-4">
+    <%= link_to "Back to Project", root_path, class: "btn btn-outline btn-sm" %> <%# TODO: Update path %>
+  </div>
+</div>
