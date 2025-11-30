@@ -1,6 +1,11 @@
 class SubprojectsController < ApplicationController
   before_action :set_project
 
+  def index
+    @subprojects = @project.subprojects
+    @subprojects = @subprojects.where("LOWER(name) LIKE ?", "%#{params[:name].downcase}%") if params[:name].present?
+  end
+
   def show
     @subproject = @project.subprojects.find(params[:id])
   end
