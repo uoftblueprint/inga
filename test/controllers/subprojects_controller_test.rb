@@ -76,4 +76,23 @@ class SubprojectsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :unprocessable_entity
   end
+
+  test "#show action test where show renders subproject details" do
+    subproject = create(
+      :subproject,
+      project: @project,
+      region: @region,
+      name: "Test Subprojcet",
+      description: "Show description",
+      address: "321 Show St"
+    )
+
+    get project_subproject_url(@project, subproject)
+    assert_response :success
+
+    assert_match subproject.name, response.body
+    assert_match subproject.description, response.body
+    assert_match subproject.address, response.body
+    assert_match @project.name, response.body
+  end
 end

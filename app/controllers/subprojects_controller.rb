@@ -1,6 +1,10 @@
 class SubprojectsController < ApplicationController
   before_action :set_project
 
+  def show
+    @subproject = @project.subprojects.find(params[:id])
+  end
+
   def new
     @subproject = @project.subprojects.build
   end
