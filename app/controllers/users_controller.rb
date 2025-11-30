@@ -1,6 +1,10 @@
 class UsersController < ApplicationController
   skip_before_action :require_login, only: %i[new create]
 
+  def show
+    @user = User.find(params[:id])
+  end
+
   def new
     @user = User.new
   end
@@ -15,10 +19,6 @@ class UsersController < ApplicationController
       flash.now[:error] = "Failed to create account." # rubocop:disable Rails/I18nLocaleTexts
       render :new, status: :unprocessable_entity
     end
-  end
-
-  def show
-    @user = User.find(params[:id])
   end
 
   private
