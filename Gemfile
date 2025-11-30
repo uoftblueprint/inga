@@ -53,7 +53,7 @@ group :development, :test do
 
   gem "factory_bot_rails"
 
-  gem "rubocop", "~> 1.81", ">= 1.81.1"
+  gem "rubocop", "~> 1.81"
   gem "rubocop-capybara", "~> 2.22", ">= 2.22.1"
   gem "rubocop-factory_bot", "~> 2.27", ">= 2.27.1"
   gem "rubocop-performance", "~> 1.26", ">= 1.26.1"
