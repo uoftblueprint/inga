@@ -17,10 +17,10 @@ class ProjectsController < ApplicationController
   private
 
   def new_params
-    params.require(:project).permit(:name, :description, :active)
+    params.expect(project: %i[name description active])
   end
 
-  def has_required_roles? 
+  def has_required_roles?
     current_user.has_roles?(:admin)
   end
 end
