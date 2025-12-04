@@ -1,10 +1,10 @@
 class ProjectsController < ApplicationController
   def new
-    @project = Project.new
+    @project = Project.new(active: true)
   end
 
   def create
-    @project = Project.new(new_params.merge(active: true))
+    @project = Project.new(new_params)
 
     if @project.save
       redirect_to(@project, notice: t(".create.success"))
@@ -17,7 +17,7 @@ class ProjectsController < ApplicationController
   private
 
   def new_params
-    params.expect(project: %i[name description])
+    params.require(:project).permit(:name, :description, :active)
   end
 
   def has_required_roles? 
