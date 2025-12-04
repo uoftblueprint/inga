@@ -29,7 +29,3 @@
 
 en:
   hello: "Hello world"
-  projects:
-    create:
-      success: "Project was successfully created."
-      error: "Failed to create project."
