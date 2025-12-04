@@ -1,0 +1,5 @@
+en:
+  projects:
+    create:
+      success: "Project created successfully"
+      error: "Could not create project"
