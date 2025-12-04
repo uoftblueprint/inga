@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   # Project routes
-  resources :projects, only: [] do
+  resources :projects, only: %i[new create show] do
     # Subproject routes
     resources :subprojects, only: %i[index edit update new create show]
   end
@@ -19,9 +19,6 @@ Rails.application.routes.draw do
 
   # User routes
   resources :users, only: %i[new create show]
-
-  # Project routes
-  resources :projects, only: %i[new create show]
 
   # Session routes
   get "/login", to: "sessions#login"
