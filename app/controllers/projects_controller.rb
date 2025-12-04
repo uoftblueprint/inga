@@ -4,8 +4,7 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    @project = Project.new(new_params)
-    @project.active = true
+    @project = Project.new(new_params.merge(active: true))
 
     if @project.save
       redirect_to(@project, notice: t(".create.success"))
@@ -21,5 +20,7 @@ class ProjectsController < ApplicationController
     params.expect(project: %i[name description])
   end
 
-  def has_required_roles? = true
+  def has_required_roles? 
+    current_user.has_roles?(:admin)
+  end
 end
