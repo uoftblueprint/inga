@@ -1,7 +1,5 @@
 en:
   projects:
-    index:
-      title: "All projects"
     show:
       description_field: "Description"
       created_field: "Date created"
@@ -10,9 +8,3 @@ en:
       subprojects_title: "Subprojects"
       reports_title: "Reports"
       no_reports: "This project has no reports"
-    create:
-      success: "Project created successfully"
-      error: "Could not create project"
-    update:
-      success: "Project updated successfully"
-      error: "Could not update project"
