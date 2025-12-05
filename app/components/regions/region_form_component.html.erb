@@ -1,0 +1,17 @@
+<%= form_with model: region, local: true, class: "max-w-120 my-12 mx-auto flex flex-col gap-4", builder: DefaultFormBuilder do |form| %>
+  <div class="flex flex-col gap-2">
+    <div class="flex flex-col gap-1">
+      <%= form.label :name %>
+      <%= form.text_field :name, required: true, class: "w-full" %>
+    </div>
+    <div class="flex flex-col gap-1">
+      <%= form.label :latitude %>
+      <%= form.number_field :latitude, class: "w-full", step: 0.000001, min: -90, max: 90 %>
+    </div>
+    <div class="flex flex-col gap-1">
+      <%= form.label :longitude %>
+      <%= form.number_field :longitude, class: "w-full", step: 0.000001, min: -180, max: 180 %>
+    </div>
+  </div>
+  <%= form.submit %>
+<% end %>
