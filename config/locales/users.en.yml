@@ -1,0 +1,5 @@
+en:
+  users:
+    create:
+      success: "Account created successfully."
+      error: "Could not create account."
