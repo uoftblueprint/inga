@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   # Project routes
-  resources :projects, only: [] do
+  resources :projects, only: %i[show] do
     # Subproject routes
     resources :subprojects, only: %i[index edit update new create show]
   end

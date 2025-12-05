@@ -1,0 +1,10 @@
+en:
+  projects:
+    show:
+      description_field: "Description"
+      created_field: "Date created"
+      updated_field: "Last updated"
+      active_field: "Active"
+      subprojects_title: "Subprojects"
+      reports_title: "Reports"
+      no_reports: "This project has no reports"
