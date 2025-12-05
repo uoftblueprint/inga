@@ -8,7 +8,7 @@ class UsersController < ApplicationController
 
     if @user.save
       create_user_roles
-      # TODO: This should redirect to the Show page of that user
+      # TODO: Currently redirects to root_path after user creation. Update if user show page is implemented.
       redirect_to root_path, flash: { success: t(".success") }
     else
       flash.now[:error] = @user.errors.full_messages.to_sentence
