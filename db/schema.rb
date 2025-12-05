@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_05_032453) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_05_051815) do
   create_table "journals", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.text "markdown_content"
@@ -44,6 +44,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_05_032453) do
     t.decimal "latitude", precision: 10, scale: 6
     t.decimal "longitude", precision: 10, scale: 6
     t.string "name"
+    t.index ["name"], name: "index_regions_on_name", unique: true
   end
 
   create_table "reports", force: :cascade do |t|
