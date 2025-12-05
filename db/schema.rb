@@ -37,6 +37,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_05_161308) do
     t.text "description"
     t.string "name"
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_projects_on_name", unique: true
   end
 
   create_table "regions", force: :cascade do |t|
