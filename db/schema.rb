@@ -10,66 +10,66 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_19_212132) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_05_161308) do
   create_table "journals", force: :cascade do |t|
-    t.integer "subproject_id"
-    t.integer "user_id"
-    t.text "markdown_content"
     t.datetime "created_at", null: false
+    t.text "markdown_content"
+    t.integer "subproject_id"
     t.datetime "updated_at", null: false
+    t.integer "user_id"
     t.index ["subproject_id"], name: "index_journals_on_subproject_id"
     t.index ["user_id"], name: "index_journals_on_user_id"
   end
 
   create_table "log_entries", force: :cascade do |t|
-    t.integer "subproject_id"
-    t.integer "user_id"
-    t.json "metadata"
     t.datetime "created_at", null: false
+    t.json "metadata"
+    t.integer "subproject_id"
     t.datetime "updated_at", null: false
+    t.integer "user_id"
     t.index ["subproject_id"], name: "index_log_entries_on_subproject_id"
     t.index ["user_id"], name: "index_log_entries_on_user_id"
   end
 
   create_table "projects", force: :cascade do |t|
-    t.string "name"
-    t.text "description"
     t.boolean "active"
     t.datetime "created_at", null: false
+    t.text "description"
+    t.string "name"
     t.datetime "updated_at", null: false
   end
 
   create_table "regions", force: :cascade do |t|
-    t.string "name"
     t.decimal "latitude", precision: 10, scale: 6
     t.decimal "longitude", precision: 10, scale: 6
+    t.string "name"
   end
 
   create_table "reports", force: :cascade do |t|
-    t.date "start_date"
+    t.datetime "created_at", null: false
     t.date "end_date"
     t.date "expiry"
     t.integer "project_id"
-    t.datetime "created_at", null: false
+    t.date "start_date"
     t.datetime "updated_at", null: false
     t.index ["project_id"], name: "index_reports_on_project_id"
   end
 
   create_table "snapshots", force: :cascade do |t|
-    t.integer "report_id"
     t.json "aggregated_data"
     t.datetime "created_at", null: false
+    t.integer "report_id"
     t.datetime "updated_at", null: false
     t.index ["report_id"], name: "index_snapshots_on_report_id"
   end
 
   create_table "subprojects", force: :cascade do |t|
-    t.string "name"
-    t.text "description"
     t.string "address"
-    t.integer "region_id"
-    t.integer "project_id"
     t.datetime "created_at", null: false
+    t.text "description"
+    t.string "name"
+    t.integer "project_id"
+    t.integer "region_id"
     t.datetime "updated_at", null: false
     t.index ["project_id", "name"], name: "index_subprojects_on_project_id_and_name", unique: true
     t.index ["project_id"], name: "index_subprojects_on_project_id"
@@ -77,14 +77,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_19_212132) do
   end
 
   create_table "user_roles", force: :cascade do |t|
-    t.integer "user_id", null: false
     t.string "role", null: false
+    t.integer "user_id", null: false
+    t.index ["user_id", "role"], name: "index_user_roles_on_user_id_and_role", unique: true
     t.index ["user_id"], name: "index_user_roles_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "username"
     t.string "password_digest"
+    t.string "username"
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
