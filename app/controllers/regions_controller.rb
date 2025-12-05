@@ -3,6 +3,10 @@ class RegionsController < ApplicationController
     @regions = Region.all
   end
 
+  def new
+    @region = Region.new
+  end
+
   def create
     @region = Region.new(region_params)
 
