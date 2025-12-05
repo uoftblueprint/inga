@@ -1,7 +1,7 @@
 <div class="max-w-120 my-12 mx-auto">
   <h1 class="text-3xl font-bold mb-6">Create Account</h1>
 
-  <%= form_with model: @user, local: true, class: "flex flex-col gap-4" do |form| %>
+  <%= form_with model: @user, class: "flex flex-col gap-4" do |form| %>
     <div class="flex flex-col gap-2">
       <div class="flex flex-col gap-1">
         <%= form.label :username %>
@@ -17,8 +17,22 @@
         <%= form.label :password_confirmation, "Confirm Password" %>
         <%= form.password_field :password_confirmation, required: true, class: "w-full" %>
       </div>
+
+      <div class="flex flex-col gap-1">
+        <%= form.label :roles, "Roles" %>
+        <div class="flex flex-col gap-2">
+          <%= check_box_tag "user[roles][]", "admin", false, id: "user_roles_admin" %>
+          <%= label_tag "user_roles_admin", "Admin", class: "ml-2" %>
+
+          <%= check_box_tag "user[roles][]", "reporter", false, id: "user_roles_reporter" %>
+          <%= label_tag "user_roles_reporter", "Reporter", class: "ml-2" %>
+
+          <%= check_box_tag "user[roles][]", "analyst", false, id: "user_roles_analyst" %>
+          <%= label_tag "user_roles_analyst", "Analyst", class: "ml-2" %>
+        </div>
+      </div>
     </div>
 
-    <%= form.submit "Create Account" %>
+    <%= form.submit %>
   <% end %>
 </div>
