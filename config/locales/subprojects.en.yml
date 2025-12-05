@@ -1,0 +1,12 @@
+en:
+  subprojects:
+    index:
+      title: "All projects"
+    show:
+      title: "Project details"
+    create:
+      success: "Project created successfully"
+      error: "Could not create project"
+    update:
+      success: "Project updated successfully"
+      error: "Could not update project"

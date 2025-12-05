@@ -7,24 +7,110 @@ class SubprojectsControllerTest < ActionDispatch::IntegrationTest
     @region = create(:region)
   end
 
-  test "#new redirects to root route when a user is not logged in" do
-    log_out_user
-    get new_project_subproject_url(@project)
-    assert_response :redirect
-    assert_redirected_to login_path
+  [
+    { route: "new", method: :get, url_helper: :new_project_subproject_url },
+    { route: "create", method: :post, url_helper: :project_subprojects_url },
+    { route: "index", method: :get, url_helper: :project_subprojects_url },
+    { route: "edit", method: :get, url_helper: :edit_project_subproject_url, needs_subproject: true },
+    { route: "update", method: :patch, url_helper: :project_subproject_url, needs_subproject: true }
+  ].each do |hash|
+    test "##{hash[:route]} redirects to login route when a user is not authenticated" do
+      log_out_user
+
+      args = [@project]
+      args << create(:subproject, project: @project, region: @region) if hash[:needs_subproject]
+
+      public_send(hash[:method], public_send(hash[:url_helper], *args))
+      assert_response :redirect
+      assert_redirected_to login_path
+    end
+
+    test "##{hash[:route]} redirects to root route when a user is not authorized" do
+      create_logged_in_user
+
+      args = [@project]
+      args << create(:subproject, project: @project, region: @region) if hash[:needs_subproject]
+
+      public_send(hash[:method], public_send(hash[:url_helper], *args))
+      assert_response :redirect
+      assert_redirected_to root_path
+    end
   end
 
-  test "#new redirects to login route when a user is not authorized" do
-    create_logged_in_user
-    get new_project_subproject_url(@project)
-    assert_response :redirect
-    assert_redirected_to root_path
+  [
+    { route: "new", method: :get, url_helper: :new_project_subproject_url },
+    { route: "index", method: :get, url_helper: :project_subprojects_url },
+    { route: "edit", method: :get, url_helper: :edit_project_subproject_url, needs_subproject: true }
+  ].each do |hash|
+    test "##{hash[:route]} renders successfully when a user is an admin" do
+      args = [@project]
+      args << create(:subproject, project: @project, region: @region) if hash[:needs_subproject]
+
+      public_send(hash[:method], public_send(hash[:url_helper], *args))
+      assert_response :success
+    end
   end
 
-  test "#new renders successfully when a user is an admin" do
-    get new_project_subproject_url(@project)
+  test "#index successfully renders a created subproject" do
+    subproject = create(:subproject, project: @project, region: @region)
+
+    get project_subprojects_url(@project)
     assert_response :success
-    assert_select "form"
+
+    assert_select "table tr", count: 2 do |rows|
+      assert_select rows[1], "td" do |cells|
+        assert_equal subproject.name.to_s, cells[0].text.strip
+        assert_equal subproject.description.to_s, cells[1].text.strip
+        assert_equal subproject.address.to_s, cells[2].text.strip
+        assert_equal subproject.region.name.to_s, cells[3].text.strip
+      end
+    end
+  end
+
+  test "#index filters out a non-matching subproject" do
+    matching_subproject = create(:subproject, project: @project, region: @region)
+    create(:subproject, project: @project, region: @region)
+
+    get project_subprojects_url(@project, name: matching_subproject.name)
+    assert_response :success
+
+    assert_select "table tr", count: 2 do |rows|
+      assert_select rows[1], "td" do |cells|
+        assert_equal matching_subproject.name.to_s, cells[0].text.strip
+        assert_equal matching_subproject.description.to_s, cells[1].text.strip
+        assert_equal matching_subproject.address.to_s, cells[2].text.strip
+        assert_equal matching_subproject.region.name.to_s, cells[3].text.strip
+      end
+    end
+  end
+
+  test "#update sucessfully updates a subproject" do
+    subproject = create(:subproject, project: @project, region: @region)
+    updated_description = "Updated Description"
+
+    patch project_subproject_path(@project, subproject), params: {
+      subproject: {
+        description: updated_description
+      }
+    }
+
+    assert_redirected_to project_subproject_path(@project, subproject)
+
+    assert_equal subproject.reload.description, updated_description
+  end
+
+  test "#update fails when a subproject name is already taken" do
+    existing_subproject = create(:subproject, project: @project, region: @region)
+    subproject = create(:subproject, project: @project, region: @region)
+
+    original_name = subproject.name
+
+    patch project_subproject_path(@project, subproject), params: {
+      subproject: { name: existing_subproject.name }
+    }
+
+    assert_response :unprocessable_entity
+    assert_equal subproject.reload.name, original_name
   end
 
   test "#create successfully creates a subproject with valid params" do
