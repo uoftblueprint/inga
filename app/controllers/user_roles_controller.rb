@@ -4,12 +4,12 @@ class UserRolesController < ApplicationController
     @user_role = @user.user_roles.build(user_role_params)
 
     if @user_role.save
-      redirect_to user_path(@user), flash: { success: "Role added successfully." }
+      redirect_to root_path, flash: { success: "Role added successfully." }
     else
-      redirect_to user_path(@user), flash: { error: @user_role.errors.full_messages.to_sentence }
+      redirect_to root_path, flash: { error: @user_role.errors.full_messages.to_sentence }
     end
   rescue ArgumentError => e
-    redirect_to user_path(@user), flash: { error: e.message }
+    redirect_to root_path, flash: { error: e.message }
   end
 
   private

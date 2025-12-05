@@ -27,7 +27,13 @@ class UsersController < ApplicationController
 
     roles = params[:user][:roles] || []
     roles.each do |role|
-      @user.user_roles.create!(role: role) if role.present?
+      next unless role.present?
+
+      begin
+        @user.user_roles.create!(role: role)
+      rescue ArgumentError, ActiveRecord::RecordInvalid => e
+        @user.errors.add(:roles, "Invalid role: #{role}. #{e.message}")
+      end
     end
   end
 

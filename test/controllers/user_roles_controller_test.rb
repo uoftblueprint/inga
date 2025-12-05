@@ -27,7 +27,7 @@ class UserRolesControllerTest < ActionDispatch::IntegrationTest
       post user_user_roles_url(@user), params: { user_role: { role: "admin" } }
     end
 
-    assert_redirected_to user_path(@user)
+    assert_redirected_to root_path
     assert_equal "Role added successfully.", flash[:success]
     assert @user.reload.has_roles?(:admin)
   end
@@ -39,7 +39,7 @@ class UserRolesControllerTest < ActionDispatch::IntegrationTest
       post user_user_roles_url(@user), params: { user_role: { role: "admin" } }
     end
 
-    assert_redirected_to user_path(@user)
+    assert_redirected_to root_path
     assert flash[:error].present?
   end
 
@@ -48,7 +48,7 @@ class UserRolesControllerTest < ActionDispatch::IntegrationTest
       post user_user_roles_url(@user), params: { user_role: { role: "invalid_role" } }
     end
 
-    assert_redirected_to user_path(@user)
+    assert_redirected_to root_path
     assert flash[:error].present?
   end
 end
