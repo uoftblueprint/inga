@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_05_032453) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_05_161308) do
   create_table "journals", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.text "markdown_content"
@@ -80,6 +80,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_05_032453) do
   create_table "user_roles", force: :cascade do |t|
     t.string "role", null: false
     t.integer "user_id", null: false
+    t.index ["user_id", "role"], name: "index_user_roles_on_user_id_and_role", unique: true
     t.index ["user_id"], name: "index_user_roles_on_user_id"
   end
 
