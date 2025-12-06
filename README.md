@@ -183,6 +183,44 @@ bundle exec erb_lint --lint-all [--autocorrect]
 **Note:** the `--autocorrect` option is optional, and will write changes to
 your files.
 
----
+
+## Sorbet Type Checking
+
+This project uses **Sorbet** for gradual type checking and **Tapioca** for generating RBI files.
+
+### Common Commands
+
+Run the Sorbet type checker:
+
+```
+bundle exec srb tc
+```
+
+Regenerate RBI files when gems or DSLs change:
+
+```
+bundle exec tapioca gem
+bundle exec tapioca dsl
+```
+
+### Adding Typing to Files
+
+When editing Ruby files, start by adding:
+
+```ruby
+# typed: false
+```
+
+Increase the strictness (`typed: true`, `typed: strict`) gradually as you work on the file.
+
+### Developer Note
+
+Sorbet is optional during development, but all changes must pass:
+
+```
+bundle exec srb tc
+```
+
+before merging.
 
 For any issues, please reach out to the project leads so we can help you!
