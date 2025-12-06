@@ -46,6 +46,16 @@ class SubprojectsController < ApplicationController
     end
   end
 
+  def destroy
+    @subproject = @project.subprojects.find(params[:id])
+    @subproject.destroy
+
+    redirect_to(
+      project_subprojects_path(@project),
+      flash: { success: t(".success") }
+    )
+  end
+
   private
 
   def set_project
