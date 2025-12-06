@@ -1,0 +1,22 @@
+<div class="max-w-120 my-12 mx-auto">
+  <h1 class="text-3xl font-bold mb-6">User Details</h1>
+  <div class="flex flex-col gap-4 p-6 border rounded-md shadow-sm bg-base-100">
+    <div>
+      <p class="text-sm font-semibold opacity-70">ID</p>
+      <p class="text-lg"><%= @user.id %></p>
+    </div>
+    <div>
+      <p class="text-sm font-semibold opacity-70">Username</p>
+      <p class="text-lg"><%= @user.username %></p>
+    </div>
+    <div>
+      <p class="text-sm font-semibold opacity-70">Roles</p>
+      <p class="text-lg">
+        <%= @user.user_roles.pluck(:role).join(", ").presence || "None" %>
+      </p>
+    </div>
+    <div class="flex gap-4 mt-8">
+      <%= link_to "Back", users_path, class: "btn" %>
+    </div>
+  </div>
+</div>

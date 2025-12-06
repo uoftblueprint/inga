@@ -27,6 +27,26 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "#show redirects to login route when a user is not authenticated" do
+    log_out_user
+
+    get user_path(@user)
+    assert_response :redirect
+    assert_redirected_to login_path
+  end
+
+  test "#show renders when a user is logged in" do
+    get user_path(@user)
+    assert_response :success
+  end
+
+  test "#show renders successfully when a non-admin is logged in" do
+    create_logged_in_user
+
+    get user_path(@user)
+    assert_response :success
+  end
+
   test "#create creates a new user with valid params" do
     assert_difference("User.count", 1) do
       post users_path, params: {
@@ -39,7 +59,8 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       }
     end
 
-    assert_redirected_to root_path
+    created_user = User.find_by(username: "newuser")
+    assert_redirected_to user_path(created_user)
   end
 
   test "#create does not create user when password confirmation doesn't match" do
