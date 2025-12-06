@@ -1,4 +1,12 @@
 class UsersController < ApplicationController
+  def index
+    @users = User.all
+
+    if params[:username].present?
+      @users = @users.where("username LIKE ?", "%#{params[:username]}%")
+    end
+  end
+
   def new
     @user = User.new
   end

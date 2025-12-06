@@ -4,6 +4,11 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   setup do
     @user = create(:user)
     create_logged_in_admin_user
+
+    # Users for index filtering tests
+    @user1 = create(:user, username: "super_user")
+    @user2 = create(:user, username: "superbase_user")
+    @user3 = create(:user, username: "other_user")
   end
 
   test "#new redirects to login route when a user is not authenticated" do
@@ -70,5 +75,35 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :unprocessable_entity
+  end
+
+  test "#index filters users by username" do
+    get users_url, params: { username: "super" }
+    
+    assert_response :success
+    
+    assert_select "li", text: @user1.username, count: 1
+    assert_select "li", text: @user2.username, count: 1
+    assert_select "li", text: @user3.username, count: 0
+  end
+
+  test "#index filters users by partial match in middle" do
+    get users_url, params: { username: "base" }
+
+    assert_response :success
+
+    assert_select "li", text: @user1.username, count: 0
+    assert_select "li", text: @user2.username, count: 1
+    assert_select "li", text: @user3.username, count: 0
+  end
+
+  test "#index filters users is not case sensitive" do
+    get users_url, params: { username: "SUPER" }
+
+    assert_response :success
+
+    assert_select "li", text: @user1.username, count: 1
+    assert_select "li", text: @user2.username, count: 1
+    assert_select "li", text: @user3.username, count: 0
   end
 end
