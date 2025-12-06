@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   end
 
   # Region routes
-  resources :regions, only: %i[index create new]
+  resources :regions, only: %i[index new create]
 
   # Health check route
   get "up" => "rails/health#show", as: :rails_health_check
