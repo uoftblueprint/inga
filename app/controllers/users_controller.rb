@@ -1,4 +1,12 @@
 class UsersController < ApplicationController
+  def show
+    @user = User.find_by(id: params[:id])
+
+    return unless @user.nil?
+
+    redirect_to root_path, flash: { error: "Failed to show user" }
+  end
+
   def new
     @user = User.new
   end
@@ -8,8 +16,7 @@ class UsersController < ApplicationController
 
     if @user.save
       create_user_roles
-      # TODO: This should redirect to the Show page of that user
-      redirect_to root_path, flash: { success: t(".success") }
+      redirect_to user_path(@user), flash: { success: t(".success") }
     else
       flash.now[:error] = @user.errors.full_messages.to_sentence
       render :new, status: :unprocessable_entity
