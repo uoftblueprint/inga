@@ -28,7 +28,7 @@ class SubprojectsController < ApplicationController
       )
     else
       flash.now[:error] = "Failed to create subproject." # rubocop:disable Rails/I18nLocaleTexts
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
@@ -42,7 +42,7 @@ class SubprojectsController < ApplicationController
       )
     else
       flash.now[:error] = t(".error")
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 
