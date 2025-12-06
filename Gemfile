@@ -44,6 +44,9 @@ gem "view_component"
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
+# OpenSSL for tapioca support - https://github.com/Shopify/tapioca/issues/2156#issuecomment-3605679933
+gem "openssl", "~> 3.3.1"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[mri windows], require: "debug/prelude"
@@ -69,6 +72,11 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+
+  # Tapioca and Sorbet for type checking [https://sorbet.org/]
+  gem "sorbet"
+  gem "sorbet-runtime"
+  gem "tapioca", "0.17.9", require: false
 end
 
 group :test do
