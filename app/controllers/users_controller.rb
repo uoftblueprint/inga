@@ -7,6 +7,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def show
+    @user = User.find(params[:id])
+  end
+
+  def edit
+    @user = User.find(params[:id])
+  end
+
   def new
     @user = User.new
   end
@@ -15,12 +23,27 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      create_user_roles
       # TODO: This should redirect to the Show page of that user
       redirect_to root_path, flash: { success: t(".success") }
     else
       flash.now[:error] = @user.errors.full_messages.to_sentence
       render :new, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+    redirect_to users_path, flash: { success: "User deleted successfully." }
+  end
+
+  def update
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+      redirect_to users_path, flash: { success: t(".success") }
+    else
+      flash.now[:error] = @user.errors.full_messages.to_sentence
+      render :edit, status: :unprocessable_entity
     end
   end
 

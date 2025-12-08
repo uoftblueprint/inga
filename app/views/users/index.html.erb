@@ -1,29 +1,33 @@
-<h1>Users</h1>
+<div style="max-width: 600px; margin: 0 auto; padding: 40px;">
+  <h1 style="text-align: center; margin-bottom: 20px;"><b>Users</b></h1>
 
-<%# form_with is a Rails helper for creating forms. %>
-<%# url: users_path specifies the submission URL (the index action). %>
-<%# method: :get indicates we are using the HTTP GET method, which is standard for search forms so parameters appear in the URL. %>
-<%= form_with url: users_path, method: :get do |form| %>
-  <div>
-    <%# form.label creates an HTML <label> element. %>
-    <%= form.label :username, "Search by username:" %>
-    
-    <%# form.text_field creates an HTML <input type="text"> element. %>
-    <%# value: params[:username] ensures the input field retains the search term after submission. %>
-    <%= form.text_field :username, value: params[:username] %>
-    
-    <%# form.submit creates a submit button. %>
-    <%= form.submit "Search" %>
+  <div style="display: flex; justify-content: center; margin-bottom: 30px;">
+    <%= form_with url: users_path, method: :get do |form| %>
+      <div>
+        <%= form.label :username, "Search by username:" %>
+        
+        <%= form.text_field :username, value: params[:username] %>
+        
+        <%= form.submit "Search" %>
+      </div>
+    <% end %>
   </div>
-<% end %>
 
-<ul>
-  <%# @users.each iterates over the collection of users. %>
-  <%# do |user| starts the block, assigning each user to the variable 'user'. %>
-  <% @users.each do |user| %>
-    <li>
-      <%# user.username accesses the username attribute of the user object. %>
-      <%= user.username %>
-    </li>
-  <% end %>
-</ul>
+  <div style="text-align: center; margin-bottom: 20px;">
+    <%= link_to "New User", new_user_path %>
+  </div>
+
+  <ul style="list-style: none; padding: 80px;">
+    <% @users.each do |user| %>
+      <li style="display: grid; grid-template-columns: 200px auto; align-items: center; gap: 10px; margin-bottom: 10px;">
+        <%= link_to user.username, user_path(user) %>
+        <%= 
+            button_to "Delete", 
+            user_path(user), 
+            method: :delete, 
+            data: { turbo_confirm: "Are you sure?" } 
+        %>
+      </li>
+    <% end %>
+  </ul>
+</div>

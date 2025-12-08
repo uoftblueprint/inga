@@ -1,0 +1,28 @@
+<div class="max-w-120 my-12 mx-auto">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-3xl font-bold"><%= @user.username %></h1>
+    <div class="flex gap-2">
+      <%= link_to "Edit", edit_user_path(@user), class: "btn btn-secondary" %>
+      <%= link_to "Back to Users", users_path, class: "btn btn-ghost" %>
+    </div>
+  </div>
+
+  <div class="bg-base-200 p-6 rounded-lg shadow-md">
+    <p class="mb-4">
+      <strong>Username:</strong> <%= @user.username %>
+    </p>
+
+    <div class="mb-4">
+      <strong>Roles:</strong>
+      <% if @user.user_roles.any? %>
+        <ul class="list-disc list-inside ml-4">
+          <% @user.user_roles.each do |role| %>
+            <li><%= role.role.humanize %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        <span class="text-gray-500 italic">No roles assigned</span>
+      <% end %>
+    </div>
+  </div>
+</div>

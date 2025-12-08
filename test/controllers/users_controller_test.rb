@@ -82,9 +82,9 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     
     assert_response :success
     
-    assert_select "li", text: @user1.username, count: 1
-    assert_select "li", text: @user2.username, count: 1
-    assert_select "li", text: @user3.username, count: 0
+    assert_select "li a", text: @user1.username, count: 1
+    assert_select "li a", text: @user2.username, count: 1
+    assert_select "li a", text: @user3.username, count: 0
   end
 
   test "#index filters users by partial match in middle" do
@@ -92,9 +92,9 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
 
-    assert_select "li", text: @user1.username, count: 0
-    assert_select "li", text: @user2.username, count: 1
-    assert_select "li", text: @user3.username, count: 0
+    assert_select "li a", text: @user1.username, count: 0
+    assert_select "li a", text: @user2.username, count: 1
+    assert_select "li a", text: @user3.username, count: 0
   end
 
   test "#index filters users is not case sensitive" do
@@ -102,8 +102,73 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
 
-    assert_select "li", text: @user1.username, count: 1
-    assert_select "li", text: @user2.username, count: 1
-    assert_select "li", text: @user3.username, count: 0
+    assert_select "li a", text: @user1.username, count: 1
+    assert_select "li a", text: @user2.username, count: 1
+    assert_select "li a", text: @user3.username, count: 0
+  end
+
+  test "#destroy user by id successfully" do
+    assert_difference("User.count", -1) do
+      delete user_url(@user1)
+    end
+    
+    assert_redirected_to users_path
+    follow_redirect!
+    
+    assert_select "li a", text: @user1.username, count: 0
+    assert_select "li a", text: @user2.username, count: 1
+    assert_select "li a", text: @user3.username, count: 1
+  end
+
+  test "#destroy returns 404 when user does not exist" do
+    assert_no_difference("User.count") do
+      delete user_url(-1)
+    end
+    
+    assert_response :not_found
+  end
+
+  test "#update updates user with valid params" do
+    patch user_url(@user), params: {
+      user: {
+        username: "updated_username",
+        password: "newpassword123",
+        password_confirmation: "newpassword123"
+      }
+    }
+
+    assert_redirected_to users_path
+    @user.reload
+    assert_equal "updated_username", @user.username
+  end
+
+  test "#update does not update user with invalid username" do
+    original_username = @user.username
+    patch user_url(@user), params: {
+      user: {
+        username: "",
+        password: "newpassword123",
+        password_confirmation: "newpassword123"
+      }
+    }
+
+    assert_response :unprocessable_entity
+    @user.reload
+    assert_equal original_username, @user.username
+  end
+
+  test "#update does not update user with invalid password" do
+    original_password = @user.password
+    patch user_url(@user), params: {
+      user: {
+        username: @user.username,
+        password: "newpassword12",
+        password_confirmation: "newpassword123"
+      }
+    }
+
+    assert_response :unprocessable_entity
+    @user.reload
+    assert_equal original_password, @user.password
   end
 end
