@@ -1,26 +1,26 @@
 <div class="mx-auto my-10 w-4/5 max-w-[1450px]">
-    <%= render ContentCardComponent.new do %>
-        <div class="flex items-center gap-3">
-            <h1 class="text-4xl font-bold">Projects</h1>
-            <span class="badge badge-primary">Admin UI</span>
-        </div>
-        <div class="w-2/5 mt-0 divider"></div>
-        <div>
-            <%= render ContentCardComponent.new do %>
-                <%= render Shared::IndexTableComponent.new(records: @projects) do |table|%>
-                    <% table.column :name %>
-                    <% table.column :description %>
-                    <% table.column :active do |project|%>
-                        <%= render BadgeComponent.new(
-                            text: project.active ? "Active" : "Inactive",
-                            colour: project.active ? :success : :neutral
-                        ) %>
-                    <% end %>
-                    <% table.column :action, header: "" do |project| %>
-                        <%= link_to "View", project_path(project), class: "btn btn-info btn-xs btn-outline" %>
-                    <% end %>
-                <% end %>
-            <% end %>
-        </div>
-    <% end %>
+  <%= render ContentCardComponent.new do %>
+    <div class="flex items-center gap-3">
+      <h1 class="text-4xl font-bold">Projects</h1>
+      <span class="badge badge-primary">Admin UI</span>
+    </div>
+    <div class="w-2/5 mt-0 divider"></div>
+    <div>
+      <%= render ContentCardComponent.new do %>
+        <%= render Shared::IndexTableComponent.new(records: @projects) do |table|%>
+          <% table.column :name %>
+          <% table.column :description %>
+          <% table.column :active do |project|%>
+            <%= render BadgeComponent.new(
+                text: project.active ? "Active" : "Inactive",
+                colour: project.active ? :success : :neutral
+            ) %>
+          <% end %>
+          <% table.column :action, header: "" do |project| %>
+            <%= link_to "View", project_path(project), class: "btn btn-info btn-xs btn-outline" %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
 </div>
