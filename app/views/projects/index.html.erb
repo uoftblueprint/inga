@@ -10,23 +10,20 @@
       <%= form.submit "Search", name: nil %>
       <%= link_to "Clear", projects_path, class: "btn btn-neutral btn-outline" %>
     <% end %>
-    
-    <div>
-      <%= render ContentCardComponent.new do %>
-        <%= render Shared::IndexTableComponent.new(records: @projects) do |table|%>
-          <% table.column :name %>
-          <% table.column :description %>
-          <% table.column :active do |project|%>
-            <%= render BadgeComponent.new(
+    <%= render ContentCardComponent.new do %>
+      <%= render Shared::IndexTableComponent.new(records: @projects) do |table|%>
+        <% table.column :name %>
+        <% table.column :description %>
+        <% table.column :active do |project|%>
+          <%= render BadgeComponent.new(
                 text: project.active ? "Active" : "Inactive",
                 colour: project.active ? :success : :neutral
             ) %>
-          <% end %>
-          <% table.column :action, header: "" do |project| %>
-            <%= link_to "View", project_path(project), class: "btn btn-info btn-xs btn-outline" %>
-          <% end %>
+        <% end %>
+        <% table.column :action, header: "" do |project| %>
+          <%= link_to "View", project_path(project), class: "btn btn-info btn-xs btn-outline" %>
         <% end %>
       <% end %>
-    </div>
+    <% end %>
   <% end %>
 </div>
