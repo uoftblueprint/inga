@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
   def index
     @projects = Project.all
+    @projects = @projects.where("name LIKE ?", "%#{params[:name]}%") if params[:name].present?
   end
 
   def show
