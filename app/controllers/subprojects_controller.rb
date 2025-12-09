@@ -48,12 +48,18 @@ class SubprojectsController < ApplicationController
 
   def destroy
     @subproject = @project.subprojects.find(params[:id])
-    @subproject.destroy
 
-    redirect_to(
-      project_subprojects_path(@project),
-      flash: { success: t(".success") }
-    )
+    if @subproject.destroy
+      redirect_to(
+        project_subprojects_path(@project),
+        flash: { success: t(".success") }
+      )
+    else
+      redirect_to(
+        project_subproject_path(@project),
+        flash: { error: t(".error") }
+      )
+    end
   end
 
   private

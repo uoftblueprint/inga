@@ -192,7 +192,7 @@ class SubprojectsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to project_subprojects_url(@project)
   end
 
-  test "#destroy does not delete a subproject if  subproject does not belong to project" do
+  test "#destroy does not delete a subproject if subproject does not belong to project" do
     other_project = create(:project)
     subproject = create(:subproject, project: other_project, region: @region)
 
