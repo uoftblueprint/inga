@@ -10,7 +10,7 @@
 
   <div class="mt-4">
     <%= link_to t("subprojects.index.title"), project_subprojects_path(@project), class: "btn btn-outline btn-sm" %>
-    <%= button_to t("subprojects.destroy.label"), project_subproject_path(@project, @subproject),
+    <%= button_to t("subprojects.destroy.button"), project_subproject_path(@project, @subproject),
                   method: :delete, form: { data: { turbo_confirm: t("subprojects.destroy.confirm") } }, class: "btn btn-error btn-sm mt-3" %>
   </div>
 </div>
