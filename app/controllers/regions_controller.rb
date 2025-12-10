@@ -16,7 +16,7 @@ class RegionsController < ApplicationController
         flash: { success: t(".success") }
       )
     else
-      flash.now[:error] = t(".error")
+      flash.now[:error] = @region.errors.full_messages.join(", ")
       render :new, status: :unprocessable_entity
     end
   end
