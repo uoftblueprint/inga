@@ -5,12 +5,7 @@
       <span class="badge badge-primary">Admin UI</span>
     </div>
     <div class="w-2/5 mt-0 divider"></div>
-    <%= form_with url: projects_path, method: :get, local: true, class: "flex items-center gap-3 mb-2" do |form| %>
-      <%= form.search_field :name, value: params[:name], placeholder: "Filter by name", class: "flex-1" %>
-      <%= form.submit "Search", name: nil %>
-      <%= link_to "Clear", projects_path, class: "btn btn-neutral btn-outline" %>
-    <% end %>
-    <%= render ContentCardComponent.new do %>
+    <div class="p-2 border border-base-300 rounded-lg bg-base-100">
       <%= render Shared::IndexTableComponent.new(records: @projects) do |table| %>
         <% table.column :name %>
         <% table.column :description %>
@@ -24,6 +19,6 @@
           <%= link_to "View", project_path(project), class: "btn btn-info btn-xs btn-outline" %>
         <% end %>
       <% end %>
-    <% end %>
+    </div>
   <% end %>
 </div>
