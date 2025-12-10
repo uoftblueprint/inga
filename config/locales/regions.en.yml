@@ -2,4 +2,6 @@ en:
   regions:
     create:
       success: "Region created successfully"
-      error: "Failed to create region"
+    update:
+      success: "Region updated successfully"
+
