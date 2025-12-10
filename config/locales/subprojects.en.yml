@@ -1,12 +1,17 @@
 en:
   subprojects:
     index:
-      title: "All projects"
+      title: "All subprojects"
     show:
-      title: "Project details"
+      title: "Subproject details"
     create:
-      success: "Project created successfully"
-      error: "Could not create project"
+      success: "Subproject created successfully"
+      error: "Could not create subproject"
     update:
-      success: "Project updated successfully"
-      error: "Could not update project"
+      success: "Subproject updated successfully"
+      error: "Could not update subproject"
+    destroy:
+      button: "Delete"
+      success: "Subproject was successfully deleted."
+      error: "Could not delete subproject"
+      confirm: "Are you sure you want to delete this subproject?"
