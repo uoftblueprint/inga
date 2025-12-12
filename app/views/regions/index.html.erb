@@ -9,13 +9,17 @@
       <%= render Shared::IndexTableComponent.new(records: @regions) do |table| %>
         <% table.column :name %>
         <% table.column :latitude do |region| %>
-            <%= "#{region.latitude.abs.round(4)}° #{region.latitude >= 0 ? 'N' : 'S'}" %>
+          <%= "#{region.latitude.abs.round(4)}° #{region.latitude >= 0 ? 'N' : 'S'}" %>
         <% end %>
         <% table.column :longitude do |region| %>
-            <%= "#{region.longitude.abs.round(4)}° #{region.longitude >= 0 ? 'E' : 'W'}" %>
+          <%= "#{region.longitude.abs.round(4)}° #{region.longitude >= 0 ? 'E' : 'W'}" %>
         <% end %>
         <% table.column :action, header: "" do |region| %>
-          <%= link_to "Edit", edit_region_path(region), class: "btn btn-xs btn-outline btn-info" %>
+          <div class="flex gap-2">
+            <%= link_to t("regions.edit.button"), edit_region_path(region), class: "btn btn-xs btn-outline btn-info" %>
+            <%= button_to t("regions.destroy.button"), region_path(region),
+                          method: :delete, form: { data: { turbo_confirm: t("regions.destroy.confirm") } }, class: "btn btn-xs btn-outline btn-error" %>
+          </div>
         <% end %>
       <% end %>
     </div>
