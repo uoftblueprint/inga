@@ -20,7 +20,7 @@ class RegionsController < ApplicationController
         flash: { success: t(".success") }
       )
     else
-      flash.now[:error] = @region.errors.full_messages.join(", ")
+      flash.now[:error] = @region.errors.full_messages.to_sentence
       render :new, status: :unprocessable_entity
     end
   end
@@ -34,7 +34,7 @@ class RegionsController < ApplicationController
         flash: { success: t(".success") }
       )
     else
-      flash.now[:error] = @region.errors.full_messages.join(", ")
+      flash.now[:error] = @region.errors.full_messages.to_sentence
       render :edit, status: :unprocessable_entity
     end
   end
