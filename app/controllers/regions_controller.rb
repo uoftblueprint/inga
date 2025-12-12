@@ -39,6 +39,20 @@ class RegionsController < ApplicationController
     end
   end
 
+  def destroy
+    @region = Region.find(params[:id])
+
+    begin
+      if @region.destroy
+        redirect_to(regions_path, flash: { success: t(".success") })
+      else
+        redirect_to(regions_path, flash: { error: t(".error") })
+      end
+    rescue ActiveRecord::InvalidForeignKey, ActiveRecord::DeleteRestrictionError
+      redirect_to(regions_path, flash: { error: t(".foreign_key_error") })
+    end
+  end
+
   private
 
   def region_params
