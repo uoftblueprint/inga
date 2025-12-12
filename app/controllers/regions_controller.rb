@@ -7,6 +7,10 @@ class RegionsController < ApplicationController
     @region = Region.new
   end
 
+  def edit
+    @region = Region.find(params[:id])
+  end
+
   def create
     @region = Region.new(region_params)
 
@@ -16,8 +20,22 @@ class RegionsController < ApplicationController
         flash: { success: t(".success") }
       )
     else
-      flash.now[:error] = @region.errors.full_messages.join(", ")
+      flash.now[:error] = @region.errors.full_messages.to_sentence
       render :new, status: :unprocessable_entity
+    end
+  end
+
+  def update
+    @region = Region.find(params[:id])
+
+    if @region.update(region_params)
+      redirect_to(
+        regions_path,
+        flash: { success: t(".success") }
+      )
+    else
+      flash.now[:error] = @region.errors.full_messages.to_sentence
+      render :edit, status: :unprocessable_entity
     end
   end
 

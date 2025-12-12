@@ -15,7 +15,7 @@
             <%= "#{region.longitude.abs.round(4)}° #{region.longitude >= 0 ? 'E' : 'W'}" %>
         <% end %>
         <% table.column :action, header: "" do |region| %>
-          <%= link_to "View", root_path, class: "btn btn-xs btn-outline btn-info" %>
+          <%= link_to "Edit", edit_region_path(region), class: "btn btn-xs btn-outline btn-info" %>
         <% end %>
       <% end %>
     </div>

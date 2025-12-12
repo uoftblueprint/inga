@@ -9,12 +9,16 @@ class RegionsControllerTest < ActionDispatch::IntegrationTest
   [
     { route: "index", method: :get, url_helper: :regions_url  },
     { route: "new", method: :get, url_helper: :new_region_url },
-    { route: "create", method: :post, url_helper: :regions_url }
+    { route: "create", method: :post, url_helper: :regions_url },
+    { route: "edit", method: :get, url_helper: :edit_region_url, needs_region: true },
+    { route: "update", method: :patch, url_helper: :region_url, needs_region: true }
   ].each do |hash|
     test "##{hash[:route]} redirects to login route when a user is not authenticated" do
       log_out_user
 
-      public_send(hash[:method], public_send(hash[:url_helper]))
+      args = create(:region) if hash[:needs_region]
+
+      public_send(hash[:method], public_send(hash[:url_helper], *args))
       assert_response :redirect
       assert_redirected_to login_path
     end
@@ -22,7 +26,9 @@ class RegionsControllerTest < ActionDispatch::IntegrationTest
     test "##{hash[:route]} redirects to root route when a user is not authorized" do
       create_logged_in_user
 
-      public_send(hash[:method], public_send(hash[:url_helper]))
+      args = create(:region) if hash[:needs_region]
+
+      public_send(hash[:method], public_send(hash[:url_helper], *args))
       assert_response :redirect
       assert_redirected_to root_path
     end
@@ -30,10 +36,13 @@ class RegionsControllerTest < ActionDispatch::IntegrationTest
 
   [
     { route: "index", method: :get, url_helper: :regions_url },
-    { route: "new", method: :get, url_helper: :new_region_url }
+    { route: "new", method: :get, url_helper: :new_region_url },
+    { route: "edit", method: :get, url_helper: :edit_region_url, needs_region: true }
   ].each do |hash|
     test "##{hash[:route]} renders successfully when a user is an admin" do
-      public_send(hash[:method], public_send(hash[:url_helper]))
+      args = create(:region) if hash[:needs_region]
+
+      public_send(hash[:method], public_send(hash[:url_helper], *args))
       assert_response :success
     end
   end
@@ -88,5 +97,30 @@ class RegionsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :unprocessable_entity
+  end
+
+  test "#update successfully updates a region" do
+    updated_name = "updated-region"
+
+    patch region_path(@region), params: {
+      region: {
+        name: updated_name
+      }
+    }
+
+    assert_redirected_to regions_path
+    assert_equal updated_name, @region.reload.name
+  end
+
+  test "#update fails when a region name is already taken" do
+    existing_region = create(:region, name: "taken-name")
+    original_name = @region.name
+
+    patch region_path(@region), params: {
+      region: { name: existing_region.name }
+    }
+
+    assert_response :unprocessable_entity
+    assert_equal original_name, @region.reload.name
   end
 end
