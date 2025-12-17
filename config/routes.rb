@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   get "fizz_buzz", to: "fizz_buzz#index", as: "fizz_buzz"
 
   # User routes
-  resources :users, only: %i[new create show]
+  resources :users, except: %i[show]
 
   # Session routes
   get "/login", to: "sessions#login"
