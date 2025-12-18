@@ -1,0 +1,9 @@
+en:
+  users:
+    create:
+      success: "Account created successfully."
+    update:
+      success: "Account updated successfully."
+    destroy:
+      success: "Account deleted successfully."
+      self_deletion: "You cannot delete your own account."
