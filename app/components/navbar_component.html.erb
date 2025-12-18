@@ -1,0 +1,13 @@
+<div class="navbar bg-base-100 shadow-sm sticky top-0 z-50">
+  <div class="flex-1">
+    <%= link_to root_path do %>
+      <p class="ml-8 text-lg font-bold">Inga Internals</p>
+    <% end %>
+  </div>
+
+  <% if helpers.logged_in? %>
+    <div class="flex-none mr-6">
+      <%= button_to "Logout", logout_path, method: :delete, class: "btn btn-sm btn-outline btn-error" %>
+    </div>
+  <% end %>
+</div>
