@@ -39,6 +39,16 @@ class RegionsController < ApplicationController
     end
   end
 
+  def destroy
+    @region = Region.find(params[:id])
+
+    if @region.destroy
+      redirect_to(regions_path, flash: { success: t(".success") })
+    else
+      redirect_to(regions_path, flash: { error: @region.errors.full_messages.to_sentence })
+    end
+  end
+
   private
 
   def region_params

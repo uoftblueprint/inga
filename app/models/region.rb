@@ -1,5 +1,5 @@
 class Region < ApplicationRecord
-  has_many :subprojects
+  has_many :subprojects, dependent: :restrict_with_error
 
   validates :name, presence: true, uniqueness: true
   validates :latitude,

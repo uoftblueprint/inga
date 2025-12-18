@@ -11,7 +11,8 @@ class RegionsControllerTest < ActionDispatch::IntegrationTest
     { route: "new", method: :get, url_helper: :new_region_url },
     { route: "create", method: :post, url_helper: :regions_url },
     { route: "edit", method: :get, url_helper: :edit_region_url, needs_region: true },
-    { route: "update", method: :patch, url_helper: :region_url, needs_region: true }
+    { route: "update", method: :patch, url_helper: :region_url, needs_region: true },
+    { route: "destroy", method: :delete, url_helper: :region_url, needs_region: true }
   ].each do |hash|
     test "##{hash[:route]} redirects to login route when a user is not authenticated" do
       log_out_user
@@ -122,5 +123,26 @@ class RegionsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :unprocessable_entity
     assert_equal original_name, @region.reload.name
+  end
+
+  test "#destroy successfully deletes a region when user is an admin" do
+    region = create(:region)
+
+    assert_difference("Region.count", -1) do
+      delete region_path(region)
+    end
+
+    assert_redirected_to regions_path
+  end
+
+  test "#destroy does not delete a region if it has subprojects associated with it" do
+    region = create(:region)
+    create(:subproject, region: region)
+
+    assert_no_difference("Region.count") do
+      delete region_path(region)
+    end
+
+    assert_redirected_to regions_path
   end
 end
