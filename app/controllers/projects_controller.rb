@@ -1,4 +1,9 @@
 class ProjectsController < ApplicationController
+  def index
+    @projects = Project.all
+    @projects = @projects.where("LOWER(name) LIKE ?", "%#{params[:name].downcase}%") if params[:name].present?
+  end
+
   def show
     @project = Project.find(params[:id])
   end
