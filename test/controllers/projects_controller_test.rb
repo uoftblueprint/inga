@@ -7,14 +7,17 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
   end
 
   [
-    { route: "show", method: :get, url_helper: :project_url },
+    { route: "index", method: :get, url_helper: :projects_url },
+    { route: "show", method: :get, url_helper: :project_url, needs_project: true },
     { route: "new", method: :get, url_helper: :new_project_url },
     { route: "create", method: :post, url_helper: :projects_url }
   ].each do |hash|
     test "##{hash[:route]} redirects to login route when a user is not authenticated" do
       log_out_user
 
-      public_send(hash[:method], public_send(hash[:url_helper], @project))
+      args = create(:project) if hash[:needs_project]
+
+      public_send(hash[:method], public_send(hash[:url_helper], *args))
       assert_response :redirect
       assert_redirected_to login_path
     end
@@ -22,18 +25,23 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     test "##{hash[:route]} redirects to root route when a user is not authorized" do
       create_logged_in_user
 
-      public_send(hash[:method], public_send(hash[:url_helper], @project))
+      args = create(:project) if hash[:needs_project]
+
+      public_send(hash[:method], public_send(hash[:url_helper], *args))
       assert_response :redirect
       assert_redirected_to root_path
     end
   end
 
   [
-    { route: "show", method: :get, url_helper: :project_url },
-    { route: "new", method: :get, url_helper: :new_project_url }
+    { route: "index", method: :get, url_helper: :projects_url },
+    { route: "new", method: :get, url_helper: :new_project_url },
+    { route: "show", method: :get, url_helper: :project_url, needs_project: true }
   ].each do |hash|
     test "##{hash[:route]} renders successfully when a user is an admin" do
-      public_send(hash[:method], public_send(hash[:url_helper], @project))
+      args = create(:project) if hash[:needs_project]
+
+      public_send(hash[:method], public_send(hash[:url_helper], *args))
       assert_response :success
     end
   end
@@ -71,5 +79,16 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
       post projects_path, params: { project: { name: project_name, description: "Another description", active: true } }
     end
     assert_response :unprocessable_entity
+  end
+
+  test "#index shows all projects" do
+    project1 = create(:project, name: "First Project")
+    project2 = create(:project, name: "Second Project")
+
+    get projects_path
+    assert_response :success
+
+    assert_select "td", text: project1.name
+    assert_select "td", text: project2.name
   end
 end
