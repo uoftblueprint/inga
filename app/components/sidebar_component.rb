@@ -1,0 +1,43 @@
+class SidebarComponent < ViewComponent::Base
+  attr_reader :sections
+
+  SIDEBAR_SECTION = Struct.new(:title, :items, keyword_init: true).freeze
+  SIDEBAR_ITEM = Struct.new(:name, :path, :icon, keyword_init: true).freeze
+  ROUTES = Rails.application.routes.url_helpers.freeze
+
+  def initialize
+    super
+    @sections = []
+    build_admin_section
+    build_projects_section
+  end
+
+  private
+
+  def build_admin_section
+    @sections << SIDEBAR_SECTION.new(
+      title: "Admin",
+      items: [
+        SIDEBAR_ITEM.new(name: "Users", path: ROUTES.new_user_path, icon: "person-gear"),
+        SIDEBAR_ITEM.new(name: "Regions", path: ROUTES.regions_path, icon: "compass")
+      ]
+    )
+  end
+
+  def build_projects_section
+    items = Project.order(:name).map do |project|
+      SIDEBAR_ITEM.new(
+        name: project.name,
+        path: ROUTES.project_path(project),
+        icon: "folder"
+      )
+    end
+
+    @sections << SIDEBAR_SECTION.new(
+      title: "Projects",
+      items:
+    )
+  end
+
+  def render? = !current_page?(ROUTES.login_path)
+end

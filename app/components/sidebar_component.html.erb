@@ -1,0 +1,36 @@
+<ul class="menu shadow-lg bg-base-200 w-64 min-h-screen tracking-wide justify-between">
+  <div>
+    <div class="px-4 py-4 border-b border-base-300">
+      <%= link_to root_path do %>
+        <div class="flex items-center gap-3">
+          <%= render IconComponent.new(icon: "tree", size: :md) %>
+          <span class="font-semibold text-sm text-base-content">
+            INGA INTERNALS
+          </span>
+        </div>
+      <% end %>
+    </div>
+    <li class="py-6">
+      <% sections.each do |section| %>
+        <h2 class="menu-title uppercase"> <%= section.title %></h2>
+        <ul>
+          <% section.items.each do |item| %>
+            <li> <%= link_to item.path do %>
+              <%= render IconComponent.new(icon: item.icon, size: :md, classes: "w-5 h-5") %>
+                <span class="truncate text-base-content"><%= item.name %></span>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+    </li>
+  </div>
+  <div class="border-t border-base-300 py-2">
+    <li>
+      <%= button_to logout_path, method: :delete, class: "flex gap-3" do %>
+        <%= render IconComponent.new(icon: "box-arrow-left", size: :md, classes: "w-5 h-5") %>
+        <span>Logout</span>
+      <% end %>
+    </li>
+  </div>
+</ul>
