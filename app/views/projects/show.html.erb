@@ -1,13 +1,13 @@
 <div class="flex flex-col gap-3 p-2">
   <h1 class="font-bold text-xl"><%= @project.name %></h1>
   <div>
-    <p><strong><%= t(".description_field") %>: </strong> <%= @project.description %></p>
-    <p><strong><%= t(".created_field") %> : </strong> <%= @project.created_at.to_fs(:long_ordinal) %></p>
-    <p><strong><%= t(".updated_field") %>: </strong> <%= @project.updated_at.to_fs(:long_ordinal) %></p>
-    <p><strong><%= t(".active_field") %>: </strong> <%= @project.active ? "Yes" : "No" %> </p>
+    <p><strong><%= t(".field.description") %>: </strong> <%= @project.description %></p>
+    <p><strong><%= t(".field.date_created") %> : </strong> <%= @project.created_at.to_fs(:long_ordinal) %></p>
+    <p><strong><%= t(".field.date_updated") %>: </strong> <%= @project.updated_at.to_fs(:long_ordinal) %></p>
+    <p><strong><%= t(".field.active") %>: </strong> <%= @project.active ? "Yes" : "No" %> </p>
   </div>
   <div>
-    <h3 class="font-bold"><%= t(".subprojects_title") %></h3>
+    <h3 class="font-bold"><%= t(".title.subprojects") %></h3>
     <ul>
       <% @project.subprojects.order(:name).each do |subproj| %>
         <li> <%= subproj.name %> </li>
@@ -15,7 +15,7 @@
     </ul>
   </div>
   <div>
-    <h3 class="font-bold"><%= t(".reports_title") %></h3>
+    <h3 class="font-bold"><%= t(".title.reports") %></h3>
     <ul>
       <% @project.reports.each do |report| %>
         <li> <%= report.name %> </li>
@@ -26,7 +26,7 @@
     <% end %>
   </div>
   <div>
-    <%= link_to t(".return_to_projects"), projects_path, class: "btn btn-outline btn-link" %>
-    <%= button_to t(".delete_button"), project_path(@project), method: :delete, data: { turbo_confirm: t(".delete_confirmation")}, class: "btn btn-error btn-sm mt-3" %>
+    <%= link_to t(".button.return_to_projects"), projects_path, class: "btn btn-outline btn-link" %>
+    <%= button_to t(".button.delete"), project_path(@project), method: :delete, data: { turbo_confirm: t(".delete_confirm")}, class: "btn btn-error btn-sm mt-3" %>
   </div>
 </div>
