@@ -24,12 +24,17 @@ class ProjectsController < ApplicationController
 
   def destroy
     @project = Project.find(params[:id])
-    @project.destroy
-
-    redirect_to(
-      root_path, # TODO: change this to projects_path when index route is implemented
-      flash: {success: "Project was successfully deleted"}
-    )
+    if @project.destroy
+      redirect_to(
+        projects_path,
+        flash: {success: t(".success")}
+      )
+    else
+      redirect_to(
+        projects_path,
+        flash: {error: t(".error")}
+      )
+    end
 
   end
 

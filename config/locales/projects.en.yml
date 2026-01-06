@@ -17,4 +17,6 @@ en:
     create:
       success: "Project created successfully"
       error: "Could not create project"
-      
+    destroy:
+      success: "Project deleted sucessfully"
+      error: "Could not delete project"
