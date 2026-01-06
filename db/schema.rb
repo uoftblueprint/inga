@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_05_051815) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_06_211202) do
   create_table "journals", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.text "markdown_content"
@@ -35,6 +35,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_05_051815) do
     t.boolean "active"
     t.datetime "created_at", null: false
     t.text "description"
+    t.text "log_schema", default: "{}", null: false
     t.string "name"
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_projects_on_name", unique: true
