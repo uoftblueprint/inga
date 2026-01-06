@@ -27,15 +27,14 @@ class ProjectsController < ApplicationController
     if @project.destroy
       redirect_to(
         projects_path,
-        flash: {success: t(".success")}
+        flash: { success: t(".success") }
       )
     else
       redirect_to(
         projects_path,
-        flash: {error: t(".error")}
+        flash: { error: t(".error") }
       )
     end
-
   end
 
   private
