@@ -97,8 +97,7 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_difference("Project.count", -1) do
       delete project_path(@project)
     end
-    
+
     assert_redirected_to projects_path
   end
-
 end
