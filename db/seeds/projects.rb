@@ -1,9 +1,15 @@
 module Seeds
   class Projects
     class << self
-      ProjectStruct = Struct.new(:name, :description, :active, :subprojects)
+      ProjectStruct = Struct.new(:name, :description, :active, :subprojects, :log_schema)
       SubprojectStruct = Struct.new(:name, :description, :region)
       RegionStruct = Struct.new(:name, :latitude, :longitude)
+
+      DEFAULT_LOG_SCHEMA = {
+        "metric_value" => "numerical",
+        "verified" => "boolean",
+        "notes" => "text"
+      }.freeze
 
       def run
         ActiveRecord::Base.connection.truncate_tables("projects", "subprojects", "regions")
@@ -28,7 +34,8 @@ module Seeds
             true,
             [
               SubprojectStruct.new("The Homaray Project", "The Homaray Project, Madagascar", madagascar)
-            ]
+            ],
+            DEFAULT_LOG_SCHEMA
           ),
 
           ProjectStruct.new(
@@ -37,7 +44,8 @@ module Seeds
             true,
             [
               SubprojectStruct.new("The Chaillu Massif", "The Chaillu Massif, Congo", congo)
-            ]
+            ],
+            DEFAULT_LOG_SCHEMA
           ),
 
           ProjectStruct.new(
@@ -46,7 +54,8 @@ module Seeds
             true,
             [
               SubprojectStruct.new("The Biological Corridor", "Long Term Research Project", honduras)
-            ]
+            ],
+            DEFAULT_LOG_SCHEMA
           ),
 
           ProjectStruct.new(
@@ -55,7 +64,8 @@ module Seeds
             true,
             [
               SubprojectStruct.new("Land For Life Project", "The Cuero Valley, Honduras", honduras)
-            ]
+            ],
+            DEFAULT_LOG_SCHEMA
           ),
 
           ProjectStruct.new(
@@ -67,7 +77,8 @@ module Seeds
                                    "Collaborative tropical research and legume species screening", central_america),
               SubprojectStruct.new("MOPAWI", "Local collaboration in forest and agroforestry work", honduras),
               SubprojectStruct.new("EcoLogic", "Regional environmental projects and conservation", honduras)
-            ]
+            ],
+            DEFAULT_LOG_SCHEMA
           )
         ]
       end
