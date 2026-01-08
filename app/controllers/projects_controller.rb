@@ -27,7 +27,7 @@ class ProjectsController < ApplicationController
     if @project.destroy
       redirect_to(projects_path, flash: { success: t(".success") })
     else
-      redirect_to(projects_path, flash: { error: t(".error") })
+      redirect_to(projects_path, flash: { error: @project.errors.full_messages.to_sentence })
     end
   end
 
