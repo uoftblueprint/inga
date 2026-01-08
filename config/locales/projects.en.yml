@@ -1,19 +1,16 @@
 en:
   projects:
     show:
-      field:
-        description: "Description"
-        date_created: "Date created"
-        date_updated: "Last updated"
-        active: "Active"
-      title:
-        subprojects: "Subprojects"
-        reports: "Reports"
-      button:
-        return_to_projects: "Back to projects"
-        delete: "Delete project"
+      description_field: "Description"
+      created_field: "Date created"
+      updated_field: "Last updated"
+      active_field: "Active"
+      subprojects_title: "Subprojects"
+      reports_title: "Reports"
       no_reports: "This project has no reports"
-      delete_confirm: "Are you sure you want to delete this project? This will also delete this project's subprojects and reports."
+      return_to_projects: "Back to projects"
+      delete_button: "Delete project"
+      delete_confirmation: "Are you sure you want to delete this project? This will also delete this project's subprojects and reports."
     create:
       success: "Project created successfully"
       error: "Could not create project"
