@@ -10,7 +10,8 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     { route: "index", method: :get, url_helper: :projects_url },
     { route: "show", method: :get, url_helper: :project_url, needs_project: true },
     { route: "new", method: :get, url_helper: :new_project_url },
-    { route: "create", method: :post, url_helper: :projects_url }
+    { route: "create", method: :post, url_helper: :projects_url },
+    { route: "destroy", method: :delete, url_helper: :project_url, needs_project: true }
   ].each do |hash|
     test "##{hash[:route]} redirects to login route when a user is not authenticated" do
       log_out_user
@@ -90,5 +91,13 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
 
     assert_select "td", text: project1.name
     assert_select "td", text: project2.name
+  end
+
+  test "#destroy successfully deletes a project when user is an admin" do
+    assert_difference("Project.count", -1) do
+      delete project_path(@project)
+    end
+
+    assert_redirected_to projects_path
   end
 end

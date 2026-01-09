@@ -26,6 +26,7 @@
     <% end %>
   </div>
   <div>
-    <%= link_to "Back to projects", projects_path, class: "btn btn-outline btn-link" %>
+    <%= link_to t(".return_to_projects"), projects_path, class: "btn btn-outline btn-link" %>
+    <%= button_to t(".delete_button"), project_path(@project), method: :delete, data: { turbo_confirm: t(".delete_confirmation") }, class: "btn btn-error btn-sm mt-3" %>
   </div>
 </div>
