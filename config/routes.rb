@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   # Project routes
-  resources :projects, only: %i[index new create show destroy] do
+  resources :projects do
     # Subproject routes
     resources :subprojects
   end

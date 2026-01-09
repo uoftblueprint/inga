@@ -11,6 +11,10 @@ class ProjectsController < ApplicationController
     @project = Project.new(active: true)
   end
 
+  def edit
+    @project = Project.find(params[:id])
+  end
+
   def create
     @project = Project.new(project_params)
 
@@ -19,6 +23,17 @@ class ProjectsController < ApplicationController
     else
       flash.now[:error] = t(".error")
       render :new, status: :unprocessable_entity
+    end
+  end
+
+  def update
+    @project = Project.find(params[:id])
+
+    if @project.update(project_params)
+      redirect_to @project
+    else
+      flash.now[:error] = t(".error")
+      render :edit, status: :unprocessable_entity
     end
   end
 
