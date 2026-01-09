@@ -88,6 +88,7 @@ module Seeds
           project = Project.create!(
             name: project_struct.name,
             description: project_struct.description,
+            log_schema: project_struct.log_schema,
             active: project_struct.active
           )
           project_struct.subprojects.each do |subproject|
