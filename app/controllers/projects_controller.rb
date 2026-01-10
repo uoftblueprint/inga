@@ -32,7 +32,7 @@ class ProjectsController < ApplicationController
     if @project.update(project_params)
       redirect_to @project
     else
-      flash.now[:error] = t(".error")
+      flash.now[:error] = @project.errors.full_messages.to_sentence
       render :edit, status: :unprocessable_entity
     end
   end
