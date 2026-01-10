@@ -11,7 +11,9 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     { route: "show", method: :get, url_helper: :project_url, needs_project: true },
     { route: "new", method: :get, url_helper: :new_project_url },
     { route: "create", method: :post, url_helper: :projects_url },
-    { route: "destroy", method: :delete, url_helper: :project_url, needs_project: true }
+    { route: "destroy", method: :delete, url_helper: :project_url, needs_project: true },
+    { route: "edit", method: :get, url_helper: :project_url, needs_project: true },
+    { route: "update", method: :patch, url_helper: :project_url, needs_project: true }
   ].each do |hash|
     test "##{hash[:route]} redirects to login route when a user is not authenticated" do
       log_out_user
@@ -37,7 +39,8 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
   [
     { route: "index", method: :get, url_helper: :projects_url },
     { route: "new", method: :get, url_helper: :new_project_url },
-    { route: "show", method: :get, url_helper: :project_url, needs_project: true }
+    { route: "show", method: :get, url_helper: :project_url, needs_project: true },
+    { route: "edit", method: :get, url_helper: :project_url, needs_project: true }
   ].each do |hash|
     test "##{hash[:route]} renders successfully when a user is an admin" do
       args = create(:project) if hash[:needs_project]
@@ -99,5 +102,32 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to projects_path
+  end
+
+  test "#update successfully updates a project" do
+    updated_description = "Updated description"
+
+    patch project_path(@project), params: {
+      project: {
+        description: updated_description
+      }
+    }
+
+    assert_redirected_to project_path(@project)
+    assert_equal @project.reload.description, updated_description
+  end
+
+  test "#update fails when a project name is already taken" do
+    new_project = create(:project)
+    original_name = new_project.name
+
+    patch project_path(new_project), params: {
+      project: {
+        name: @project.name
+      }
+    }
+
+    assert_response :unprocessable_entity
+    assert_equal new_project.reload.name, original_name
   end
 end
