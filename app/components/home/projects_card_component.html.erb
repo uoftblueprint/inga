@@ -1,22 +1,36 @@
 <%= render ContentCardComponent.new do %>
-  <div class="flex justify-center w-full">
-    <div class="grid grid-cols-[repeat(auto-fit,minmax(285px,1fr))] gap-6 w-full">
+  <section class="flex flex-col gap-6" data-controller="project-card-search">
+    <div class="flex flex-row justify-between">
+      <label for="search" class="input rounded-full">
+        <%= render IconComponent.new(icon: "search", size: :sm) %>
+        <input id="search" type="search" name="q" required placeholder="<%= t(".search_placeholder") %>" autocomplete="off" data-project-card-search-target="input" data-action="input->project-card-search#filter">
+      </label>
+    </div>
+    <div class="grid grid-cols-[repeat(auto-fill,minmax(285px,1fr))] gap-6 w-full">
       <% projects.each do |project| %>
-        <div class="card w-full bg-base-100 border border-base-300 p-4">
-          <div class="flex justify-between items-center border-b border-base-300 pb-2 mb-2">
-            <h2 class="text-color-base-content text-sm font-medium"><%= project.name %></h2>
-            <div>
-              <%= render BadgeComponent.new(text: subproject_text(project), colour: :success, style: :soft) %>
+        <div
+          class="card w-full flex flex-col justify-between gap-2 bg-base-100 border border-base-300 shadow-md p-4 rounded-xl"
+          data-project-card-search-target="card"
+          data-project-name="<%= project.name %>">
+          <div class="flex flex-col">
+            <div class="flex justify-between items-center pb-2 mb-2">
+              <h2
+                class="text-color-base-content text-lg font-semibold">
+                <%= project.name %>
+              </h2>
+              <div>
+                <%= render BadgeComponent.new(**project_badge_args(project), style: :soft, size: :sm) %>
+              </div>
+            </div>
+            <div class="flex flex-col gap-0.5">
+              <% project.subprojects.each do |subproject| %>
+                <%= render Home::SubprojectCardComponent.new(subproject: subproject) %>
+              <% end %>
             </div>
           </div>
-          <div class="flex flex-col">
-            <p class="text-base-content/70 font-medium text-xs mb-1"> Subprojects </p>
-            <% project.subprojects.each do |subproject| %>
-              <%= render Home::SubprojectCardComponent.new(subproject: subproject) %>
-            <% end %>
-          </div>
+          <%= link_to t(".view_project"), project_path(project), class: "text-sm bg-base-300 rounded-md py-2 flex flex-row justify-center items-center" %>
         </div>
       <% end %>
     </div>
-  </div>
+  </section>
 <% end %>
