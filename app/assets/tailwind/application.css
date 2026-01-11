@@ -8,7 +8,32 @@
 
 /* Optional for custom themes – Docs: https://daisyui.com/docs/themes/#how-to-add-a-new-custom-theme */
 @plugin "./daisyui-theme.mjs" {
-  /* custom theme here */
+  name: "light";
+  default: true;
+
+  --color-primary: oklch(54% 0.18 149);
+  --color-primary-content: oklch(98% 0 0);
+
+  --color-secondary: oklch(46% 0.098 169);
+  --color-secondary-content: oklch(98% 0 0);
+
+  --color-accent:oklch(58% 0.12 185);
+  --color-accent-content: oklch(98% 0 0);
+
+  --color-neutral: oklch(15% 0.038 174);
+  --color-accent-content: oklch(98% 0 0);
+
+  --color-info: oklch(73% 0.16 236);
+  --color-info-content: oklch(30% 0.065 243);
+  
+  --color-success: oklch(72% 0.15 159);
+  --color-success-content: oklch(28% 0.074 169);
+
+  --color-warning: oklch(84% 0.17 84);
+  --color-warning-content: oklch(43% 0.11 46);
+
+  --color-error: oklch(69% 0.19 22);
+  --color-error-content: oklch(28% 0.11 12)
 }
 
 @keyframes fade-in-out {
