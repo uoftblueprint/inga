@@ -110,7 +110,7 @@ class SubprojectsControllerTest < ActionDispatch::IntegrationTest
       subproject: { name: existing_subproject.name }
     }
 
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
     assert_equal subproject.reload.name, original_name
   end
 
@@ -161,7 +161,7 @@ class SubprojectsControllerTest < ActionDispatch::IntegrationTest
       }
     end
 
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
   end
 
   test "#show action test where show renders subproject details" do

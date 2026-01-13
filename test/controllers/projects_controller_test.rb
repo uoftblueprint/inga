@@ -79,7 +79,7 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_no_difference("Project.count") do
       post projects_path, params: { project: { name: project_name, description: "Another description", active: true } }
     end
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
   end
 
   test "#index shows all projects" do

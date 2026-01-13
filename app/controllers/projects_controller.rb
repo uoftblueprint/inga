@@ -18,7 +18,7 @@ class ProjectsController < ApplicationController
       redirect_to(project_path(@project), flash: { success: t(".success") })
     else
       flash.now[:error] = t(".error")
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
