@@ -34,7 +34,7 @@ class BadgeComponent < ViewComponent::Base
 
   private_constant :COLOUR_CLASSES, :SIZE_CLASSES, :STYLE_CLASSES
 
-  def initialize(text:, colour: :neutral, size: :md, style: :solid)
+  def initialize(text:, colour: :neutral, size: :md, style: :solid, html_classes: "")
     super()
 
     @text = text
@@ -46,6 +46,7 @@ class BadgeComponent < ViewComponent::Base
     @colour = colour
     @size = size
     @style = style
+    @html_classes = html_classes
   end
 
   private
@@ -55,7 +56,8 @@ class BadgeComponent < ViewComponent::Base
       "px-2 badge",
       SIZE_CLASSES[@size],
       STYLE_CLASSES[@style],
-      (COLOUR_CLASSES[@colour] unless @style == :ghost)
+      (COLOUR_CLASSES[@colour] unless @style == :ghost),
+      @html_classes
     )
   end
 end
