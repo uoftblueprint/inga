@@ -22,8 +22,14 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="min-h-screen bg-base-100">
-    <%= render "shared/flash" %>
-    <%= yield %>
-  </body>
+<body class="min-h-screen bg-base-100">
+  <div class="flex min-h-screen">
+    <%= render SidebarComponent.new %>
+
+    <main class="flex-1 overflow-auto">
+      <%= render "shared/flash" %>
+      <%= yield %>
+    </main>
+  </div>
+</body>
 </html>

@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
   # Project routes
-  resources :projects, only: %i[show] do
+  resources :projects, only: %i[index new create show destroy] do
     # Subproject routes
-    resources :subprojects, only: %i[index edit update new create show]
+    resources :subprojects
   end
 
   # Region routes
-  resources :regions, only: %i[index]
+  resources :regions, except: [:show]
 
   # Health check route
   get "up" => "rails/health#show", as: :rails_health_check
@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   get "fizz_buzz", to: "fizz_buzz#index", as: "fizz_buzz"
 
   # User routes
-  resources :users, only: %i[new create show]
+  resources :users, except: %i[show]
 
   # Session routes
   get "/login", to: "sessions#login"

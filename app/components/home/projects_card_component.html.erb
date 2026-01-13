@@ -1,15 +1,15 @@
 <%= render ContentCardComponent.new do %>
-  <div class="flex justify-center">
-    <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+  <div class="flex justify-center w-full">
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(285px,1fr))] gap-6 w-full">
       <% projects.each do |project| %>
-        <div class="card w-sm bg-base-100 border border-base-300 p-4">
+        <div class="card w-full bg-base-100 border border-base-300 p-4">
           <div class="flex justify-between items-center border-b border-base-300 pb-2 mb-2">
             <h2 class="text-color-base-content text-sm font-medium"><%= project.name %></h2>
             <div>
               <%= render BadgeComponent.new(text: subproject_text(project), colour: :success, style: :soft) %>
             </div>
           </div>
-          <div class="flex flex-col gap-2">
+          <div class="flex flex-col">
             <p class="text-base-content/70 font-medium text-xs mb-1"> Subprojects </p>
             <% project.subprojects.each do |subproject| %>
               <%= render Home::SubprojectCardComponent.new(subproject: subproject) %>

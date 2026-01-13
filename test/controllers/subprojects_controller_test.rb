@@ -12,7 +12,8 @@ class SubprojectsControllerTest < ActionDispatch::IntegrationTest
     { route: "create", method: :post, url_helper: :project_subprojects_url },
     { route: "index", method: :get, url_helper: :project_subprojects_url },
     { route: "edit", method: :get, url_helper: :edit_project_subproject_url, needs_subproject: true },
-    { route: "update", method: :patch, url_helper: :project_subproject_url, needs_subproject: true }
+    { route: "update", method: :patch, url_helper: :project_subproject_url, needs_subproject: true },
+    { route: "destroy", method: :delete, url_helper: :project_subproject_url, needs_subproject: true }
   ].each do |hash|
     test "##{hash[:route]} redirects to login route when a user is not authenticated" do
       log_out_user
@@ -180,5 +181,25 @@ class SubprojectsControllerTest < ActionDispatch::IntegrationTest
     assert_match subproject.description, response.body
     assert_match subproject.address, response.body
     assert_match @project.name, response.body
+  end
+  test "#destroy successfully deletes a subproject when user is an admin" do
+    subproject = create(:subproject, project: @project, region: @region)
+
+    assert_difference("Subproject.count", -1) do
+      delete project_subproject_url(@project, subproject)
+    end
+
+    assert_redirected_to project_subprojects_url(@project)
+  end
+
+  test "#destroy does not delete a subproject if subproject does not belong to project" do
+    other_project = create(:project)
+    subproject = create(:subproject, project: other_project, region: @region)
+
+    assert_no_difference("Subproject.count") do
+      delete project_subproject_url(@project, subproject)
+    end
+
+    assert_response :not_found
   end
 end

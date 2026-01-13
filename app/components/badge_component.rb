@@ -5,6 +5,35 @@ class BadgeComponent < ViewComponent::Base
   SIZES = %i[xs sm md lg xl].freeze
   STYLES = %i[solid soft outline dash ghost].freeze
 
+  COLOUR_CLASSES = {
+    neutral: "badge-neutral",
+    primary: "badge-primary",
+    secondary: "badge-secondary",
+    accent: "badge-accent",
+    info: "badge-info",
+    success: "badge-success",
+    warning: "badge-warning",
+    error: "badge-error"
+  }.freeze
+
+  SIZE_CLASSES = {
+    xs: "badge-xs",
+    sm: "badge-sm",
+    md: "badge-md",
+    lg: "badge-lg",
+    xl: "badge-xl"
+  }.freeze
+
+  STYLE_CLASSES = {
+    solid: nil,
+    soft: "badge-soft",
+    outline: "badge-outline",
+    dash: "badge-dash",
+    ghost: "badge-ghost"
+  }.freeze
+
+  private_constant :COLOUR_CLASSES, :SIZE_CLASSES, :STYLE_CLASSES
+
   def initialize(text:, colour: :neutral, size: :md, style: :solid)
     super()
 
@@ -22,19 +51,11 @@ class BadgeComponent < ViewComponent::Base
   private
 
   def css_classes
-    classes = ["px-2 badge", "badge-#{@size}"]
-    case @style
-    when :solid
-      classes << "badge-#{@colour}"
-    when :soft
-      classes << "badge-soft" << "badge-#{@colour}"
-    when :outline
-      classes << "badge-outline" << "badge-#{@colour}"
-    when :dash
-      classes << "badge-dash" << "badge-#{@colour}"
-    when :ghost
-      classes << "badge-ghost"
-    end
-    classes.join(" ")
+    class_names(
+      "px-2 badge",
+      SIZE_CLASSES[@size],
+      STYLE_CLASSES[@style],
+      (COLOUR_CLASSES[@colour] unless @style == :ghost)
+    )
   end
 end
