@@ -231,3 +231,7 @@ bundle exec steep check
 RBS is the standard for type annotations in this project.  
 All new type annotations should be added using `.rbs` files or inline RBS comments as described above.
 
+---
+
+For any issues, please reach out to the project leads so we can help you!
+
