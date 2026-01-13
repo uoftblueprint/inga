@@ -184,43 +184,50 @@ bundle exec erb_lint --lint-all [--autocorrect]
 your files.
 
 
-## Sorbet Type Checking
+## RBS Type Checking
 
-This project uses **Sorbet** for gradual type checking and **Tapioca** for generating RBI files.
+This project uses **RBS** for type checking and type annotations.
+
+### How Type Annotations Work
+
+- **RBS Signature Files:**  
+  Type signatures for classes and methods should be placed in `.rbs` files under the `sig/` directory.  
+  Example: `sig/app/models/user.rbs`
+
+- **Inline RBS Comments:**  
+  You may also use RBS-style comments directly in Ruby files for local variable or method type hints.  
+  Example:  
+  ```ruby
+  # @type var name: String
+  def greet(name)
+    "Hello, #{name}"
+  end
+  ```
 
 ### Common Commands
 
-Run the Sorbet type checker:
-
+Install RBS signatures for gems:
 ```
-bundle exec srb tc
+bundle exec rbs collection install
 ```
 
-Regenerate RBI files when gems or DSLs change:
-
+Validate your RBS files:
 ```
-bundle exec tapioca gem
-bundle exec tapioca dsl
+bundle exec rbs validate
+```
+
+(Optional) Run type checking with [Steep](https://github.com/soutaro/steep):
+```
+bundle exec steep check
 ```
 
 ### Adding Typing to Files
 
-When editing Ruby files, start by adding:
-
-```ruby
-# typed: false
-```
-
-Increase the strictness (`typed: true`, `typed: strict`) gradually as you work on the file.
+- Add or update type signatures in the appropriate `.rbs` file under `sig/`.
+- Optionally, use inline RBS comments for local type hints in Ruby files.
 
 ### Developer Note
 
-Sorbet is optional during development, but all changes must pass:
+RBS is the standard for type annotations in this project.  
+All new type annotations should be added using `.rbs` files or inline RBS comments as described above.
 
-```
-bundle exec srb tc
-```
-
-before merging.
-
-For any issues, please reach out to the project leads so we can help you!

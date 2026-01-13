@@ -73,10 +73,8 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 
-  # Tapioca and Sorbet for type checking [https://sorbet.org/]
-  gem "sorbet"
-  gem "sorbet-runtime"
-  gem "tapioca", "0.17.9", require: false
+  gem "rbs"
+  gem "steep" # Optional: for type checking with RBS
 end
 
 group :test do
