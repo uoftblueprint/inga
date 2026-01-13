@@ -10,10 +10,8 @@
         <% table.column :name %>
         <% table.column :description %>
         <% table.column :active do |project| %>
-          <%= render BadgeComponent.new(
-                text: project.active ? "Active" : "Inactive",
-                colour: project.active ? :success : :neutral
-              ) %>
+          <%= render BadgeComponent.new(text: project.active ? "Active" : "Inactive",
+                                        colour: project.active ? :success : :neutral) %>
         <% end %>
         <% table.column :action, header: "" do |project| %>
           <%= link_to "View", project_path(project), class: "btn btn-info btn-xs btn-outline" %>

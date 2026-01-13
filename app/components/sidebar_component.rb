@@ -18,7 +18,7 @@ class SidebarComponent < ViewComponent::Base
     @sections << SIDEBAR_SECTION.new(
       title: "Admin",
       items: [
-        SIDEBAR_ITEM.new(name: "Users", path: ROUTES.new_user_path, icon: "person-gear"),
+        SIDEBAR_ITEM.new(name: "Users", path: ROUTES.users_path, icon: "person-gear"),
         SIDEBAR_ITEM.new(name: "Regions", path: ROUTES.regions_path, icon: "compass")
       ]
     )
