@@ -183,6 +183,55 @@ bundle exec erb_lint --lint-all [--autocorrect]
 **Note:** the `--autocorrect` option is optional, and will write changes to
 your files.
 
+
+## RBS Type Checking
+
+This project uses **RBS** for type checking and type annotations.
+
+### How Type Annotations Work
+
+- **RBS Signature Files:**  
+  Type signatures for classes and methods should be placed in `.rbs` files under the `sig/` directory.  
+  Example: `sig/app/models/user.rbs`
+
+- **Inline RBS Comments:**  
+  You may also use RBS-style comments directly in Ruby files for local variable or method type hints.  
+  Example:  
+  ```ruby
+  # @type var name: String
+  def greet(name)
+    "Hello, #{name}"
+  end
+  ```
+
+### Common Commands
+
+Install RBS signatures for gems:
+```
+bundle exec rbs collection install
+```
+
+Validate your RBS files:
+```
+bundle exec rbs validate
+```
+
+(Optional) Run type checking with [Steep](https://github.com/soutaro/steep):
+```
+bundle exec steep check
+```
+
+### Adding Typing to Files
+
+- Add or update type signatures in the appropriate `.rbs` file under `sig/`.
+- Optionally, use inline RBS comments for local type hints in Ruby files.
+
+### Developer Note
+
+RBS is the standard for type annotations in this project.  
+All new type annotations should be added using `.rbs` files or inline RBS comments as described above.
+
 ---
 
 For any issues, please reach out to the project leads so we can help you!
+

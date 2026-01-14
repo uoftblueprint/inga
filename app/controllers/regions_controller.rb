@@ -21,7 +21,7 @@ class RegionsController < ApplicationController
       )
     else
       flash.now[:error] = @region.errors.full_messages.to_sentence
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
@@ -35,7 +35,7 @@ class RegionsController < ApplicationController
       )
     else
       flash.now[:error] = @region.errors.full_messages.to_sentence
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 

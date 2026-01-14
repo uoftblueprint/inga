@@ -97,7 +97,7 @@ class RegionsControllerTest < ActionDispatch::IntegrationTest
       post regions_path, params: { region: { name: "" } }
     end
 
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
   end
 
   test "#update successfully updates a region" do
@@ -121,7 +121,7 @@ class RegionsControllerTest < ActionDispatch::IntegrationTest
       region: { name: existing_region.name }
     }
 
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
     assert_equal original_name, @region.reload.name
   end
 
