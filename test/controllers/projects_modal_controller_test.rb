@@ -1,6 +1,6 @@
 require "test_helper"
 
-class ProjectsModalControllerTest < ActionDispatch::IntegrationTest
+class ProjectsControllerTurboStreamTest < ActionDispatch::IntegrationTest
   setup do
     @user = create_logged_in_admin_user
   end
