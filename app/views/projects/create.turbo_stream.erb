@@ -4,6 +4,4 @@
       ) %>
 <% end %>
 
-<%= turbo_stream.update "create_project_modal" do %>
-  <script>document.getElementById('create_project_modal')?.close();</script>
-<% end %>
+<%= turbo_stream.remove "create_project_modal" %>
