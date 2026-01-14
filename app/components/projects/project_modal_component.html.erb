@@ -1,0 +1,29 @@
+<button type="button" class="text-white bg-primary flex flex-row items-center gap-2 text-xs py-2.5 px-3 rounded hover:cursor-pointer" onclick="document.getElementById('<%= id %>').showModal()">
+  <%= render IconComponent.new(icon: "add", size: :sm) %> Create Project
+</button>
+
+<dialog id="<%= id %>" class="modal modal-middle focus:outline-none focus-visible:outline-none" style="outline: none;">
+  <div class="modal-box w-full max-w-2xl p-8 text-base-content max-h-[80vh] overflow-visible">
+    <h2 class="text-3xl font-semibold mb-1"><%= title %></h2>
+    <p class="text-sm text-base-content/60 mb-6">Descriptive text</p>
+
+    <%= form_with model: project, url: projects_path, local: false, builder: DefaultFormBuilder, html: { class: "flex flex-col gap-6" } do |form| %>
+      <div class="flex flex-col gap-4">
+        <div class="flex flex-col gap-2">
+          <label class="text-sm">Project name</label>
+          <%= form.text_field :name, placeholder: "Text", class: "input w-full rounded-md" %>
+        </div>
+        <div class="flex flex-col gap-2">
+          <label class="text-sm">Project description</label>
+          <%= form.textarea :description, placeholder: "Project description", class: "input w-full rounded-md h-20 resize-none" %>
+        </div>
+      </div>
+
+      <div class="flex justify-end items-center gap-4 mt-4">
+        <button type="button" class="text-base-content/80 focus:outline-none focus-visible:outline-none" onclick="document.getElementById('<%= id %>').close()" style="outline: none;">Cancel</button>
+        <%= form.submit "Create", class: "bg-success text-white px-4 py-2 rounded-md focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 focus:shadow-none focus-visible:shadow-none", style: "outline: none;" %>
+      </div>
+    <% end %>
+  </div>
+  <form method="dialog" class="modal-backdrop"><button>close</button></form>
+</dialog>

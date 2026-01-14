@@ -15,7 +15,10 @@ class ProjectsController < ApplicationController
     @project = Project.new(project_params)
 
     if @project.save
-      redirect_to(project_path(@project), flash: { success: t(".success") })
+      respond_to do |format|
+        format.html { redirect_to(project_path(@project), flash: { success: t(".success") }) }
+        format.turbo_stream { render :create }
+      end
     else
       flash.now[:error] = t(".error")
       render :new, status: :unprocessable_entity

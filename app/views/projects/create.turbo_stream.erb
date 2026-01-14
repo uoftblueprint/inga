@@ -1,0 +1,9 @@
+<%= turbo_stream.replace "projects-list" do %>
+  <%= render Home::ProjectsCardComponent.new(
+        projects: Project.includes(subprojects: :region)
+      ) %>
+<% end %>
+
+<%= turbo_stream.update "create_project_modal" do %>
+  <script>document.getElementById('create_project_modal')?.close();</script>
+<% end %>

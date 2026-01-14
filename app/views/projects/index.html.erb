@@ -4,12 +4,10 @@
       <h1 class="text-4xl">
         Projects
       </h1>
-      <button
-        type="button"
-        class="text-white bg-primary flex flex-row items-center gap-2 text-xs py-2.5 px-3 rounded hover:cursor-pointer">
-        <%= render IconComponent.new(icon: "add", size: :sm) %> Create Project
-      </button>
+      <%= render Projects::ProjectModalComponent.new(project: Project.new(active: true), title: "Create project", id: "create_project_modal") %>
     </div>
-    <%= render Home::ProjectsCardComponent.new(projects: @projects) %>
+    <div id="projects-list">
+      <%= render Home::ProjectsCardComponent.new(projects: @projects) %>
+    </div>
   </div>
 </div>
