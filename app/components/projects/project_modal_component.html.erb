@@ -1,4 +1,4 @@
-<button type="button" class="text-white bg-primary flex flex-row items-center gap-2 text-xs py-2.5 px-3 rounded hover:cursor-pointer" onclick="document.getElementById('<%= id %>').showModal()">
+<button type="button" class="text-white bg-primary flex flex-row items-center gap-2 text-xs py-2.5 px-3 rounded hover:cursor-pointer" onclick="document.getElementById('<%= id %>')?.showModal()">
   <%= render IconComponent.new(icon: "add", size: :sm) %> Create Project
 </button>
 
