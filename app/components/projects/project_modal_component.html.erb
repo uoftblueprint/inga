@@ -8,6 +8,7 @@
     <p class="text-sm text-base-content/60 mb-6">Descriptive text</p>
 
     <%= form_with model: project, url: projects_path, local: false, builder: DefaultFormBuilder, html: { class: "flex flex-col gap-6" } do |form| %>
+      <%= form.hidden_field :active %>
       <div class="flex flex-col gap-4">
         <div class="flex flex-col gap-2">
           <label class="text-sm">Project name</label>
