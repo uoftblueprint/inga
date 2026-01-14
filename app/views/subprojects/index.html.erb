@@ -16,7 +16,7 @@
         <% table.column :description %>
         <% table.column :address %>
         <% table.column :region do |subproject| %>
-            <%= subproject.region.name %>
+          <%= subproject.region.name %>
         <% end %>
         <% table.column :action, header: "" do |subproject| %>
           <%= link_to "View", project_subproject_url(@project, subproject), class: "btn btn-xs btn-outline btn-info" %>
