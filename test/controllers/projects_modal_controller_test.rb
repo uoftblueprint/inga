@@ -2,19 +2,7 @@ require "test_helper"
 
 class ProjectsModalControllerTest < ActionDispatch::IntegrationTest
   setup do
-    # Create or reuse a user
-    @user = begin
-      create(:user)
-    rescue StandardError
-      User.create!(username: "tester", password: "password")
-    end
-
-    # Log in the user; ensure session is set
-    post login_url, params: { username: @user.username, password: "password" }, as: :form
-    follow_redirect! if response.redirect?
-
-    # Give the user an admin role for authorization
-    @user.user_roles.create!(role: "admin") unless @user.user_roles.exists?(role: "admin")
+    @user = create_logged_in_admin_user
   end
 
   test "create responds with turbo stream updating projects list and closing modal" do
