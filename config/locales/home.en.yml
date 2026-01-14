@@ -1,0 +1,8 @@
+en:
+  home:
+    projects_card_component:
+      search_placeholder: "Search project title"
+      view_project: "View project"
+      status:
+        active: "Active"
+        inactive: "Inactive"

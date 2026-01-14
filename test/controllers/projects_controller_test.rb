@@ -89,8 +89,8 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     get projects_path
     assert_response :success
 
-    assert_select "td", text: project1.name
-    assert_select "td", text: project2.name
+    assert_select "h2", text: project1.name
+    assert_select "h2", text: project2.name
   end
 
   test "#destroy successfully deletes a project when user is an admin" do

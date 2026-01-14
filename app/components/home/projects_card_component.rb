@@ -9,9 +9,12 @@ module Home
 
     private
 
-    def subproject_text(project)
-      subproject_count = project.subprojects.count
-      "#{subproject_count} Subproject#{'s' unless subproject_count == 1}"
+    def project_badge_args(project)
+      if project.active
+        { text: t(".status.active"), colour: :success }
+      else
+        { text: t(".status.inactive"), colour: :warning }
+      end
     end
   end
 end
