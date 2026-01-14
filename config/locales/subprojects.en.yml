@@ -4,6 +4,12 @@ en:
       title: "All subprojects"
     show:
       title: "Subproject details"
+      search_placeholder: "Search log entries"
+      actions:
+        delete: "Delete subproject"
+        edit: "Edit subproject"
+        create_log_entry: "Create log entry"
+        create_journal_entry: "Create journal entry"
     create:
       success: "Subproject created successfully"
     update:
