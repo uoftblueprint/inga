@@ -2,8 +2,6 @@ module Projects
   class ProjectModalComponent < ViewComponent::Base
     attr_reader :project, :title, :id
 
-    renders_one :footer
-
     def initialize(project:, title: "Create project", id: "project-modal")
       super()
       @project = project
