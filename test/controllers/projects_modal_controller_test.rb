@@ -2,7 +2,7 @@ require "test_helper"
 
 class ProjectsControllerTurboStreamTest < ActionDispatch::IntegrationTest
   setup do
-    @user = create_logged_in_admin_user
+    create_logged_in_admin_user
   end
 
   test "create responds with turbo stream updating projects list and closing modal" do
