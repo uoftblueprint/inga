@@ -1,5 +1,5 @@
 <% if @button_text.present? %>
-  <button class="btn" onclick="document.getElementById('<%= @id %>').showModal()"><%= @button_text %></button>
+  <button class="btn" onclick="document.getElementById('<%= @id %>')?.showModal()"><%= @button_text %></button>
 <% end %>
 <dialog id="<%= @id %>" class="modal">
   <div class="modal-box w-11/12 max-w-5xl text-base-content">
