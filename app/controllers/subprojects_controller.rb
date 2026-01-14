@@ -7,7 +7,7 @@ class SubprojectsController < ApplicationController
   end
 
   def show
-    @subproject = @project.subprojects.find(params[:id])
+    @subproject = @project.subprojects.includes(log_entries: :user).find(params[:id])
   end
 
   def new

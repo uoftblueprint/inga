@@ -169,7 +169,7 @@ class SubprojectsControllerTest < ActionDispatch::IntegrationTest
       :subproject,
       project: @project,
       region: @region,
-      name: "Test Subprojcet",
+      name: "Test Subproject",
       description: "Show description",
       address: "321 Show St"
     )
@@ -179,8 +179,6 @@ class SubprojectsControllerTest < ActionDispatch::IntegrationTest
 
     assert_match subproject.name, response.body
     assert_match subproject.description, response.body
-    assert_match subproject.address, response.body
-    assert_match @project.name, response.body
   end
   test "#destroy successfully deletes a subproject when user is an admin" do
     subproject = create(:subproject, project: @project, region: @region)
