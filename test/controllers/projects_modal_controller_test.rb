@@ -32,8 +32,8 @@ class ProjectsModalControllerTest < ActionDispatch::IntegrationTest
     assert_equal "text/vnd.turbo-stream.html", @response.media_type
 
     # Check that the projects list is updated and modal is targeted
-    assert_includes @response.body, 'action="replace"'
-    assert_includes @response.body, 'target="projects-list"'
-    assert_includes @response.body, 'create_project_modal'
+    assert_includes @response.body, "action=\"replace\""
+    assert_includes @response.body, "target=\"projects-list\""
+    assert_includes @response.body, "create_project_modal"
   end
 end
