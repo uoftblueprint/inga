@@ -30,7 +30,7 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
 
     if @project.update(project_params)
-      redirect_to @project
+      redirect_to(project_path(@project), flash: { success: t(".success") })
     else
       flash.now[:error] = @project.errors.full_messages.to_sentence
       render :edit, status: :unprocessable_entity
