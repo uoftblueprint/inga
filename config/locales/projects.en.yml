@@ -18,4 +18,3 @@ en:
       success: "Project deleted sucessfully"
     update:
       success: "Project updated successfully"
-      error: "Could not update project"
