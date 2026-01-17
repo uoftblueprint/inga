@@ -1,21 +1,29 @@
-<%= form_with model: [@project, @subproject], local: true, class: "max-w-120 my-12 mx-auto flex flex-col gap-4", builder: DefaultFormBuilder do |form| %>
-  <div class="flex flex-col gap-2">
-      <div class="flex flex-col gap-1">
-        <%= form.label :name %>
-        <%= form.text_field :name, required: true, class: "w-full" %>
-      </div>
-      <div class="flex flex-col gap-1">
-        <%= form.label :description %>
-        <%= form.text_field :description, class: "w-full" %>
-      </div>
-      <div class="flex flex-col gap-1">
-        <%= form.label :address %>
-        <%= form.text_field :address, class: "w-full" %>
-      </div>
-      <div class="flex flex-col gap-1">
-        <%= form.label :region_id %>
-        <%= form.collection_select :region_id, Region.order(:name), :id, :name, { prompt: "Select a Region", required: true }, { class: "w-full" } %>
-      </div>
-  </div>
-  <%= form.submit %>
-<% end %>
+<div>
+  <%= form_with model: [@project, @subproject], local: true, class: "flex flex-col gap-6", builder: DefaultFormBuilder do |form| %>
+    <div class="flex flex-col gap-2">
+      <%= form.label :name, t("projects.show.subproject_name_label", default: "Subproject name"), class: "text-sm font-medium text-base-content/80" %>
+      <%= form.text_field :name, required: true, class: "input input-bordered w-full rounded-2xl border-base-200 bg-base-100 outline outline-1 outline-base-400 focus:border-primary focus:outline-primary" %>
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <%= form.label :description, t("projects.show.subproject_description_label", default: "Subproject description"), class: "text-sm font-medium text-base-content/80" %>
+      <%= form.text_field :description, class: "input input-bordered w-full rounded-2xl border-base-200 bg-base-100 outline outline-1 outline-base-400 focus:outline-primary" %>
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <%= form.label :address, t("projects.show.subproject_address_label", default: "Address"), class: "text-sm font-medium text-base-content/80" %>
+      <%= form.text_field :address, class: "input input-bordered w-full rounded-2xl border-base-200 bg-base-100 outline outline-1 outline-base-400 focus:outline-primary" %>
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <%= form.label :region_id, t("projects.show.region_label", default: "Region"), class: "text-sm font-medium text-base-content/80" %>
+      <%= form.collection_select :region_id, Region.order(:name), :id, :name,
+        { prompt: t("projects.show.region_prompt", default: "Select a region"), required: true },
+        { class: "select select-bordered w-full rounded-2xl border-base-200 bg-base-100 text-base outline outline-1 outline-base-400 focus:outline-primary" } %>
+    </div>
+
+    <div class="mt-4 flex justify-end">
+      <%= form.submit t("subprojects.form.submit", default: "Save"), class: "btn bg-success text-white border-success hover:bg-success/90" %>
+    </div>
+  <% end %>
+</div>
