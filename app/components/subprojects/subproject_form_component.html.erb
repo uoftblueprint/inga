@@ -18,11 +18,14 @@
     <div class="flex flex-col gap-2">
       <%= form.label :region_id, t("projects.show.region_label", default: "Region"), class: "text-sm font-medium text-base-content/80" %>
       <%= form.collection_select :region_id, Region.order(:name), :id, :name,
-        { prompt: t("projects.show.region_prompt", default: "Select a region"), required: true },
-        { class: "select select-bordered w-full rounded-2xl border-base-200 bg-base-100 text-base outline outline-1 outline-base-400 focus:outline-primary" } %>
+                                 { prompt: t("projects.show.region_prompt", default: "Select a region"), required: true },
+                                 { class: "select select-bordered w-full rounded-2xl border-base-200 bg-base-100 text-base outline outline-1 outline-base-400 focus:outline-primary" } %>
     </div>
 
-    <div class="mt-4 flex justify-end">
+    <div class="mt-4 flex justify-end gap-3">
+      <button type="button" class="btn btn-ghost text-base font-medium text-base-content/70" onclick="const d = this.closest('dialog'); if (d) { d.close(); }">
+        <%= t("subprojects.form.cancel", default: "Cancel") %>
+      </button>
       <%= form.submit t("subprojects.form.submit", default: "Save"), class: "btn bg-success text-white border-success hover:bg-success/90" %>
     </div>
   <% end %>
