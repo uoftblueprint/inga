@@ -1,0 +1,16 @@
+<%= render ModalComponent.new(button_text: button_text, id: modal_id) do |modal| %>
+  <% modal.with_modal_content do %>
+      <header class="space-y-1">
+        <h2 class="text-3xl font-semibold text-base-content">
+          <%= t("projects.show.subproject_modal_title", default: "Subproject") %>
+        </h2>
+        <p class="text-sm font-semibold uppercase tracking-wide text-base-content/40 pb-5">
+          <%= t("projects.show.subproject_modal_heading", default: "Create subproject") %>
+        </p>
+      </header>
+
+      <div class="flex flex-col gap-6">
+        <%= render Subprojects::SubprojectFormComponent.new(project: project, subproject: subproject) %>
+      </div>
+  <% end %>
+<% end %>

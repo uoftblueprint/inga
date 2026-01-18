@@ -7,7 +7,10 @@
     <p><strong><%= t(".active_field") %>: </strong> <%= @project.active ? "Yes" : "No" %> </p>
   </div>
   <div>
-    <h3 class="font-bold"><%= t(".subprojects_title") %></h3>
+    <div class="mb-2 flex items-center justify-between gap-3">
+      <h3 class="font-bold"><%= t(".subprojects_title") %></h3>
+    </div>
+    <%= render Subprojects::SubprojectModalComponent.new(project: @project) %>
     <ul>
       <% @project.subprojects.order(:name).each do |subproj| %>
         <li> <%= subproj.name %> </li>
