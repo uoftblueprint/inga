@@ -1,0 +1,7 @@
+en:
+  sessions:
+    create:
+      success: "Logged in successfully."
+      error: "Invalid username or password."
+    destroy:
+      success: "Logged out successfully."

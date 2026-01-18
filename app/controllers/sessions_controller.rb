@@ -6,15 +6,15 @@ class SessionsController < ApplicationController
     user = User.find_by(username: params[:username])
     if user&.authenticate(params[:password])
       session[:user_id] = user.id
-      redirect_to root_path, flash: { success: "Logged in successfully." }
+      redirect_to root_path, flash: { success: t(".success") }
     else
-      redirect_to login_path, flash: { error: "Invalid username or password." }
+      redirect_to login_path, flash: { error: t(".error") }
     end
   end
 
   def destroy
     session.delete(:user_id)
-    redirect_to login_path, flash: { success: "Logged out successfully." }
+    redirect_to login_path, flash: { success: t(".success") }
   end
 
   private
