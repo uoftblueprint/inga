@@ -29,4 +29,8 @@
     <%= link_to t(".return_to_projects"), projects_path, class: "btn btn-outline btn-link" %>
     <%= button_to t(".delete_button"), project_path(@project), method: :delete, data: { turbo_confirm: t(".delete_confirmation") }, class: "btn btn-error btn-sm mt-3" %>
   </div>
+
+  <div class="w-2/5 mx-auto">
+    <%= render Projects::LogSchemaComponent.new(@project.log_schema) %>
+  </div>
 </div>

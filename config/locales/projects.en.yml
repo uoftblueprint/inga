@@ -1,5 +1,11 @@
 en:
   projects:
+    log_schema_component:
+      title: "Collected Attributes"
+      empty_state: "No attributes defined for this project."
+      attributes_count:
+        one: "1 attribute"
+        other: "%{count} attributes"
     show:
       description_field: "Description"
       created_field: "Date created"
