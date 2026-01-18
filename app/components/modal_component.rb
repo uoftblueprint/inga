@@ -1,11 +1,8 @@
 class ModalComponent < ViewComponent::Base
-  attr_reader :button_text, :id
+  attr_reader :title
 
-  renders_one :modal_content
-
-  def initialize(button_text:, id: "modal")
+  def initialize(title:)
     super()
-    @button_text = button_text
-    @id = id
+    @title = title
   end
 end

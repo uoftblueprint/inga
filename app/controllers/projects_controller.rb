@@ -9,6 +9,11 @@ class ProjectsController < ApplicationController
 
   def new
     @project = Project.new(active: true)
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
   def create
@@ -17,7 +22,7 @@ class ProjectsController < ApplicationController
     if @project.save
       redirect_to(project_path(@project), flash: { success: t(".success") })
     else
-      flash.now[:error] = t(".error")
+      flash.now[:error] = @project.errors.full_messages.to_sentence
       render :new, status: :unprocessable_entity
     end
   end
