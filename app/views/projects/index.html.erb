@@ -4,11 +4,9 @@
       <h1 class="text-4xl">
         Projects
       </h1>
-      <button
-        type="button"
-        class="text-white bg-primary flex flex-row items-center gap-2 text-xs py-2.5 px-3 rounded hover:cursor-pointer">
+      <%= link_to new_project_path, data: { turbo_stream: true }, class: "text-base-100 bg-primary flex flex-row items-center gap-2 text-xs py-2.5 px-3 rounded" do %>
         <%= render IconComponent.new(icon: "add", size: :sm) %> Create Project
-      </button>
+      <% end %>
     </div>
     <%= render Home::ProjectsCardComponent.new(projects: @projects) %>
   </div>

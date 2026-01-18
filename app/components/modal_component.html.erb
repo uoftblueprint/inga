@@ -1,9 +1,16 @@
-<button class="btn" onclick="<%= @id %>.showModal()"><%= @button_text %></button>
-<dialog id="<%= @id %>" class="modal">
-  <div class="modal-box w-11/12 max-w-5xl">
-    <%= modal_content %>
+<div id="modal"
+     class="fixed inset-0 z-50 hidden bg-black/40 backdrop-blur-sm flex items-center justify-center"
+     data-controller="modal"
+     data-action="turbo:submit-end->modal#close keydown.escape@window->modal#close">
+
+  <div class="bg-base-100 rounded-box shadow-xl w-full max-w-xl p-6">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-lg font-semibold"><%= title %></h2>
+      <button type="button" class="btn btn-sm btn-circle btn-ghost" data-action="modal#close"> ✕ </button>
+    </div>
+
+    <%= render "shared/flash" %>
+
+    <div class="mt-2"> <%= content %> </div>
   </div>
-  <form method="dialog" class="modal-backdrop">
-    <button>close</button>
-  </form>
-</dialog>
+</div>

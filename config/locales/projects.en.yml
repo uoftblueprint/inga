@@ -13,6 +13,5 @@ en:
       delete_confirmation: "Are you sure you want to delete this project? This will also delete this project's subprojects and reports."
     create:
       success: "Project created successfully"
-      error: "Could not create project"
     destroy:
       success: "Project deleted sucessfully"
