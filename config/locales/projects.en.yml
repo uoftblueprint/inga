@@ -15,3 +15,5 @@ en:
       success: "Project created successfully"
     destroy:
       success: "Project deleted sucessfully"
+    update:
+      success: "Project updated successfully"
