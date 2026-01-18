@@ -131,6 +131,8 @@ class SubprojectsControllerTest < ActionDispatch::IntegrationTest
     new_subproject = Subproject.find_by!(name: subproject_name)
     assert_equal @project.id, new_subproject.project_id
     assert_equal @region.id, new_subproject.region_id
+
+    assert_redirected_to project_path(@project)
   end
 
   test "#create creates only one subproject with a given name" do
@@ -145,7 +147,10 @@ class SubprojectsControllerTest < ActionDispatch::IntegrationTest
 
     assert_difference("Subproject.count", 1) do
       post project_subprojects_url(@project), params: params
+      assert_redirected_to project_path(@project)
+
       post project_subprojects_url(@project), params: params
+      assert_response :unprocessable_entity
     end
   end
 
