@@ -14,9 +14,6 @@ Rails.application.routes.draw do
   # Root route
   root "home#index"
 
-  # FizzBuzz routes
-  get "fizz_buzz", to: "fizz_buzz#index", as: "fizz_buzz"
-
   # User routes
   resources :users, except: %i[show]
 
