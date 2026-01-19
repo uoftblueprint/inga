@@ -38,7 +38,7 @@ class DefaultFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def label(method, text = nil, options = {})
-    add_class_to_options(options, "label")
+    add_class_to_options(options, "label font-semibold text-base-content")
     super
   end
 
@@ -53,9 +53,21 @@ class DefaultFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def submit(value = nil, options = {})
-    add_class_to_options(options, "btn btn-neutral")
+    add_class_to_options(options, "btn bg-success text-white border-success hover:bg-success/90")
     super
   end
+
+  def modal_cancel(value = "Cancel", options = {})
+    add_class_to_options(options, "btn btn-ghost text-base font-medium text-base-content/70")
+
+    options[:type] ||= "button"
+
+    # Adds the action of closing the modal
+    options[:data] ||= {}
+    options[:data][:action] ||= "modal#close"
+
+    button(value, options)
+end
 
   private
 
