@@ -12,7 +12,7 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     { route: "new", method: :get, url_helper: :new_project_url },
     { route: "create", method: :post, url_helper: :projects_url },
     { route: "destroy", method: :delete, url_helper: :project_url, needs_project: true },
-    { route: "edit", method: :get, url_helper: :project_url, needs_project: true },
+    { route: "edit", method: :get, url_helper: :edit_project_url, needs_project: true },
     { route: "update", method: :patch, url_helper: :project_url, needs_project: true }
   ].each do |hash|
     test "##{hash[:route]} redirects to login route when a user is not authenticated" do
@@ -40,7 +40,7 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     { route: "index", method: :get, url_helper: :projects_url },
     { route: "new", method: :get, url_helper: :new_project_url },
     { route: "show", method: :get, url_helper: :project_url, needs_project: true },
-    { route: "edit", method: :get, url_helper: :project_url, needs_project: true }
+    { route: "edit", method: :get, url_helper: :edit_project_url, needs_project: true }
   ].each do |hash|
     test "##{hash[:route]} renders successfully when a user is an admin" do
       args = create(:project) if hash[:needs_project]
@@ -48,6 +48,17 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
       public_send(hash[:method], public_send(hash[:url_helper], *args))
       assert_response :success
     end
+  end
+
+  test "#index shows all projects" do
+    project1 = create(:project, name: "First Project")
+    project2 = create(:project, name: "Second Project")
+
+    get projects_path
+    assert_response :success
+
+    assert_select "h2", text: project1.name
+    assert_select "h2", text: project2.name
   end
 
   test "#show renders the project data correctly" do
@@ -63,7 +74,7 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_match project.description, response.body
   end
 
-  test "create makes project with valid params" do
+  test "#create makes project with valid params" do
     project_name = "Test Project"
 
     assert_difference("Project.count", 1) do
@@ -75,33 +86,22 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert new_project.active
   end
 
-  test "#create enforces uniqueness of project name" do
-    project_name = "Unique Project"
-    create(:project, name: project_name)
-
+  test "#create does not create a project with invalid params" do
     assert_no_difference("Project.count") do
-      post projects_path, params: { project: { name: project_name, description: "Another description", active: true } }
+      post projects_path, params: { project: { name: "", description: "", active: true } }
     end
+
     assert_response :unprocessable_entity
   end
 
-  test "#index shows all projects" do
-    project1 = create(:project, name: "First Project")
-    project2 = create(:project, name: "Second Project")
+  test "#create enforces uniqueness of project name" do
+    existing = create(:project, name: "Unique Project")
 
-    get projects_path
-    assert_response :success
-
-    assert_select "h2", text: project1.name
-    assert_select "h2", text: project2.name
-  end
-
-  test "#destroy successfully deletes a project when user is an admin" do
-    assert_difference("Project.count", -1) do
-      delete project_path(@project)
+    assert_no_difference("Project.count") do
+      post projects_path, params: { project: { name: existing.name, description: "Another description", active: true } }
     end
 
-    assert_redirected_to projects_path
+    assert_response :unprocessable_entity
   end
 
   test "#update successfully updates a project" do
@@ -117,17 +117,32 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_equal @project.reload.description, updated_description
   end
 
-  test "#update fails when a project name is already taken" do
-    new_project = create(:project)
-    original_name = new_project.name
+  test "#update does not update a project with invalid params" do
+    original_name = @project.name
 
-    patch project_path(new_project), params: {
-      project: {
-        name: @project.name
-      }
+    patch project_path(@project), params: { project: { name: "" } }
+
+    assert_response :unprocessable_entity
+    assert_equal original_name, @project.reload.name
+  end
+
+  test "#update enforces uniqueness of project name" do
+    existing_project = create(:project)
+    original_name = @project.name
+
+    patch project_path(@project), params: {
+      project: { name: existing_project.name }
     }
 
     assert_response :unprocessable_entity
-    assert_equal new_project.reload.name, original_name
+    assert_equal original_name, @project.reload.name
+  end
+
+  test "#destroy successfully deletes a project when user is an admin" do
+    assert_difference("Project.count", -1) do
+      delete project_path(@project)
+    end
+
+    assert_redirected_to projects_path
   end
 end

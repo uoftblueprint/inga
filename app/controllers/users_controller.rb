@@ -18,7 +18,8 @@ class UsersController < ApplicationController
       @user.roles = user_params[:roles]
       redirect_to users_path, flash: { success: t(".success") }
     else
-      redirect_to new_user_path, flash: { error: @user.errors.full_messages.to_sentence }
+      flash.now[:error] = @user.errors.full_messages.to_sentence
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -29,7 +30,8 @@ class UsersController < ApplicationController
       @user.roles = user_params[:roles]
       redirect_to users_path, flash: { success: t(".success") }
     else
-      redirect_to edit_user_path(@user), flash: { error: @user.errors.full_messages.to_sentence }
+      flash.now[:error] = @user.errors.full_messages.to_sentence
+      render :edit, status: :unprocessable_entity
     end
   end
 

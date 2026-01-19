@@ -24,10 +24,10 @@ class SubprojectsController < ApplicationController
     if @subproject.save
       redirect_to(
         new_project_subproject_path(@project),
-        flash: { success: "Subproject created successfully." }
+        flash: { success: t(".success") }
       )
     else
-      flash.now[:error] = "Failed to create subproject." # rubocop:disable Rails/I18nLocaleTexts
+      flash.now[:error] = @subproject.errors.full_messages.to_sentence
       render :new, status: :unprocessable_entity
     end
   end
@@ -41,7 +41,7 @@ class SubprojectsController < ApplicationController
         flash: { success: t(".success") }
       )
     else
-      flash.now[:error] = t(".error")
+      flash.now[:error] = @subproject.errors.full_messages.to_sentence
       render :edit, status: :unprocessable_entity
     end
   end
@@ -57,7 +57,7 @@ class SubprojectsController < ApplicationController
     else
       redirect_to(
         project_subproject_path(@project),
-        flash: { error: t(".error") }
+        flash: { error: @subproject.errors.full_messages.to_sentence }
       )
     end
   end

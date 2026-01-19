@@ -9,7 +9,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     post login_path, params: { username: "testuser", password: "password" }
 
     assert_redirected_to root_path
-    assert_equal "Logged in successfully.", flash[:success]
+    assert_equal I18n.t("sessions.create.success"), flash[:success]
     assert_equal @user.id, session[:user_id]
   end
 
@@ -17,7 +17,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     post login_path, params: { username: "wronguser", password: "wrongpassword" }
 
     assert_redirected_to login_path
-    assert_equal "Invalid username or password.", flash[:error]
+    assert_equal I18n.t("sessions.create.error"), flash[:error]
     assert_nil session[:user_id]
   end
 
@@ -25,7 +25,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     post login_path, params: { username: "testuser", password: "wrongpassword" }
 
     assert_redirected_to login_path
-    assert_equal "Invalid username or password.", flash[:error]
+    assert_equal I18n.t("sessions.create.error"), flash[:error]
     assert_nil session[:user_id]
   end
 end
