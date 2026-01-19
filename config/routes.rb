@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   # Project routes
   resources :projects do
+    resource :attributes_schema, controller: "project_attributes", only: %i[update edit] do
+      get :new_row
+    end
     # Subproject routes
     resources :subprojects
   end
