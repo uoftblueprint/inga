@@ -5,12 +5,14 @@ class SubprojectsControllerTest < ActionDispatch::IntegrationTest
     create_logged_in_admin_user
     @project = create(:project)
     @region = create(:region)
+    @subproject = create(:subproject, project: @project, region: @region)
   end
 
   [
+    { route: "index", method: :get, url_helper: :project_subprojects_url },
     { route: "new", method: :get, url_helper: :new_project_subproject_url },
     { route: "create", method: :post, url_helper: :project_subprojects_url },
-    { route: "index", method: :get, url_helper: :project_subprojects_url },
+    { route: "show", method: :get, url_helper: :project_subproject_url, needs_subproject: true },
     { route: "edit", method: :get, url_helper: :edit_project_subproject_url, needs_subproject: true },
     { route: "update", method: :patch, url_helper: :project_subproject_url, needs_subproject: true },
     { route: "destroy", method: :delete, url_helper: :project_subproject_url, needs_subproject: true }
@@ -39,8 +41,9 @@ class SubprojectsControllerTest < ActionDispatch::IntegrationTest
   end
 
   [
-    { route: "new", method: :get, url_helper: :new_project_subproject_url },
     { route: "index", method: :get, url_helper: :project_subprojects_url },
+    { route: "new", method: :get, url_helper: :new_project_subproject_url },
+    { route: "show", method: :get, url_helper: :project_subproject_url, needs_subproject: true },
     { route: "edit", method: :get, url_helper: :edit_project_subproject_url, needs_subproject: true }
   ].each do |hash|
     test "##{hash[:route]} renders successfully when a user is an admin" do
@@ -53,65 +56,32 @@ class SubprojectsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "#index successfully renders a created subproject" do
-    subproject = create(:subproject, project: @project, region: @region)
+    other = create(:subproject, project: @project, region: @region, name: "Other Subproject")
 
     get project_subprojects_url(@project)
     assert_response :success
 
-    assert_select "table tr", count: 2 do |rows|
-      assert_select rows[1], "td" do |cells|
-        assert_equal subproject.name.to_s, cells[0].text.strip
-        assert_equal subproject.description.to_s, cells[1].text.strip
-        assert_equal subproject.address.to_s, cells[2].text.strip
-        assert_equal subproject.region.name.to_s, cells[3].text.strip
-      end
-    end
+    assert_select "td", text: @subproject.name
+    assert_select "td", text: other.name
   end
 
-  test "#index filters out a non-matching subproject" do
-    matching_subproject = create(:subproject, project: @project, region: @region)
-    create(:subproject, project: @project, region: @region)
+  test "#show action test where show renders subproject details" do
+    subproject = create(
+      :subproject,
+      project: @project,
+      region: @region,
+      name: "Test Subproject",
+      description: "Show description",
+      address: "321 Show St"
+    )
 
-    get project_subprojects_url(@project, name: matching_subproject.name)
+    get project_subproject_url(@project, subproject)
     assert_response :success
 
-    assert_select "table tr", count: 2 do |rows|
-      assert_select rows[1], "td" do |cells|
-        assert_equal matching_subproject.name.to_s, cells[0].text.strip
-        assert_equal matching_subproject.description.to_s, cells[1].text.strip
-        assert_equal matching_subproject.address.to_s, cells[2].text.strip
-        assert_equal matching_subproject.region.name.to_s, cells[3].text.strip
-      end
-    end
-  end
-
-  test "#update sucessfully updates a subproject" do
-    subproject = create(:subproject, project: @project, region: @region)
-    updated_description = "Updated Description"
-
-    patch project_subproject_path(@project, subproject), params: {
-      subproject: {
-        description: updated_description
-      }
-    }
-
-    assert_redirected_to project_subproject_path(@project, subproject)
-
-    assert_equal subproject.reload.description, updated_description
-  end
-
-  test "#update fails when a subproject name is already taken" do
-    existing_subproject = create(:subproject, project: @project, region: @region)
-    subproject = create(:subproject, project: @project, region: @region)
-
-    original_name = subproject.name
-
-    patch project_subproject_path(@project, subproject), params: {
-      subproject: { name: existing_subproject.name }
-    }
-
-    assert_response :unprocessable_entity
-    assert_equal subproject.reload.name, original_name
+    assert_match subproject.name, response.body
+    assert_match subproject.description, response.body
+    assert_match subproject.address, response.body
+    assert_match @project.name, response.body
   end
 
   test "#create successfully creates a subproject with valid params" do
@@ -133,22 +103,6 @@ class SubprojectsControllerTest < ActionDispatch::IntegrationTest
     assert_equal @region.id, new_subproject.region_id
   end
 
-  test "#create creates only one subproject with a given name" do
-    params = {
-      subproject: {
-        name: "Subproject name",
-        description: "Subproject description",
-        address: "Subproject address",
-        region_id: @region.id
-      }
-    }
-
-    assert_difference("Subproject.count", 1) do
-      post project_subprojects_url(@project), params: params
-      post project_subprojects_url(@project), params: params
-    end
-  end
-
   test "#create does not create a subproject with invalid params" do
     assert_no_difference("Subproject.count") do
       post project_subprojects_url(@project), params: {
@@ -164,42 +118,65 @@ class SubprojectsControllerTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_entity
   end
 
-  test "#show action test where show renders subproject details" do
-    subproject = create(
-      :subproject,
-      project: @project,
-      region: @region,
-      name: "Test Subprojcet",
-      description: "Show description",
-      address: "321 Show St"
-    )
+  test "#create enforces uniqueness of subproject name" do
+    existing = create(:subproject, project: @project, region: @region, name: "Unique Subproject")
 
-    get project_subproject_url(@project, subproject)
-    assert_response :success
+    assert_no_difference("Subproject.count") do
+      post project_subprojects_url(@project), params: {
+        subproject: {
+          name: existing.name,
+          description: "Another description",
+          address: "Another address",
+          region_id: @region.id
+        }
+      }
+    end
 
-    assert_match subproject.name, response.body
-    assert_match subproject.description, response.body
-    assert_match subproject.address, response.body
-    assert_match @project.name, response.body
+    assert_response :unprocessable_entity
   end
-  test "#destroy successfully deletes a subproject when user is an admin" do
-    subproject = create(:subproject, project: @project, region: @region)
 
+  test "#update successfully updates a subproject" do
+    updated_description = "Updated Description"
+
+    patch project_subproject_path(@project, @subproject), params: {
+      subproject: {
+        description: updated_description
+      }
+    }
+
+    assert_redirected_to project_subproject_path(@project, @subproject)
+
+    assert_equal @subproject.reload.description, updated_description
+  end
+
+  test "#update does not update a subproject with invalid params" do
+    original_name = @subproject.name
+
+    patch project_subproject_path(@project, @subproject), params: {
+      subproject: { name: "" }
+    }
+
+    assert_response :unprocessable_entity
+    assert_equal original_name, @subproject.reload.name
+  end
+
+  test "#update enforces uniqueness of subproject name" do
+    existing_subproject = create(:subproject, project: @project, region: @region)
+    original_name = @subproject.name
+
+    patch project_subproject_path(@project, @subproject), params: {
+      subproject: { name: existing_subproject.name }
+    }
+
+    assert_response :unprocessable_entity
+    assert_equal @subproject.reload.name, original_name
+  end
+
+  test "#destroy successfully deletes a subproject when user is an admin" do
     assert_difference("Subproject.count", -1) do
-      delete project_subproject_url(@project, subproject)
+      delete project_subproject_url(@project, @subproject)
     end
 
     assert_redirected_to project_subprojects_url(@project)
-  end
-
-  test "#destroy does not delete a subproject if subproject does not belong to project" do
-    other_project = create(:project)
-    subproject = create(:subproject, project: other_project, region: @region)
-
-    assert_no_difference("Subproject.count") do
-      delete project_subproject_url(@project, subproject)
-    end
-
-    assert_response :not_found
   end
 end

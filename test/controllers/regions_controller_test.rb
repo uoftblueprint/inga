@@ -77,21 +77,6 @@ class RegionsControllerTest < ActionDispatch::IntegrationTest
     assert_equal region2.name, new_region.name
   end
 
-  test "#create creates only one region with a given name" do
-    region2 = build(:region, name: "region2")
-
-    params = { region: {
-      name: region2.name,
-      latitude: region2.latitude,
-      longitude: region2.longitude
-    } }
-
-    assert_difference("Region.count", 1) do
-      post regions_path, params: params
-      post regions_path, params: params
-    end
-  end
-
   test "#create does not create a region with invalid params" do
     assert_no_difference("Region.count") do
       post regions_path, params: { region: { name: "" } }
@@ -100,8 +85,24 @@ class RegionsControllerTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_entity
   end
 
+  test "#create enforces uniqueness of region name" do
+    existing = create(:region, name: "region2")
+
+    params = { region: {
+      name: existing.name,
+      latitude: existing.latitude,
+      longitude: existing.longitude
+    } }
+
+    assert_no_difference("Region.count") do
+      post regions_path, params: params
+    end
+
+    assert_response :unprocessable_entity
+  end
+
   test "#update successfully updates a region" do
-    updated_name = "updated-region"
+    updated_name = "Updated region"
 
     patch region_path(@region), params: {
       region: {
@@ -113,7 +114,16 @@ class RegionsControllerTest < ActionDispatch::IntegrationTest
     assert_equal updated_name, @region.reload.name
   end
 
-  test "#update fails when a region name is already taken" do
+  test "#update does not update a region with invalid params" do
+    original_name = @region.name
+
+    patch region_path(@region), params: { region: { name: "" } }
+
+    assert_response :unprocessable_entity
+    assert_equal original_name, @region.reload.name
+  end
+
+  test "#update enforces uniqueness of region name" do
     existing_region = create(:region, name: "taken-name")
     original_name = @region.name
 
@@ -126,10 +136,8 @@ class RegionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "#destroy successfully deletes a region when user is an admin" do
-    region = create(:region)
-
     assert_difference("Region.count", -1) do
-      delete region_path(region)
+      delete region_path(@region)
     end
 
     assert_redirected_to regions_path
