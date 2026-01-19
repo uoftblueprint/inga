@@ -1,0 +1,7 @@
+en:
+  project_attributes:
+    edit:
+      submit_button: "Save Attributes"
+      new_row_button: "Add Attribute"
+    update:
+      success: "Project attributes updated successfully"

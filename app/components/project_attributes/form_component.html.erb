@@ -1,0 +1,19 @@
+<div data-controller="project-attributes-builder"
+  data-project-attributes-builder-submit-url-value="<%= helpers.project_attributes_schema_path(@project) %>"
+  class="max-w-120 mx-auto flex flex-col gap-4 p-10">
+
+ <div id="project_attributes_list" data-project-attributes-builder-target="list" class="flex flex-col gap-2">
+    <% @project.log_schema.each do |title, type| %>
+      <%= render ProjectAttributes::LogAttributeComponent.new(title: title, type: type) %>
+    <% end %>
+  </div>
+
+  <button class="btn btn-outline btn-primary"
+        data-action="click->project-attributes-builder#add">
+  + <%= t("project_attributes.edit.new_row_button") %>
+  </button>
+
+  <button class="btn btn-primary" data-action="click->project-attributes-builder#submit">
+    <%= t("project_attributes.edit.submit_button") %>
+  </button>
+</div>

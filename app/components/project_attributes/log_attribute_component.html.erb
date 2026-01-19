@@ -1,0 +1,19 @@
+<div class="flex gap-2 items-center" data-project-attributes-builder-target="row">
+  <input class="input input-bordered"
+         data-project-attributes-builder-target="title"
+         value="<%= title %>"
+         placeholder="Title">
+
+  <select class="select select-bordered"
+          data-project-attributes-builder-target="type">
+    <option value="numerical" <%= "selected" if selected?("numerical") %>>Numerical</option>
+    <option value="boolean" <%= "selected" if selected?("boolean") %>>Boolean</option>
+    <option value="text" <%= "selected" if selected?("text") %>>Text</option>
+  </select>
+
+  <button type="button"
+          class="btn btn-ghost btn-sm btn-circle text-error"
+          data-action="click->project-attributes-builder#remove">
+    ✕
+  </button>
+</div>

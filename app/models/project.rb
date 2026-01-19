@@ -17,6 +17,14 @@ class Project < ApplicationRecord
     update!(log_schema: schema)
   end
 
+  def replace_log_attributes(*attributes)
+    schema = {}
+    attributes.each do |attr|
+      schema[attr[:name]] = attr[:type]
+    end
+    update(log_schema: schema)
+  end
+
   def remove_log_attribute(name)
     schema = log_schema.dup
     schema.delete(name)
