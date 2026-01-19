@@ -7,3 +7,11 @@ en:
     destroy:
       success: "Account deleted successfully."
       self_deletion: "You cannot delete your own account."
+    form:
+      username: "Username"
+      name: "Name"
+      roles: "Roles"
+      password: "Password"
+      confirm_password: "Confirm password"
+    index:
+      create_user_button: "Create User"

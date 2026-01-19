@@ -6,7 +6,7 @@
 
       <%= link_to new_user_path, data: { turbo_stream: true }, class: "text-base-100 bg-primary flex flex-row items-center gap-2 text-xs py-2.5 px-3 rounded" do %>
         <%= render IconComponent.new(icon: "add", size: :sm) %>
-        Create User
+        <%= t(".create_user_button") %>
       <% end %>
 
     </div>

@@ -1,16 +1,16 @@
 <%= form_with model: @user, class: "max-w-120 my-12 mx-auto flex flex-col gap-4", builder: DefaultFormBuilder do |form| %>
   <div class="flex flex-col gap-2">
     <div class="flex flex-col gap-1">
-      <%= form.label :username, class: "font-semibold" %>
+      <%= form.label :username, t("users.form.username") %>
       <%= form.text_field :username, required: true, class: "w-full", placeholder: "Type here" %>
     </div>
 
     <div class="flex flex-col gap-1">
-      <%= form.label :name, class: "font-semibold" %>
+      <%= form.label :name, t("users.form.name") %>
       <%= form.text_field :name, required: true, class: "w-full", placeholder: "Type here" %>
     </div>
     <div class="flex gap-4">
-      <%= form.label :roles, class: "font-semibold" %>
+      <%= form.label :roles, t("users.form.roles") %>
       <% UserRole.roles.each_key do |role| %>
         <label class="flex items-center gap-2">
           <%= check_box_tag("user[roles][]", role, @user.has_roles?(role.to_sym), class: "checkbox") %>
@@ -20,11 +20,11 @@
 
     </div>
     <div class="flex flex-col gap-1">
-      <%= form.label :password, class: "font-semibold" %>
+      <%= form.label :password, t("users.form.password") %>
       <%= form.password_field :password, required: @user.new_record?, class: "w-full", placeholder: "Type here" %>
     </div>
     <div class="flex flex-col gap-1">
-      <%= form.label :password_confirmation, "Confirm password", class: "font-semibold text-base-content" %>
+      <%= form.label :password_confirmation, t("users.form.confirm_password") %>
       <%= form.password_field :password_confirmation, required: @user.new_record?, class: "w-full", placeholder: "Type here" %>
     </div>
   </div>

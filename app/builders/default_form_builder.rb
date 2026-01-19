@@ -67,7 +67,7 @@ class DefaultFormBuilder < ActionView::Helpers::FormBuilder
     options[:data][:action] ||= "modal#close"
 
     button(value, options)
-end
+  end
 
   private
 
