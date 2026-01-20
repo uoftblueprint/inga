@@ -1,16 +1,16 @@
 <%= form_with model: @user, class: "max-w-120 my-12 mx-auto flex flex-col gap-4", builder: DefaultFormBuilder do |form| %>
   <div class="flex flex-col gap-2">
     <div class="flex flex-col gap-1">
-      <%= form.label :username, t("users.form.username") %>
-      <%= form.text_field :username, required: true, class: "w-full", placeholder: "Type here" %>
+      <%= form.label :username %>
+      <%= form.text_field :username, required: true, class: "w-full", placeholder: t("users.form.placeholder") %>
     </div>
 
     <div class="flex flex-col gap-1">
-      <%= form.label :name, t("users.form.name") %>
-      <%= form.text_field :name, required: true, class: "w-full", placeholder: "Type here" %>
+      <%= form.label :name %>
+      <%= form.text_field :name, required: true, class: "w-full", placeholder: t("users.form.placeholder") %>
     </div>
     <div class="flex gap-4">
-      <%= form.label :roles, t("users.form.roles") %>
+      <%= form.label :roles %>
       <% UserRole.roles.each_key do |role| %>
         <label class="flex items-center gap-2">
           <%= check_box_tag("user[roles][]", role, @user.has_roles?(role.to_sym), class: "checkbox") %>
@@ -20,12 +20,12 @@
 
     </div>
     <div class="flex flex-col gap-1">
-      <%= form.label :password, t("users.form.password") %>
-      <%= form.password_field :password, required: @user.new_record?, class: "w-full", placeholder: "Type here" %>
+      <%= form.label :password %>
+      <%= form.password_field :password, required: @user.new_record?, class: "w-full", placeholder: t("users.form.placeholder") %>
     </div>
     <div class="flex flex-col gap-1">
       <%= form.label :password_confirmation, t("users.form.confirm_password") %>
-      <%= form.password_field :password_confirmation, required: @user.new_record?, class: "w-full", placeholder: "Type here" %>
+      <%= form.password_field :password_confirmation, required: @user.new_record?, class: "w-full", placeholder: t("users.form.placeholder") %>
     </div>
   </div>
 
