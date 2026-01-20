@@ -2,8 +2,6 @@ class LogEntry < ApplicationRecord
   belongs_to :subproject
   belongs_to :user
 
-  validates :subproject, presence: true
-  validates :user, presence: true
   validates :datetime, presence: true
 
   validate :metadata_matches_log_schema

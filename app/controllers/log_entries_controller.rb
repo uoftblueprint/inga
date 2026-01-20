@@ -22,7 +22,7 @@ class LogEntriesController < ApplicationController
   end
 
   def log_entry_params
-    params.require(:log_entry).permit(:datetime, metadata: {})
+    params.expect(log_entry: [:datetime, { metadata: {} }])
   end
 
   def has_required_roles?

@@ -30,7 +30,7 @@ class LogEntriesControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :created
 
-    json_response = JSON.parse(response.body)
+    json_response = response.parsed_body
     assert_equal @subproject.id, json_response["subproject_id"]
     assert_equal @user.id, json_response["user_id"]
     assert_equal 25.5, json_response["metadata"]["temperature"]
@@ -50,7 +50,7 @@ class LogEntriesControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :unprocessable_entity
-    json_response = JSON.parse(response.body)
+    json_response = response.parsed_body
     assert_includes json_response["errors"].join, "Datetime"
   end
 
@@ -68,7 +68,7 @@ class LogEntriesControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :unprocessable_entity
-    json_response = JSON.parse(response.body)
+    json_response = response.parsed_body
     assert_includes json_response["errors"].join, "temperature must be a number"
   end
 
@@ -85,7 +85,7 @@ class LogEntriesControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :unprocessable_entity
-    json_response = JSON.parse(response.body)
+    json_response = response.parsed_body
     assert_includes json_response["errors"].join, "unexpected fields"
   end
 
