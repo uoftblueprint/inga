@@ -38,7 +38,9 @@ class ProjectAttributesControllerTest < ActionDispatch::IntegrationTest
 
   test "#update successfully updates the project log schema" do
     patch project_attributes_schema_path(@project), params: {
-      attributes: [{ name: "temperature", type: "numerical" }, { name: "location", type: "text" }]
+      project: {
+        log_attributes: [{ title: "temperature", type: "numerical" }, { title: "location", type: "text" }]
+      }
     }
 
     assert_redirected_to project_path(@project)
@@ -50,7 +52,9 @@ class ProjectAttributesControllerTest < ActionDispatch::IntegrationTest
 
   test "#update fails with invalid log schema" do
     patch project_attributes_schema_path(@project), params: {
-      attributes: [{ name: "bad", type: "invalid_type" }]
+      project: {
+        log_attributes: [{ title: "bad", type: "invalid_type" }]
+      }
     }
 
     assert_response :unprocessable_entity

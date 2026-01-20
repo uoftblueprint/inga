@@ -1,10 +1,12 @@
 <div class="flex gap-2 items-center" data-project-attributes-builder-target="row">
   <input class="input input-bordered"
+         name="project[log_attributes][][title]"
          data-project-attributes-builder-target="title"
          value="<%= title %>"
          placeholder="Title">
 
   <select class="select select-bordered"
+          name="project[log_attributes][][type]"
           data-project-attributes-builder-target="type">
     <option value="numerical" <%= "selected" if selected?("numerical") %>>Numerical</option>
     <option value="boolean" <%= "selected" if selected?("boolean") %>>Boolean</option>

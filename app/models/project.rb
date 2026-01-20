@@ -20,7 +20,7 @@ class Project < ApplicationRecord
   def replace_log_attributes(*attributes)
     schema = {}
     attributes.each do |attr|
-      schema[attr[:name]] = attr[:type]
+      schema[attr[:title]] = attr[:type]
     end
     update(log_schema: schema)
   end

@@ -15,7 +15,7 @@ class ProjectTest < ActiveSupport::TestCase
 
   test "#replace_log_attributes replaces the entire log schema" do
     project = create(:project, log_schema: { "old_attr" => "text" })
-    project.replace_log_attributes({ name: "new_attr1", type: "numerical" }, { name: "new_attr2", type: "text" })
+    project.replace_log_attributes({ title: "new_attr1", type: "numerical" }, { title: "new_attr2", type: "text" })
     assert_equal({ "new_attr1" => "numerical", "new_attr2" => "text" }, project.log_schema)
   end
 
