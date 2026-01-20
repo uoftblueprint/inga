@@ -1,3 +1,21 @@
-<div>
-  <%= @journal.markdown_content %>
+<div class="flex flex-col gap-4 p-4">
+  <div class="flex justify-between items-start">
+    <div class="flex gap-2">
+      <%= link_to t('.edit'), "/projects/#{@project.id}/subprojects/#{@subproject.id}/journals/#{@journal.id}/edit", class: "btn btn-outline btn-sm" %>
+      <%= button_to t('.delete'), "/projects/#{@project.id}/subprojects/#{@subproject.id}/journals/#{@journal.id}", method: :delete, data: { turbo_confirm: t('.delete_confirmation', default: 'Are you sure?') }, class: "btn btn-error btn-sm" %>
+    </div>
+  </div>
+
+  <div class="text-sm text-muted">
+    <p><strong><%= t('.author') %>:</strong> <%= @journal.user.username %></p>
+    <p><strong><%= t('.created_at') %>:</strong> <%= @journal.created_at.to_fs(:long_ordinal) %></p>
+  </div>
+
+  <div class="prose max-w-none mt-4">
+    <%= @journal.markdown_content %>
+  </div>
+
+  <div class="mt-4">
+    <%= link_to t('.back_to_subproject'), project_subproject_path(@project, @subproject), class: "btn btn-link" %>
+  </div>
 </div>
