@@ -2,7 +2,10 @@ Rails.application.routes.draw do
   # Project routes
   resources :projects do
     # Subproject routes
-    resources :subprojects
+    resources :subprojects do
+      # Log entries nested under subprojects
+      resources :log_entries, only: [:create]
+    end
   end
 
   # Region routes
