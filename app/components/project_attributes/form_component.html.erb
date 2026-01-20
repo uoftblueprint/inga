@@ -1,0 +1,22 @@
+<%= form_with url: helpers.project_attributes_schema_path(@project),
+              method: :patch,
+              data: {
+                controller: "project-attributes-builder",
+                project_attributes_builder_submit_url_value: helpers.project_attributes_schema_path(@project)
+              },
+              class: "max-w-120 mx-auto flex flex-col gap-4 p-10" do |f| %>
+
+ <div id="project_attributes_list" data-project-attributes-builder-target="list" class="flex flex-col gap-2">
+    <% @project.log_schema.each do |title, type| %>
+      <%= render ProjectAttributes::LogAttributeComponent.new(title: title, type: type) %>
+    <% end %>
+  </div>
+
+  <button type="button"
+          class="btn btn-outline btn-primary"
+          data-action="click->project-attributes-builder#add">
+    + <%= t("project_attributes.edit.new_row_button") %>
+  </button>
+
+  <%= f.submit t("project_attributes.edit.submit_button"), class: "btn btn-primary" %>
+<% end %>
