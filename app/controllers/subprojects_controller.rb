@@ -12,6 +12,11 @@ class SubprojectsController < ApplicationController
 
   def new
     @subproject = @project.subprojects.build
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
   def edit
@@ -23,7 +28,7 @@ class SubprojectsController < ApplicationController
 
     if @subproject.save
       redirect_to(
-        new_project_subproject_path(@project),
+        project_subproject_path(@project, @subproject),
         flash: { success: t(".success") }
       )
     else
