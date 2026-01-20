@@ -1,6 +1,10 @@
 class JournalsController < ApplicationController
   before_action :set_project_subproject
 
+  def index
+    @journals = @subproject.journals.all
+  end
+
   def show
     @journal = @subproject.journals.find(params[:id])
   end

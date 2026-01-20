@@ -10,6 +10,7 @@ class JournalsControllerTest < ActionDispatch::IntegrationTest
   end
 
   [
+    { route: "index", method: :get, url_helper: :project_subproject_journals_url },
     { route: "new", method: :get, url_helper: :new_project_subproject_journal_url },
     { route: "create", method: :post, url_helper: :project_subproject_journals_url },
     { route: "show", method: :get, url_helper: :project_subproject_journal_url, needs_journal: true },
@@ -40,6 +41,7 @@ class JournalsControllerTest < ActionDispatch::IntegrationTest
   end
 
   [
+    { route: "index", method: :get, url_helper: :project_subproject_journals_url },
     { route: "new", method: :get, url_helper: :new_project_subproject_journal_url },
     { route: "edit", method: :get, url_helper: :edit_project_subproject_journal_url, needs_journal: true }
   ].each do |hash|
@@ -56,6 +58,16 @@ class JournalsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     assert_match @journal.markdown_content.to_s, response.body
+  end
+
+  test "#index renders all journals" do
+    other = create(:journal, subproject: @subproject, user: @user, markdown_content: "Other Journal content")
+
+    get project_subproject_journals_url(@project, @subproject)
+    assert_response :success
+
+    assert_select "td", text: @journal.markdown_content.to_plain_text
+    assert_select "td", text: other.markdown_content.to_plain_text
   end
 
   test "#create successfully creates a journal with valid params" do
