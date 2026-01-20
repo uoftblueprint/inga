@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   # Project routes
   resources :projects do
     # Subproject routes
-    resources :subprojects
+    resources :subprojects do
+      resources :journals, only: %i[new create show]
+    end
   end
 
   # Region routes

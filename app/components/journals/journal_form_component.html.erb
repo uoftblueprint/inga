@@ -1,0 +1,9 @@
+<%= form_with model: [project, subproject, journal], local: true, class: "w-full", builder: DefaultFormBuilder do |form| %>
+  <div class="flex flex-col gap-2">
+      <div class="flex flex-col gap-1">
+        <%= form.label :markdown_content %>
+        <%= form.rich_text_area :markdown_content %>
+      </div>
+  </div>
+  <%= form.submit %>
+<% end %>
