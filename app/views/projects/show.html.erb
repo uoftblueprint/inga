@@ -1,36 +1,128 @@
-<div class="flex flex-col gap-3 p-2">
-  <h1 class="font-bold text-xl"><%= @project.name %></h1>
-  <div>
-    <p><strong><%= t(".description_field") %>: </strong> <%= @project.description %></p>
-    <p><strong><%= t(".created_field") %> : </strong> <%= @project.created_at.to_fs(:long_ordinal) %></p>
-    <p><strong><%= t(".updated_field") %>: </strong> <%= @project.updated_at.to_fs(:long_ordinal) %></p>
-    <p><strong><%= t(".active_field") %>: </strong> <%= @project.active ? "Yes" : "No" %> </p>
-  </div>
-  <div>
-    <h3 class="font-bold"><%= t(".subprojects_title") %></h3>
-    <ul>
-      <% @project.subprojects.order(:name).each do |subproj| %>
-        <li> <%= subproj.name %> </li>
-      <% end %>
-    </ul>
-  </div>
-  <div>
-    <h3 class="font-bold"><%= t(".reports_title") %></h3>
-    <ul>
-      <% @project.reports.each do |report| %>
-        <li> <%= report.name %> </li>
-      <% end %>
-    </ul>
-    <% if @project.reports.empty? %>
-      <p><%= t(".no_reports") %></p>
-    <% end %>
-  </div>
-  <div>
-    <%= link_to t(".return_to_projects"), projects_path, class: "btn btn-outline btn-link" %>
-    <%= button_to t(".delete_button"), project_path(@project), method: :delete, data: { turbo_confirm: t(".delete_confirmation") }, class: "btn btn-error btn-sm mt-3" %>
+<div class="mx-auto mb-10 mt-40 w-4/5 max-w-[1450px]">
+  <div class="flex items-start justify-between mb-6">
+    <div>
+      <h1 class="text-3xl font-light"><%= @project.name %></h1>
+      <p class="text-sm text-base-content/70 mt-1"><%= @project.description %></p>
+    </div>
+
+    <div class="flex items-center gap-2 shrink-0">
+         <button
+        class="btn btn-md rounded-xl inline-flex items-center gap-2 px-4"
+        style="background-color:#fecaca; border:none;">
+        <%= render IconComponent.new(icon: "vector-trashcan", size: :sm, classes: "w-4 h-4") %>
+        <span>Delete project</span>
+      </button>
+
+      <button
+        class="btn btn-md rounded-xl inline-flex items-center gap-2 px-4"
+        style="background-color:#e5e7eb; border:none;">
+        <%= render IconComponent.new(icon: "vector-pencil", size: :sm, classes: "w-4 h-4") %>
+        <span>Edit project</span>
+      </button>
+
+      <button
+        class="btn btn-md rounded-xl inline-flex items-center gap-2 px-4"
+        style="background-color:#84cc16; color:white; border:none;">
+        <%= render IconComponent.new(icon: "add", size: :sm, classes: "w-4 h-4") %>
+        <span>Create project</span>
+      </button>
+    </div>
   </div>
 
-  <div class="w-2/5 mx-auto">
-    <%= render Projects::LogSchemaComponent.new(@project.log_schema) %>
-  </div>
+  <%= render ContentCardComponent.new do %>
+    <div class="flex items-center justify-between gap-4 mb-6">
+      <div class="relative flex-1 max-w-md">
+        <input
+          type="text"
+          autocomplete="off"
+          placeholder="Search subproject title"
+          class="input input-bordered w-full rounded-full pl-10">
+
+        <%= render IconComponent.new(icon: "search", size: :sm, classes: "h-5 w-5 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400") %>
+      </div>
+
+      <button
+        class="btn btn-sm rounded-full px-4 bg-white text-gray-700 border border-gray-300">
+        Sort by
+      </button>
+    </div>
+
+    <div class="subprojects-index-table">
+      <style>
+        .subprojects-index-table table thead th:first-child,
+        .subprojects-index-table table tbody th:first-child { display: none; }
+        .subprojects-index-table table thead th { background-color: #f3f4f6; }
+      </style>
+
+      <div class="overflow-x-auto">
+        <%= render Shared::IndexTableComponent.new(records: @project.subprojects) do |table| %>
+
+          <% table.column :name, header: "Subproject name" do |subproj| %>
+            <%= subproj.name %>
+          <% end %>
+
+          <% table.column :status, header: "Status" do |subproj| %>
+            <% status = if subproj.respond_to?(:status) && subproj.status.present?
+                          subproj.status.to_s.downcase
+                        else
+                          "in progress"
+                        end %>
+
+            <% case status %>
+            <% when "in_progress", "in progress", "progress", "pending" %>
+              <span class="badge rounded-md px-3 py-1" style="background-color:#fef08a; color:#92400e; border:none;">
+                In Progress
+              </span>
+            <% when "completed", "done" %>
+              <span class="badge rounded-md px-3 py-1" style="background-color:#bbf7d0; color:#065f46; border:none;">
+                Completed
+              </span>
+            <% when "overdue", "late" %>
+              <span class="badge rounded-md px-3 py-1" style="background-color:#fecaca; color:#7f1d1d; border:none;">
+                Overdue
+              </span>
+            <% when "on_hold", "on hold", "paused" %>
+              <span class="badge rounded-md px-3 py-1" style="background-color:#e6e7e9; color:#374151; border:none;">
+                On Hold
+              </span>
+            <% when "at_risk", "at risk" %>
+              <span class="badge rounded-md px-3 py-1" style="background-color:#fff7ed; color:#b45309; border:none;">
+                At Risk
+              </span>
+            <% when "new" %>
+              <span class="badge rounded-md px-3 py-1" style="background-color:#e5f0ff; color:#1e3a8a; border:none;">
+                New
+              </span>
+            <% else %>
+              <span class="badge rounded-md px-3 py-1" style="background-color:#f3f4f6; color:#111827; border:none;">
+                <%= status.humanize %>
+              </span>
+            <% end %>
+          <% end %>
+
+          <% table.column :due_date, header: "Due date" do |_subproj| %>
+            <span class="text-sm text-gray-600">Due date</span>
+          <% end %>
+
+          <% table.column :assign, header: "Assign" do |_subproj| %>
+            <span
+              class="badge rounded-full px-3 py-1 bg-gray-200 text-gray-700 border-none">
+              User
+            </span>
+          <% end %>
+
+          <% table.column :actions, header: "" do |_subproj| %>
+            <div class="flex justify-end gap-2">
+
+              <button
+                class="btn btn-sm btn-square rounded-lg bg-gray-100 border-none">
+                <%= render IconComponent.new(icon: "vector-dots", size: :sm, classes: "w-4 h-4") %>
+              </button>
+            </div>
+          <% end %>
+
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 </div>
