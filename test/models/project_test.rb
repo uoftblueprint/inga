@@ -13,6 +13,12 @@ class ProjectTest < ActiveSupport::TestCase
     assert_equal({ "status" => "text" }, project.log_schema)
   end
 
+  test "#replace_log_attributes replaces the entire log schema" do
+    project = create(:project, log_schema: { "old_attr" => "text" })
+    project.replace_log_attributes({ title: "new_attr1", type: "numerical" }, { title: "new_attr2", type: "text" })
+    assert_equal({ "new_attr1" => "numerical", "new_attr2" => "text" }, project.log_schema)
+  end
+
   test "invalid log schema raises validation error" do
     project = build(:project, log_schema: { "invalid_attr" => "unsupported_type" })
     assert_not_predicate project, :valid?
