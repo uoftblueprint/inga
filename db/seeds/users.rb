@@ -20,6 +20,8 @@ module Seeds
           set_roles(reporter, :reporter)
           set_roles(analyst, :analyst)
           set_roles(super_user, :admin, :reporter, :analyst)
+
+          { admin: admin, super: super_user, analyst: analyst, reporter: reporter }
         end
       end
 
