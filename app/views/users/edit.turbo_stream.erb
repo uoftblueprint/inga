@@ -1,0 +1,5 @@
+<%= turbo_stream.replace "modal" do %>
+  <%= render ModalComponent.new(title: "Edit User") do %>
+    <%= render Users::FormComponent.new(user: @user) %>
+  <% end %>
+<% end %>

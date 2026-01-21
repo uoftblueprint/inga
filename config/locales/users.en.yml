@@ -11,14 +11,15 @@ en:
     destroy:
       success: "Account deleted successfully."
       self_deletion: "You cannot delete your own account."
+    index:
+      create_user_button: "Create User"
+    form:
+      confirm_password: "Confirm password"
+      placeholder: "Type here"
   role_badge_component:
     roles:
       admin: "Admin"
       reporter: "Reporter"
       analyst: "Analyst"
       fallback: "Unknown"
-  form:
-    confirm_password: "Confirm password"
-    placeholder: "Type here"
-  index:
-    create_user_button: "Create User"
+  
