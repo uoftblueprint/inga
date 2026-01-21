@@ -3,8 +3,17 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
+  def show
+    @user = User.includes(:user_roles, log_entries: { subproject: :project }).find(params[:id])
+  end
+
   def new
     @user = User.new
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
   def edit
