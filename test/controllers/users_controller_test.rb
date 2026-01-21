@@ -10,6 +10,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     { route: "index", method: :get, url_helper: :users_url },
     { route: "new", method: :get, url_helper: :new_user_url },
     { route: "create", method: :post, url_helper: :users_url },
+    { route: "show", method: :get, url_helper: :user_url, needs_user: true },
     { route: "edit", method: :get, url_helper: :edit_user_url, needs_user: true },
     { route: "update", method: :patch, url_helper: :user_url, needs_user: true },
     { route: "destroy", method: :delete, url_helper: :user_url, needs_user: true }
@@ -37,6 +38,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   [
     { route: "index", method: :get, url_helper: :users_url },
     { route: "new", method: :get, url_helper: :new_user_url },
+    { route: "show", method: :get, url_helper: :user_url, needs_user: true },
     { route: "edit", method: :get, url_helper: :edit_user_url, needs_user: true }
   ].each do |hash|
     test "##{hash[:route]} renders successfully when a user is an admin" do
@@ -55,6 +57,13 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
     assert_select "td", text: @user.username
     assert_select "td", text: other_user.username
+  end
+
+  test "#show successfully renders user details" do
+    get user_url(@user)
+    assert_response :success
+
+    assert_match @user.username, response.body
   end
 
   test "#create successfully creates a user with valid parameters" do

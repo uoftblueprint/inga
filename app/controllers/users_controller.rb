@@ -3,6 +3,10 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
+  def show
+    @user = User.includes(:user_roles, log_entries: { subproject: :project }).find(params[:id])
+  end
+
   def new
     @user = User.new
 
