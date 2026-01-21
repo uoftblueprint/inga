@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :projects do
     # Subproject routes
     resources :subprojects do
-      resources :journals, only: %i[new create show edit update index]
+      resources :journals
     end
   end
 

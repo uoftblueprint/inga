@@ -15,7 +15,8 @@ class JournalsControllerTest < ActionDispatch::IntegrationTest
     { route: "create", method: :post, url_helper: :project_subproject_journals_url },
     { route: "show", method: :get, url_helper: :project_subproject_journal_url, needs_journal: true },
     { route: "edit", method: :get, url_helper: :edit_project_subproject_journal_url, needs_journal: true },
-    { route: "update", method: :patch, url_helper: :project_subproject_journal_url, needs_journal: true }
+    { route: "update", method: :patch, url_helper: :project_subproject_journal_url, needs_journal: true },
+    { route: "destroy", method: :patch, url_helper: :project_subproject_journal_url, needs_journal: true }
   ].each do |hash|
     test "##{hash[:route]} redirects to login route when a user is not authenticated" do
       log_out_user
@@ -87,5 +88,13 @@ class JournalsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to project_subproject_journal_path(@project, @subproject, @journal)
     assert_equal updated_content, @journal.reload.markdown_content.to_plain_text
+  end
+
+  test "#destroy successfully deletes a journal when a user is an admin" do
+    assert_difference("Journal.count", -1) do
+      delete project_subproject_journal_url(@project, @subproject, @journal)
+    end
+
+    assert_redirected_to project_subproject_journals_url(@project, @subproject)
   end
 end

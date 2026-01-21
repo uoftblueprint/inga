@@ -47,6 +47,22 @@ class JournalsController < ApplicationController
     end
   end
 
+  def destroy
+    @journal = @subproject.journals.find(params[:id])
+
+    if @journal.destroy
+      redirect_to(
+        project_subproject_journals_path(@project, @subproject),
+        flash: { success: t(".success") }
+      )
+    else
+      redirect_to(
+        project_subproject_journal_path(@project, @subproject, @journal),
+        flash: { error: @journal.errors.full_messages.to_sentence }
+      )
+    end
+  end
+
   private
 
   def set_project_subproject
@@ -58,7 +74,6 @@ class JournalsController < ApplicationController
     params.expect(journal: %i[markdown_content])
   end
 
-  # TODO: verify
   def has_required_roles?
     current_user.has_roles?(:admin)
   end
