@@ -28,7 +28,7 @@ class SubprojectsController < ApplicationController
 
     if @subproject.save
       redirect_to(
-        project_subproject_path(@project, @subproject),
+        new_project_subproject_path(@project),
         flash: { success: t(".success") }
       )
     else
