@@ -13,7 +13,7 @@
       <div class="flex flex-row items-center my-2">
         <li> <%= subproj.name %> </li>
         <%= link_to edit_project_subproject_path(@project, subproj), data: { turbo_stream: true }, class: "btn btn-primary mx-3" do %>
-            Edit
+          <%= t("subprojects.show.edit_button") %>
         <% end %>
       </div>
       <% end %>
