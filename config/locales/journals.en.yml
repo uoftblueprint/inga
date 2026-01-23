@@ -1,0 +1,23 @@
+en:
+  journals:
+    index:
+      title: "Journals"
+      admin_ui: "Admin UI"
+      view: "View"
+      edit: "Edit"
+    new:
+      title: "New Journal"
+    edit:
+      title: "Edit Journal"
+    show:
+      edit: "Edit"
+      delete: "Delete"
+      author: "Author"
+      created_at: "Created at"
+      back_to_subproject: "Back to Subproject"
+    create:
+      success: "Journal was successfully created."
+    update:
+      success: "Journal was successfully updated."
+    destroy:
+      success: "Journal was successfully destroyed."
