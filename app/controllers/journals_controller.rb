@@ -2,11 +2,11 @@ class JournalsController < ApplicationController
   before_action :set_project_subproject
 
   def index
-    @journals = @subproject.journals.all
+    @journals = @subproject.journals.includes(:user)
   end
 
   def show
-    @journal = @subproject.journals.find(params[:id])
+    @journal = @subproject.journals.includes(:user).find(params[:id])
   end
 
   def new

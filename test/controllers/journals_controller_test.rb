@@ -16,7 +16,7 @@ class JournalsControllerTest < ActionDispatch::IntegrationTest
     { route: "show", method: :get, url_helper: :project_subproject_journal_url, needs_journal: true },
     { route: "edit", method: :get, url_helper: :edit_project_subproject_journal_url, needs_journal: true },
     { route: "update", method: :patch, url_helper: :project_subproject_journal_url, needs_journal: true },
-    { route: "destroy", method: :patch, url_helper: :project_subproject_journal_url, needs_journal: true }
+    { route: "destroy", method: :delete, url_helper: :project_subproject_journal_url, needs_journal: true }
   ].each do |hash|
     test "##{hash[:route]} redirects to login route when a user is not authenticated" do
       log_out_user

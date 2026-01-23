@@ -61,7 +61,7 @@ guide.
    ```
    bundle install
 
-   # Optional: for support displaying images in the browser on Ubuntu 
+   # Optional: to support displaying images in the browser on Ubuntu 
    sudo apt install imagemagick libvips-dev 
    ```
 
