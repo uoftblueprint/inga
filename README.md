@@ -60,6 +60,9 @@ guide.
 
    ```
    bundle install
+
+   # Optional: for support displaying images in the browser on Ubuntu 
+   sudo apt install imagemagick libvips-dev 
    ```
 
 2. Set up and seed the database (see [next
