@@ -2,10 +2,33 @@
 
 @source not "./daisyui{,*}.mjs";
 
-@plugin "./daisyui.mjs"{
-  themes: light --default
+@plugin "./daisyui.mjs" {
+  themes: light --default;
 }
 
+/* Top-level fallback: ensure toolbar dropdown actions/content stack
+   This lives outside any @layer so it will always be emitted and
+   has !important to override other styles if necessary. */
+.lexxy-editor__toolbar-dropdown-actions,
+lexxy-editor .lexxy-editor__toolbar-dropdown-actions,
+.lexxy-editor .lexxy-editor__toolbar-dropdown-actions {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.lexxy-editor__toolbar-dropdown-content,
+lexxy-editor .lexxy-editor__toolbar-dropdown-content,
+.lexxy-editor .lexxy-editor__toolbar-dropdown-content {
+  max-width: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.5rem !important;
+  align-items: stretch !important;
+}
+
+.lexxy-editor__toolbar-dropdown-content > * {
+  width: 100% !important;
+}
 /* Optional for custom themes – Docs: https://daisyui.com/docs/themes/#how-to-add-a-new-custom-theme */
 @plugin "./daisyui-theme.mjs" {
   name: "light";
@@ -17,7 +40,7 @@
   --color-secondary: oklch(46% 0.098 169);
   --color-secondary-content: oklch(98% 0 0);
 
-  --color-accent:oklch(58% 0.12 185);
+  --color-accent: oklch(58% 0.12 185);
   --color-accent-content: oklch(98% 0 0);
 
   --color-neutral: oklch(15% 0.038 174);
@@ -25,7 +48,7 @@
 
   --color-info: oklch(73% 0.16 236);
   --color-info-content: oklch(30% 0.065 243);
-  
+
   --color-success: oklch(72% 0.15 159);
   --color-success-content: oklch(28% 0.074 169);
 
@@ -33,7 +56,7 @@
   --color-warning-content: oklch(43% 0.11 46);
 
   --color-error: oklch(69% 0.19 22);
-  --color-error-content: oklch(28% 0.11 12)
+  --color-error-content: oklch(28% 0.11 12);
 }
 
 @keyframes fade-in-out {
@@ -57,4 +80,104 @@
 
 .animate-fade-in-out {
   animation: fade-in-out 4s ease-in-out forwards;
+}
+
+/* Styles to exempt Lexxy Markdown editor from DaisyUI */
+
+/* Take out unnecessary buttons from toolbar */
+lexxy-toolbar {
+  button[name="quote"],
+  button[name="code"],
+  button[name="table"],
+  button[name="divider"] {
+    display: none;
+  }
+}
+
+/* Fix link dropdown button placement */
+lexxy-editor .lexxy-editor__toolbar-dropdown-actions {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Fix text colour selector width */
+lexxy-editor .lexxy-editor__toolbar-dropdown-content {
+  max-width: none;
+}
+
+@layer components {
+  .lexxy-prose,
+  .lexxy-content,
+  lexxy-editor .lexxy-editor__content {
+    @apply prose max-w-none;
+    --tw-prose-body: var(--color-base-content);
+    --tw-prose-headings: var(--color-base-content);
+    --tw-prose-bullets: var(--color-base-content);
+    --tw-prose-links: var(--color-primary);
+    --tw-prose-bold: var(--color-base-content);
+    --tw-prose-code: var(--color-base-content);
+    --tw-prose-pre-code: var(--color-base-100);
+    --tw-prose-pre-bg: var(--color-base-content);
+    color: var(--color-base-content);
+  }
+}
+
+@layer utilities {
+  /* Strikethrough support */
+  lexxy-editor .lexxy-editor__content [data-lexical-strikethrough="true"],
+  lexxy-editor .lexxy-editor__content .lexxy-content__strikethrough,
+  lexxy-editor .lexxy-editor__content span[style*="line-through"],
+  lexxy-editor .lexxy-editor__content s,
+  lexxy-editor .lexxy-editor__content del,
+  lexxy-editor .lexxy-editor__content strike {
+    text-decoration: line-through;
+  }
+
+  /* Support for bold + italic at the same time */
+  lexxy-editor .lexxy-editor__content .lexxy-content__italic {
+    font-style: italic;
+  }
+  lexxy-editor .lexxy-editor__content .lexxy-content__bold {
+    font-weight: 700;
+  }
+
+  /* Support for basic headings */
+  lexxy-editor .lexxy-editor__content h1 {
+    font-size: 1.75rem;
+    line-height: 2rem;
+    font-weight: 600;
+  }
+  lexxy-editor .lexxy-editor__content h2 {
+    font-size: 1.5rem;
+    line-height: 1.875rem;
+    font-weight: 600;
+  }
+  lexxy-editor .lexxy-editor__content h3 {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-weight: 600;
+  }
+
+  /* Support for unordered and ordered lists */
+  .lexxy-content ul,
+  lexxy-editor .lexxy-editor__content ul {
+    list-style: disc;
+    padding-left: 1.5rem;
+    margin-block: 0.75rem;
+    list-style-position: outside;
+  }
+
+  .lexxy-content ol,
+  lexxy-editor .lexxy-editor__content ol {
+    list-style: decimal;
+    padding-left: 1.5rem;
+    margin-block: 0.75rem;
+    list-style-position: outside;
+  }
+
+  .lexxy-content a,
+  lexxy-editor .lexxy-editor__content a {
+    color: var(--lexxy-color-link);
+    text-decoration: underline;
+  }
 }

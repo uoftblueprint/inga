@@ -5,7 +5,9 @@ Rails.application.routes.draw do
       get :new_row
     end
     # Subproject routes
-    resources :subprojects
+    resources :subprojects do
+      resources :journals
+    end
   end
 
   # Region routes
