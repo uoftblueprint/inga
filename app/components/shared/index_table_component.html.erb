@@ -1,35 +1,36 @@
-<div class="overflow-x-auto" data-controller="index-table-component">
+<div data-controller="index-table-component">
   <% if searchable %>
-    <div class="mb-2">
+    <div class="mb-4">
       <input
-          type="search"
-          class="input input-bordered w-full focus:outline-none"
+        type="search"
+        class="input input-bordered w-full focus:outline-none"
         placeholder="Search..."
         data-index-table-component-target="search"
         data-action="input->index-table-component#filter"
-      />
-    </div>
-  <% end %>
+        />
+      </div>
+    <% end %>
 
-  <table class="table table-zebra">
-    <thead>
-      <tr>
-        <th></th>
-        <% columns.each do |column| %>
-          <th><%= column.header %></th>
-        <% end %>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% records.each_with_index do |record, index| %>
-        <tr data-index-table-component-target="row">
-          <th><%= index + 1 %></th>
+    <!-- Each row (including header) is its own rounded box -->
+    <div class="mb-2">
+      <div class="bg-slate-200 rounded-lg p-4">
+        <div class="grid items-center gap-4" style="grid-template-columns: repeat(<%= columns.size %>, minmax(0, 1fr))">
           <% columns.each do |column| %>
-            <td><%= render_cell_content(record, column) %></td>
+            <div class="text-sm font-semibold text-slate-600"><%= column.header %></div>
           <% end %>
-        </tr>
+        </div>
+      </div>
+    </div>
+
+    <div class="space-y-2">
+      <% records.each_with_index do |record, index| %>
+        <div data-index-table-component-target="row" class="bg-white rounded-lg shadow-sm p-4">
+          <div class="grid items-center gap-4" style="grid-template-columns: repeat(<%= columns.size %>, minmax(0, 1fr))">
+            <% columns.each do |column| %>
+              <div class="text-sm text-gray-900"><%= render_cell_content(record, column) %></div>
+            <% end %>
+          </div>
+        </div>
       <% end %>
-    </tbody>
-  </table>
-</div>
+    </div>
+  </div>
