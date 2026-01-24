@@ -43,7 +43,6 @@ class JournalsController < ApplicationController
     else
       flash.now[:error] = @journal.errors.full_messages.to_sentence
       render :edit, status: :unprocessable_entity
-
     end
   end
 
