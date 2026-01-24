@@ -1,4 +1,16 @@
-<div class="overflow-x-auto">
+<div class="overflow-x-auto" data-controller="index-table-component">
+  <% if searchable %>
+    <div class="mb-2">
+      <input
+          type="search"
+          class="input input-bordered w-full focus:outline-none"
+        placeholder="Search..."
+        data-index-table-component-target="search"
+        data-action="input->index-table-component#filter"
+      />
+    </div>
+  <% end %>
+
   <table class="table table-zebra">
     <thead>
       <tr>
@@ -11,7 +23,7 @@
 
     <tbody>
       <% records.each_with_index do |record, index| %>
-        <tr>
+        <tr data-index-table-component-target="row">
           <th><%= index + 1 %></th>
           <% columns.each do |column| %>
             <td><%= render_cell_content(record, column) %></td>
