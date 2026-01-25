@@ -4,39 +4,39 @@
       <label class="input input-bordered w-full">
         <%= render IconComponent.new(icon: "search", size: :sm, classes: "h-[1em] opacity-50") %>
         <input
-          type="search"
-          class="grow focus:outline-none"
-          placeholder="Search..."
-          data-index-table-component-target="search"
-          data-action="input->index-table-component#filter"
-          />
-        </label>
+            type="search"
+            class="grow focus:outline-none"
+            placeholder="Search..."
+            data-index-table-component-target="search"
+            data-action="input->index-table-component#filter"
+            />
+      </label>
+    </div>
+  <% end %>
+
+  <!-- Construct columns sizes string from individual col_size parameters -->
+  <% column_sizes = columns.map { |c| c.col_size || 'minmax(0, 1fr)' }.join(' ') %>
+
+  <!-- Each row (including header) is its own rounded box -->
+  <div class="mb-2">
+    <div class="bg-neutral-800 rounded-lg p-4">
+      <div class="grid items-center gap-4" style="grid-template-columns: <%= column_sizes %>">
+        <% columns.each do |column| %>
+          <div class="text-sm font-semibold text-white"><%= column.header %></div>
+        <% end %>
       </div>
-    <% end %>
+    </div>
+  </div>
 
-    <!-- Construct columns sizes string from individual col_size parameters -->
-    <% column_sizes = columns.map { |c| c.col_size || 'minmax(0, 1fr)' }.join(' ') %>
-
-    <!-- Each row (including header) is its own rounded box -->
-    <div class="mb-2">
-      <div class="bg-slate-200 rounded-lg p-4">
+  <div class="space-y-2">
+    <% records.each_with_index do |record, index| %>
+      <div data-index-table-component-target="row" class="bg-white rounded-lg shadow-sm px-4 py-3">
         <div class="grid items-center gap-4" style="grid-template-columns: <%= column_sizes %>">
           <% columns.each do |column| %>
-            <div class="text-sm font-semibold text-slate-600"><%= column.header %></div>
+            <div class="text-sm text-gray-900"><%= render_cell_content(record, column) %></div>
           <% end %>
         </div>
       </div>
-    </div>
-
-    <div class="space-y-2">
-      <% records.each_with_index do |record, index| %>
-        <div data-index-table-component-target="row" class="bg-white rounded-lg shadow-sm p-4">
-          <div class="grid items-center gap-4" style="grid-template-columns: <%= column_sizes %>">
-            <% columns.each do |column| %>
-              <div class="text-sm text-gray-900"><%= render_cell_content(record, column) %></div>
-            <% end %>
-          </div>
-        </div>
-      <% end %>
-    </div>
+    <% end %>
   </div>
+</div>
