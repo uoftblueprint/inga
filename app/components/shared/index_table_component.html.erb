@@ -1,23 +1,42 @@
-<div class="overflow-x-auto">
-  <table class="table table-zebra">
-    <thead>
-      <tr>
-        <th></th>
-        <% columns.each do |column| %>
-          <th><%= column.header %></th>
-        <% end %>
-      </tr>
-    </thead>
+<div data-controller="index-table-component">
+  <% if searchable %>
+    <div class="mb-4">
+      <label class="input input-bordered w-full">
+        <%= render IconComponent.new(icon: "search", size: :sm, classes: "h-[1em] opacity-50") %>
+        <input
+            type="search"
+            class="grow focus:outline-none"
+            placeholder="Search..."
+            autocomplete="off"
+            data-index-table-component-target="search"
+            data-action="input->index-table-component#filter">
+      </label>
+    </div>
+  <% end %>
 
-    <tbody>
-      <% records.each_with_index do |record, index| %>
-        <tr>
-          <th><%= index + 1 %></th>
+  <!-- Construct columns sizes string from individual col_size parameters -->
+  <% column_sizes = columns.map { |c| c.col_size || "minmax(0, 1fr)" }.join(" ") %>
+
+  <!-- Each row (including header) is its own rounded box -->
+  <div class="mb-2">
+    <div class="card bg-neutral rounded-lg">
+      <div class="p-4 grid items-center gap-4" style="grid-template-columns: <%= column_sizes %>">
+        <% columns.each do |column| %>
+          <div class="text-sm font-semibold text-neutral-content"><%= column.header %></div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="space-y-2">
+    <% records.each_with_index do |record, index| %>
+      <div data-index-table-component-target="row" class="card bg-white rounded-lg shadow-sm">
+        <div class="p-3 grid items-center gap-4" style="grid-template-columns: <%= column_sizes %>">
           <% columns.each do |column| %>
-            <td><%= render_cell_content(record, column) %></td>
+            <div class="text-sm text-base-content"><%= render_cell_content(record, column) %></div>
           <% end %>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>

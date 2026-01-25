@@ -67,8 +67,8 @@ class JournalsControllerTest < ActionDispatch::IntegrationTest
     get project_subproject_journals_url(@project, @subproject)
     assert_response :success
 
-    assert_select "td", text: @journal.markdown_content.to_plain_text
-    assert_select "td", text: other.markdown_content.to_plain_text
+    assert_select "div", text: @journal.markdown_content.to_plain_text
+    assert_select "div", text: other.markdown_content.to_plain_text
   end
 
   test "#create successfully creates a journal with valid params" do

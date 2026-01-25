@@ -6,29 +6,6 @@
   themes: light --default;
 }
 
-/* Top-level fallback: ensure toolbar dropdown actions/content stack
-   This lives outside any @layer so it will always be emitted and
-   has !important to override other styles if necessary. */
-.lexxy-editor__toolbar-dropdown-actions,
-lexxy-editor .lexxy-editor__toolbar-dropdown-actions,
-.lexxy-editor .lexxy-editor__toolbar-dropdown-actions {
-  display: flex !important;
-  flex-direction: column !important;
-}
-
-.lexxy-editor__toolbar-dropdown-content,
-lexxy-editor .lexxy-editor__toolbar-dropdown-content,
-.lexxy-editor .lexxy-editor__toolbar-dropdown-content {
-  max-width: none !important;
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 0.5rem !important;
-  align-items: stretch !important;
-}
-
-.lexxy-editor__toolbar-dropdown-content > * {
-  width: 100% !important;
-}
 /* Optional for custom themes – Docs: https://daisyui.com/docs/themes/#how-to-add-a-new-custom-theme */
 @plugin "./daisyui-theme.mjs" {
   name: "light";
