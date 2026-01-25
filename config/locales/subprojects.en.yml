@@ -6,6 +6,7 @@ en:
       title: "Subproject details"
       search_placeholder: "Search log entries"
       actions:
+        create: "Create Subproject"
         delete: "Delete subproject"
         edit: "Edit subproject"
         create_log_entry: "Create log entry"
@@ -14,6 +15,8 @@ en:
       success: "Subproject created successfully"
     update:
       success: "Subproject updated successfully"
+    new:
+      title: "New Subproject"
     destroy:
       button: "Delete"
       success: "Subproject was successfully deleted."

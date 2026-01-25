@@ -5,7 +5,9 @@ Rails.application.routes.draw do
       get :new_row
     end
     # Subproject routes
-    resources :subprojects
+    resources :subprojects do
+      resources :journals
+    end
   end
 
   # Region routes
@@ -18,7 +20,7 @@ Rails.application.routes.draw do
   root "home#index"
 
   # User routes
-  resources :users, except: %i[show]
+  resources :users
 
   # Session routes
   get "/login", to: "sessions#login"

@@ -12,6 +12,11 @@ class SubprojectsController < ApplicationController
 
   def new
     @subproject = @project.subprojects.build
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
   def edit
