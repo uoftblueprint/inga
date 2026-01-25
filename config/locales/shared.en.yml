@@ -1,0 +1,4 @@
+en:
+  shared:
+    index_table_component:
+      delete_confirmation: "Are you sure you want to delete this item?"

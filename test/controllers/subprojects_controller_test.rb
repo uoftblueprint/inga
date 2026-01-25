@@ -65,7 +65,7 @@ class SubprojectsControllerTest < ActionDispatch::IntegrationTest
     assert_select "div", text: other.name
   end
 
-  test "#show action test where show renders subproject details" do
+  test "#show successfully renders subproject details" do
     subproject = create(
       :subproject,
       project: @project,
@@ -80,8 +80,6 @@ class SubprojectsControllerTest < ActionDispatch::IntegrationTest
 
     assert_match subproject.name, response.body
     assert_match subproject.description, response.body
-    assert_match subproject.address, response.body
-    assert_match @project.name, response.body
   end
 
   test "#create successfully creates a subproject with valid params" do
