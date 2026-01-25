@@ -6,11 +6,12 @@ en:
       title: "Subproject details"
       search_placeholder: "Search log entries"
       actions:
-        create: "Create Subproject"
         delete: "Delete subproject"
         edit: "Edit subproject"
         create_log_entry: "Create log entry"
         create_journal_entry: "Create journal entry"
+      create_journal_entry: "Create journal entry"
+      delete_confirmation: "Are you sure you want to delete this subproject? Deleting a subproject will also delete all associated log entries and journal entries."
     create:
       success: "Subproject created successfully"
     update:
