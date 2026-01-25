@@ -16,7 +16,7 @@ export default class extends Controller {
     }
 
     this._rows.forEach((row) => {
-      // take the entire row's displayed test, trim whitespace, make case
+      // take the entire row's displayed text, trim whitespace, make case
       // insensitive
       const text = row.textContent.replace(/\s+/g, " ").toLowerCase();
       const match = text.indexOf(query) !== -1;

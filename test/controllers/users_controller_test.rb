@@ -55,8 +55,8 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     get users_url
     assert_response :success
 
-    assert_select "td", text: @user.username
-    assert_select "td", text: other_user.username
+    assert_select "div", text: @user.username
+    assert_select "div", text: other_user.username
   end
 
   test "#show successfully renders user details" do

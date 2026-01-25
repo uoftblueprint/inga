@@ -23,6 +23,6 @@ class ActionButtonComponent < ViewComponent::Base
   private
 
   def css_classes
-    class_names("btn btn-#{@colour} btn-soft btn-sm btn-square active:btn-active")
+    class_names("btn btn-#{@colour} btn-soft btn-xs btn-square active:btn-active")
   end
 end
