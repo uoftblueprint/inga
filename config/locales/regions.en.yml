@@ -1,5 +1,12 @@
 en:
   regions:
+    index:
+      title: "Regions"
+      table:
+        name: "Name"
+        latitude: "Latitude"
+        longitude: "Longitude"
+        actions: "Actions"
     create:
       success: "Region created successfully"
     update:
@@ -10,3 +17,7 @@ en:
       button: "Delete"
       confirm: "Are you sure you want to delete this region?"
       success: "Region deleted successfully"
+    form_component:
+      name: "Name"
+      latitude: "Latitude"
+      longitude: "Longitude"

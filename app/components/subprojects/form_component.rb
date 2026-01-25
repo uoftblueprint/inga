@@ -1,5 +1,5 @@
 module Subprojects
-  class SubprojectFormComponent < ViewComponent::Base
+  class FormComponent < ViewComponent::Base
     attr_reader :project, :subproject
 
     def initialize(project:, subproject:)

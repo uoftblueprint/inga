@@ -6,20 +6,30 @@ en:
       attributes_count:
         one: "1 attribute"
         other: "%{count} attributes"
+    index:
+      title: "Projects"
+      actions:
+        create: "Create Project"
     show:
-      description_field: "Description"
-      created_field: "Date created"
-      updated_field: "Last updated"
-      active_field: "Active"
-      subprojects_title: "Subprojects"
-      reports_title: "Reports"
+      description: "Description"
+      created_at: "Date created"
+      updated_at: "Last updated"
+      active: "Active"
+      subprojects: "Subprojects"
+      create_subproject: "Create Subproject"
+      reports: "Reports"
       no_reports: "This project has no reports"
       return_to_projects: "Back to projects"
-      delete_button: "Delete project"
-      delete_confirmation: "Are you sure you want to delete this project? This will also delete this project's subprojects and reports."
+      actions:
+        delete: "Delete project"
+    new:
+      title: "New Project"
     create:
       success: "Project created successfully"
-    destroy:
-      success: "Project deleted sucessfully"
+    edit:
+      title: "Edit Project"
     update:
       success: "Project updated successfully"
+    destroy:
+      confirm: "Are you sure you want to delete this project? This will also delete this project's subprojects and reports."
+      success: "Project deleted sucessfully"

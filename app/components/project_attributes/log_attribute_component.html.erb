@@ -8,21 +8,21 @@
       data-project-attributes-builder-target="title"
       value="<%= title %>"
       placeholder="Attribute name">
-    <div class="divider lg:divider-horizontal"></div>
-    <select
+      <div class="divider lg:divider-horizontal"></div>
+      <select
       class="select select-ghost select-sm min-w-[90px] text-xs"
       name="project[log_attributes][][type]"
       data-project-attributes-builder-target="type">
-      <option value="numerical" <%= "selected" if selected?("numerical") %>>Numerical</option>
-      <option value="boolean" <%= "selected" if selected?("boolean") %>>Boolean</option>
-      <option value="text" <%= "selected" if selected?("text") %>>Text</option>
-    </select>
-  </div>
+        <option value="numerical" <%= "selected" if selected?("numerical") %>><%= t(".numerical") %></option>
+        <option value="boolean" <%= "selected" if selected?("boolean") %>><%= t(".boolean") %></option>
+        <option value="text" <%= "selected" if selected?("text") %>><%= t(".text") %></option>
+      </select>
+    </div>
 
-  <button
+    <button
     type="button"
     class="btn btn-ghost btn-xs btn-circle text-base-content/40 hover:text-error"
     data-action="click->project-attributes-builder#remove">
-    ✕
-  </button>
-</div>
+      ✕
+    </button>
+  </div>

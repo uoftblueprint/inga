@@ -2,9 +2,9 @@
   <div class="card-body p-4">
     <div class="flex justify-between items-center">
       <h3 class="card-title text-sm font-semibold">
-        <%= t("projects.log_schema_component.title") %>
+        <%= t(".title") %>
       </h3>
-      <%= render BadgeComponent.new(text: t("projects.log_schema_component.attributes_count", count: log_schema.size), colour: :warning, size: :sm) %>
+      <%= render BadgeComponent.new(text: t(".attributes_count", count: log_schema.size), colour: :warning, size: :sm) %>
     </div>
 
     <div class="divider -my-1 opacity-60"></div>
@@ -22,7 +22,7 @@
     </div>
 
     <% if log_schema.empty? %>
-      <p class="text-sm text-base-content/60 italic"> <%= t("projects.log_schema_component.empty_state") %> </p>
+      <p class="text-sm text-base-content/60 italic"> <%= t(".empty_state") %> </p>
     <% end %>
   </div>
 </div>

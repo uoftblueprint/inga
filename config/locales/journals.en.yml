@@ -1,26 +1,28 @@
 en:
   journals:
     index:
-      admin_ui: "Admin UI"
-      delete: "Delete"
-      delete_confirmation: "Are you sure you want to delete this journal entry?"
-      edit: "Edit"
       title: "Journals"
-      view: "View"
+      actions:
+        view: "View"
+        edit: "Edit"
+        delete: "Delete"
     new:
       title: "New Journal"
     edit:
       title: "Edit Journal"
-    show:
-      author: "Author"
-      back_to_subproject: "Back to Subproject"
-      created_at: "Created at"
-      delete: "Delete"
-      delete_confirmation: "Are you sure you want to delete this journal entry?"
-      edit: "Edit"
     create:
       success: "Journal was successfully created."
     update:
       success: "Journal was successfully updated."
+    show:
+      author: "Author"
+      back_to_subproject: "Back to Subproject"
+      created_at: "Created at"
+      actions:
+        edit: "Edit"
+        delete: "Delete"
+    form_component:
+      content: "Content"
     destroy:
+      confirm: "Are you sure you want to delete this journal entry?"
       success: "Journal was successfully destroyed."

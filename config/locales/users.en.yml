@@ -4,21 +4,38 @@ en:
       actions:
         delete: "Delete user"
         edit: "Edit user"
-      delete_confirmation: "Are you sure you want to delete this user?"
+      table:
+        created_at: "Created At"
+        updated_at: "Updated At"
+        projects: "Project"
+        subproject: "Subproject"
+        actions: "Actions"
       log_entries: "Log Entries"
+    new:
+      title: "New User"
     create:
       success: "Account created successfully."
+    edit:
+      title: "Edit User"
     update:
       success: "Account updated successfully."
     destroy:
       success: "Account deleted successfully."
       self_deletion: "You cannot delete your own account."
+      confirm: "Are you sure you want to delete this user?"
     index:
       title: "Manage Users"
-      create_user: "Create User"
-      actions: "Actions"
-      delete_confirmation: "Are you sure you want to delete this user?"
-    form:
+      actions:
+        create: "Create User"
+      table:
+        username: "Username"
+        roles: "Roles"
+        actions: "Actions"
+    form_component:
+      username: "Username"
+      name: "Name"
+      roles: "Roles"
+      password: "Password"
       confirm_password: "Confirm password"
       placeholder: "Type here"
   role_badge_component:

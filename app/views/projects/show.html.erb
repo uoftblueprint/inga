@@ -1,16 +1,16 @@
 <div class="flex flex-col gap-3 p-2">
   <h1 class="font-bold text-xl"><%= @project.name %></h1>
   <div>
-    <p><strong><%= t(".description_field") %>: </strong> <%= @project.description %></p>
-    <p><strong><%= t(".created_field") %> : </strong> <%= @project.created_at.to_fs(:long_ordinal) %></p>
-    <p><strong><%= t(".updated_field") %>: </strong> <%= @project.updated_at.to_fs(:long_ordinal) %></p>
-    <p><strong><%= t(".active_field") %>: </strong> <%= @project.active ? "Yes" : "No" %> </p>
+    <p><strong><%= t(".description") %>: </strong> <%= @project.description %></p>
+    <p><strong><%= t(".created_at") %>: </strong> <%= @project.created_at.to_fs(:long_ordinal) %></p>
+    <p><strong><%= t(".updated_at") %>: </strong> <%= @project.updated_at.to_fs(:long_ordinal) %></p>
+    <p><strong><%= t(".active") %>: </strong> <%= @project.active ? "Yes" : "No" %> </p>
   </div>
   <div>
-    <h3 class="font-bold"><%= t(".subprojects_title") %></h3>
+    <h3 class="font-bold"><%= t(".subprojects") %></h3>
     <ul>
       <% @project.subprojects.order(:name).each do |subproj| %>
-        <li> <%= subproj.name %> </li>
+        <li><%= subproj.name %></li>
       <% end %>
     </ul>
   </div>
@@ -19,11 +19,11 @@
                 data: { turbo_stream: true },
                 class: "inline-flex items-center gap-2 text-xs font-medium text-base-100 bg-primary py-2.5 px-3 rounded" do %>
       <%= render IconComponent.new(icon: "add", size: :sm) %>
-      <%= t("subprojects.show.create_button") %>
+      <%= t(".create_subproject") %>
     <% end %>
   </div>
   <div>
-    <h3 class="font-bold"><%= t(".reports_title") %></h3>
+    <h3 class="font-bold"><%= t(".reports") %></h3>
     <ul>
       <% @project.reports.each do |report| %>
         <li> <%= report.name %> </li>
@@ -35,7 +35,7 @@
   </div>
   <div>
     <%= link_to t(".return_to_projects"), projects_path, class: "btn btn-outline btn-link" %>
-    <%= button_to t(".delete_button"), project_path(@project), method: :delete, data: { turbo_confirm: t(".delete_confirmation") }, class: "btn btn-error btn-sm mt-3" %>
+    <%= button_to t(".actions.delete"), project_path(@project), method: :delete, data: { turbo_confirm: t("projects.destroy.confirm") }, class: "btn btn-error btn-sm mt-3" %>
   </div>
 
   <div class="w-2/5 mx-auto">
