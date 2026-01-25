@@ -47,7 +47,7 @@ class SubprojectsController < ApplicationController
 
     if @subproject.update(subproject_params)
       redirect_to(
-        project_path(@project),
+        project_subproject_path(@project, @subproject),
         flash: { success: t(".success") }
       )
     else

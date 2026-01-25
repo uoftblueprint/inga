@@ -142,7 +142,7 @@ class SubprojectsControllerTest < ActionDispatch::IntegrationTest
       }
     }
 
-    assert_redirected_to project_path(@project)
+    assert_redirected_to project_subproject_path(@project, @subproject)
 
     assert_equal @subproject.reload.description, updated_description
   end
