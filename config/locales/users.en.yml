@@ -4,6 +4,8 @@ en:
       actions:
         delete: "Delete user"
         edit: "Edit user"
+      delete_confirmation: "Are you sure you want to delete this user?"
+      log_entries: "Log Entries"
     create:
       success: "Account created successfully."
     update:
@@ -12,7 +14,10 @@ en:
       success: "Account deleted successfully."
       self_deletion: "You cannot delete your own account."
     index:
-      create_user_button: "Create User"
+      title: "Manage Users"
+      create_user: "Create User"
+      actions: "Actions"
+      delete_confirmation: "Are you sure you want to delete this user?"
     form:
       confirm_password: "Confirm password"
       placeholder: "Type here"
