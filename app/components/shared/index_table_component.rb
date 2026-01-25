@@ -2,7 +2,7 @@ module Shared
   class IndexTableComponent < ViewComponent::Base
     attr_reader :records, :columns, :searchable
 
-    Column = Struct.new(:attribute, :header, :cell_renderer)
+    Column = Struct.new(:attribute, :header, :cell_renderer, :col_size)
 
     def initialize(records:, searchable: true)
       super()
@@ -11,8 +11,8 @@ module Shared
       @searchable = searchable
     end
 
-    def column(attribute, header: nil, &cell_renderer)
-      @columns << Column.new(attribute, header || attribute.to_s.humanize, cell_renderer)
+    def column(attribute, header: nil, col_size: nil, &cell_renderer)
+      @columns << Column.new(attribute, header || attribute.to_s.humanize, cell_renderer, col_size)
     end
 
     private
