@@ -1,13 +1,16 @@
 <div data-controller="index-table-component">
   <% if searchable %>
     <div class="mb-4">
-      <input
-        type="search"
-        class="input input-bordered w-full focus:outline-none"
-        placeholder="Search..."
-        data-index-table-component-target="search"
-        data-action="input->index-table-component#filter"
-        />
+      <label class="input input-bordered w-full">
+        <%= render IconComponent.new(icon: "search", size: :sm, classes: "h-[1em] opacity-50") %>
+        <input
+          type="search"
+          class="grow focus:outline-none"
+          placeholder="Search..."
+          data-index-table-component-target="search"
+          data-action="input->index-table-component#filter"
+          />
+        </label>
       </div>
     <% end %>
 
