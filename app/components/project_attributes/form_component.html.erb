@@ -1,0 +1,33 @@
+<%= form_with url: helpers.project_attributes_schema_path(@project),
+              method: :patch,
+              data: {
+                controller: "project-attributes-builder",
+                project_attributes_builder_submit_url_value: helpers.project_attributes_schema_path(@project)
+              },
+              class: "card w-full mx-auto max-w-3xl bg-base-100 border border-base-300 shadow-md rounded-xl" do |f| %>
+
+  <div class="card-body p-4 flex flex-col gap-4">
+    <div
+      id="project_attributes_list"
+      data-project-attributes-builder-target="list"
+      class="grid grid-cols-[repeat(auto-fit,minmax(400px,1fr))] gap-3">
+      <% @project.log_schema.each do |title, type| %>
+        <%= render ProjectAttributes::LogAttributeComponent.new(title: title, type: type) %>
+      <% end %>
+    </div>
+
+    <div class="divider -my-1 opacity-60"></div>
+
+    <div class="flex justify-between items-center">
+      <button
+        type="button"
+        class="btn btn-outline btn-primary btn-sm"
+        data-action="click->project-attributes-builder#add">
+        + <%= t("project_attributes.edit.new_row_button") %>
+      </button>
+
+      <%= f.submit t("project_attributes.edit.submit_button"),
+                   class: "btn btn-primary btn-sm" %>
+    </div>
+  </div>
+<% end %>

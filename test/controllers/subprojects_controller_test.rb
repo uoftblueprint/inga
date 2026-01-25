@@ -61,8 +61,8 @@ class SubprojectsControllerTest < ActionDispatch::IntegrationTest
     get project_subprojects_url(@project)
     assert_response :success
 
-    assert_select "td", text: @subproject.name
-    assert_select "td", text: other.name
+    assert_select "div", text: @subproject.name
+    assert_select "div", text: other.name
   end
 
   test "#show action test where show renders subproject details" do

@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
   # Project routes
   resources :projects do
+    resource :attributes_schema, controller: "project_attributes", only: %i[update edit] do
+      get :new_row
+    end
     # Subproject routes
-    resources :subprojects
+    resources :subprojects do
+      resources :journals
+    end
   end
 
   # Region routes
@@ -15,7 +20,7 @@ Rails.application.routes.draw do
   root "home#index"
 
   # User routes
-  resources :users, except: %i[show]
+  resources :users
 
   # Session routes
   get "/login", to: "sessions#login"

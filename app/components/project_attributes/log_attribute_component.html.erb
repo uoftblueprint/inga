@@ -1,0 +1,28 @@
+<div
+  class="flex items-center justify-between gap-3 px-3 py-2 rounded-lg border border-base-300 bg-base-200/50"
+  data-project-attributes-builder-target="row">
+  <div class="flex items-center gap-3 w-full">
+    <input
+      class="input input-ghost input-sm font-mono text-xs w-full focus:bg-base-100"
+      name="project[log_attributes][][title]"
+      data-project-attributes-builder-target="title"
+      value="<%= title %>"
+      placeholder="Attribute name">
+    <div class="divider lg:divider-horizontal"></div>
+    <select
+      class="select select-ghost select-sm min-w-[90px] text-xs"
+      name="project[log_attributes][][type]"
+      data-project-attributes-builder-target="type">
+      <option value="numerical" <%= "selected" if selected?("numerical") %>>Numerical</option>
+      <option value="boolean" <%= "selected" if selected?("boolean") %>>Boolean</option>
+      <option value="text" <%= "selected" if selected?("text") %>>Text</option>
+    </select>
+  </div>
+
+  <button
+    type="button"
+    class="btn btn-ghost btn-xs btn-circle text-base-content/40 hover:text-error"
+    data-action="click->project-attributes-builder#remove">
+    ✕
+  </button>
+</div>
