@@ -54,8 +54,8 @@ class RegionsControllerTest < ActionDispatch::IntegrationTest
     get regions_path
 
     assert_response :success
-    assert_select "td", text: @region.name
-    assert_select "td", text: region2.name
+    assert_select "div", text: @region.name
+    assert_select "div", text: region2.name
   end
 
   test "#create successfully creates a region with valid params" do

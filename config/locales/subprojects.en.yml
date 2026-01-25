@@ -4,10 +4,13 @@ en:
       title: "All subprojects"
     show:
       title: "Subproject details"
+      create_button: "Create Subproject"
     create:
       success: "Subproject created successfully"
     update:
       success: "Subproject updated successfully"
+    new:
+      title: "New Subproject"
     destroy:
       button: "Delete"
       success: "Subproject was successfully deleted."

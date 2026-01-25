@@ -15,6 +15,14 @@
     </ul>
   </div>
   <div>
+    <%= link_to new_project_subproject_path(@project),
+                data: { turbo_stream: true },
+                class: "inline-flex items-center gap-2 text-xs font-medium text-base-100 bg-primary py-2.5 px-3 rounded" do %>
+      <%= render IconComponent.new(icon: "add", size: :sm) %>
+      <%= t("subprojects.show.create_button") %>
+    <% end %>
+  </div>
+  <div>
     <h3 class="font-bold"><%= t(".reports_title") %></h3>
     <ul>
       <% @project.reports.each do |report| %>
