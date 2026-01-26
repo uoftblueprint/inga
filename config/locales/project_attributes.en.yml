@@ -1,11 +1,12 @@
+---
 en:
   project_attributes:
     form_component:
-      submit: "Save Attributes"
-      new_row: "Add Attribute"
+      new_row: Add Attribute
+      submit: Save Attributes
     log_attribute_component:
-      numerical: "Numerical"
-      boolean: "Boolean"
-      text: "Text"
+      boolean: Boolean
+      numerical: Numerical
+      text: Text
     update:
-      success: "Project attributes updated successfully"
+      success: Project attributes updated successfully

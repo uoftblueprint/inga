@@ -1,28 +1,29 @@
+---
 en:
   journals:
-    index:
-      title: "Journals"
-      actions:
-        view: "View"
-        edit: "Edit"
-        delete: "Delete"
-    new:
-      title: "New Journal"
-    edit:
-      title: "Edit Journal"
     create:
-      success: "Journal was successfully created."
-    update:
-      success: "Journal was successfully updated."
-    show:
-      author: "Author"
-      back_to_subproject: "Back to Subproject"
-      created_at: "Created at"
-      actions:
-        edit: "Edit"
-        delete: "Delete"
-    form_component:
-      content: "Content"
+      success: Journal was successfully created.
     destroy:
-      confirm: "Are you sure you want to delete this journal entry?"
-      success: "Journal was successfully destroyed."
+      confirm: Are you sure you want to delete this journal entry?
+      success: Journal was successfully destroyed.
+    edit:
+      title: Edit Journal
+    form_component:
+      content: Content
+    index:
+      actions:
+        delete: Delete
+        edit: Edit
+        view: View
+      title: Journals
+    new:
+      title: New Journal
+    show:
+      actions:
+        delete: Delete
+        edit: Edit
+      author: Author
+      back_to_subproject: Back to Subproject
+      created_at: Created at
+    update:
+      success: Journal was successfully updated.

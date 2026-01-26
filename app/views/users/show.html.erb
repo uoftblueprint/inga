@@ -39,7 +39,7 @@
           <div class="flex flex-row gap-2 items-center">
             <!-- TODO: Update paths to actual log entry paths -->
             <%= render ActionButtonComponent.new(to: root_path, icon: "edit", turbo_stream: true) %>
-            <%= render ActionButtonComponent.new(to: root_path, method: :delete, icon: "delete", colour: :error, confirm: t(".destroy.confirm")) %>
+            <%= render ActionButtonComponent.new(to: root_path, method: :delete, icon: "delete", colour: :error, confirm: t("log_entries.destroy.confirm")) %>
           </div>
         <% end %>
       <% end %>

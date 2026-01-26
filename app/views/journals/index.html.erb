@@ -29,7 +29,7 @@
           <div class="flex items-center gap-2">
             <%= link_to t(".actions.view"), project_subproject_journal_url(@project, @subproject, journal), class: "btn btn-xs btn-outline btn-info" %>
             <%= link_to t(".actions.edit"), edit_project_subproject_journal_url(@project, @subproject, journal), class: "btn btn-xs btn-outline btn-secondary" %>
-            <%= button_to t(".actions.delete"), project_subproject_journal_path(@project, @subproject, journal), method: :delete, data: { turbo_confirm: t(".destroy.confirm") }, class: "btn btn-xs btn-outline btn-error" %>
+            <%= button_to t(".actions.delete"), project_subproject_journal_path(@project, @subproject, journal), method: :delete, data: { turbo_confirm: t("journals.destroy.confirm") }, class: "btn btn-xs btn-outline btn-error" %>
           </div>
         <% end %>
       <% end %>

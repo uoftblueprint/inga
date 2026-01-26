@@ -6,7 +6,7 @@
         <span class="text-lg text-base-content/60"><%= @subproject.description %></span>
       </div>
       <div class="flex flex-row gap-4">
-        <%= button_to project_subproject_path(@project, @subproject), method: :delete, data: { turbo_confirm: t(".subprojects.destroy.confirm") }, class: "btn btn-error flex flex-row items-center gap-2 px-4 py-2 rounded shadow-none font-bold text-white" do %>
+        <%= button_to project_subproject_path(@project, @subproject), method: :delete, data: { turbo_confirm: t("subprojects.destroy.confirm") }, class: "btn btn-error flex flex-row items-center gap-2 px-4 py-2 rounded shadow-none font-bold text-white" do %>
           <%= render IconComponent.new(icon: "delete", size: :sm) %>
           <%= t(".actions.delete") %>
         <% end %>
@@ -42,7 +42,7 @@
           <div class="flex flex-row gap-2 items-center">
             <!-- TODO: Update paths to actual log entry paths -->
             <%= render ActionButtonComponent.new(to: root_path, icon: "edit", turbo_stream: true) %>
-            <%= render ActionButtonComponent.new(to: root_path, method: :delete, icon: "delete", colour: :error, confirm: t(".destroy.confirm")) %>
+            <%= render ActionButtonComponent.new(to: root_path, method: :delete, icon: "delete", colour: :error, confirm: t("log_entries.destroy.confirm")) %>
           </div>
         <% end %>
       <% end %>

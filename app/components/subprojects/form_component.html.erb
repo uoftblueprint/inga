@@ -13,7 +13,7 @@
         <%= form.text_field :address, class: "w-full" %>
       </div>
       <div class="flex flex-col gap-1">
-        <%= form.label :region_id, t(".region_id") %>
+        <%= form.label :region_id, t(".region") %>
         <%= form.collection_select :region_id, Region.order(:name), :id, :name, { prompt: "Select a Region", required: true }, { class: "w-full" } %>
       </div>
   </div>

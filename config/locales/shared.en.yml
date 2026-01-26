@@ -1,5 +1,0 @@
-en:
-  shared:
-    index_table_component:
-      destroy:
-        confirm: "Are you sure you want to delete this item?"
