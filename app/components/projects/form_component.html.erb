@@ -1,15 +1,15 @@
 <%= form_with model: project, class: "max-w-120 mx-auto flex flex-col gap-4 p-10", builder: DefaultFormBuilder do |form| %>
   <div class="flex flex-col gap-2">
     <div class="flex flex-col gap-1">
-      <%= form.label :name, t(".name") %>
+      <%= form.label :name %>
       <%= form.text_field :name, required: true, class: "w-full" %>
     </div>
     <div class="flex flex-col gap-1">
-      <%= form.label :description, t(".description") %>
+      <%= form.label :description %>
       <%= form.textarea :description, class: "w-full" %>
     </div>
     <div class="flex items-center gap-2">
-      <%= form.label :active, t(".active") %>
+      <%= form.label :active %>
       <%= form.checkbox :active %>
     </div>
     <%= form.submit %>

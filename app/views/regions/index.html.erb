@@ -6,14 +6,14 @@
     <div class="w-2/5 mt-0 divider"></div>
     <div class="p-2 border border-base-300 rounded-lg bg-base-100">
       <%= render Shared::IndexTableComponent.new(records: @regions) do |table| %>
-        <% table.column :name, header: t(".table.name") %>
-        <% table.column :latitude, header: t(".table.latitude") do |region| %>
+        <% table.column :name %>
+        <% table.column :latitude do |region| %>
           <%= "#{region.latitude.abs.round(4)}° #{region.latitude >= 0 ? 'N' : 'S'}" %>
         <% end %>
-        <% table.column :longitude, header: t(".table.longitude") do |region| %>
+        <% table.column :longitude do |region| %>
           <%= "#{region.longitude.abs.round(4)}° #{region.longitude >= 0 ? 'E' : 'W'}" %>
         <% end %>
-        <% table.column :action, header: t(".table.actions") do |region| %>
+        <% table.column :action, header: t("shared.index_table_component.actions") do |region| %>
           <div class="flex gap-2">
             <%= link_to t("regions.edit.button"), edit_region_path(region), class: "btn btn-xs btn-outline btn-info" %>
             <%= button_to t("regions.destroy.button"), region_path(region),

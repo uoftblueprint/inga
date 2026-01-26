@@ -153,8 +153,10 @@ search:
 # - '{devise,simple_form}.*'
 
 ## Consider these keys used:
-# ignore_unused:
-# - 'activerecord.attributes.*'
+ignore_unused:
+- 'activerecord.attributes.*'
+- date.*
+- time.*
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'
 # - 'simple_form.{placeholders,hints,labels}.*'
@@ -172,9 +174,8 @@ search:
 # - 'activerecord.attributes.*'
 
 ## Ignore these keys completely:
-ignore:
- - date.*
- - time.*
+# ignore:
+# - 'some.unused.key'
 
 ## Sometimes, it isn't possible for i18n-tasks to match the key correctly,
 ## e.g. in case of a relative key defined in a helper method.

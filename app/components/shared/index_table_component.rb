@@ -31,16 +31,16 @@ module Shared
       return @model_class if instance_variable_defined?(:@model_class)
 
       @model_class = if records.respond_to?(:model) # for models
-        records.model
-      elsif records.respond_to?(:klass) # for relations
-        records.klass
-      end
+                       records.model
+                     elsif records.respond_to?(:klass) # for relations
+                       records.klass
+                     end
     end
 
     def default_header_for(attribute)
       klass = model_class
 
-      if klass && klass.respond_to?(:human_attribute_name)
+      if klass.respond_to?(:human_attribute_name)
         klass.human_attribute_name(attribute)
       else
         attribute.to_s.humanize

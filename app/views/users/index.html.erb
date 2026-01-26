@@ -8,15 +8,15 @@
   </div>
   <%= render ContentCardComponent.new do %>
     <%= render Shared::IndexTableComponent.new(records: @users) do |table| %>
-      <% table.column :username, header: t(".table.username") %>
-      <% table.column :roles, header: t(".table.roles") do |user| %>
+      <% table.column :username %>
+      <% table.column :roles do |user| %>
         <% role_colour_map = { "admin" => :primary, "reporter" => :info, "analyst" => :warning } %>
         <% user.user_roles.each do |role| %>
           <% col = role_colour_map[role.role.to_s.downcase] %>
           <%= render BadgeComponent.new(text: role.role, colour: col) %>
         <% end %>
       <% end %>
-      <% table.column :actions, header: t(".table.actions"), col_size: "67px" do |user| %>
+      <% table.column :actions, header: t("shared.index_table_component.actions"), col_size: "67px" do |user| %>
         <div class="flex flex-row gap-2 items-center">
           <%= render ActionButtonComponent.new(to: edit_user_path(user), icon: "edit", turbo_stream: true) %>
           <%= render ActionButtonComponent.new(to: user_path(user), method: :delete, icon: "delete", colour: :error, confirm: t("users.destroy.confirm")) %>

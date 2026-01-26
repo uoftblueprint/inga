@@ -29,16 +29,16 @@
     <%= render ContentCardComponent.new do %>
       <h1 class="text-2xl font-bold"><%= t(".log_entries") %></h1>
       <%= render Shared::IndexTableComponent.new(records: @subproject.log_entries) do |table| %>
-        <% table.column :created_at, header: t(".log_entries_table.created_at") do |log_entry| %>
+        <% table.column :created_at do |log_entry| %>
           <%= l(log_entry.created_at) %>
         <% end %>
-        <% table.column :updated_at, header: t(".log_entries_table.updated_at") do |log_entry| %>
+        <% table.column :updated_at do |log_entry| %>
           <%= l(log_entry.updated_at) %>
         <% end %>
-        <% table.column :user, header: t(".log_entries_table.username") do |log_entry| %>
+        <% table.column :user do |log_entry| %>
           <%= log_entry.user.username %>
         <% end %>
-        <% table.column :actions, header: t(".log_entries_table.actions"), col_size: "67px" do |log_entry| %>
+        <% table.column :actions, header: t("shared.index_table_component.actions"), col_size: "67px" do |log_entry| %>
           <div class="flex flex-row gap-2 items-center">
             <!-- TODO: Update paths to actual log entry paths -->
             <%= render ActionButtonComponent.new(to: root_path, icon: "edit", turbo_stream: true) %>

@@ -1,5 +1,11 @@
 ---
 en:
+  activerecord:
+    attributes:
+      journal:
+        markdown_content: Content
+        subproject: Subproject
+        user: Author
   journals:
     create:
       success: Journal was successfully created.
@@ -8,8 +14,6 @@ en:
       success: Journal was successfully destroyed.
     edit:
       title: Edit Journal
-    form_component:
-      content: Content
     index:
       actions:
         delete: Delete

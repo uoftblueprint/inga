@@ -8,7 +8,7 @@
 
     <div class="p-2 border border-base-300 rounded-lg bg-base-100">
       <%= render Shared::IndexTableComponent.new(records: @journals) do |table| %>
-        <% table.column :author do |journal| %>
+        <% table.column :user do |journal| %>
           <%= journal.user.username %>
         <% end %>
 
@@ -16,7 +16,7 @@
           <%= @subproject.name %>
         <% end %>
 
-        <% table.column :content do |journal| %>
+        <% table.column :markdown_content do |journal| %>
           <!-- Truncate the content to 100 characters for better display -->
           <%= truncate(journal.markdown_content.to_plain_text, length: 100) %>
         <% end %>
@@ -25,7 +25,7 @@
           <%= journal.created_at.to_fs(:long_ordinal) %>
         <% end %>
 
-        <% table.column :action, header: "" do |journal| %>
+        <% table.column :action, header: t("shared.index_table_component.actions") do |journal| %>
           <div class="flex items-center gap-2">
             <%= link_to t(".actions.view"), project_subproject_journal_url(@project, @subproject, journal), class: "btn btn-xs btn-outline btn-info" %>
             <%= link_to t(".actions.edit"), edit_project_subproject_journal_url(@project, @subproject, journal), class: "btn btn-xs btn-outline btn-secondary" %>

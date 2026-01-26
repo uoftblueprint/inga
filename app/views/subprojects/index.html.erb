@@ -6,13 +6,13 @@
     <div class="w-2/5 mt-0 divider"></div>
     <div class="p-2 border border-base-300 rounded-lg bg-base-100">
       <%= render Shared::IndexTableComponent.new(records: @subprojects) do |table| %>
-        <% table.column :name, header: t(".table.name") %>
-        <% table.column :description, header: t(".table.description") %>
-        <% table.column :address, header: t(".table.address") %>
-        <% table.column :region, header: t(".table.region") do |subproject| %>
+        <% table.column :name %>
+        <% table.column :description %>
+        <% table.column :address %>
+        <% table.column :region do |subproject| %>
           <%= subproject.region.name %>
         <% end %>
-        <% table.column :action, header: t(".table.actions") do |subproject| %>
+        <% table.column :action, header: t("shared.index_table_component.actions") do |subproject| %>
           <%= link_to "View", project_subproject_url(@project, subproject), class: "btn btn-xs btn-outline btn-info" %>
         <% end %>
       <% end %>

@@ -1,5 +1,12 @@
 ---
 en:
+  activerecord:
+    attributes:
+      subproject:
+        address: Address
+        description: Description
+        name: Name
+        region: Region
   subprojects:
     create:
       success: Subproject created successfully
@@ -9,18 +16,8 @@ en:
     edit:
       title: Edit Subproject
     form_component:
-      address: Address
-      description: Description
-      name: Name
-      region: Region
       select_a_region: Select a region
     index:
-      table:
-        actions: Actions
-        address: Address
-        description: Description
-        name: Name
-        region: Region
       title: Subprojects
     new:
       title: New Subproject
@@ -31,10 +28,5 @@ en:
       create_journal_entry: Create journal entry
       create_log_entry: Create log entry
       log_entries: Log Entries
-      log_entries_table:
-        actions: Actions
-        created_at: Created At
-        updated_at: Updated At
-        username: Username
     update:
       success: Subproject updated successfully
