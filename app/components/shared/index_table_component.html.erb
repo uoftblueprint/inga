@@ -38,5 +38,10 @@
         </div>
       </div>
     <% end %>
+    <div data-index-table-component-target="emptyRow" class="card bg-white rounded-lg shadow-sm <%= "hidden" unless empty? %>">
+      <div class="flex justify-center p-3 items-center">
+        <div class="text-sm text-base-content/40 font-bold"><%= t("index_table_component.no_attributes") %></div>
+      </div>
+    </div>
   </div>
 </div>
