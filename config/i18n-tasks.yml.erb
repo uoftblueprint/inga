@@ -15,9 +15,7 @@ data:
 
   # Locale files or `Dir.glob` patterns where translations are read from:
   read:
-    ## Default:
-    # - config/locales/%{locale}.yml
-    ## More files:
+    - config/locales/%{locale}.yml
     - config/locales/**/*.%{locale}.yml
 
   # Locale files to write new keys to, based on a list of key pattern => file rules. Matched from top to bottom:
@@ -174,8 +172,9 @@ search:
 # - 'activerecord.attributes.*'
 
 ## Ignore these keys completely:
-# ignore:
-#  - kaminari.*
+ignore:
+ - date.*
+ - time.*
 
 ## Sometimes, it isn't possible for i18n-tasks to match the key correctly,
 ## e.g. in case of a relative key defined in a helper method.

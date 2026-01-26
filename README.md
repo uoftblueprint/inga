@@ -186,6 +186,15 @@ bundle exec erb_lint --lint-all [--autocorrect]
 **Note:** the `--autocorrect` option is optional, and will write changes to
 your files.
 
----
-
 For any issues, please reach out to the project leads so we can help you!
+
+## Managing Translations
+
+To keep translation files organized and consistent, you should run the following commands before submitting changes that use or affect locale files (e.g. after using or editing translation keys):
+
+```
+bundle exec i18n-tasks check
+bundle exec i18n-tasks normalize
+```
+
+These commands will automatically sort and normalize your YAML translation files (e.g., `config/locales/*.yml`). It helps prevent merge conflicts and ensures all keys are in the correct order.
