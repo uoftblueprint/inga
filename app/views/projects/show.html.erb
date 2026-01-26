@@ -10,7 +10,12 @@
     <h3 class="font-bold"><%= t(".subprojects") %></h3>
     <ul>
       <% @project.subprojects.order(:name).each do |subproj| %>
-        <li><%= subproj.name %></li>
+      <div class="flex flex-row items-center my-2">
+        <li> <%= subproj.name %> </li>
+        <%= link_to edit_project_subproject_path(@project, subproj), data: { turbo_stream: true }, class: "btn btn-primary mx-3" do %>
+          <%= t(".edit_subproject") %>
+        <% end %>
+      </div>
       <% end %>
     </ul>
   </div>

@@ -21,6 +21,11 @@ class SubprojectsController < ApplicationController
 
   def edit
     @subproject = @project.subprojects.find(params[:id])
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
   def create

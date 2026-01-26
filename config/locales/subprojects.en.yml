@@ -6,6 +6,8 @@ en:
     destroy:
       confirm: Are you sure you want to delete this subproject?
       success: Subproject was successfully deleted.
+    edit:
+      title: Edit Subproject
     form_component:
       address: Address
       description: Description

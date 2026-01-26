@@ -29,6 +29,7 @@ en:
       create_subproject: Create Subproject
       created_at: Date created
       description: Description
+      edit_subproject: Edit Subproject
       no_reports: This project has no reports
       reports: Reports
       return_to_projects: Back to projects
