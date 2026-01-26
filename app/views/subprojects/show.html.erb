@@ -10,7 +10,7 @@
           <%= render IconComponent.new(icon: "delete", size: :sm) %>
           <%= t(".actions.delete") %>
         <% end %>
-        <%= link_to edit_project_subproject_path(@project, @subproject), method: :get, class: "btn btn-primary flex flex-row items-center gap-2 px-4 py-2 rounded shadow-none font-bold" do %>
+        <%= link_to edit_project_subproject_path(@project, @subproject), method: :get, class: "btn btn-primary flex flex-row items-center gap-2 px-4 py-2 rounded shadow-none font-bold", data: { turbo_stream: true } do %>
           <%= render IconComponent.new(icon: "edit", size: :sm) %>
           <%= t(".actions.edit") %>
         <% end %>
@@ -19,8 +19,7 @@
           <%= render IconComponent.new(icon: "add", size: :sm) %>
           <%= t(".create_log_entry") %>
         <% end %>
-        <%# TODO: link to correct path %>
-        <%= link_to root_path, method: :get, class: "btn btn-primary flex flex-row items-center gap-2 px-4 py-2 rounded shadow-none font-bold" do %>
+        <%= link_to new_project_subproject_journal_path(@project, @subproject), method: :get, class: "btn btn-primary flex flex-row items-center gap-2 px-4 py-2 rounded shadow-none font-bold" do %>
           <%= render IconComponent.new(icon: "add", size: :sm) %>
           <%= t(".create_journal_entry") %>
         <% end %>
