@@ -1,5 +1,13 @@
 ---
 en:
+  activerecord:
+    attributes:
+      log_entry:
+        created_at: Created At
+        project: Project
+        subproject: Subproject
+        updated_at: Updated At
+        user: User
   log_entries:
     destroy:
       confirm: Are you sure you want to delete this log entry?

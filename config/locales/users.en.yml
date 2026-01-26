@@ -1,5 +1,12 @@
 ---
 en:
+  activerecord:
+    attributes:
+      user:
+        name: Name
+        password: Password
+        roles: Roles
+        username: Username
   users:
     create:
       success: Account created successfully.
@@ -11,18 +18,10 @@ en:
       title: Edit User
     form_component:
       confirm_password: Confirm password
-      name: Name
-      password: Password
       placeholder: Type here
-      roles: Roles
-      username: Username
     index:
       actions:
         create: Create User
-      table:
-        actions: Actions
-        roles: Roles
-        username: Username
       title: Manage Users
     new:
       title: New User
@@ -38,11 +37,5 @@ en:
         delete: Delete user
         edit: Edit user
       log_entries: Log Entries
-      table:
-        actions: Actions
-        created_at: Created At
-        project: Project
-        subproject: Subproject
-        updated_at: Updated At
     update:
       success: Account updated successfully.

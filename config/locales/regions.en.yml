@@ -1,5 +1,11 @@
 ---
 en:
+  activerecord:
+    attributes:
+      region:
+        latitude: Latitude
+        longitude: Longitude
+        name: Name
   regions:
     create:
       success: Region created successfully
@@ -9,16 +15,7 @@ en:
       success: Region deleted successfully
     edit:
       button: Edit
-    form_component:
-      latitude: Latitude
-      longitude: Longitude
-      name: Name
     index:
-      table:
-        actions: Actions
-        latitude: Latitude
-        longitude: Longitude
-        name: Name
       title: Regions
     update:
       success: Region updated successfully
