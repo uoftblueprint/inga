@@ -47,6 +47,8 @@ module Shared
       end
     end
 
+    def empty? = records.empty?
+
     def before_render
       content
     end

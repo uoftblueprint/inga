@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["search", "row"];
+  static targets = ["search", "row", "emptyRow"];
 
   connect() {
     this._rows = this.rowTargets || [];
@@ -11,18 +11,26 @@ export default class extends Controller {
     const query = (this.searchTarget?.value || "").trim().toLowerCase();
 
     if (!query) {
-      this._rows.forEach((r) => (r.style.display = ""));
+      this._rows.forEach((row) => {
+        row.style.display = "";
+      });
+
+      this.emptyRowTarget.classList.add("hidden");
       return;
     }
 
-    this._rows.forEach((row) => {
-      // take the entire row's displayed text, trim whitespace, make case
-      // insensitive
-      const text = row.textContent.replace(/\s+/g, " ").toLowerCase();
-      const match = text.indexOf(query) !== -1;
+    let hasMatch = false;
 
-      // only show rows that match
+    this._rows.forEach((row) => {
+      const text = row.textContent.replace(/\s+/g, " ").toLowerCase();
+      const match = text.includes(query);
+
       row.style.display = match ? "" : "none";
+
+      if (match) {
+        hasMatch = true;
+      }
     });
+    this.emptyRowTarget.classList.toggle("hidden", hasMatch);
   }
 }
