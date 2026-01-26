@@ -14,7 +14,7 @@
           <%= render IconComponent.new(icon: "edit", size: :sm) %>
           <%= t(".actions.edit") %>
         <% end %>
-        <%= button_to user_path(@user), method: :delete, class: "btn btn-error flex flex-row items-center gap-2 px-4 py-2 rounded shadow-none font-bold text-white" do %>
+        <%= button_to user_path(@user), method: :delete, data: { turbo_confirm: t("users.destroy.confirm") }, class: "btn btn-error flex flex-row items-center gap-2 px-4 py-2 rounded shadow-none font-bold text-white" do %>
           <%= render IconComponent.new(icon: "delete", size: :sm) %>
           <%= t(".actions.delete") %>
         <% end %>
@@ -23,23 +23,23 @@
     <%= render ContentCardComponent.new do %>
       <h1 class="text-2xl font-bold"><%= t(".log_entries") %></h1>
       <%= render Shared::IndexTableComponent.new(records: @user.log_entries) do |table| %>
-        <% table.column :created_at do |log_entry| %>
+        <% table.column :created_at, header: t(".table.created_at") do |log_entry| %>
           <%= l(log_entry.created_at) %>
         <% end %>
-        <% table.column :updated_at do |log_entry| %>
+        <% table.column :updated_at, header: t(".table.updated_at") do |log_entry| %>
           <%= l(log_entry.updated_at) %>
         <% end %>
-        <% table.column :project do |log_entry| %>
+        <% table.column :project, header: t(".table.project") do |log_entry| %>
           <%= log_entry.subproject.project.name %>
         <% end %>
-        <% table.column :subproject do |log_entry| %>
+        <% table.column :subproject, header: t(".table.subproject") do |log_entry| %>
           <%= log_entry.subproject.name %>
         <% end %>
-        <% table.column :actions, col_size: "67px" do |log_entry| %>
+        <% table.column :actions, header: t(".table.actions"), col_size: "67px" do |log_entry| %>
           <div class="flex flex-row gap-2 items-center">
             <!-- TODO: Update paths to actual log entry paths -->
             <%= render ActionButtonComponent.new(to: root_path, icon: "edit", turbo_stream: true) %>
-            <%= render ActionButtonComponent.new(to: root_path, method: :delete, icon: "delete", colour: :error, confirm: t(".delete_confirmation")) %>
+            <%= render ActionButtonComponent.new(to: root_path, method: :delete, icon: "delete", colour: :error, confirm: t("log_entries.destroy.confirm")) %>
           </div>
         <% end %>
       <% end %>

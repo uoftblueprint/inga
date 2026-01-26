@@ -1,5 +1,5 @@
 module Projects
-  class ProjectFormComponent < ViewComponent::Base
+  class FormComponent < ViewComponent::Base
     attr_reader :project
 
     def initialize(project:)

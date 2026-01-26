@@ -1,25 +1,38 @@
+---
 en:
   projects:
-    log_schema_component:
-      title: "Collected Attributes"
-      empty_state: "No attributes defined for this project."
-      attributes_count:
-        one: "1 attribute"
-        other: "%{count} attributes"
-    show:
-      description_field: "Description"
-      created_field: "Date created"
-      updated_field: "Last updated"
-      active_field: "Active"
-      subprojects_title: "Subprojects"
-      reports_title: "Reports"
-      no_reports: "This project has no reports"
-      return_to_projects: "Back to projects"
-      delete_button: "Delete project"
-      delete_confirmation: "Are you sure you want to delete this project? This will also delete this project's subprojects and reports."
     create:
-      success: "Project created successfully"
+      success: Project created successfully
     destroy:
-      success: "Project deleted sucessfully"
+      confirm: Are you sure you want to delete this project? This will also delete this project's subprojects and reports.
+      success: Project deleted successfully
+    form_component:
+      active: Active
+      description: Description
+      name: Name
+    index:
+      actions:
+        create: Create Project
+      title: Projects
+    log_schema_component:
+      attributes_count:
+        one: 1 attribute
+        other: "%{count} attributes"
+      empty_state: No attributes defined for this project.
+      title: Collected Attributes
+    new:
+      title: New Project
+    show:
+      actions:
+        delete: Delete project
+      active: Active
+      create_subproject: Create Subproject
+      created_at: Date created
+      description: Description
+      no_reports: This project has no reports
+      reports: Reports
+      return_to_projects: Back to projects
+      subprojects: Subprojects
+      updated_at: Last updated
     update:
-      success: "Project updated successfully"
+      success: Project updated successfully

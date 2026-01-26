@@ -1,20 +1,20 @@
 <%= form_with model: [@project, @subproject], class: "max-w-120 mb-3 mx-auto flex flex-col gap-4", builder: DefaultFormBuilder do |form| %>
   <div class="flex flex-col gap-2">
       <div class="flex flex-col gap-1">
-        <%= form.label :name %>
+        <%= form.label :name, t(".name") %>
         <%= form.text_field :name, required: true, class: "w-full" %>
       </div>
       <div class="flex flex-col gap-1">
-        <%= form.label :description %>
+        <%= form.label :description, t(".description") %>
         <%= form.text_field :description, class: "w-full" %>
       </div>
       <div class="flex flex-col gap-1">
-        <%= form.label :address %>
+        <%= form.label :address, t(".address") %>
         <%= form.text_field :address, class: "w-full" %>
       </div>
       <div class="flex flex-col gap-1">
-        <%= form.label :region_id %>
-        <%= form.collection_select :region_id, Region.order(:name), :id, :name, { prompt: "Select a Region", required: true }, { class: "w-full" } %>
+        <%= form.label :region_id, t(".region") %>
+        <%= form.collection_select :region_id, Region.order(:name), :id, :name, { prompt: t(".select_a_region"), required: true }, { class: "w-full" } %>
       </div>
   </div>
   <div class="flex justify-end">

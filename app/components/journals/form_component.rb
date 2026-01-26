@@ -1,5 +1,5 @@
 module Journals
-  class JournalFormComponent < ViewComponent::Base
+  class FormComponent < ViewComponent::Base
     attr_reader :project, :subproject, :journal, :title
 
     delegate_missing_to :helpers
