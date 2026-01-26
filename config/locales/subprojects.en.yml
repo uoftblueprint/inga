@@ -11,6 +11,7 @@ en:
       description: Description
       name: Name
       region: Region
+      select_a_region: Select a region
     index:
       table:
         actions: Actions

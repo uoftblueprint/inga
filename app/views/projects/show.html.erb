@@ -4,7 +4,7 @@
     <p><strong><%= t(".description") %>: </strong> <%= @project.description %></p>
     <p><strong><%= t(".created_at") %>: </strong> <%= @project.created_at.to_fs(:long_ordinal) %></p>
     <p><strong><%= t(".updated_at") %>: </strong> <%= @project.updated_at.to_fs(:long_ordinal) %></p>
-    <p><strong><%= t(".active") %>: </strong> <%= @project.active ? "Yes" : "No" %> </p>
+    <p><strong><%= t(".active") %>: </strong> <%= @project.active ? t("common.yes") : t("common.no") %> </p>
   </div>
   <div>
     <h3 class="font-bold"><%= t(".subprojects") %></h3>

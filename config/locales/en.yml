@@ -34,3 +34,6 @@ en:
   time:
     formats:
       default: "%d-%m-%Y, %H:%M:%S"
+  common:
+    yes: "Yes"
+    no: "No"
