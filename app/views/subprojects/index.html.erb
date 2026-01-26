@@ -1,24 +1,18 @@
 <div class="mx-auto my-10 w-4/5 max-w-[1450px]">
   <%= render ContentCardComponent.new do %>
     <div class="flex items-center gap-3">
-      <h1 class="text-3xl font-bold">Subprojects</h1>
-      <span class="badge badge-primary">Admin UI</span>
+      <h1 class="text-3xl font-bold"><%= t(".title") %></h1>
     </div>
     <div class="w-2/5 mt-0 divider"></div>
-    <%= form_with url: project_subprojects_path(@project), method: :get, local: true, class: "flex items-center gap-3 mb-2" do |form| %>
-      <%= form.search_field :name, value: params[:name], placeholder: "Filter by name", class: "flex-1" %>
-      <%= form.submit "Search", name: nil %>
-      <%= link_to "Clear", project_subprojects_path(@project), class: "btn btn-neutral btn-outline" %>
-    <% end %>
     <div class="p-2 border border-base-300 rounded-lg bg-base-100">
       <%= render Shared::IndexTableComponent.new(records: @subprojects) do |table| %>
-        <% table.column :name %>
-        <% table.column :description %>
-        <% table.column :address %>
-        <% table.column :region do |subproject| %>
-            <%= subproject.region.name %>
+        <% table.column :name, header: t(".table.name") %>
+        <% table.column :description, header: t(".table.description") %>
+        <% table.column :address, header: t(".table.address") %>
+        <% table.column :region, header: t(".table.region") do |subproject| %>
+          <%= subproject.region.name %>
         <% end %>
-        <% table.column :action, header: "" do |subproject| %>
+        <% table.column :action, header: t(".table.actions") do |subproject| %>
           <%= link_to "View", project_subproject_url(@project, subproject), class: "btn btn-xs btn-outline btn-info" %>
         <% end %>
       <% end %>

@@ -1,28 +1,40 @@
+---
 en:
   subprojects:
-    index:
-      title: "All subprojects"
-    show:
-      title: "Subproject details"
-      search_placeholder: "Search log entries"
-      actions:
-        delete: "Delete subproject"
-        edit: "Edit subproject"
-        create_log_entry: "Create log entry"
-        create_journal_entry: "Create journal entry"
-      create_journal_entry: "Create journal entry"
-      delete_confirmation: "Are you sure you want to delete this subproject? Deleting a subproject will also delete all associated log entries and journal entries."
-      create_button: "Create Subproject"
-      edit_button: "Edit"
     create:
-      success: "Subproject created successfully"
-    update:
-      success: "Subproject updated successfully"
-    new:
-      title: "New Subproject"
-    edit:
-      title: "Edit Subproject"
+      success: Subproject created successfully
     destroy:
-      button: "Delete"
-      success: "Subproject was successfully deleted."
-      confirm: "Are you sure you want to delete this subproject?"
+      confirm: Are you sure you want to delete this subproject?
+      success: Subproject was successfully deleted.
+    edit:
+      title: Edit Subproject
+    form_component:
+      address: Address
+      description: Description
+      name: Name
+      region: Region
+      select_a_region: Select a region
+    index:
+      table:
+        actions: Actions
+        address: Address
+        description: Description
+        name: Name
+        region: Region
+      title: Subprojects
+    new:
+      title: New Subproject
+    show:
+      actions:
+        delete: Delete subproject
+        edit: Edit subproject
+      create_journal_entry: Create journal entry
+      create_log_entry: Create log entry
+      log_entries: Log Entries
+      log_entries_table:
+        actions: Actions
+        created_at: Created At
+        updated_at: Updated At
+        username: Username
+    update:
+      success: Subproject updated successfully

@@ -1,5 +1,5 @@
 module Regions
-  class RegionFormComponent < ViewComponent::Base
+  class FormComponent < ViewComponent::Base
     attr_reader :region
 
     def initialize(region:)

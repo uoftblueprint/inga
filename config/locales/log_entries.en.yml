@@ -1,0 +1,5 @@
+---
+en:
+  log_entries:
+    destroy:
+      confirm: Are you sure you want to delete this log entry?

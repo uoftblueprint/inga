@@ -1,5 +1,5 @@
 <%= turbo_stream.replace "modal" do %>
-  <%= render ModalComponent.new(title: t("subprojects.edit.title")) do %>
+  <%= render ModalComponent.new(title: t(".title")) do %>
     <%= render Subprojects::SubprojectFormComponent.new(project: @project, subproject: @subproject) %>
   <% end %>
 <% end %>
