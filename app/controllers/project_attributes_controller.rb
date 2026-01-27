@@ -1,5 +1,11 @@
 class ProjectAttributesController < ApplicationController
-  def edit = @project = Project.find(params[:project_id])
+  def edit
+    @project = Project.find(params[:project_id])
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
+  end
 
   def new_row
     respond_to do |format|
