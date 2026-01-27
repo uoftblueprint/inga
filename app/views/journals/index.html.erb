@@ -25,7 +25,7 @@
         <%= journal.created_at.to_fs(:long_ordinal) %>
       <% end %>
 
-      <% table.column :action, header: t("shared.index_table_component.actions"), col_size: "90px" do |journal| %>
+      <% table.column :actions, header: t("shared.index_table_component.actions"), col_size: "90px" do |journal| %>
         <div class="flex items-center gap-2">
           <%= render ActionButtonComponent.new(to: project_subproject_journal_path(@project, @subproject, journal), icon: "view") %>
           <%= render ActionButtonComponent.new(to: edit_project_subproject_journal_path(@project, @subproject, journal), icon: "edit", colour: :info) %>
