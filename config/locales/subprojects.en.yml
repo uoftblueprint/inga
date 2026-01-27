@@ -19,6 +19,8 @@ en:
       select_a_region: Select a region
     index:
       title: Subprojects
+      actions:
+        create: Create Subproject
     new:
       title: New Subproject
     show:
