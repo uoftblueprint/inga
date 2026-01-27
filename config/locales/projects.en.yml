@@ -27,6 +27,7 @@ en:
     show:
       actions:
         delete: Delete project
+        edit_attributes: Edit Attributes
       active: Active
       create_subproject: Create Subproject
       created_at: Date created

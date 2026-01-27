@@ -1,16 +1,20 @@
 <div id="modal"
      class="fixed inset-0 z-50 hidden bg-black/40 backdrop-blur-sm flex items-center justify-center"
      data-controller="modal"
-     data-action="turbo:submit-end->modal#close keydown.escape@window->modal#close">
+     data-action="turbo:submit-end->modal#close">
 
-  <div class="bg-base-100 rounded-box shadow-xl w-full max-w-xl p-6">
+  <div class="card bg-base-100 border border-base-300 rounded-xl shadow-xl w-full max-w-xl p-6 max-h-[90vh] flex flex-col">
     <div class="flex items-center justify-between mb-4">
       <h2 class="text-lg font-semibold"><%= title %></h2>
-      <button type="button" class="btn btn-sm btn-circle btn-ghost" data-action="modal#close"> ✕ </button>
+      <button type="button"
+              class="btn btn-ghost btn-xs btn-circle text-base-content/40 hover:text-error"
+              data-action="modal#close">
+        ✕
+      </button>
     </div>
 
     <%= render "shared/flash" %>
 
-    <div class="mt-2"> <%= content %> </div>
+    <div class="mt-2 overflow-y-auto"> <%= content %> </div>
   </div>
 </div>
