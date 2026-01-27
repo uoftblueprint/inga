@@ -18,7 +18,7 @@
       <% table.column :action, header: t("shared.index_table_component.actions"), col_size: "67px" do |region| %>
         <div class="flex items-center gap-2">
           <%= render ActionButtonComponent.new(to: edit_region_path(region), icon: "edit", colour: :info) %>
-          <%= render ActionButtonComponent.new(to: region_path(region), method: :delete, icon: "delete", colour: :error, confirm: t("subprojects.destroy.confirm")) %>
+          <%= render ActionButtonComponent.new(to: region_path(region), method: :delete, icon: "delete", colour: :error, confirm: t("regions.destroy.confirm")) %>
         </div>
       <% end %>
     <% end %>
