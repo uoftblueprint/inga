@@ -3,6 +3,7 @@ en:
   activerecord:
     attributes:
       journal:
+        created_at: Created At
         markdown_content: Content
         subproject: Subproject
         user: Author
@@ -16,10 +17,8 @@ en:
       title: Edit Journal
     index:
       actions:
-        delete: Delete
-        edit: Edit
-        view: View
-      title: Journals
+        create: Create Journal Entry
+      title: Journal Entries
     new:
       title: New Journal
     show:
@@ -28,6 +27,6 @@ en:
         edit: Edit
       author: Author
       back_to_subproject: Back to Subproject
-      created_at: Created at
+      created_at: Created At
     update:
       success: Journal was successfully updated.

@@ -1,26 +1,26 @@
-<div class="mx-auto my-10 w-4/5 max-w-[1450px]">
+<div class="mx-8 my-10">
+  <div class="flex items-center justify-between mb-5">
+    <h1 class="text-4xl font-bold"><%= t(".title") %></h1>
+    <%= link_to new_region_path, class: "btn btn-primary flex flex-row items-center gap-2 px-4 py-2 rounded shadow-none" do %>
+      <%= render IconComponent.new(icon: "add", size: :sm) %>
+      <%= t(".actions.create") %>
+    <% end %>
+  </div>
   <%= render ContentCardComponent.new do %>
-    <div class="flex items-center gap-3">
-      <h1 class="text-3xl font-bold"><%= t(".title") %></h1>
-    </div>
-    <div class="w-2/5 mt-0 divider"></div>
-    <div class="p-2 border border-base-300 rounded-lg bg-base-100">
-      <%= render Shared::IndexTableComponent.new(records: @regions) do |table| %>
-        <% table.column :name %>
-        <% table.column :latitude do |region| %>
-          <%= "#{region.latitude.abs.round(4)}° #{region.latitude >= 0 ? 'N' : 'S'}" %>
-        <% end %>
-        <% table.column :longitude do |region| %>
-          <%= "#{region.longitude.abs.round(4)}° #{region.longitude >= 0 ? 'E' : 'W'}" %>
-        <% end %>
-        <% table.column :action, header: t("shared.index_table_component.actions") do |region| %>
-          <div class="flex gap-2">
-            <%= link_to t("regions.edit.button"), edit_region_path(region), class: "btn btn-xs btn-outline btn-info" %>
-            <%= button_to t("regions.destroy.button"), region_path(region),
-                          method: :delete, form: { data: { turbo_confirm: t("regions.destroy.confirm") } }, class: "btn btn-xs btn-outline btn-error" %>
-          </div>
-        <% end %>
+    <%= render Shared::IndexTableComponent.new(records: @regions) do |table| %>
+      <% table.column :name %>
+      <% table.column :latitude do |region| %>
+        <%= "#{region.latitude.abs.round(4)}° #{region.latitude >= 0 ? 'N' : 'S'}" %>
       <% end %>
-    </div>
+      <% table.column :longitude do |region| %>
+        <%= "#{region.longitude.abs.round(4)}° #{region.longitude >= 0 ? 'E' : 'W'}" %>
+      <% end %>
+      <% table.column :actions, header: t("shared.index_table_component.actions"), col_size: "67px" do |region| %>
+        <div class="flex items-center gap-2">
+          <%= render ActionButtonComponent.new(to: edit_region_path(region), icon: "edit", colour: :info) %>
+          <%= render ActionButtonComponent.new(to: region_path(region), method: :delete, icon: "delete", colour: :error, confirm: t("regions.destroy.confirm")) %>
+        </div>
+      <% end %>
+    <% end %>
   <% end %>
 </div>

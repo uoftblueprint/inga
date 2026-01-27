@@ -18,6 +18,8 @@ en:
     form_component:
       select_a_region: Select a region
     index:
+      actions:
+        create: Create Subproject
       title: Subprojects
     new:
       title: New Subproject

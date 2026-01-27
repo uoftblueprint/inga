@@ -16,9 +16,10 @@
           <%= render BadgeComponent.new(text: role.role, colour: col) %>
         <% end %>
       <% end %>
-      <% table.column :actions, header: t("shared.index_table_component.actions"), col_size: "67px" do |user| %>
+      <% table.column :actions, header: t("shared.index_table_component.actions"), col_size: "90px" do |user| %>
         <div class="flex flex-row gap-2 items-center">
-          <%= render ActionButtonComponent.new(to: edit_user_path(user), icon: "edit", turbo_stream: true) %>
+          <%= render ActionButtonComponent.new(to: user_path(user), icon: "view") %>
+          <%= render ActionButtonComponent.new(to: edit_user_path(user), icon: "edit", turbo_stream: true, colour: :info) %>
           <%= render ActionButtonComponent.new(to: user_path(user), method: :delete, icon: "delete", colour: :error, confirm: t("users.destroy.confirm")) %>
         </div>
       <% end %>
