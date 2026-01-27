@@ -3,3 +3,4 @@ en:
   shared:
     index_table_component:
       actions: Actions
+      no_entries: No Entries Found
