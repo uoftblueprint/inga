@@ -1,38 +1,37 @@
-<div class="mx-auto my-10 w-4/5 max-w-[1450px]">
+<div class="mx-8 my-10">
+  <div class="flex items-center justify-between mb-5">
+    <h1 class="text-4xl font-bold"><%= t(".title") %></h1>
+    <%= link_to new_project_subproject_journal_path, class: "btn btn-primary flex flex-row items-center gap-2 px-4 py-2 rounded shadow-none" do %>
+      <%= render IconComponent.new(icon: "add", size: :sm) %>
+      <%= t(".actions.create") %>
+    <% end %>
+  </div>
   <%= render ContentCardComponent.new do %>
-    <div class="flex items-center gap-3">
-      <h1 class="text-3xl font-bold"><%= t(".title") %></h1>
-    </div>
-
-    <div class="w-2/5 mt-0 divider"></div>
-
-    <div class="p-2 border border-base-300 rounded-lg bg-base-100">
-      <%= render Shared::IndexTableComponent.new(records: @journals) do |table| %>
-        <% table.column :user do |journal| %>
-          <%= journal.user.username %>
-        <% end %>
-
-        <% table.column :subproject do |journal| %>
-          <%= @subproject.name %>
-        <% end %>
-
-        <% table.column :markdown_content do |journal| %>
-          <!-- Truncate the content to 100 characters for better display -->
-          <%= truncate(journal.markdown_content.to_plain_text, length: 100) %>
-        <% end %>
-
-        <% table.column :created_at do |journal| %>
-          <%= journal.created_at.to_fs(:long_ordinal) %>
-        <% end %>
-
-        <% table.column :action, header: t("shared.index_table_component.actions") do |journal| %>
-          <div class="flex items-center gap-2">
-            <%= link_to t(".actions.view"), project_subproject_journal_url(@project, @subproject, journal), class: "btn btn-xs btn-outline btn-info" %>
-            <%= link_to t(".actions.edit"), edit_project_subproject_journal_url(@project, @subproject, journal), class: "btn btn-xs btn-outline btn-secondary" %>
-            <%= button_to t(".actions.delete"), project_subproject_journal_path(@project, @subproject, journal), method: :delete, data: { turbo_confirm: t("journals.destroy.confirm") }, class: "btn btn-xs btn-outline btn-error" %>
-          </div>
-        <% end %>
+    <%= render Shared::IndexTableComponent.new(records: @journals) do |table| %>
+      <% table.column :user do |journal| %>
+        <%= journal.user.username %>
       <% end %>
-    </div>
+
+      <% table.column :subproject do |journal| %>
+        <%= @subproject.name %>
+      <% end %>
+
+      <% table.column :markdown_content do |journal| %>
+        <!-- Truncate the content to 100 characters for better display -->
+        <%= truncate(journal.markdown_content.to_plain_text, length: 100) %>
+      <% end %>
+
+      <% table.column :created_at do |journal| %>
+        <%= journal.created_at.to_fs(:long_ordinal) %>
+      <% end %>
+
+      <% table.column :action, header: t("shared.index_table_component.actions"), col_size: "90px" do |journal| %>
+        <div class="flex items-center gap-2">
+          <%= render ActionButtonComponent.new(to: project_subproject_journal_path(@project, @subproject, journal), icon: "view") %>
+          <%= render ActionButtonComponent.new(to: edit_project_subproject_journal_path(@project, @subproject, journal), icon: "edit", colour: :info) %>
+          <%= render ActionButtonComponent.new(to: project_subproject_journal_path(@project, @subproject, journal), method: :delete, icon: "delete", colour: :error, confirm: t("journals.destroy.confirm")) %>
+        </div>
+      <% end %>
+    <% end %>
   <% end %>
 </div>

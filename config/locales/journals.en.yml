@@ -6,6 +6,7 @@ en:
         markdown_content: Content
         subproject: Subproject
         user: Author
+        created_at: Created At
   journals:
     create:
       success: Journal was successfully created.
@@ -16,10 +17,8 @@ en:
       title: Edit Journal
     index:
       actions:
-        delete: Delete
-        edit: Edit
-        view: View
-      title: Journals
+        create: Create Journal Entry
+      title: Journal Entries
     new:
       title: New Journal
     show:
@@ -28,6 +27,5 @@ en:
         edit: Edit
       author: Author
       back_to_subproject: Back to Subproject
-      created_at: Created at
     update:
       success: Journal was successfully updated.
