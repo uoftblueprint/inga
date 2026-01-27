@@ -17,5 +17,7 @@ en:
       button: Edit
     index:
       title: Regions
+      actions:
+        create: Create Region
     update:
       success: Region updated successfully
