@@ -1,26 +1,32 @@
+---
 en:
+  activerecord:
+    attributes:
+      journal:
+        created_at: Created At
+        markdown_content: Content
+        subproject: Subproject
+        user: Author
   journals:
-    index:
-      admin_ui: "Admin UI"
-      delete: "Delete"
-      delete_confirmation: "Are you sure you want to delete this journal entry?"
-      edit: "Edit"
-      title: "Journals"
-      view: "View"
-    new:
-      title: "New Journal"
-    edit:
-      title: "Edit Journal"
-    show:
-      author: "Author"
-      back_to_subproject: "Back to Subproject"
-      created_at: "Created at"
-      delete: "Delete"
-      delete_confirmation: "Are you sure you want to delete this journal entry?"
-      edit: "Edit"
     create:
-      success: "Journal was successfully created."
-    update:
-      success: "Journal was successfully updated."
+      success: Journal was successfully created.
     destroy:
-      success: "Journal was successfully destroyed."
+      confirm: Are you sure you want to delete this journal entry?
+      success: Journal was successfully destroyed.
+    edit:
+      title: Edit Journal
+    index:
+      actions:
+        create: Create Journal Entry
+      title: Journal Entries
+    new:
+      title: New Journal
+    show:
+      actions:
+        delete: Delete
+        edit: Edit
+      author: Author
+      back_to_subproject: Back to Subproject
+      created_at: Created At
+    update:
+      success: Journal was successfully updated.

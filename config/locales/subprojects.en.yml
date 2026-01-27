@@ -1,17 +1,34 @@
+---
 en:
+  activerecord:
+    attributes:
+      subproject:
+        address: Address
+        description: Description
+        name: Name
+        region: Region
   subprojects:
-    index:
-      title: "All subprojects"
-    show:
-      title: "Subproject details"
-      create_button: "Create Subproject"
     create:
-      success: "Subproject created successfully"
-    update:
-      success: "Subproject updated successfully"
-    new:
-      title: "New Subproject"
+      success: Subproject created successfully
     destroy:
-      button: "Delete"
-      success: "Subproject was successfully deleted."
-      confirm: "Are you sure you want to delete this subproject?"
+      confirm: Are you sure you want to delete this subproject?
+      success: Subproject was successfully deleted.
+    edit:
+      title: Edit Subproject
+    form_component:
+      select_a_region: Select a region
+    index:
+      actions:
+        create: Create Subproject
+      title: Subprojects
+    new:
+      title: New Subproject
+    show:
+      actions:
+        delete: Delete subproject
+        edit: Edit subproject
+      create_journal_entry: Create journal entry
+      create_log_entry: Create log entry
+      log_entries: Log Entries
+    update:
+      success: Subproject updated successfully

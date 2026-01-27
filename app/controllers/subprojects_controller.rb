@@ -7,7 +7,7 @@ class SubprojectsController < ApplicationController
   end
 
   def show
-    @subproject = @project.subprojects.find(params[:id])
+    @subproject = @project.subprojects.includes(log_entries: :user).find(params[:id])
   end
 
   def new
@@ -21,6 +21,11 @@ class SubprojectsController < ApplicationController
 
   def edit
     @subproject = @project.subprojects.find(params[:id])
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
   def create

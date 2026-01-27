@@ -1,9 +1,9 @@
 <div class="mx-8 my-10">
   <div class="flex items-center justify-between mb-4">
-    <h1 class="text-4xl font-bold">Manage Users</h1>
-    <%= link_to new_user_path, data: { turbo_stream: true }, class: "btn btn-primary flex flex-row items-center gap-2 px-4 py-2 rounded" do %>
+    <h1 class="text-4xl font-bold"><%= t(".title") %></h1>
+    <%= link_to new_user_path, data: { turbo_stream: true }, class: "btn btn-primary flex flex-row items-center gap-2 px-4 py-2 rounded shadow-none" do %>
       <%= render IconComponent.new(icon: "add", size: :sm) %>
-      <%= t(".create_user_button") %>
+      <%= t(".actions.create") %>
     <% end %>
   </div>
   <%= render ContentCardComponent.new do %>
@@ -16,10 +16,11 @@
           <%= render BadgeComponent.new(text: role.role, colour: col) %>
         <% end %>
       <% end %>
-      <% table.column :actions, header: "Actions", col_size: "67px" do |user| %>
+      <% table.column :actions, header: t("shared.index_table_component.actions"), col_size: "90px" do |user| %>
         <div class="flex flex-row gap-2 items-center">
-          <%= render ActionButtonComponent.new(to: edit_user_path(user), icon: "edit", turbo_stream: true) %>
-          <%= render ActionButtonComponent.new(to: user_path(user), method: :delete, icon: "delete", colour: :error, confirm: "Are you sure?") %>
+          <%= render ActionButtonComponent.new(to: user_path(user), icon: "view") %>
+          <%= render ActionButtonComponent.new(to: edit_user_path(user), icon: "edit", turbo_stream: true, colour: :info) %>
+          <%= render ActionButtonComponent.new(to: user_path(user), method: :delete, icon: "delete", colour: :error, confirm: t("users.destroy.confirm")) %>
         </div>
       <% end %>
     <% end %>

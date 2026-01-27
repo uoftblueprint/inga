@@ -1,6 +1,17 @@
 class ActionButtonComponent < ViewComponent::Base
   attr_reader :to, :icon, :colour, :method, :confirm, :turbo_stream
 
+  COLOUR_CLASSES = {
+    neutral: "btn-neutral",
+    primary: "btn-primary",
+    secondary: "btn-secondary",
+    accent: "btn-accent",
+    info: "btn-info",
+    success: "btn-success",
+    warning: "btn-warning",
+    error: "btn-error"
+  }.freeze
+
   def initialize(to:, icon:, colour: :primary, method: :get, confirm: nil, turbo_stream: false)
     super()
 
@@ -23,6 +34,9 @@ class ActionButtonComponent < ViewComponent::Base
   private
 
   def css_classes
-    class_names("btn btn-#{@colour} btn-soft btn-xs btn-square active:btn-active")
+    class_names(
+      "btn btn-soft btn-xs btn-square active:btn-active",
+      COLOUR_CLASSES[@colour]
+    )
   end
 end

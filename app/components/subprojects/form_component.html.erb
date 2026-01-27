@@ -14,7 +14,7 @@
       </div>
       <div class="flex flex-col gap-1">
         <%= form.label :region_id %>
-        <%= form.collection_select :region_id, Region.order(:name), :id, :name, { prompt: "Select a Region", required: true }, { class: "w-full" } %>
+        <%= form.collection_select :region_id, Region.order(:name), :id, :name, { prompt: t(".select_a_region"), required: true }, { class: "w-full" } %>
       </div>
   </div>
   <div class="flex justify-end">

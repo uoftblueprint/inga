@@ -1,8 +1,8 @@
 <section class="mx-8 my-10">
   <div class="flex flex-col gap-4">
-    <div class="flex flex-row justify-between items-end">
+    <div class="flex flex-row justify-between items-start">
       <div class="flex flex-col gap-1">
-        <h1 class="text-4xl"><%= @user.username %></h1>
+        <h1 class="text-4xl font-bold"><%= @user.username %></h1>
         <div class="flex flex-row gap-2">
           <% @user.user_roles.each do |user_role| %>
             <%= render Users::RoleBadgeComponent.new(role_name: user_role.role) %>
@@ -10,36 +10,39 @@
         </div>
       </div>
       <div class="flex flex-row gap-4">
-        <%= link_to edit_user_path(@user), method: :get, class: "text-white bg-primary flex flex-row items-center gap-2 text-xs py-2.5 px-3 rounded" do %>
+        <%= link_to edit_user_path(@user), method: :get, class: "btn btn-primary flex flex-row items-center gap-2 px-4 py-2 rounded shadow-none font-bold" do %>
           <%= render IconComponent.new(icon: "edit", size: :sm) %>
           <%= t(".actions.edit") %>
         <% end %>
-        <%= button_to user_path(@user), method: :delete, class: "text-white bg-error flex flex-row items-center gap-2 text-xs py-2.5 px-3 rounded hover:cursor-pointer" do %>
+        <%= button_to user_path(@user), method: :delete, data: { turbo_confirm: t("users.destroy.confirm") }, class: "btn btn-error flex flex-row items-center gap-2 px-4 py-2 rounded shadow-none font-bold text-white" do %>
           <%= render IconComponent.new(icon: "delete", size: :sm) %>
           <%= t(".actions.delete") %>
         <% end %>
       </div>
     </div>
     <%= render ContentCardComponent.new do %>
-      <div class="p-2 border border-base-300 rounded-lg bg-base-100">
-        <%= render Shared::IndexTableComponent.new(records: @user.log_entries) do |table| %>
-          <% table.column :created_at do |log_entry| %>
-            <%= l(log_entry.created_at) %>
-          <% end %>
-          <% table.column :updated_at do |log_entry| %>
-            <%= l(log_entry.updated_at) %>
-          <% end %>
-          <% table.column :project do |log_entry| %>
-            <%= log_entry.subproject.project.name %>
-          <% end %>
-          <% table.column :subproject do |log_entry| %>
-            <%= log_entry.subproject.name %>
-          <% end %>
-          <% table.column :user do |log_entry| %>
-            <%= log_entry.user.username %>
-          <% end %>
+      <h1 class="text-2xl font-bold"><%= t(".log_entries") %></h1>
+      <%= render Shared::IndexTableComponent.new(records: @user.log_entries) do |table| %>
+        <% table.column :created_at do |log_entry| %>
+          <%= l(log_entry.created_at) %>
         <% end %>
-      </div>
+        <% table.column :updated_at do |log_entry| %>
+          <%= l(log_entry.updated_at) %>
+        <% end %>
+        <% table.column :project do |log_entry| %>
+          <%= log_entry.subproject.project.name %>
+        <% end %>
+        <% table.column :subproject do |log_entry| %>
+          <%= log_entry.subproject.name %>
+        <% end %>
+        <% table.column :actions, header: t("shared.index_table_component.actions"), col_size: "67px" do |log_entry| %>
+          <div class="flex flex-row gap-2 items-center">
+            <!-- TODO: Update paths to actual log entry paths -->
+            <%= render ActionButtonComponent.new(to: root_path, icon: "edit", turbo_stream: true) %>
+            <%= render ActionButtonComponent.new(to: root_path, method: :delete, icon: "delete", colour: :error, confirm: t("log_entries.destroy.confirm")) %>
+          </div>
+        <% end %>
+      <% end %>
     <% end %>
   </div>
 </section>
