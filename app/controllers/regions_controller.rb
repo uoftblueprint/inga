@@ -5,10 +5,18 @@ class RegionsController < ApplicationController
 
   def new
     @region = Region.new
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
   def edit
     @region = Region.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
   def create

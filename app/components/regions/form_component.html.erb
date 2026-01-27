@@ -1,4 +1,4 @@
-<%= form_with model: region, local: true, class: "max-w-120 my-12 mx-auto flex flex-col gap-4", builder: DefaultFormBuilder do |form| %>
+<%= form_with model: region, class: "max-w-120 my-2 mx-auto flex flex-col gap-4", builder: DefaultFormBuilder do |form| %>
   <div class="flex flex-col gap-2">
     <div class="flex flex-col gap-1">
       <%= form.label :name %>
@@ -13,5 +13,8 @@
       <%= form.number_field :longitude, class: "w-full", step: 0.000001, min: -180, max: 180 %>
     </div>
   </div>
-  <%= form.submit %>
+  <div class="flex justify-end">
+    <%= form.modal_cancel %>
+    <%= form.submit class: "btn btn-primary w-auto px-6 ml-3" %>
+  </div>
 <% end %>

@@ -1,7 +1,7 @@
 <div class="mx-8 my-10">
   <div class="flex items-center justify-between mb-5">
     <h1 class="text-4xl font-bold"><%= t(".title") %></h1>
-    <%= link_to new_region_path, class: "btn btn-primary flex flex-row items-center gap-2 px-4 py-2 rounded shadow-none" do %>
+    <%= link_to new_region_path, class: "btn btn-primary flex flex-row items-center gap-2 px-4 py-2 rounded shadow-none", data: { turbo_stream: true } do %>
       <%= render IconComponent.new(icon: "add", size: :sm) %>
       <%= t(".actions.create") %>
     <% end %>
@@ -17,7 +17,7 @@
       <% end %>
       <% table.column :actions, header: t("shared.index_table_component.actions"), col_size: "67px" do |region| %>
         <div class="flex items-center gap-2">
-          <%= render ActionButtonComponent.new(to: edit_region_path(region), icon: "edit", colour: :info) %>
+          <%= render ActionButtonComponent.new(to: edit_region_path(region), icon: "edit", colour: :info, turbo_stream: true) %>
           <%= render ActionButtonComponent.new(to: region_path(region), method: :delete, icon: "delete", colour: :error, confirm: t("regions.destroy.confirm")) %>
         </div>
       <% end %>
