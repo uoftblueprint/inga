@@ -26,17 +26,16 @@ en:
       title: New Project
     show:
       actions:
+        create: Create project
         delete: Delete project
-        edit_attributes: Edit Attributes
-      active: Active
-      create_subproject: Create Subproject
-      created_at: Date created
-      description: Description
-      edit_subproject: Edit Subproject
-      no_reports: This project has no reports
-      reports: Reports
-      return_to_projects: Back to projects
-      subprojects: Subprojects
-      updated_at: Last updated
+        edit: Edit project
+      assign: Assign
+      assign_placeholder: Unassigned
+      due_date: Due date
+      due_date_placeholder: To be decided
+      status: Status
+      statuses:
+        in_progress: In progress
+      subproject_name: Subproject
     update:
       success: Project updated successfully

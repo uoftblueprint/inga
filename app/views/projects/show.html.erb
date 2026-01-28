@@ -1,52 +1,64 @@
-<div class="flex flex-col gap-3 p-2">
-  <h1 class="font-bold text-xl"><%= @project.name %></h1>
-  <div>
-    <p><strong><%= t(".description") %>: </strong> <%= @project.description %></p>
-    <p><strong><%= t(".created_at") %>: </strong> <%= @project.created_at.to_fs(:long_ordinal) %></p>
-    <p><strong><%= t(".updated_at") %>: </strong> <%= @project.updated_at.to_fs(:long_ordinal) %></p>
-    <p><strong><%= t(".active") %>: </strong> <%= @project.active ? t("common.yes") : t("common.no") %> </p>
-  </div>
-  <div>
-    <h3 class="font-bold"><%= t(".subprojects") %></h3>
-    <ul>
-      <% @project.subprojects.order(:name).each do |subproj| %>
-      <div class="flex flex-row items-center my-2">
-        <li> <%= subproj.name %> </li>
-        <%= link_to edit_project_subproject_path(@project, subproj), data: { turbo_stream: true }, class: "btn btn-primary mx-3" do %>
-          <%= t(".edit_subproject") %>
+<section class="mx-8 my-10">
+  <div class="flex flex-col gap-4">
+    <div class="flex flex-row justify-between items-start">
+      <div class="flex flex-col gap-1">
+        <h1 class="text-4xl font-bold"><%= @project.name %></h1>
+        <p class="text-sm text-base-content/70 mt-1"><%= @project.description %></p>
+      </div>
+
+      <div class="flex flex-row gap-4">
+        <%= link_to edit_project_path(@project), method: :get, class: "btn btn-primary flex flex-row items-center gap-2 px-4 py-2 rounded shadow-none font-bold" do %>
+          <%= render IconComponent.new(icon: "edit", size: :sm, classes: "w-4 h-4 text-white") %>
+          <%= t(".actions.edit") %>
+        <% end %>
+
+        <%= link_to new_project_path, class: "btn btn-primary flex flex-row items-center gap-2 px-4 py-2 rounded shadow-none font-bold" do %>
+          <%= render IconComponent.new(icon: "add", size: :sm) %>
+          <%= t(".actions.create") %>
+        <% end %>
+
+        <%= button_to project_path(@project),
+                      method: :delete,
+                      data: { turbo_confirm: t("projects.destroy.confirm") },
+                      class: "btn btn-error flex flex-row items-center gap-2 px-4 py-2 rounded shadow-none font-bold text-white" do %>
+          <%= render IconComponent.new(icon: "delete", size: :sm, classes: "w-4 h-4 text-white") %>
+          <%= t(".actions.delete") %>
         <% end %>
       </div>
-      <% end %>
-    </ul>
-  </div>
-  <div>
-    <%= link_to new_project_subproject_path(@project),
-                data: { turbo_stream: true },
-                class: "inline-flex items-center gap-2 text-xs font-medium text-base-100 bg-primary py-2.5 px-3 rounded" do %>
-      <%= render IconComponent.new(icon: "add", size: :sm) %>
-      <%= t(".create_subproject") %>
+    </div>
+
+    <%= render ContentCardComponent.new do %>
+      <div class="subprojects-index-table">
+        <div class="overflow-x-auto">
+          <%= render Shared::IndexTableComponent.new(records: @project.subprojects) do |table| %>
+
+            <% table.column :name, header: t("projects.show.subproject_name") do |subproj| %>
+              <%= subproj.name %>
+            <% end %>
+
+            <% table.column :status, header: t("projects.show.status") do |_subproj| %>
+            <%= render BadgeComponent.new(text: t("projects.show.statuses.in_progress"), colour: :warning, size: :md, style: :soft) %>
+          <% end %>
+
+            <% table.column :due_date, header: t("projects.show.due_date") do |_subproj| %>
+              <span class="text-sm text-gray-600"><%= t("projects.show.due_date_placeholder") %></span>
+            <% end %>
+
+            <% table.column :assign, header: t("projects.show.assign") do |_subproj| %>
+              <%= render BadgeComponent.new(text: t("projects.show.assign_placeholder"), colour: :neutral, size: :sm) %>
+            <% end %>
+
+            <% table.column :actions, header: "", col_size: "90px" do |subproj| %>
+              <div class="flex justify-end gap-2">
+                <%= render ActionButtonComponent.new(to: project_subproject_path(@project, subproj), icon: "view") %>
+                <%= render ActionButtonComponent.new(to: edit_project_subproject_path(@project, subproj), icon: "edit", colour: :info) %>
+                <%= render ActionButtonComponent.new(to: project_subproject_path(@project, subproj), method: :delete, icon: "delete", colour: :error, confirm: t("subprojects.destroy.confirm")) %>
+              </div>
+            <% end %>
+
+          <% end %>
+        </div>
+      </div>
     <% end %>
   </div>
-  <div>
-    <h3 class="font-bold"><%= t(".reports") %></h3>
-    <ul>
-      <% @project.reports.each do |report| %>
-        <li> <%= report.name %> </li>
-      <% end %>
-    </ul>
-    <% if @project.reports.empty? %>
-      <p><%= t(".no_reports") %></p>
-    <% end %>
-  </div>
-  <div>
-    <%= link_to t(".return_to_projects"), projects_path, class: "btn btn-outline btn-link" %>
-    <%= button_to t(".actions.delete"), project_path(@project), method: :delete, data: { turbo_confirm: t("projects.destroy.confirm") }, class: "btn btn-error btn-sm mt-3" %>
-  </div>
-  <%= button_to edit_project_attributes_schema_path(@project), method: :get, class: "btn btn-primary flex flex-row items-center gap-2 px-4 py-2 rounded shadow-none font-bold", data: { turbo_stream: true } do %>
-    <%= render IconComponent.new(icon: "edit", size: :sm) %>
-    <%= t(".actions.edit_attributes") %>
-  <% end %>
-  <div class="w-2/5 mx-auto">
-    <%= render Projects::LogSchemaComponent.new(@project.log_schema) %>
-  </div>
-</div>
+</section>
