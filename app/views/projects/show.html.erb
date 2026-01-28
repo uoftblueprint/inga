@@ -36,12 +36,8 @@
               <%= subproj.name %>
             <% end %>
 
-            <% table.column :region, header: t("projects.show.region") do |subproj| %>
-              <%= subproj.region&.name || t("projects.show.no_region") %>
-            <% end %>
-
             <% table.column :status, header: t("projects.show.status") do |_subproj| %>
-            <%= render BadgeComponent.new(text: t("projects.show.statuses.in_progress"), colour: :warning, size: :md, style: :soft ) %>
+            <%= render BadgeComponent.new(text: t("projects.show.statuses.in_progress"), colour: :warning, size: :md, style: :soft) %>
           <% end %>
 
             <% table.column :due_date, header: t("projects.show.due_date") do |_subproj| %>

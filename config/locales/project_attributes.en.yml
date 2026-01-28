@@ -1,6 +1,8 @@
 ---
 en:
   project_attributes:
+    edit:
+      title: Edit Attributes
     form_component:
       new_row: Add Attribute
       submit: Save Attributes

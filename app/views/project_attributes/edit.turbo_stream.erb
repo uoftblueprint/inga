@@ -1,0 +1,5 @@
+<%= turbo_stream.replace "modal" do %>
+  <%= render ModalComponent.new(title: t(".title")) do %>
+    <%= render ProjectAttributes::FormComponent.new(project: @project) %>
+  <% end %>
+<% end %>
