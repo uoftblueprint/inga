@@ -37,7 +37,7 @@
         <% table.column :user do |log_entry| %>
           <%= log_entry.user.username %>
         <% end %>
-        <% table.column :actions, header: t("shared.index_table_component.actions"), col_size: "67px" do |log_entry| %>
+        <% table.column :actions, header: t("shared.index_table_component.actions"), col_size: "90px" do |log_entry| %>
           <div class="flex flex-row gap-2 items-center">
             <!-- TODO: Update paths to actual log entry paths -->
             <%= render ActionButtonComponent.new(to: root_path, icon: "view") %>
@@ -47,4 +47,4 @@
         <% end %>
       <% end %>
     <% end %>
-  </section>
+</section>
