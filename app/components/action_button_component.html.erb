@@ -1,9 +1,4 @@
-<% if @method == :get %>
-  <%= link_to @to, data: link_data, class: css_classes do %>
-    <%= render IconComponent.new(icon: @icon, size: :sm, classes: "text-current") %>
-  <% end %>
-<% else %>
-  <%= button_to @to, method: @method, form: { data: form_data }, class: css_classes do %>
-    <%= render IconComponent.new(icon: @icon, size: :sm, classes: "text-current") %>
-  <% end %>
+<%= render_method do %>
+  <%= render IconComponent.new(icon: @icon, size: :sm, classes: "text-current") %>
+  <%= content if large? %>
 <% end %>
