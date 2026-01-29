@@ -10,12 +10,10 @@
         </div>
       </div>
       <div class="flex flex-row gap-4">
-        <%= link_to edit_user_path(@user), method: :get, class: "btn btn-primary flex flex-row items-center gap-2 px-4 py-2 rounded shadow-none font-bold" do %>
-          <%= render IconComponent.new(icon: "edit", size: :sm) %>
+        <%= render ActionButtonComponent.new(to: edit_user_path(@user), icon: "edit", colour: :primary, size: :large, turbo_stream: true) do %>
           <%= t(".actions.edit") %>
         <% end %>
-        <%= button_to user_path(@user), method: :delete, data: { turbo_confirm: t("users.destroy.confirm") }, class: "btn btn-error flex flex-row items-center gap-2 px-4 py-2 rounded shadow-none font-bold text-white" do %>
-          <%= render IconComponent.new(icon: "delete", size: :sm) %>
+        <%= render ActionButtonComponent.new(to: user_path(@user), method: :delete, icon: "delete", colour: :error, size: :large, confirm: t("users.destroy.confirm")) do %>
           <%= t(".actions.delete") %>
         <% end %>
       </div>
