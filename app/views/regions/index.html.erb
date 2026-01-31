@@ -1,8 +1,7 @@
 <div class="mx-8 my-10">
   <div class="flex items-center justify-between mb-5">
     <h1 class="text-4xl font-bold"><%= t(".title") %></h1>
-    <%= link_to new_region_path, class: "btn btn-primary flex flex-row items-center gap-2 px-4 py-2 rounded shadow-none", data: { turbo_stream: true } do %>
-      <%= render IconComponent.new(icon: "add", size: :sm) %>
+    <%= render ActionButtonComponent.new(to: new_region_path, icon: "add", colour: :primary, size: :large, turbo_stream: true) do %>
       <%= t(".actions.create") %>
     <% end %>
   </div>

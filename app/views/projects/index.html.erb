@@ -4,8 +4,8 @@
       <h1 class="text-4xl">
         <%= t(".title") %>
       </h1>
-      <%= link_to new_project_path, data: { turbo_stream: true }, class: "text-base-100 bg-primary flex flex-row items-center gap-2 text-xs py-2.5 px-3 rounded" do %>
-        <%= render IconComponent.new(icon: "add", size: :sm) %><%= t(".actions.create") %>
+      <%= render ActionButtonComponent.new(to: new_project_path, icon: "add", colour: :primary, size: :large, turbo_stream: true) do %>
+        <%= t(".actions.create") %>
       <% end %>
     </div>
     <%= render Home::ProjectsCardComponent.new(projects: @projects) %>

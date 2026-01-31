@@ -12,7 +12,7 @@ class ActionButtonComponent < ViewComponent::Base
     error: "btn-error"
   }.freeze
 
-  def initialize(to:, icon:, colour: :primary, method: :get, confirm: nil, turbo_stream: false)
+  def initialize(to:, icon:, colour: :primary, method: :get, confirm: nil, turbo_stream: false, size: :small)
     super()
 
     @to = to
@@ -21,6 +21,7 @@ class ActionButtonComponent < ViewComponent::Base
     @method = method
     @confirm = confirm
     @turbo_stream = turbo_stream
+    @size = size
   end
 
   def form_data
@@ -33,10 +34,23 @@ class ActionButtonComponent < ViewComponent::Base
 
   private
 
+  def small? = @size == :small
+  def large? = @size == :large
+
+  def render_method(&)
+    if @method == :get
+      link_to(@to, data: link_data, class: css_classes, &)
+    else
+      button_to(@to, method: @method, form: { data: form_data }, class: css_classes, &)
+    end
+  end
+
   def css_classes
     class_names(
-      "btn btn-soft btn-xs btn-square active:btn-active",
-      COLOUR_CLASSES[@colour]
+      "btn active:btn-active",
+      COLOUR_CLASSES[@colour],
+      small? && "btn-xs btn-square btn-soft",
+      large? && "btn-md px-4 py-3 gap-2 font-semibold shadow-sm"
     )
   end
 end
