@@ -3,7 +3,7 @@
     <div class="flex flex-row justify-between items-start">
       <div class="flex flex-col gap-1">
         <h1 class="text-4xl font-bold"><%= @project.name %></h1>
-        <p class="text-sm text-base-content/70 mt-1"><%= @project.description %></p>
+        <span class="text-lg text-base-content/60"><%= @project.description %></span>
       </div>
 
       <div class="flex flex-row gap-4">
@@ -12,9 +12,9 @@
           <%= t(".actions.edit") %>
         <% end %>
 
-        <%= link_to new_project_path, class: "btn btn-primary flex flex-row items-center gap-2 px-4 py-2 rounded shadow-none font-bold" do %>
+        <%= link_to new_project_subproject_path(@project), class: "btn btn-primary flex flex-row items-center gap-2 px-4 py-2 rounded shadow-none font-bold" do %>
           <%= render IconComponent.new(icon: "add", size: :sm) %>
-          <%= t(".actions.create") %>
+          <%= t(".create_subproject") %>
         <% end %>
 
         <%= button_to project_path(@project),
@@ -28,37 +28,28 @@
     </div>
 
     <%= render ContentCardComponent.new do %>
-      <div class="subprojects-index-table">
-        <div class="overflow-x-auto">
-          <%= render Shared::IndexTableComponent.new(records: @project.subprojects) do |table| %>
-
-            <% table.column :name, header: t("projects.show.subproject_name") do |subproj| %>
-              <%= subproj.name %>
-            <% end %>
-
-            <% table.column :status, header: t("projects.show.status") do |_subproj| %>
-            <%= render BadgeComponent.new(text: t("projects.show.statuses.in_progress"), colour: :warning, size: :md, style: :soft) %>
-          <% end %>
-
-            <% table.column :due_date, header: t("projects.show.due_date") do |_subproj| %>
-              <span class="text-sm text-gray-600"><%= t("projects.show.due_date_placeholder") %></span>
-            <% end %>
-
-            <% table.column :assign, header: t("projects.show.assign") do |_subproj| %>
-              <%= render BadgeComponent.new(text: t("projects.show.assign_placeholder"), colour: :neutral, size: :sm) %>
-            <% end %>
-
-            <% table.column :actions, header: "", col_size: "90px" do |subproj| %>
-              <div class="flex justify-end gap-2">
-                <%= render ActionButtonComponent.new(to: project_subproject_path(@project, subproj), icon: "view") %>
-                <%= render ActionButtonComponent.new(to: edit_project_subproject_path(@project, subproj), icon: "edit", colour: :info) %>
-                <%= render ActionButtonComponent.new(to: project_subproject_path(@project, subproj), method: :delete, icon: "delete", colour: :error, confirm: t("subprojects.destroy.confirm")) %>
-              </div>
-            <% end %>
-
-          <% end %>
-        </div>
-      </div>
+      <h1 class="text-2xl font-bold"><%= t(".subprojects") %></h1>
+      <%= render Shared::IndexTableComponent.new(records: @project.subprojects) do |table| %>
+        <% table.column :name do |subproject| %>
+          <%= subproject.name %>
+        <% end %>
+        <% table.column :address do |subproject| %>
+          <%= subproject.address %>
+        <% end %>
+        <% table.column :region do |subproject| %>
+          <%= subproject.region.name %>
+        <% end %>
+        <% table.column :created_at do |subproject| %>
+          <%= l(subproject.created_at) %>
+        <% end %>
+        <% table.column :actions, col_size: "90px" do |subproject| %>
+          <div class="flex justify-end gap-2">
+            <%= render ActionButtonComponent.new(to: project_subproject_path(@project, subproject), icon: "view") %>
+            <%= render ActionButtonComponent.new(to: edit_project_subproject_path(@project, subproject), icon: "edit", colour: :info) %>
+            <%= render ActionButtonComponent.new(to: project_subproject_path(@project, subproject), method: :delete, icon: "delete", colour: :error, confirm: t("subprojects.destroy.confirm")) %>
+          </div>
+        <% end %>
+      <% end %>
     <% end %>
   </div>
 </section>
