@@ -1,28 +1,34 @@
-<div class="card w-full min-w-xs flex flex-col justify-between gap-2 bg-base-100 border border-base-300 shadow-md p-4 rounded-xl">
-  <div class="card-body p-4">
-    <div class="flex justify-between items-center">
-      <h3 class="card-title text-sm font-semibold">
-        <%= t(".title") %>
-      </h3>
-      <%= render BadgeComponent.new(text: t(".attributes_count", count: log_schema.size), colour: :warning, size: :sm) %>
-    </div>
-
-    <div class="divider -my-1 opacity-60"></div>
-    <div class="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-3 w-full">
-      <% log_schema.each do |name, type| %>
-        <div class="flex items-center justify-between px-3 py-2 rounded-lg border border-base-300 bg-base-200/50">
-          <div class="flex items-center gap-2">
-            <span class="font-mono text-xs text-base-content">
-              <%= name %>
-            </span>
-          </div>
-          <%= render BadgeComponent.new(text: type.to_s, size: :xs, colour: :info, html_classes: "min-w-[65px] text-base-100") %>
-        </div>
-      <% end %>
-    </div>
-
-    <% if log_schema.empty? %>
-      <p class="text-sm text-base-content/60 italic"> <%= t(".empty_state") %> </p>
+<div class="flex justify-between items-center">
+  <div class="flex items-center space-x-2">
+    <h3 class="text-2xl font-bold">
+      <%= t(".title") %>
+    </h3>
+    <%= render BadgeComponent.new(text: t(".attributes_count", count: project.log_schema.size), colour: :warning, size: :sm) %>
+  </div>
+  <div>
+    <%= render ActionButtonComponent.new(to: edit_project_attributes_schema_path(project), icon: "edit", colour: :info, turbo_stream: true, size: :medium) do %>
+      <%= t(".edit_attributes") %>
     <% end %>
   </div>
 </div>
+<p class="text-sm text-gray-500">
+  <%= t(".description") %>
+</p>
+
+<div class="divider -my-1 opacity-60"></div>
+<div class="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-3 w-full">
+  <% project.log_schema.each do |name, type| %>
+    <div class="flex items-center justify-between px-3 py-2 rounded-lg shadow border border-base-100 bg-base-100">
+      <div class="flex items-center gap-2">
+        <span class="font-mono text-xs text-base-content">
+          <%= name %>
+        </span>
+      </div>
+      <%= render BadgeComponent.new(text: type.to_s, size: :xs, colour: :info, html_classes: "min-w-[65px] text-base-100") %>
+    </div>
+  <% end %>
+</div>
+
+<% if project.log_schema.empty? %>
+  <p class="text-sm text-base-content/60 italic"> <%= t(".empty_state") %> </p>
+<% end %>

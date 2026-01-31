@@ -1,8 +1,5 @@
 ---
 en:
-  common:
-    'no': 'No'
-    'yes': 'Yes'
   date:
     formats:
       default: "%d-%m-%Y"

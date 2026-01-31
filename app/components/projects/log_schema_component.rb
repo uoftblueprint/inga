@@ -1,10 +1,10 @@
 module Projects
   class LogSchemaComponent < ViewComponent::Base
-    attr_reader :log_schema
+    attr_reader :project
 
-    def initialize(log_schema)
+    def initialize(project:)
       super()
-      @log_schema = log_schema
+      @project = project
     end
   end
 end

@@ -35,6 +35,7 @@ class ActionButtonComponent < ViewComponent::Base
   private
 
   def small? = @size == :small
+  def medium? = @size == :medium
   def large? = @size == :large
 
   def render_method(&)
@@ -50,6 +51,7 @@ class ActionButtonComponent < ViewComponent::Base
       "btn active:btn-active",
       COLOUR_CLASSES[@colour],
       small? && "btn-xs btn-square btn-soft",
+      medium? && "btn-sm px-3 py-2 gap-2 font-semibold",
       large? && "btn-md px-4 py-3 gap-2 font-semibold shadow-sm"
     )
   end
