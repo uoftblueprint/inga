@@ -5,7 +5,7 @@ Rails.application.routes.draw do
       get :new_row
     end
     # Subproject routes
-    resources :subprojects do
+    resources :subprojects, except: [:index] do
       resources :journals
     end
   end

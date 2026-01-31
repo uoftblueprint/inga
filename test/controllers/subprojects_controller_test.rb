@@ -9,7 +9,6 @@ class SubprojectsControllerTest < ActionDispatch::IntegrationTest
   end
 
   [
-    { route: "index", method: :get, url_helper: :project_subprojects_url },
     { route: "new", method: :get, url_helper: :new_project_subproject_url },
     { route: "create", method: :post, url_helper: :project_subprojects_url },
     { route: "show", method: :get, url_helper: :project_subproject_url, needs_subproject: true },
@@ -41,7 +40,6 @@ class SubprojectsControllerTest < ActionDispatch::IntegrationTest
   end
 
   [
-    { route: "index", method: :get, url_helper: :project_subprojects_url },
     { route: "new", method: :get, url_helper: :new_project_subproject_url },
     { route: "show", method: :get, url_helper: :project_subproject_url, needs_subproject: true },
     { route: "edit", method: :get, url_helper: :edit_project_subproject_url, needs_subproject: true }
@@ -53,16 +51,6 @@ class SubprojectsControllerTest < ActionDispatch::IntegrationTest
       public_send(hash[:method], public_send(hash[:url_helper], *args))
       assert_response :success
     end
-  end
-
-  test "#index successfully renders a created subproject" do
-    other = create(:subproject, project: @project, region: @region, name: "Other Subproject")
-
-    get project_subprojects_url(@project)
-    assert_response :success
-
-    assert_select "div", text: @subproject.name
-    assert_select "div", text: other.name
   end
 
   test "#show successfully renders subproject details" do
@@ -175,6 +163,6 @@ class SubprojectsControllerTest < ActionDispatch::IntegrationTest
       delete project_subproject_url(@project, @subproject)
     end
 
-    assert_redirected_to project_subprojects_url(@project)
+    assert_redirected_to project_url(@project)
   end
 end
