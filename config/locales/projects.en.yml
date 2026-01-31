@@ -12,6 +12,8 @@ en:
     destroy:
       confirm: Are you sure you want to delete this project? This will also delete this project's subprojects and reports.
       success: Project deleted successfully
+    edit:
+      title: Edit Project
     index:
       actions:
         create: Create Project
@@ -20,19 +22,17 @@ en:
       attributes_count:
         one: 1 attribute
         other: "%{count} attributes"
+      description: These attributes are collected for each log entry created under this project.
+      edit_attributes: Edit attributes
       empty_state: No attributes defined for this project.
       title: Collected Log Entry Attributes
-      description: These attributes are collected for each log entry created under this project.
     new:
       title: New Project
-    edit:
-      title: Edit Project
     show:
-      subprojects: Subprojects
-      create_subproject: Create subproject
-      edit_attributes: Edit log entry attributes
       actions:
         delete: Delete project
         edit: Edit project
+      create_subproject: Create subproject
+      subprojects: Subprojects
     update:
       success: Project updated successfully
