@@ -1,4 +1,4 @@
-module Home
+module Projects
   class ProjectsCardComponent < ViewComponent::Base
     attr_reader :projects
 

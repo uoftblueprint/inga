@@ -36,3 +36,10 @@ en:
       subprojects: Subprojects
     update:
       success: Project updated successfully
+    projects_card_component:
+      project_badge_args:
+        status:
+          active: Active
+          inactive: Inactive
+      search_placeholder: Search project title
+      view_project: View project

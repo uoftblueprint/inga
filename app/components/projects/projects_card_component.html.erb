@@ -24,7 +24,7 @@
             </div>
             <div class="flex flex-col gap-0.5">
               <% project.subprojects.each do |subproject| %>
-                <%= render Home::SubprojectCardComponent.new(subproject: subproject) %>
+                <%= render Projects::SubprojectCardComponent.new(subproject: subproject) %>
               <% end %>
             </div>
           </div>
