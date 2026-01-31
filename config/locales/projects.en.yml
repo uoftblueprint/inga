@@ -24,6 +24,8 @@ en:
       title: Collected Attributes
     new:
       title: New Project
+    edit:
+      title: Edit Project
     show:
       subprojects: Subprojects
       create_subproject: Create subproject

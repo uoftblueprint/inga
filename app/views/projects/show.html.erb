@@ -7,21 +7,15 @@
       </div>
 
       <div class="flex flex-row gap-4">
-        <%= link_to edit_project_path(@project), method: :get, class: "btn btn-primary flex flex-row items-center gap-2 px-4 py-2 rounded shadow-none font-bold" do %>
-          <%= render IconComponent.new(icon: "edit", size: :sm, classes: "w-4 h-4 text-white") %>
+        <%= render ActionButtonComponent.new(to: edit_project_path(@project), icon: "edit", colour: :info, turbo_stream: true, size: :large) do %>
           <%= t(".actions.edit") %>
         <% end %>
 
-        <%= link_to new_project_subproject_path(@project), class: "btn btn-primary flex flex-row items-center gap-2 px-4 py-2 rounded shadow-none font-bold" do %>
-          <%= render IconComponent.new(icon: "add", size: :sm) %>
+        <%= render ActionButtonComponent.new(to: new_project_subproject_path(@project), icon: "add", size: :large, turbo_stream: true, colour: :primary) do %>
           <%= t(".create_subproject") %>
         <% end %>
 
-        <%= button_to project_path(@project),
-                      method: :delete,
-                      data: { turbo_confirm: t("projects.destroy.confirm") },
-                      class: "btn btn-error flex flex-row items-center gap-2 px-4 py-2 rounded shadow-none font-bold text-white" do %>
-          <%= render IconComponent.new(icon: "delete", size: :sm, classes: "w-4 h-4 text-white") %>
+        <%= render ActionButtonComponent.new(to: project_path(@project), method: :delete, icon: "delete", colour: :error, size: :large, confirm: t("projects.destroy.confirm")) do %>
           <%= t(".actions.delete") %>
         <% end %>
       </div>
