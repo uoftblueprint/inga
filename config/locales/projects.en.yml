@@ -21,7 +21,8 @@ en:
         one: 1 attribute
         other: "%{count} attributes"
       empty_state: No attributes defined for this project.
-      title: Collected Attributes
+      title: Collected Log Entry Attributes
+      description: These attributes are collected for each log entry created under this project.
     new:
       title: New Project
     edit:
@@ -29,6 +30,7 @@ en:
     show:
       subprojects: Subprojects
       create_subproject: Create subproject
+      edit_attributes: Edit log entry attributes
       actions:
         delete: Delete project
         edit: Edit project

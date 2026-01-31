@@ -1,4 +1,4 @@
 <%= render_method do %>
   <%= render IconComponent.new(icon: @icon, size: :sm, classes: "text-current") %>
-  <%= content if large? %>
+  <%= content if medium? || large? %>
 <% end %>
