@@ -1,11 +1,18 @@
 class LogEntriesController < ApplicationController
   before_action :set_project_subproject
 
+  def show
+    @log_entry = @subproject.log_entries.find(params[:id])
+
+    respond_to do |format|
+      format.turbo_stream
+    end
+  end
+
   def new
     @log_entry = @subproject.log_entries.build
 
     respond_to do |format|
-      format.html
       format.turbo_stream
     end
   end
@@ -14,7 +21,6 @@ class LogEntriesController < ApplicationController
     @log_entry = @subproject.log_entries.find(params[:id])
 
     respond_to do |format|
-      format.html
       format.turbo_stream
     end
   end

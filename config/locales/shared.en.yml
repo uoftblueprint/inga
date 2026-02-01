@@ -4,3 +4,5 @@ en:
     index_table_component:
       actions: Actions
       no_entries: No Entries Found
+    yes: Yes
+    no: No

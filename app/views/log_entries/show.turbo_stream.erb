@@ -1,0 +1,29 @@
+<%= turbo_stream.replace "modal" do %>
+  <%= render ModalComponent.new(title: t(".title")) do %>
+    <div class="text-sm p-4 flex flex-col gap-4">
+      <div class="grid gap-3">
+        <% @project.log_schema.each do |title, type| %>
+          <div class="flex items-center px-3 py-2 rounded-lg border border-base-300 bg-base-200/50">
+            <div class="w-1/2">
+              <div class="text-base-content"><%= title %></div>
+            </div>
+
+            <div class="w-1/2">
+              <% value = @log_entry.metadata && @log_entry.metadata[title] %>
+
+              <% if type == "boolean" %>
+                <div class="text-sm"><%= (value == true) ? t('shared.yes') : t('shared.no') %></div>
+              <% else %>
+                <div class="text-sm"><%= value %></div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="flex justify-end gap-3">
+        <button type="button" class="btn btn-ghost" data-action="click->modal#close"><%= t('.close', default: 'Close') %></button>
+      </div>
+    </div>
+  <% end %>
+<% end %>
