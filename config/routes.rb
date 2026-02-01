@@ -5,7 +5,7 @@ Rails.application.routes.draw do
       get :new_row
     end
     # Subproject routes
-    resources :subprojects do
+    resources :subprojects, except: [:index] do
       resources :journals
     end
   end
@@ -16,8 +16,7 @@ Rails.application.routes.draw do
   # Health check route
   get "up" => "rails/health#show", as: :rails_health_check
 
-  # Root route
-  root "home#index"
+  root to: "projects#index"
 
   # User routes
   resources :users

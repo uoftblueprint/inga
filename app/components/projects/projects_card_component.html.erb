@@ -1,7 +1,7 @@
 <%= render ContentCardComponent.new do %>
   <section class="flex flex-col gap-6" data-controller="project-card-search">
     <div class="flex flex-row justify-between">
-      <label for="search" class="input rounded-full">
+      <label for="search" class="input rounded-full w-full">
         <%= render IconComponent.new(icon: "search", size: :sm) %>
         <input id="search" type="search" name="q" required placeholder="<%= t(".search_placeholder") %>" autocomplete="off" data-project-card-search-target="input" data-action="input->project-card-search#filter">
       </label>
@@ -24,7 +24,7 @@
             </div>
             <div class="flex flex-col gap-0.5">
               <% project.subprojects.each do |subproject| %>
-                <%= render Home::SubprojectCardComponent.new(subproject: subproject) %>
+                <%= render Projects::SubprojectCardComponent.new(subproject: subproject) %>
               <% end %>
             </div>
           </div>

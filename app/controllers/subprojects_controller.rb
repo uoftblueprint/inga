@@ -1,11 +1,6 @@
 class SubprojectsController < ApplicationController
   before_action :set_project
 
-  def index
-    @subprojects = @project.subprojects
-    @subprojects = @subprojects.where("LOWER(name) LIKE ?", "%#{params[:name].downcase}%") if params[:name].present?
-  end
-
   def show
     @subproject = @project.subprojects.includes(log_entries: :user).find(params[:id])
   end
@@ -61,12 +56,12 @@ class SubprojectsController < ApplicationController
 
     if @subproject.destroy
       redirect_to(
-        project_subprojects_path(@project),
+        project_path(@project),
         flash: { success: t(".success") }
       )
     else
       redirect_to(
-        project_subproject_path(@project),
+        project_path(@project),
         flash: { error: @subproject.errors.full_messages.to_sentence }
       )
     end
