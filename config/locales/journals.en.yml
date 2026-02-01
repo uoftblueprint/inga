@@ -4,6 +4,7 @@ en:
     attributes:
       journal:
         created_at: Created At
+        title: Title
         markdown_content: Content
         subproject: Subproject
         user: Author
