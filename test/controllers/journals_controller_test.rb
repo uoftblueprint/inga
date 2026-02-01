@@ -6,7 +6,8 @@ class JournalsControllerTest < ActionDispatch::IntegrationTest
     @project = create(:project)
     @region = create(:region)
     @subproject = create(:subproject, project: @project, region: @region)
-    @journal = create(:journal, subproject: @subproject, user: @user, markdown_content: "Show me")
+    @journal = create(:journal, subproject: @subproject, user: @user, title: "Sample title",
+                                markdown_content: "Show me")
   end
 
   [
@@ -58,23 +59,25 @@ class JournalsControllerTest < ActionDispatch::IntegrationTest
     get project_subproject_journal_url(@project, @subproject, @journal)
     assert_response :success
 
+    assert_match @journal.title, response.body
     assert_match @journal.markdown_content.to_s, response.body
   end
 
   test "#index renders all journals" do
-    other = create(:journal, subproject: @subproject, user: @user, markdown_content: "Other Journal content")
+    other = create(:journal, subproject: @subproject, user: @user, title: "Other journal",
+                             markdown_content: "Other Journal content")
 
     get project_subproject_journals_url(@project, @subproject)
     assert_response :success
 
-    assert_select "div", text: @journal.markdown_content.to_plain_text
-    assert_select "div", text: other.markdown_content.to_plain_text
+    assert_select "div", text: @journal.title
+    assert_select "div", text: other.title
   end
 
   test "#create successfully creates a journal with valid params" do
     assert_difference("Journal.count", 1) do
       post project_subproject_journals_url(@project, @subproject), params: {
-        journal: { markdown_content: "Journal body content" }
+        journal: { title: "Journal title", markdown_content: "Journal body content" }
       }
     end
   end

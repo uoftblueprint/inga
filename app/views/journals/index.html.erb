@@ -15,9 +15,8 @@
         <%= @subproject.name %>
       <% end %>
 
-      <% table.column :markdown_content do |journal| %>
-        <!-- Truncate the content to 100 characters for better display -->
-        <%= truncate(journal.markdown_content.to_plain_text, length: 100) %>
+      <% table.column :title do |journal| %>
+        <%= journal.title %>
       <% end %>
 
       <% table.column :created_at do |journal| %>

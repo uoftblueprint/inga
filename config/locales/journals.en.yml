@@ -6,27 +6,27 @@ en:
         created_at: Created At
         markdown_content: Content
         subproject: Subproject
+        title: Title
         user: Author
   journals:
     create:
       success: Journal was successfully created.
     destroy:
       confirm: Are you sure you want to delete this journal entry?
-      success: Journal was successfully destroyed.
+      success: Journal was successfully deleted.
     edit:
-      title: Edit Journal
+      title: Edit Journal Entry
     index:
       actions:
         create: Create Journal Entry
       title: Journal Entries
     new:
-      title: New Journal
+      title: New Journal Entry
     show:
       actions:
-        delete: Delete
-        edit: Edit
+        delete: Delete journal entry
+        edit: Edit journal entry
       author: Author
-      back_to_subproject: Back to Subproject
-      created_at: Created At
+      created_on: Created on
     update:
       success: Journal was successfully updated.
