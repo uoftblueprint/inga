@@ -39,7 +39,7 @@
         <% table.column :actions, col_size: "90px" do |subproject| %>
           <div class="flex justify-end gap-2">
             <%= render ActionButtonComponent.new(to: project_subproject_path(@project, subproject), icon: "view") %>
-            <%= render ActionButtonComponent.new(to: edit_project_subproject_path(@project, subproject), icon: "edit", colour: :info) %>
+            <%= render ActionButtonComponent.new(to: edit_project_subproject_path(@project, subproject), icon: "edit", colour: :info, turbo_stream: true) %>
             <%= render ActionButtonComponent.new(to: project_subproject_path(@project, subproject), method: :delete, icon: "delete", colour: :error, confirm: t("subprojects.destroy.confirm")) %>
           </div>
         <% end %>
