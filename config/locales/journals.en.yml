@@ -4,9 +4,9 @@ en:
     attributes:
       journal:
         created_at: Created At
-        title: Title
         markdown_content: Content
         subproject: Subproject
+        title: Title
         user: Author
   journals:
     create:
@@ -27,7 +27,6 @@ en:
         delete: Delete journal entry
         edit: Edit journal entry
       author: Author
-      back_to_subproject: Back to Subproject
       created_on: Created on
     update:
       success: Journal was successfully updated.
