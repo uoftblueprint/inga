@@ -39,7 +39,6 @@ class LogEntriesController < ApplicationController
     @log_entry.user = current_user
 
     if @log_entry.save
-      # TODO: potentially change to log entry view path
       redirect_to(project_subproject_path(@project, @subproject), flash: { success: t(".success") })
     else
       redirect_to(project_subproject_path(@project, @subproject),
@@ -59,7 +58,6 @@ class LogEntriesController < ApplicationController
     end
 
     if @log_entry.update(metadata: converted)
-      # TODO: potentially change to log entry view path
       redirect_to(project_subproject_path(@project, @subproject), flash: { success: t(".success") })
     else
       redirect_to(project_subproject_path(@project, @subproject),
