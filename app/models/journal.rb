@@ -3,4 +3,6 @@ class Journal < ApplicationRecord
   belongs_to :user
 
   has_rich_text :markdown_content
+
+  validates :title, presence: true
 end
