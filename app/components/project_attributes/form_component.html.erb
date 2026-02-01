@@ -1,9 +1,9 @@
 <%= form_with url: helpers.project_attributes_schema_path(@project),
-  method: :patch,
-  data: {
-    controller: "project-attributes-builder",
-    project_attributes_builder_submit_url_value: helpers.project_attributes_schema_path(@project)
-  }, builder: DefaultFormBuilder do |f| %>
+              method: :patch,
+              data: {
+                controller: "project-attributes-builder",
+                project_attributes_builder_submit_url_value: helpers.project_attributes_schema_path(@project)
+              }, builder: DefaultFormBuilder do |f| %>
 
   <div class="card-body p-4 flex flex-col gap-4">
     <div
@@ -20,7 +20,6 @@
         data-action="click->project-attributes-builder#add">
         + <%= t(".new_row") %>
     </button>
-
 
     <div class="flex justify-end">
       <%= f.modal_cancel %>

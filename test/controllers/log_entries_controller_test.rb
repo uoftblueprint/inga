@@ -64,7 +64,7 @@ class LogEntriesControllerTest < ActionDispatch::IntegrationTest
   test "#create successfully creates a log_entry with valid params" do
     assert_difference("LogEntry.count", 1) do
       post project_subproject_log_entries_url(@project, @subproject), params: {
-        log_entry: { metadata: { "Hours Worked" => 5, "Notes" => "Test notes" } }
+        log_entry: { metadata: { content: "Test content" } }
       }
     end
   end

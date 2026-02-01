@@ -13,28 +13,27 @@
             <% if type == "numerical" %>
               <input
                   class="input input-sm w-full"
+                  autocomplete="off"
                   type="number"
                   step="any"
                   name="log_entry[metadata][<%= title %>]"
-                  value="<%= value %>"
-                  />
+                  value="<%= value %>">
                 <% elsif type == "boolean" %>
-                  <input type="hidden" name="log_entry[metadata][<%= title %>]" value="off" />
+                  <input type="hidden" name="log_entry[metadata][<%= title %>]" value="off">
                   <label class="flex items-center gap-2">
                     <input
                         type="checkbox"
                         class="checkbox"
                         name="log_entry[metadata][<%= title %>]"
-                        <%= "checked" if value == true %>
-                        />
+                        <%= "checked" if value == true %>>
                   </label>
                 <% else %>
                   <input
                       class="input input-sm w-full"
                       type="text"
+                      autocomplete="off"
                       name="log_entry[metadata][<%= title %>]"
-                      value="<%= value %>"
-                      />
+                      value="<%= value %>">
                     <% end %>
           </div>
         </div>

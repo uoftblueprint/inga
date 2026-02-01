@@ -16,10 +16,6 @@ en:
       success: Journal was successfully deleted.
     edit:
       title: Edit Journal Entry
-    index:
-      actions:
-        create: Create Journal Entry
-      title: Journal Entries
     new:
       title: New Journal Entry
     show:
