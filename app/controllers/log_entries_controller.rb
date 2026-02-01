@@ -41,8 +41,7 @@ class LogEntriesController < ApplicationController
     if @log_entry.save
       redirect_to(project_subproject_path(@project, @subproject), flash: { success: t(".success") })
     else
-      redirect_to(project_subproject_path(@project, @subproject),
-                  flash: { error: @log_entry.errors.full_messages.to_sentence })
+      render :new, status: :unprocessable_entity, formats: [:turbo_stream]
     end
   end
 
@@ -61,8 +60,7 @@ class LogEntriesController < ApplicationController
     if @log_entry.update(metadata: converted)
       redirect_to(project_subproject_path(@project, @subproject), flash: { success: t(".success") })
     else
-      redirect_to(project_subproject_path(@project, @subproject),
-                  flash: { error: @log_entry.errors.full_messages.to_sentence })
+      render :edit, status: :unprocessable_entity, formats: [:turbo_stream]
     end
   end
 
@@ -85,7 +83,8 @@ class LogEntriesController < ApplicationController
   end
 
   def log_entry_params
-    params.expect(log_entry: [metadata: {}])
+    permitted_metadata_keys = @project.log_schema.keys
+    params.expect(log_entry: [metadata: permitted_metadata_keys])
   end
 
   def convert_by_type(type, raw)

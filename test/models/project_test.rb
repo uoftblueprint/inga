@@ -2,7 +2,7 @@ require "test_helper"
 
 class ProjectTest < ActiveSupport::TestCase
   test "#add_log_attribute adds a new attribute to the log schema" do
-    project = create(:project)
+    project = create(:project, log_schema: {})
     project.add_log_attribute("temperature", "numerical")
     assert_equal({ "temperature" => "numerical" }, project.log_schema)
   end
