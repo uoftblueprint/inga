@@ -52,7 +52,7 @@ class JournalsController < ApplicationController
       )
     else
       redirect_to(
-        project_subproject_path(@project, @subproject, @journal),
+        project_subproject_path(@project, @subproject),
         flash: { error: @journal.errors.full_messages.to_sentence }
       )
     end
