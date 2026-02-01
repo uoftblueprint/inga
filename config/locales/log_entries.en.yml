@@ -9,5 +9,7 @@ en:
         updated_at: Updated At
         user: User
   log_entries:
+    new:
+      title: New Log Entry
     destroy:
       confirm: Are you sure you want to delete this log entry?

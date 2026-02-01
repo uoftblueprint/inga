@@ -1,0 +1,48 @@
+<%= form_with url: project_subproject_log_entries_path(@project, @subproject), method: :post, builder: DefaultFormBuilder do |form| %>
+  <div class="text-sm p-4 flex flex-col gap-4">
+    <div class="grid gap-3">
+      <% @project.log_schema.each do |title, type| %>
+        <div class="flex items-center px-3 py-2 rounded-lg border border-base-300 bg-base-200/50">
+          <div class="w-1/2">
+            <div class="text-base-content"><%= title %></div>
+          </div>
+
+          <div class="w-1/2">
+            <% value = @log_entry.metadata && @log_entry.metadata[title] %>
+
+            <% if type == "numerical" %>
+              <input
+                  class="input input-sm w-full"
+                  type="number"
+                  step="any"
+                  name="log_entry[metadata][<%= title %>]"
+                  value="<%= value %>"
+                  />
+                <% elsif type == "boolean" %>
+                  <input type="hidden" name="log_entry[metadata][<%= title %>]" value="off" />
+                  <label class="flex items-center gap-2">
+                    <input
+                        type="checkbox"
+                        class="checkbox"
+                        name="log_entry[metadata][<%= title %>]"
+                        <%= "checked" if value == true %>
+                        />
+                  </label>
+                <% else %>
+                  <input
+                      class="input input-sm w-full"
+                      type="text"
+                      name="log_entry[metadata][<%= title %>]"
+                      value="<%= value %>"
+                      />
+                    <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="flex justify-end gap-3">
+      <%= form.modal_cancel %>
+      <%= form.submit %>
+    </div>
+  </div>
+<% end %>
