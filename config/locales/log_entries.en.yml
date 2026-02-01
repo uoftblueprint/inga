@@ -11,5 +11,7 @@ en:
   log_entries:
     new:
       title: New Log Entry
+    edit:
+      title: Edit Log Entry
     destroy:
       confirm: Are you sure you want to delete this log entry?

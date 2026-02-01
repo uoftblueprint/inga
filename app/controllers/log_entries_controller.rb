@@ -10,8 +10,17 @@ class LogEntriesController < ApplicationController
     end
   end
 
+  def edit
+    @log_entry = @subproject.log_entries.find(params[:id])
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
+  end
+
   def create
-    raw_metadata = log_entry_params.fetch(:metadata, {}) || {}
+    raw_metadata = log_entry_params.fetch(:metadata, {})
 
     converted = {}
 
@@ -25,10 +34,30 @@ class LogEntriesController < ApplicationController
 
     if @log_entry.save
       # TODO: potentially change to log entry view path
-      redirect_to(project_subproject_path(@project, @subproject), flash: {success: t(".success")})
+      redirect_to(project_subproject_path(@project, @subproject), flash: { success: t(".success") })
     else
-      flash.now[:error] = @log_entry.errors.full_messages.to_sentence
-      render :new, status: :unprocessable_entity
+      redirect_to(project_subproject_path(@project, @subproject),
+                  flash: { error: @log_entry.errors.full_messages.to_sentence })
+    end
+  end
+
+  def update
+    @log_entry = @subproject.log_entries.find(params[:id])
+
+    raw_metadata = log_entry_params.fetch(:metadata, {})
+
+    converted = {}
+    @project.log_schema.each do |title, type|
+      raw = raw_metadata[title]
+      converted[title] = convert_by_type(type, raw)
+    end
+
+    if @log_entry.update(metadata: converted)
+      # TODO: potentially change to log entry view path
+      redirect_to(project_subproject_path(@project, @subproject), flash: { success: t(".success") })
+    else
+      redirect_to(project_subproject_path(@project, @subproject),
+                  flash: { error: @log_entry.errors.full_messages.to_sentence })
     end
   end
 

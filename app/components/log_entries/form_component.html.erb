@@ -1,4 +1,4 @@
-<%= form_with url: project_subproject_log_entries_path(@project, @subproject), method: :post, builder: DefaultFormBuilder do |form| %>
+<%= form_with model: [@project, @subproject, @log_entry], builder: DefaultFormBuilder do |form| %>
   <div class="text-sm p-4 flex flex-col gap-4">
     <div class="grid gap-3">
       <% @project.log_schema.each do |title, type| %>
