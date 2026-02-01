@@ -25,6 +25,7 @@ en:
         edit: Edit subproject
       create_journal_entry: Create journal entry
       create_log_entry: Create log entry
+      journal_entries: Journal Entries
       log_entries: Log Entries
     update:
       success: Subproject updated successfully

@@ -6,7 +6,8 @@ Rails.application.routes.draw do
     end
     # Subproject routes
     resources :subprojects, except: [:index] do
-      resources :journals
+      resources :journals, except: [:index]
+      resources :log_entries, except: [:index]
     end
   end
 

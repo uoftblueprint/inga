@@ -5,7 +5,6 @@ en:
       title: Edit Attributes
     form_component:
       new_row: Add Attribute
-      submit: Save Attributes
     log_attribute_component:
       boolean: Boolean
       numerical: Numerical

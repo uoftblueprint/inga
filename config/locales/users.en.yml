@@ -36,6 +36,7 @@ en:
       actions:
         delete: Delete user
         edit: Edit user
+      journal_entries: Journal Entries
       log_entries: Log Entries
     update:
       success: Account updated successfully.
