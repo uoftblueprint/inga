@@ -52,12 +52,24 @@ class LogEntriesController < ApplicationController
     raw_metadata = log_entry_params.fetch(:metadata, {})
 
     converted = {}
+
     @project.log_schema.each do |title, type|
       raw = raw_metadata[title]
       converted[title] = convert_by_type(type, raw)
     end
 
     if @log_entry.update(metadata: converted)
+      redirect_to(project_subproject_path(@project, @subproject), flash: { success: t(".success") })
+    else
+      redirect_to(project_subproject_path(@project, @subproject),
+                  flash: { error: @log_entry.errors.full_messages.to_sentence })
+    end
+  end
+
+  def destroy
+    @log_entry = @subproject.log_entries.find(params[:id])
+
+    if @log_entry.destroy
       redirect_to(project_subproject_path(@project, @subproject), flash: { success: t(".success") })
     else
       redirect_to(project_subproject_path(@project, @subproject),

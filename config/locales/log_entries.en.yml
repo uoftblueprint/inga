@@ -9,6 +9,8 @@ en:
         updated_at: Updated At
         user: User
   log_entries:
+    show:
+      title: Log Entry Details
     new:
       title: New Log Entry
     edit:
@@ -18,4 +20,5 @@ en:
     update:
       success: Log entry was successfully updated.
     destroy:
+      success: Log entry was successfully deleted.
       confirm: Are you sure you want to delete this log entry?

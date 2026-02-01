@@ -34,10 +34,9 @@
         <% end %>
         <% table.column :actions, header: t("shared.index_table_component.actions"), col_size: "90px" do |log_entry| %>
           <div class="flex flex-row gap-2 items-center">
-            <!-- TODO: Update paths to actual log entry paths -->
             <%= render ActionButtonComponent.new(to: project_subproject_log_entry_path(@project, @subproject, log_entry), icon: "view", turbo_stream: true) %>
             <%= render ActionButtonComponent.new(to: edit_project_subproject_log_entry_path(@project, @subproject, log_entry), icon: "edit", turbo_stream: true, colour: :info) %>
-            <%= render ActionButtonComponent.new(to: root_path, method: :delete, icon: "delete", colour: :error, confirm: t("log_entries.destroy.confirm")) %>
+            <%= render ActionButtonComponent.new(to: project_subproject_log_entry_path(@project, @subproject, log_entry), method: :delete, icon: "delete", colour: :error, confirm: t("log_entries.destroy.confirm")) %>
           </div>
         <% end %>
       <% end %>
