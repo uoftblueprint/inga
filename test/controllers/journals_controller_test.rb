@@ -11,7 +11,6 @@ class JournalsControllerTest < ActionDispatch::IntegrationTest
   end
 
   [
-    { route: "index", method: :get, url_helper: :project_subproject_journals_url },
     { route: "new", method: :get, url_helper: :new_project_subproject_journal_url },
     { route: "create", method: :post, url_helper: :project_subproject_journals_url },
     { route: "show", method: :get, url_helper: :project_subproject_journal_url, needs_journal: true },
@@ -43,7 +42,6 @@ class JournalsControllerTest < ActionDispatch::IntegrationTest
   end
 
   [
-    { route: "index", method: :get, url_helper: :project_subproject_journals_url },
     { route: "new", method: :get, url_helper: :new_project_subproject_journal_url },
     { route: "edit", method: :get, url_helper: :edit_project_subproject_journal_url, needs_journal: true }
   ].each do |hash|
@@ -61,17 +59,6 @@ class JournalsControllerTest < ActionDispatch::IntegrationTest
 
     assert_match @journal.title, response.body
     assert_match @journal.markdown_content.to_s, response.body
-  end
-
-  test "#index renders all journals" do
-    other = create(:journal, subproject: @subproject, user: @user, title: "Other journal",
-                             markdown_content: "Other Journal content")
-
-    get project_subproject_journals_url(@project, @subproject)
-    assert_response :success
-
-    assert_select "div", text: @journal.title
-    assert_select "div", text: other.title
   end
 
   test "#create successfully creates a journal with valid params" do
@@ -98,6 +85,6 @@ class JournalsControllerTest < ActionDispatch::IntegrationTest
       delete project_subproject_journal_url(@project, @subproject, @journal)
     end
 
-    assert_redirected_to project_subproject_journals_url(@project, @subproject)
+    assert_redirected_to project_subproject_url(@project, @subproject)
   end
 end

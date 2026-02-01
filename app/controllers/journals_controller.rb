@@ -1,10 +1,6 @@
 class JournalsController < ApplicationController
   before_action :set_project_subproject
 
-  def index
-    @journals = @subproject.journals.includes(:user)
-  end
-
   def show
     @journal = @subproject.journals.includes(:user).find(params[:id])
   end
@@ -51,12 +47,12 @@ class JournalsController < ApplicationController
 
     if @journal.destroy
       redirect_to(
-        project_subproject_journals_path(@project, @subproject),
+        project_subproject_path(@project, @subproject),
         flash: { success: t(".success") }
       )
     else
       redirect_to(
-        project_subproject_journal_path(@project, @subproject, @journal),
+        project_subproject_path(@project, @subproject, @journal),
         flash: { error: @journal.errors.full_messages.to_sentence }
       )
     end
