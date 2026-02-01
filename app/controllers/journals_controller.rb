@@ -70,7 +70,7 @@ class JournalsController < ApplicationController
   end
 
   def journal_params
-    params.expect(journal: %i[markdown_content])
+    params.expect(journal: %i[title markdown_content])
   end
 
   def has_required_roles?

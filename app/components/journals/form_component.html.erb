@@ -2,7 +2,7 @@
   <div class="flex flex-col gap-2">
     <div class="flex flex-col gap-1">
       <%= form.label :title %>
-      <%= form.text_field :title, class: "w-full" %>
+      <%= form.text_field :title, required: true, class: "w-full" %>
     </div>
     <div class="flex flex-col gap-1">
       <%= form.label :markdown_content %>
