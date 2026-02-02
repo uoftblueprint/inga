@@ -5,3 +5,4 @@ return unless Rails.env.development?
 Seeds::Users.run
 Seeds::Projects.run
 Seeds::LogEntries.run
+Seeds::Journals.run
