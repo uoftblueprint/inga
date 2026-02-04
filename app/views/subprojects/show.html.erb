@@ -1,27 +1,28 @@
-<section class="mx-8 my-10">
+<section class="mx-4 sm:mx-8 my-6 sm:my-10">
   <div class="flex flex-col gap-4">
-    <div class="flex flex-row justify-between items-start">
+    <div class="flex flex-col gap-4">
       <div class="flex flex-col gap-1">
-        <h1 class="text-4xl font-bold"><%= @subproject.name %></h1>
-        <span class="text-lg text-base-content/60"><%= @subproject.description %></span>
+        <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold"><%= @subproject.name %></h1>
+        <span class="text-base sm:text-lg text-base-content/60"><%= @subproject.description %></span>
       </div>
-      <div class="flex flex-row gap-4">
+      <div class="flex flex-row flex-wrap gap-2">
         <%= render ActionButtonComponent.new(to: project_subproject_path(@project, @subproject), method: :delete, icon: "delete", colour: :error, size: :large, confirm: t("subprojects.destroy.confirm")) do %>
-          <%= t(".actions.delete") %>
+          <span class="hidden sm:inline"><%= t(".actions.delete") %></span>
+          <span class="sm:hidden text-xs whitespace-nowrap">Delete</span>
         <% end %>
         <%= render ActionButtonComponent.new(to: edit_project_subproject_path(@project, @subproject), icon: "edit", colour: :info, turbo_stream: true, size: :large) do %>
-          <%= t(".actions.edit") %>
+          <span class="text-xs sm:text-base whitespace-nowrap"><%= t(".actions.edit") %></span>
         <% end %>
         <%= render ActionButtonComponent.new(to: new_project_subproject_log_entry_path(@project, @subproject), icon: "add", turbo_stream: true, size: :large, colour: :primary) do %>
-          <%= t(".create_log_entry") %>
+          <span class="text-xs sm:text-base whitespace-nowrap"><%= t(".create_log_entry") %></span>
         <% end %>
         <%= render ActionButtonComponent.new(to: new_project_subproject_journal_path(@project, @subproject), icon: "add", size: :large, colour: :primary) do %>
-          <%= t(".create_journal_entry") %>
+          <span class="text-xs sm:text-base whitespace-nowrap"><%= t(".create_journal_entry") %></span>
         <% end %>
       </div>
     </div>
     <%= render ContentCardComponent.new do %>
-      <h1 class="text-2xl font-bold"><%= t(".log_entries") %></h1>
+      <h1 class="text-xl sm:text-2xl font-bold"><%= t(".log_entries") %></h1>
       <%= render Shared::IndexTableComponent.new(records: @subproject.log_entries) do |table| %>
         <% table.column :created_at do |log_entry| %>
           <%= l(log_entry.created_at) %>
@@ -42,7 +43,7 @@
       <% end %>
     <% end %>
     <%= render ContentCardComponent.new do %>
-      <h1 class="text-2xl font-bold"><%= t(".journal_entries") %></h1>
+      <h1 class="text-xl sm:text-2xl font-bold"><%= t(".journal_entries") %></h1>
       <%= render Shared::IndexTableComponent.new(records: @subproject.journals) do |table| %>
         <% table.column :title do |journal| %>
           <%= journal.title %>

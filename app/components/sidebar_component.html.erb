@@ -1,4 +1,6 @@
-<ul class="menu shadow-lg bg-base-200 w-64 min-h-screen tracking-wide justify-between">
+<ul 
+  data-mobile-menu-target="sidebar"
+  class="menu shadow-lg bg-base-200 w-64 min-h-screen tracking-wide justify-between fixed md:sticky top-0 left-0 z-40 transition-transform duration-300 -translate-x-full md:translate-x-0">
   <div>
     <div class="px-4 py-4 border-b border-base-300">
       <%= link_to root_path do %>
@@ -10,12 +12,12 @@
         </div>
       <% end %>
     </div>
-    <li class="py-6">
+    <li class="py-6 overflow-y-auto max-h-[calc(100vh-200px)]">
       <% sections.each do |section| %>
         <h2 class="menu-title uppercase"> <%= section.title %></h2>
         <ul>
           <% section.items.each do |item| %>
-            <li> <%= link_to item.path do %>
+            <li> <%= link_to item.path, data: { action: "click->mobile-menu#close" } do %>
               <%= render IconComponent.new(icon: item.icon, size: :md, classes: "w-5 h-5") %>
                 <span class="truncate text-base-content"><%= item.name %></span>
               <% end %>

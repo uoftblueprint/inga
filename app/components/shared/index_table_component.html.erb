@@ -17,29 +17,51 @@
   <!-- Construct columns sizes string from individual col_size parameters -->
   <% column_sizes = columns.map { |c| c.col_size || "minmax(0, 1fr)" }.join(" ") %>
 
-  <!-- Each row (including header) is its own rounded box -->
-  <div class="mb-2">
-    <div class="card bg-neutral rounded-lg">
-      <div class="p-4 grid items-center gap-4" style="grid-template-columns: <%= column_sizes %>">
-        <% columns.each do |column| %>
-          <div class="text-sm font-semibold text-neutral-content"><%= column.header %></div>
-        <% end %>
+  <!-- Desktop view: Grid layout -->
+  <div class="hidden md:block">
+    <!-- Each row (including header) is its own rounded box -->
+    <div class="mb-2">
+      <div class="card bg-neutral rounded-lg">
+        <div class="p-4 grid items-center gap-4" style="grid-template-columns: <%= column_sizes %>">
+          <% columns.each do |column| %>
+            <div class="text-sm font-semibold text-neutral-content"><%= column.header %></div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="space-y-2">
+      <% records.each_with_index do |record, index| %>
+        <div data-index-table-component-target="row" class="card bg-white rounded-lg shadow-sm">
+          <div class="p-3 grid items-center gap-4" style="grid-template-columns: <%= column_sizes %>">
+            <% columns.each do |column| %>
+              <div class="text-sm text-base-content"><%= render_cell_content(record, column) %></div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+      <div data-index-table-component-target="emptyRow" class="card bg-white rounded-lg shadow-sm <%= "hidden" unless empty? %>">
+        <div class="flex justify-center p-3 items-center">
+          <div class="text-sm text-base-content/40 font-bold"><%= t("shared.index_table_component.no_entries") %></div>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="space-y-2">
+  <!-- Mobile view: Stacked cards -->
+  <div class="md:hidden space-y-3">
     <% records.each_with_index do |record, index| %>
-      <div data-index-table-component-target="row" class="card bg-white rounded-lg shadow-sm">
-        <div class="p-3 grid items-center gap-4" style="grid-template-columns: <%= column_sizes %>">
-          <% columns.each do |column| %>
+      <div data-index-table-component-target="row" class="card bg-white rounded-lg shadow-sm p-4">
+        <% columns.each do |column| %>
+          <div class="flex flex-col py-2 border-b border-base-200 last:border-0">
+            <div class="text-xs font-semibold text-base-content mb-1"><%= column.header %></div>
             <div class="text-sm text-base-content"><%= render_cell_content(record, column) %></div>
-          <% end %>
-        </div>
+          </div>
+        <% end %>
       </div>
     <% end %>
     <div data-index-table-component-target="emptyRow" class="card bg-white rounded-lg shadow-sm <%= "hidden" unless empty? %>">
-      <div class="flex justify-center p-3 items-center">
+      <div class="flex justify-center p-4 items-center">
         <div class="text-sm text-base-content/40 font-bold"><%= t("shared.index_table_component.no_entries") %></div>
       </div>
     </div>

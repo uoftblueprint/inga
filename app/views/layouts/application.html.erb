@@ -24,10 +24,28 @@
   </head>
 
 <body class="min-h-screen bg-base-100">
-  <div class="flex min-h-screen">
+  <div class="flex min-h-screen" data-controller="mobile-menu">
+    <!-- Mobile Menu Button (visible only on mobile and when not on login page) -->
+    <% unless current_page?(login_path) %>
+      <button 
+        data-mobile-menu-target="menuButton"
+        data-action="click->mobile-menu#toggle"
+        class="md:hidden fixed top-4 left-4 z-50 btn btn-circle btn-primary shadow-lg">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block h-5 w-5 stroke-current">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+
+      <!-- Overlay (for mobile when menu is open) -->
+      <div 
+        data-mobile-menu-target="overlay"
+        data-action="click->mobile-menu#close"
+        class="hidden fixed inset-0 bg-black/50 z-30 md:hidden"></div>
+    <% end %>
+
     <%= render SidebarComponent.new %>
 
-    <main class="flex-1 overflow-auto">
+    <main class="flex-1 overflow-auto <%= current_page?(login_path) ? '' : 'pt-16 md:pt-0' %>">
       <%= render "shared/flash" %>
       <%= yield %>
     <div id="modal"></div>

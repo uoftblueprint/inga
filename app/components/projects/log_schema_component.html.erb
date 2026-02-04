@@ -1,11 +1,11 @@
-<div class="flex justify-between items-center">
-  <div class="flex items-center space-x-2">
-    <h3 class="text-2xl font-bold">
+<div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
+  <div class="flex items-center gap-2 flex-wrap">
+    <h3 class="text-xl sm:text-2xl font-bold">
       <%= t(".title") %>
     </h3>
     <%= render BadgeComponent.new(text: t(".attributes_count", count: project.log_schema.size), colour: :warning, size: :sm) %>
   </div>
-  <div>
+  <div class="flex-shrink-0">
     <%= render ActionButtonComponent.new(to: edit_project_attributes_schema_path(project), icon: "edit", colour: :info, turbo_stream: true, size: :medium) do %>
       <%= t(".edit_attributes") %>
     <% end %>

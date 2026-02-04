@@ -1,5 +1,6 @@
-<fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4 mt-10 mx-auto">
-  <legend class="fieldset-legend text-lg font-semibold">Login</legend>
+<div class="flex justify-center items-start min-h-screen px-4 py-10">
+  <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-full max-w-sm border p-4 sm:p-6">
+    <legend class="fieldset-legend text-base sm:text-lg font-semibold">Login</legend>
 
   <%= form_with url: login_path, local: true do |form| %>
     <div>
@@ -16,4 +17,5 @@
       <%= form.submit "Login", class: "btn btn-neutral w-full" %>
     </div>
   <% end %>
-</fieldset>
+  </fieldset>
+</div>
