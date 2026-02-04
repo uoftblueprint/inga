@@ -6,7 +6,7 @@
         <input id="search" type="search" name="q" required placeholder="<%= t(".search_placeholder") %>" autocomplete="off" data-project-card-search-target="input" data-action="input->project-card-search#filter">
       </label>
     </div>
-    <div class="grid grid-cols-[repeat(auto-fill,minmax(285px,1fr))] gap-6 w-full">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[repeat(auto-fill,minmax(285px,1fr))] gap-4 sm:gap-6 w-full">
       <% projects.each do |project| %>
         <div
           class="card w-full flex flex-col justify-between gap-2 bg-base-100 border border-base-300 shadow-md p-4 rounded-xl"
@@ -15,10 +15,10 @@
           <div class="flex flex-col">
             <div class="flex justify-between items-center pb-2 mb-2">
               <h2
-                class="text-color-base-content text-lg font-semibold">
+                class="text-color-base-content text-base sm:text-lg font-semibold truncate pr-2">
                 <%= project.name %>
               </h2>
-              <div>
+              <div class="flex-shrink-0">
                 <%= render BadgeComponent.new(**project_badge_args(project), style: :soft, size: :sm) %>
               </div>
             </div>
@@ -28,7 +28,7 @@
               <% end %>
             </div>
           </div>
-          <%= link_to t(".view_project"), project_path(project), class: "text-sm bg-base-300 rounded-md py-2 flex flex-row justify-center items-center" %>
+          <%= link_to t(".view_project"), project_path(project), class: "text-sm bg-base-300 hover:bg-base-400 rounded-md py-2 flex flex-row justify-center items-center transition-colors" %>
         </div>
       <% end %>
     </div>

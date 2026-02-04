@@ -9,15 +9,16 @@
       <%= form.label :name %>
       <%= form.text_field :name, required: true, class: "w-full", placeholder: t(".placeholder") %>
     </div>
-    <div class="flex gap-4">
+    <div class="flex flex-col gap-1">
       <%= form.label :roles %>
-      <% UserRole.roles.each_key do |role| %>
-        <label class="flex items-center gap-2">
-          <%= check_box_tag("user[roles][]", role, @user.has_roles?(role.to_sym), class: "checkbox") %>
-          <%= role.humanize %>
-        </label>
-      <% end %>
-
+      <div class="flex flex-wrap gap-3 sm:gap-4">
+        <% UserRole.roles.each_key do |role| %>
+          <label class="flex items-center gap-2 text-sm sm:text-base">
+            <%= check_box_tag("user[roles][]", role, @user.has_roles?(role.to_sym), class: "checkbox") %>
+            <%= role.humanize %>
+          </label>
+        <% end %>
+      </div>
     </div>
     <div class="flex flex-col gap-1">
       <%= form.label :password %>
