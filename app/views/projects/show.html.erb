@@ -9,17 +9,17 @@
       <div class="flex flex-row flex-wrap gap-2 sm:gap-4 sm:flex-shrink-0">
         <%= render ActionButtonComponent.new(to: edit_project_path(@project), icon: "edit", colour: :info, turbo_stream: true, size: :large) do %>
           <span class="hidden sm:inline"><%= t(".actions.edit") %></span>
-          <span class="sm:hidden text-xs whitespace-nowrap">Edit Project</span>
+          <span class="sm:hidden text-xs whitespace-nowrap"><%= t(".actions.edit") %></span>
         <% end %>
 
         <%= render ActionButtonComponent.new(to: new_project_subproject_path(@project), icon: "add", size: :large, turbo_stream: true, colour: :primary) do %>
           <span class="hidden sm:inline"><%= t(".create_subproject") %></span>
-          <span class="sm:hidden text-xs whitespace-nowrap">Create Subproject</span>
+          <span class="sm:hidden text-xs whitespace-nowrap"><%= t(".create_subproject") %></span>
         <% end %>
 
         <%= render ActionButtonComponent.new(to: project_path(@project), method: :delete, icon: "delete", colour: :error, size: :large, confirm: t("projects.destroy.confirm")) do %>
           <span class="hidden sm:inline"><%= t(".actions.delete") %></span>
-          <span class="sm:hidden text-xs whitespace-nowrap">Delete Project</span>
+          <span class="sm:hidden text-xs whitespace-nowrap"><%= t(".actions.delete") %></span>
         <% end %>
       </div>
     </div>

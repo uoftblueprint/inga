@@ -24,10 +24,10 @@
   </head>
 
 <body class="min-h-screen bg-base-100">
-  <div class="flex min-h-screen" data-controller="mobile-menu">
+  <div class="flex min-h-screen" <%= "data-controller=\"mobile-menu\"".html_safe unless current_page?(login_path) %>>
     <!-- Mobile Menu Button (visible only on mobile and when not on login page) -->
     <% unless current_page?(login_path) %>
-      <button 
+      <button
         data-mobile-menu-target="menuButton"
         data-action="click->mobile-menu#toggle"
         class="md:hidden fixed top-4 left-4 z-50 btn btn-circle btn-primary shadow-lg">
@@ -37,7 +37,7 @@
       </button>
 
       <!-- Overlay (for mobile when menu is open) -->
-      <div 
+      <div
         data-mobile-menu-target="overlay"
         data-action="click->mobile-menu#close"
         class="hidden fixed inset-0 bg-black/50 z-30 md:hidden"></div>
@@ -45,7 +45,7 @@
 
     <%= render SidebarComponent.new %>
 
-    <main class="flex-1 overflow-auto <%= current_page?(login_path) ? '' : 'pt-16 md:pt-0' %>">
+    <main class="flex-1 overflow-auto <%= current_page?(login_path) ? "" : "pt-16 md:pt-0" %>">
       <%= render "shared/flash" %>
       <%= yield %>
     <div id="modal"></div>
