@@ -1,3 +1,4 @@
+<div class="hidden sm:block">
 <ul class="menu shadow-lg bg-base-200 w-64 min-h-screen tracking-wide justify-between">
   <div>
     <div class="px-4 py-4 border-b border-base-300">
@@ -27,10 +28,14 @@
   </div>
   <div class="border-t border-base-300 py-2">
     <li>
-      <%= button_to logout_path, method: :delete, class: "flex gap-3" do %>
-        <%= render IconComponent.new(icon: "box-arrow-left", size: :md, classes: "w-5 h-5") %>
-        <span>Logout</span>
+      <%= button_to logout_item.path, method: :delete, class: "flex gap-3" do %>
+        <%= render IconComponent.new(icon: logout_item.icon, size: :md, classes: "w-5 h-5") %>
+        <span> <%= logout_item.name %> </span>
       <% end %>
     </li>
   </div>
 </ul>
+</div>
+<div class="sm:hidden">
+  <%= render DockComponent.new(items: sections.first.items, logout_item: logout_item) %>
+</div>

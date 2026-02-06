@@ -40,5 +40,9 @@ class SidebarComponent < ViewComponent::Base
     )
   end
 
+  def logout_item
+    @logout_item ||= SIDEBAR_ITEM.new(name: "Logout", path: ROUTES.logout_path, icon: "box-arrow-left")
+  end
+
   def render? = !current_page?(ROUTES.login_path)
 end

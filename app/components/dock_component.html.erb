@@ -1,0 +1,14 @@
+<div class="dock">
+  <% items.each do |item| %>
+    <%= link_to item.path,
+                class: wrapper_classes do %>
+        <%= render IconComponent.new(icon: item.icon, size: :md,
+                                     classes: icon_classes) %>
+      <span class="dock-label text-center"><%= item.name %></span>
+    <% end %>
+  <% end %>
+  <%= button_to logout_item.path, method: :delete, class: wrapper_classes do %>
+    <%= render IconComponent.new(icon: logout_item.icon, size: :md, classes: icon_classes) %>
+    <span class="dock-label text-center"> <%= logout_item.name %> </span>
+  <% end %>
+</div>
