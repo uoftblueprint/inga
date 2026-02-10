@@ -1,5 +1,6 @@
 class Report < ApplicationRecord
-  belongs_to :project
+  has_many :journal_reports, dependent: :destroy
+  has_many :journals, through: :journal_reports
 
-  has_many :snapshots
+  has_many :aggregated_data, class_name: "AggregatedDatum", dependent: :destroy
 end

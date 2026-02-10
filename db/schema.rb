@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_01_030626) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_03_234716) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
@@ -47,6 +47,26 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_01_030626) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "aggregated_data", force: :cascade do |t|
+    t.string "additional_text"
+    t.datetime "created_at", null: false
+    t.integer "report_id", null: false
+    t.string "type"
+    t.datetime "updated_at", null: false
+    t.float "value"
+    t.index ["report_id"], name: "index_aggregated_data_on_report_id"
+  end
+
+  create_table "journal_reports", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "journal_id", null: false
+    t.integer "report_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["journal_id", "report_id"], name: "index_journal_reports_on_journal_id_and_report_id", unique: true
+    t.index ["journal_id"], name: "index_journal_reports_on_journal_id"
+    t.index ["report_id"], name: "index_journal_reports_on_report_id"
   end
 
   create_table "journals", force: :cascade do |t|
@@ -89,19 +109,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_01_030626) do
   create_table "reports", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.date "end_date"
-    t.date "expiry"
-    t.integer "project_id"
     t.date "start_date"
     t.datetime "updated_at", null: false
-    t.index ["project_id"], name: "index_reports_on_project_id"
-  end
-
-  create_table "snapshots", force: :cascade do |t|
-    t.json "aggregated_data"
-    t.datetime "created_at", null: false
-    t.integer "report_id"
-    t.datetime "updated_at", null: false
-    t.index ["report_id"], name: "index_snapshots_on_report_id"
   end
 
   create_table "subprojects", force: :cascade do |t|
@@ -131,12 +140,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_01_030626) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "aggregated_data", "reports"
+  add_foreign_key "journal_reports", "journals"
+  add_foreign_key "journal_reports", "reports"
   add_foreign_key "journals", "subprojects"
   add_foreign_key "journals", "users"
   add_foreign_key "log_entries", "subprojects"
   add_foreign_key "log_entries", "users"
-  add_foreign_key "reports", "projects"
-  add_foreign_key "snapshots", "reports"
   add_foreign_key "subprojects", "projects"
   add_foreign_key "subprojects", "regions"
   add_foreign_key "user_roles", "users"
