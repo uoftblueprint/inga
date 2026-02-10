@@ -5,7 +5,6 @@ class Project < ApplicationRecord
   validate :log_schema_shape, if: :log_schema_changed?
 
   has_many :subprojects, dependent: :destroy
-  has_many :reports
 
   scope :active, -> { where(active: true) }
 
