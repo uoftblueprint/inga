@@ -1,0 +1,29 @@
+---
+es:
+  activerecord:
+    attributes:
+      journal:
+        created_at: Creado en
+        markdown_content: Contenido
+        subproject: Subproyecto
+        title: Título
+        updated_at: Actualizado en
+        user: Autor
+  journals:
+    create:
+      success: El diario se creó correctamente.
+    destroy:
+      confirm: "¿Está seguro de que desea eliminar esta entrada de diario?"
+      success: "¿Está seguro de que desea eliminar esta entrada de diario?"
+    edit:
+      title: Editar entrada de diario
+    new:
+      title: Nueva entrada de diario
+    show:
+      actions:
+        delete: Eliminar entrada de diario
+        edit: Editar entrada de diario
+      author: Autor
+      created_on: Creado el
+    update:
+      success: El diario se actualizó correctamente.

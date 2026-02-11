@@ -1,0 +1,31 @@
+---
+es:
+  activerecord:
+    attributes:
+      subproject:
+        address: Dirección
+        description: Descripción
+        name: Nombre
+        region: Región
+  subprojects:
+    create:
+      success: Subproyecto creado exitosamente
+    destroy:
+      confirm: "¿Estás seguro de que quieres eliminar este subproyecto?"
+      success: El subproyecto se eliminó correctamente.
+    edit:
+      title: Editar subproyecto
+    form_component:
+      select_a_region: Seleccione una región
+    new:
+      title: Nuevo subproyecto
+    show:
+      actions:
+        delete: Eliminar subproyecto
+        edit: Editar subproyecto
+      create_journal_entry: Crear entrada de diario
+      create_log_entry: Crear entrada de registro
+      journal_entries: Entradas de diario
+      log_entries: Entradas de registro
+    update:
+      success: Subproyecto actualizado exitosamente

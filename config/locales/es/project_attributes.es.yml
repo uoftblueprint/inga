@@ -1,0 +1,13 @@
+---
+es:
+  project_attributes:
+    edit:
+      title: Editar atributos
+    form_component:
+      new_row: Agregar atributo
+    log_attribute_component:
+      boolean: Booleano
+      numerical: Numérico
+      text: Escrito
+    update:
+      success: Atributos del proyecto actualizados exitosamente

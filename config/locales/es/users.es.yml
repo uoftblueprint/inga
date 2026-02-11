@@ -1,0 +1,42 @@
+---
+es:
+  activerecord:
+    attributes:
+      user:
+        name: Nombre
+        password: Contraseña
+        roles: Rol
+        username: Nombre de usuario
+  users:
+    create:
+      success: Cuenta creada exitosamente.
+    destroy:
+      confirm: "¿Estás seguro que deseas eliminar este usuario?"
+      self_deletion: No puedes eliminar tu propia cuenta.
+      success: Cuenta eliminada exitosamente.
+    edit:
+      title: Editar usuario
+    form_component:
+      confirm_password: Confirmar Contraseña
+      placeholder: Escribe aquí
+    index:
+      actions:
+        create: Crear usuario
+      title: Administrar usuarios
+    new:
+      title: Nuevo usuario
+    role_badge_component:
+      role_badge_args:
+        roles:
+          admin: Administrador
+          analyst: Analista
+          reporter: Reportero
+          unknown: Desconocido
+    show:
+      actions:
+        delete: Eliminar usuario
+        edit: Editar usuario
+      journal_entries: Entradas de diario
+      log_entries: Entradas de registro
+    update:
+      success: Cuenta actualizada exitosamente.
