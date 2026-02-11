@@ -1,0 +1,13 @@
+---
+es:
+  components:
+    sidebar_component:
+      build_admin_section:
+        admin: Admin
+        projects: Proyectos
+        regions: Regiones
+        users: Usuarios
+      build_projects_section:
+        projects: Proyectos
+      logout_item:
+        logout: Cerrar Sesión

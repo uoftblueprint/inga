@@ -1,0 +1,8 @@
+---
+es:
+  shared:
+    index_table_component:
+      actions: Acciones
+      no_entries: No se encontraron entradas
+    'no': 'No'
+    'yes': Sí

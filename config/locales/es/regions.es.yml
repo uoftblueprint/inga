@@ -1,0 +1,24 @@
+---
+es:
+  activerecord:
+    attributes:
+      region:
+        latitude: Latitud
+        longitude: Longitud
+        name: Nombre
+  regions:
+    create:
+      success: Región creada exitosamente
+    destroy:
+      confirm: "¿Estás seguro que deseas eliminar esta región?"
+      success: Región eliminada exitosamente
+    edit:
+      title: Editar región
+    index:
+      actions:
+        create: Crear región
+      title: Regiones
+    new:
+      title: Crear región
+    update:
+      success: Región actualizada exitosamente

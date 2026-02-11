@@ -7,6 +7,7 @@ en:
         markdown_content: Content
         subproject: Subproject
         title: Title
+        updated_at: Updated At
         user: Author
   journals:
     create:
