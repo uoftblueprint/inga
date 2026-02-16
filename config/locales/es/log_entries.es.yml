@@ -1,0 +1,25 @@
+---
+es:
+  activerecord:
+    attributes:
+      log_entry:
+        created_at: Creado en
+        project: Proyecto
+        subproject: Subproyecto
+        updated_at: Actualizado en
+        user: Usuario
+  log_entries:
+    create:
+      success: La entrada de registro se creó correctamente.
+    destroy:
+      confirm: "¿Está seguro de que desea eliminar esta entrada de registro?"
+      success: La entrada de registro se eliminó correctamente.
+    edit:
+      title: Editar entrada de registro
+    new:
+      title: Nueva entrada de registro
+    show:
+      close: Cerrar
+      title: Detalles de entrada de registro
+    update:
+      success: La entrada de registro se actualizó correctamente.

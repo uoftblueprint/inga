@@ -1,6 +1,6 @@
 <div class="hidden sm:block">
 <ul class="menu shadow-lg bg-base-200 w-64 min-h-screen tracking-wide justify-between">
-  <div>
+  <div class="flex-1">
     <div class="px-4 py-4 border-b border-base-300">
       <%= link_to root_path do %>
         <div class="flex items-center gap-3">
@@ -25,6 +25,17 @@
         </ul>
       <% end %>
     </li>
+  </div>
+  <div class="border-t border-base-300 py-2">
+    <% I18n.available_locales.each do |locale| %>
+      <li>
+        <% if I18n.locale == locale %>
+          <%= link_to t(locale, scope: "locales"), url_for(locale: locale), class: "font-bold" %>
+        <% else %>
+          <%= link_to t(locale, scope: "locales"), url_for(locale: locale) %>
+        <% end %>
+      </li>
+    <% end %>
   </div>
   <div class="border-t border-base-300 py-2">
     <li>

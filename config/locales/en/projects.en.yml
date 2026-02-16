@@ -29,11 +29,10 @@ en:
     new:
       title: New Project
     projects_card_component:
-      project_badge_args:
-        status:
-          active: Active
-          inactive: Inactive
       search_placeholder: Search project title
+      status:
+        active: Active
+        inactive: Inactive
       view_project: View project
     show:
       actions:

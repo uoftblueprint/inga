@@ -1,0 +1,44 @@
+---
+es:
+  activerecord:
+    attributes:
+      project:
+        active: Activo
+        description: Descripción
+        name: Nombre
+  projects:
+    create:
+      success: Proyecto creado exitosamente
+    destroy:
+      confirm: "¿Seguro que desea eliminar este proyecto? Esto también eliminará sus subproyectos e informes."
+      success: Proyecto eliminado exitosamente
+    edit:
+      title: Editar proyecto
+    index:
+      actions:
+        create: Crear proyecto
+      title: Proyectos
+    log_schema_component:
+      attributes_count:
+        one: 1 atributo
+        other: "%{count} atributos"
+      description: Estos atributos se recopilan para cada entrada de registro creada en este proyecto.
+      edit_attributes: Editar atributos
+      empty_state: No hay atributos definidos para este proyecto.
+      title: Atributos de entrada de registro recopilados
+    new:
+      title: Nuevo proyecto
+    projects_card_component:
+      search_placeholder: Buscar título del proyecto
+      status:
+        active: Activo
+        inactive: Inactivo
+      view_project: Ver proyecto
+    show:
+      actions:
+        delete: Eliminar proyecto
+        edit: Editar proyecto
+      create_subproject: Crear subproyecto
+      subprojects: Subproyectos
+    update:
+      success: Proyecto actualizado exitosamente

@@ -1,0 +1,8 @@
+---
+es:
+  sessions:
+    create:
+      error: Nombre de usuario o contraseña no válidos.
+      success: Inició sesión exitosamente.
+    destroy:
+      success: Se cerró sesión exitosamente.
