@@ -1,8 +1,11 @@
 ---
-en:
+es:
   date:
     formats:
       default: "%d-%m-%Y"
   time:
     formats:
       default: "%d-%m-%Y, %H:%M:%S"
+  locales:
+    en: English
+    es: Español

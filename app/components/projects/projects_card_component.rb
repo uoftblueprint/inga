@@ -11,9 +11,9 @@ module Projects
 
     def project_badge_args(project)
       if project.active
-        { text: t(".status.active"), colour: :success }
+        { text: t("status.active", scope: "projects.projects_card_component"), colour: :success }
       else
-        { text: t(".status.inactive"), colour: :warning }
+        { text: t("status.inactive", scope: "projects.projects_card_component"), colour: :warning }
       end
     end
   end

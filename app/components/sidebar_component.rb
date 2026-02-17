@@ -3,10 +3,8 @@ class SidebarComponent < ViewComponent::Base
 
   SIDEBAR_SECTION = Struct.new(:title, :items, keyword_init: true).freeze
   SIDEBAR_ITEM = Struct.new(:name, :path, :icon, keyword_init: true).freeze
-  ROUTES = Rails.application.routes.url_helpers.freeze
 
-  def initialize
-    super
+  def before_render
     @sections = []
     build_admin_section
     build_projects_section
@@ -16,11 +14,14 @@ class SidebarComponent < ViewComponent::Base
 
   def build_admin_section
     @sections << SIDEBAR_SECTION.new(
-      title: "Admin",
+      title: t("admin", scope: "components.sidebar_component.build_admin_section"),
       items: [
-        SIDEBAR_ITEM.new(name: "Projects", path: ROUTES.projects_path, icon: "journal-text"),
-        SIDEBAR_ITEM.new(name: "Users", path: ROUTES.users_path, icon: "person-gear"),
-        SIDEBAR_ITEM.new(name: "Regions", path: ROUTES.regions_path, icon: "compass")
+        SIDEBAR_ITEM.new(name: t("projects", scope: "components.sidebar_component.build_admin_section"),
+                         path: helpers.projects_path, icon: "journal-text"),
+        SIDEBAR_ITEM.new(name: t("users", scope: "components.sidebar_component.build_admin_section"),
+                         path: helpers.users_path, icon: "person-gear"),
+        SIDEBAR_ITEM.new(name: t("regions", scope: "components.sidebar_component.build_admin_section"),
+                         path: helpers.regions_path, icon: "compass")
       ]
     )
   end
@@ -29,20 +30,21 @@ class SidebarComponent < ViewComponent::Base
     items = Project.order(:name).map do |project|
       SIDEBAR_ITEM.new(
         name: project.name,
-        path: ROUTES.project_path(project),
+        path: helpers.project_path(project),
         icon: "folder"
       )
     end
 
     @sections << SIDEBAR_SECTION.new(
-      title: "Projects",
+      title: t("projects", scope: "components.sidebar_component.build_projects_section"),
       items:
     )
   end
 
   def logout_item
-    @logout_item ||= SIDEBAR_ITEM.new(name: "Logout", path: ROUTES.logout_path, icon: "box-arrow-left")
+    @logout_item ||= SIDEBAR_ITEM.new(name: t("logout", scope: "components.sidebar_component.logout_item"),
+                                      path: helpers.logout_path, icon: "box-arrow-left")
   end
 
-  def render? = !current_page?(ROUTES.login_path)
+  def render? = !current_page?(helpers.login_path)
 end
