@@ -1,4 +1,4 @@
-<div data-controller="index-table-component">
+<div data-controller="index-table-component" data-index-table-component-per-page-value="<%= per_page %>">
   <% if searchable %>
     <div class="mb-4">
       <label class="input input-bordered w-full">
@@ -43,5 +43,9 @@
         <div class="text-sm text-base-content/40 font-bold"><%= t("shared.index_table_component.no_entries") %></div>
       </div>
     </div>
+  </div>
+
+  <div class="flex justify-center mt-4">
+    <div class="join" data-index-table-component-target="pagination"></div>
   </div>
 </div>
