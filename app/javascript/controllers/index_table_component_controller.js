@@ -106,7 +106,7 @@ export default class extends Controller {
 
     pages.forEach((page) => {
       if (page === "gap") {
-        html += `<button class="join-item btn btn-sm btn-disabled">…</button>`;
+        html += `<span class="join-item btn btn-sm btn-disabled">…</span>`;
       } else {
         const isActive = page === this._currentPage;
         html += `<button class="join-item btn btn-sm${isActive ? " btn-active" : ""}"
