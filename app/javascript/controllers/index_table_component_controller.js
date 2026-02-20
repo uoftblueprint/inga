@@ -67,7 +67,10 @@ export default class extends Controller {
     });
 
     // Toggle empty state
-    this.emptyRowTarget.classList.toggle("hidden", this._filteredRows.length > 0);
+    this.emptyRowTarget.classList.toggle(
+      "hidden",
+      this._filteredRows.length > 0,
+    );
 
     // Render pagination controls
     if (this.hasPaginationTarget) {
@@ -78,7 +81,10 @@ export default class extends Controller {
   // --- Private ---
 
   _totalPages() {
-    return Math.max(1, Math.ceil(this._filteredRows.length / this.perPageValue));
+    return Math.max(
+      1,
+      Math.ceil(this._filteredRows.length / this.perPageValue),
+    );
   }
 
   _renderPagination(totalPages) {
