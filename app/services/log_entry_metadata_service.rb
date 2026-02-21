@@ -17,6 +17,7 @@ class LogEntryMetadataService
     LogEntry
       .where(subproject: subprojects)
       .where(created_at: start_date..end_date)
+      .order(:created_at, :id)
       .includes(subproject: :project)
   end
 
@@ -44,9 +45,9 @@ class LogEntryMetadataService
         log_schema.each do |name, type|
           case type.to_s
           when "numerical"
-            numerical_fields << name
+            numerical_fields << name.to_s
           when "boolean"
-            boolean_fields << name
+            boolean_fields << name.to_s
           end
         end
 
@@ -64,12 +65,12 @@ class LogEntryMetadataService
       metadata = log_entry.metadata || {}
 
       numerical_fields.each do |field|
-        value = metadata[field.to_s]
+        value = metadata[field]
         numerical_data[field] = value unless value.nil?
       end
 
       boolean_fields.each do |field|
-        value = metadata[field.to_s]
+        value = metadata[field]
         boolean_data[field] = value unless value.nil?
       end
 
