@@ -29,6 +29,34 @@ class LogEntryMetadataServiceTest < ActiveSupport::TestCase
                  ], result.boolean)
   end
 
+  test "categorizes metadata with multiple keys of one type in schema" do
+    other_project = create(:project, log_schema: { "X Type Trees Planted" => "numerical",
+                                                   "Y Type Trees Planted" => "numerical",
+                                                   "Flagged" => "boolean" })
+    other_subproject = create(:subproject, project: other_project)
+
+    create(:log_entry, subproject: other_subproject, metadata: { "X Type Trees Planted" => 10,
+                                                                 "Y Type Trees Planted" => 20,
+                                                                 "Flagged" => true }, created_at: 3.days.ago)
+    create(:log_entry, subproject: other_subproject, metadata: { "X Type Trees Planted" => 15,
+                                                                 "Y Type Trees Planted" => 25,
+                                                                 "Flagged" => false }, created_at: 2.days.ago)
+
+    result = @service.retrieve_categorized_metadata_for_range(Subproject.where(id: other_subproject.id), 4.days.ago,
+                                                              Time.current)
+
+    assert_kind_of LogEntryMetadataService::CategorizedMetadata, result
+
+    assert_equal([
+                   { "X Type Trees Planted" => 10, "Y Type Trees Planted" => 20 },
+                   { "X Type Trees Planted" => 15, "Y Type Trees Planted" => 25 }
+                 ], result.numerical)
+    assert_equal([
+                   { "Flagged" => true },
+                   { "Flagged" => false }
+                 ], result.boolean)
+  end
+
   test "categorizes metadata when some fields are missing" do
     create(:log_entry, subproject: @subproject, metadata: {
              "Flagged" => true
