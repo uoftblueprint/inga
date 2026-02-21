@@ -12,7 +12,7 @@ Rails.application.routes.draw do
       # Subproject routes
       resources :subprojects, except: [:index] do
         resources :journals, except: [:index]
-        resources :log_entries, except: [:index]
+        resources :log_entries, except: [:index], controller: "projects/subprojects/log_entries"
       end
     end
 
