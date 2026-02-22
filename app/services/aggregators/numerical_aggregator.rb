@@ -28,7 +28,6 @@ module Aggregators
     end
 
     def average_per_day
-      # TODO: check if this is correct for inclusive date range
       num_days = (@report.end_date - @report.start_date).to_i + 1
 
       combined_sums.each do |key, value|
