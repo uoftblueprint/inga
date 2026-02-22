@@ -1,13 +1,9 @@
 module Aggregators
   class NumericalAggregator < BaseAggregator
-    def initialize
+    def initialize(report:, data:)
       super
 
-      @aggregation_methods = [
-        method(:sum),
-        method(:average_per_log_entry),
-        method(:average_per_day)
-      ]
+      @aggregation_methods = %i[sum average_per_log_entry average_per_day]
     end
 
     private
