@@ -1,15 +1,45 @@
-<%= form_with model: [project, subproject, journal], builder: DefaultFormBuilder do |form| %>
-  <div class="flex flex-col gap-2">
-    <div class="flex flex-col gap-1">
-      <%= form.label :title %>
-      <%= form.text_field :title, required: true, class: "w-full" %>
+<%= form_with model: (top_level_form? ? journal : [project, subproject, journal]),
+              url: (top_level_form? ? journals_path : nil),
+              builder: DefaultFormBuilder,
+              class: "flex flex-col gap-4" do |form| %>
+
+  <% if top_level_form? %>
+        <div class="flex flex-col gap-2"
+          data-controller="dependent-selects"
+          data-dependent-selects-mapping-value="<%= subproject_mapping.to_json %>">
+      <div class="flex flex-col gap-1">
+        <%= form.label :project_id, "Project" %>
+        <%= form.select :project_id,
+                        options_for_select(project_options, params.dig(:journal, :project_id)),
+                        { include_blank: "Select a project" },
+                        required: true,
+                        class: "w-full",
+                        data: { "dependent-selects-target": "project" } %>
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <%= form.label :subproject_id, "Subproject" %>
+        <%= form.select :subproject_id,
+                        grouped_options_for_select(grouped_subproject_options, params.dig(:journal, :subproject_id)),
+                        { include_blank: "Select a subproject" },
+                        required: true,
+                        class: "w-full",
+                        data: { "dependent-selects-target": "subproject" } %>
+      </div>
     </div>
-    <div class="flex flex-col gap-1">
-      <%= form.label :markdown_content %>
-      <%= form.rich_text_area :markdown_content, class: "min-h-[200px] border border-gray-200 rounded p-2" %>
-    </div>
+  <% end %>
+
+  <div class="flex flex-col gap-1">
+    <%= form.label :title %>
+    <%= form.text_field :title, required: true, class: "w-full" %>
   </div>
-  <div class="mt-4">
+
+  <div class="flex flex-col gap-1">
+    <%= form.label :markdown_content %>
+    <%= helpers.lexxy_rich_textarea_tag(:markdown_content, form.object.markdown_content) %>
+  </div>
+
+  <div class="flex items-center gap-2 mt-2">
     <%= form.submit class: "w-full btn btn-neutral" %>
   </div>
 <% end %>

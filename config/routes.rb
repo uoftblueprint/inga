@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   # Locale scope
   scope "(:locale)", locale: /#{I18n.available_locales.join('|')}/ do
+    resources :journals, only: %i[new create]
+
     # Project routes
     resources :projects do
       resource :attributes_schema, controller: "project_attributes", only: %i[update edit] do
