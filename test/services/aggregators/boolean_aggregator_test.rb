@@ -23,7 +23,7 @@ module Aggregators
     test "returns correct aggregations for the data" do
       BooleanAggregator.new(report: @report, data: @categorized_metadata.boolean).aggregate
 
-      data = AggregatedBooleanDatum.where(report: @report).map do |datum|
+      data = AggregatedBooleanDatum.where(report: @report).order(:id).map do |datum|
         {
           value: datum.value,
           additional_text: datum.additional_text
@@ -34,6 +34,14 @@ module Aggregators
       assert_equal [{ value: 2.0, additional_text: "True instances of Flagged" },
                     { value: 0.6666666666666666, additional_text: "Average true instances of Flagged per log entry" },
                     { value: 0.4, additional_text: "Average true instances of Flagged per day" }], data
+    end
+
+    test "returns nothing when no data is provided" do
+      BooleanAggregator.new(report: @report, data: LogEntryMetadataService::CategorizedMetadata.new).aggregate
+
+      data = AggregatedBooleanDatum.where(report: @report)
+
+      assert_equal 0, data.size
     end
   end
 end

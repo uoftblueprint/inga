@@ -4,12 +4,14 @@ module Aggregators
       super
 
       @aggregation_methods = %i[sum average_per_log_entry average_per_day]
+
+      @combined_sums = combined_sums
     end
 
     private
 
     def sum
-      combined_sums.each do |key, value|
+      @combined_sums.each do |key, value|
         AggregatedNumericalDatum.create(value: value, report: @report, additional_text: "Total #{key}")
       end
     end
@@ -17,7 +19,9 @@ module Aggregators
     def average_per_log_entry
       data_size = @data.size
 
-      combined_sums.each do |key, value|
+      return unless data_size > 0
+
+      @combined_sums.each do |key, value|
         AggregatedNumericalDatum.create(value: value.to_f / data_size, report: @report,
                                         additional_text: "Average #{key} per log entry")
       end
@@ -26,7 +30,9 @@ module Aggregators
     def average_per_day
       num_days = (@report.end_date - @report.start_date).to_i + 1
 
-      combined_sums.each do |key, value|
+      return unless num_days > 0
+
+      @combined_sums.each do |key, value|
         AggregatedNumericalDatum.create(value: value.to_f / num_days, report: @report,
                                         additional_text: "Average #{key} per day")
       end

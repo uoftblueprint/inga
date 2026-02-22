@@ -20,10 +20,10 @@ module Aggregators
       @report = create(:report, start_date: 4.days.ago.to_date, end_date: Time.current.to_date)
     end
 
-    test "returns correct aggregations for the data" do
+    test "inserts the correct aggregations for the data" do
       NumericalAggregator.new(report: @report, data: @categorized_metadata.numerical).aggregate
 
-      data = AggregatedNumericalDatum.where(report: @report).map do |datum|
+      data = AggregatedNumericalDatum.where(report: @report).order(:id).map do |datum|
         {
           value: datum.value,
           additional_text: datum.additional_text
@@ -34,6 +34,14 @@ module Aggregators
       assert_equal [{ value: 138.0, additional_text: "Total Trees Planted" },
                     { value: 46.0, additional_text: "Average Trees Planted per log entry" },
                     { value: 27.6, additional_text: "Average Trees Planted per day" }], data
+    end
+
+    test "returns nothing when no data is provided" do
+      NumericalAggregator.new(report: @report, data: LogEntryMetadataService::CategorizedMetadata.new).aggregate
+
+      data = AggregatedNumericalDatum.where(report: @report)
+
+      assert_equal 0, data.size
     end
   end
 end
