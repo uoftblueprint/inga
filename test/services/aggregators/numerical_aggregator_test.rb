@@ -25,7 +25,7 @@ module Aggregators
 
       data = AggregatedNumericalDatum.where(report: @report).order(:id).map do |datum|
         {
-          value: datum.value,
+          value: datum.value.to_f,
           additional_text: datum.additional_text
         }
       end
@@ -36,8 +36,32 @@ module Aggregators
                     { value: 27.6, additional_text: "Average Trees Planted per day" }], data
     end
 
-    test "returns nothing when no data is provided" do
-      NumericalAggregator.new(report: @report, data: LogEntryMetadataService::CategorizedMetadata.new).aggregate
+    test "handles missing keys in some entries" do
+      # since "Trees Planted" is missing from here, it should not be added to the
+      # denominator for the average per log entry
+      create(:log_entry, subproject: @subproject, metadata: { "Flagged" => true }, created_at: 1.day.ago)
+
+      service = LogEntryMetadataService.new
+      @categorized_metadata = service.retrieve_categorized_metadata_for_range(Subproject.where(id: @subproject.id),
+                                                                              4.days.ago, Time.current)
+
+      NumericalAggregator.new(report: @report, data: @categorized_metadata.numerical).aggregate
+
+      data = AggregatedNumericalDatum.where(report: @report).order(:id).map do |datum|
+        {
+          value: datum.value.to_f,
+          additional_text: datum.additional_text
+        }
+      end
+
+      assert_equal 3, data.size
+      assert_equal [{ value: 138.0, additional_text: "Total Trees Planted" },
+                    { value: 46.0, additional_text: "Average Trees Planted per log entry" },
+                    { value: 27.6, additional_text: "Average Trees Planted per day" }], data
+    end
+
+    test "inserts nothing when no data is provided" do
+      NumericalAggregator.new(report: @report, data: []).aggregate
 
       data = AggregatedNumericalDatum.where(report: @report)
 

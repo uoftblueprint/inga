@@ -17,13 +17,22 @@ module Aggregators
     end
 
     def average_true_instances_per_log_entry
-      data_size = @data.size
+      key_counts = Hash.new(0)
 
-      return unless data_size > 0
+      @data.each do |entry|
+        entry.each_key { |key| key_counts[key] += 1 }
+      end
 
       @combined_instances.each do |key, value|
-        AggregatedBooleanDatum.create(value: value.to_f / data_size, report: @report,
-                                      additional_text: "Average true instances of #{key} per log entry")
+        relevant_count = key_counts[key]
+
+        next unless relevant_count > 0
+
+        AggregatedBooleanDatum.create(
+          value: value.to_f / relevant_count,
+          report: @report,
+          additional_text: "Average true instances of #{key} per log entry"
+        )
       end
     end
 
