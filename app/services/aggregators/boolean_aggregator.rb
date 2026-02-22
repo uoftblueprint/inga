@@ -1,13 +1,9 @@
 module Aggregators
   class BooleanAggregator < BaseAggregator
-    def initialize
+    def initialize(report:, data:)
       super
 
-      @aggregation_methods = [
-        method(:true_instances),
-        method(:average_true_instances_per_log_entry),
-        method(:average_true_instances_per_day)
-      ]
+      @aggregation_methods = %i[true_instances average_true_instances_per_log_entry average_true_instances_per_day]
     end
 
     private
