@@ -1,9 +1,50 @@
 module Aggregators
   class NumericalAggregator < BaseAggregator
-    def aggregate
-      # TODO: make this add the appropriate entries to AggregatedData based on
-      # all possible aggregations for this type
-      raise NotImplementedError
+    def initialize
+      super
+
+      @aggregation_methods = [
+        method(:sum),
+        method(:average_per_log_entry),
+        method(:average_per_day)
+      ]
+    end
+
+    private
+
+    def sum
+      combined_sums.each do |key, value|
+        AggregatedNumericalDatum.create(value: value, report: @report, additional_text: "Total #{key}")
+      end
+    end
+
+    def average_per_log_entry
+      data_size = @data.size
+
+      combined_sums.each do |key, value|
+        AggregatedNumericalDatum.create(value: value.to_f / data_size, report: @report,
+                                        additional_text: "Average #{key} per log entry")
+      end
+    end
+
+    def average_per_day
+      # TODO: check if this is correct for inclusive date range
+      num_days = (@report.end_date - @report.start_date).to_i + 1
+
+      combined_sums.each do |key, value|
+        AggregatedNumericalDatum.create(value: value.to_f / num_days, report: @report,
+                                        additional_text: "Average #{key} per day")
+      end
+    end
+
+    def combined_sums
+      result = Hash.new(0)
+
+      @data.each do |entry|
+        entry.each { |key, value| result[key] += value }
+      end
+
+      result
     end
   end
 end
