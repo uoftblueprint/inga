@@ -41,10 +41,9 @@ class IndexTablePaginationTest < ApplicationSystemTestCase
 
     find("input[type='search']").fill_in with: "Region 01"
 
-    assert_no_selector "[data-index-table-component-target='pagination']", visible: true
+    assert_selector "[data-index-table-component-target='row']", count: 1, visible: true
 
-    visible_rows = all("[data-index-table-component-target='row']", visible: true)
-    assert_equal 1, visible_rows.count
+    assert_no_selector "[data-index-table-component-target='pagination']"
   end
 
   test "hides pagination when results fit on one page" do

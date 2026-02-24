@@ -10,6 +10,6 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     fill_in "Username", with: user.username
     fill_in "Password", with: "password"
     click_on "Login"
-    assert_text "Projects"
+    assert_selector "h1", text: "Projects"
   end
 end
