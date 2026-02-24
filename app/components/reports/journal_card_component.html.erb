@@ -1,0 +1,7 @@
+<div class="border rounded-md p-4">
+  <h1 class="text-xl font-bold"><%= @journal.title %></h1>
+  <span class="text-lg"><%= t(".author") %>: <%= @journal.user.username %></span>
+  <div class="divider m-0 mb-2"></div>
+
+  <%= @journal.markdown_content %>
+</div>

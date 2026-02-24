@@ -18,6 +18,8 @@ es:
         end_date: Fecha de finalización
         start_date: Fecha de inicio
       title: Informes
+    journal_card_component:
+      author: Autor
     not_found: Informe no encontrado.
     update:
       success: El informe se actualizó correctamente.

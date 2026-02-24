@@ -18,6 +18,8 @@ en:
         end_date: End Date
         start_date: Start Date
       title: Reports
+    journal_card_component:
+      author: Author
     not_found: Report not found.
     update:
       success: Report updated successfully.

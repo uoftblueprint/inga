@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       end
       # Subproject routes
       resources :subprojects, except: [:index] do
-        resources :journals, except: [:index]
+        resources :journals, except: [:index], controller: "projects/subprojects/journals"
         resources :log_entries, except: [:index], controller: "projects/subprojects/log_entries"
       end
     end
@@ -31,5 +31,8 @@ Rails.application.routes.draw do
     get "/login", to: "sessions#login"
     post "/login", to: "sessions#create"
     delete "/logout", to: "sessions#destroy"
+
+    # Report routes
+    resources :reports, only: %i[show]
   end
 end
