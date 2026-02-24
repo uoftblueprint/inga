@@ -1,14 +1,14 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["search", "row", "emptyRow", "pagination"];
+  static targets = ["search", "row", "emptyRow", "pagination", "pageInfo"];
   static values = { perPage: { type: Number, default: 10 } };
 
   connect() {
     this._rows = this.rowTargets || [];
-    this._currentPage = 1;
     this._filteredRows = [...this._rows];
-    this.paginate();
+    this._page = 0;
+    this._paginate();
   }
 
   filter() {
@@ -23,48 +23,42 @@ export default class extends Controller {
       });
     }
 
-    // Reset to first page when filtering
-    this._currentPage = 1;
-    this.paginate();
-  }
-
-  goToPage(event) {
-    const page = parseInt(event.currentTarget.dataset.page, 10);
-    if (page >= 1 && page <= this._totalPages()) {
-      this._currentPage = page;
-      this.paginate();
-    }
+    this._page = 0;
+    this._paginate();
   }
 
   previousPage() {
-    if (this._currentPage > 1) {
-      this._currentPage--;
-      this.paginate();
+    if (this._page > 0) {
+      this._page--;
+      this._paginate();
     }
   }
 
   nextPage() {
-    if (this._currentPage < this._totalPages()) {
-      this._currentPage++;
-      this.paginate();
+    if (this._page < this._lastPage()) {
+      this._page++;
+      this._paginate();
     }
   }
 
-  paginate() {
+  // --- Private ---
+
+  _lastPage() {
+    return Math.max(
+      0,
+      Math.ceil(this._filteredRows.length / this.perPageValue) - 1,
+    );
+  }
+
+  _paginate() {
     const perPage = this.perPageValue;
-    const totalPages = this._totalPages();
-    const start = (this._currentPage - 1) * perPage;
-    const end = start + perPage;
+    const start = this._page * perPage;
+    const end = (this._page + 1) * perPage;
 
-    // Hide all rows first
-    this._rows.forEach((row) => {
-      row.style.display = "none";
-    });
-
-    // Show only filtered rows for the current page
-    this._filteredRows.forEach((row, index) => {
-      row.style.display = index >= start && index < end ? "" : "none";
-    });
+    this._rows.forEach((row) => (row.style.display = "none"));
+    this._filteredRows
+      .slice(start, end)
+      .forEach((row) => (row.style.display = ""));
 
     // Toggle empty state
     this.emptyRowTarget.classList.toggle(
@@ -72,82 +66,38 @@ export default class extends Controller {
       this._filteredRows.length > 0,
     );
 
-    // Render pagination controls
+    // Update pagination
     if (this.hasPaginationTarget) {
-      this._renderPagination(totalPages);
+      this._updatePagination();
     }
   }
 
-  // --- Private ---
-
-  _totalPages() {
-    return Math.max(
-      1,
-      Math.ceil(this._filteredRows.length / this.perPageValue),
-    );
-  }
-
-  _renderPagination(totalPages) {
+  _updatePagination() {
+    const lastPage = this._lastPage();
     const container = this.paginationTarget;
 
-    // Hide pagination if only one page
-    if (totalPages <= 1) {
+    if (lastPage === 0) {
       container.classList.add("hidden");
       return;
     }
 
     container.classList.remove("hidden");
 
-    const pages = this._pageSeries(totalPages);
-    let html = "";
+    const prevBtn = container.querySelector("[data-prev]");
+    const nextBtn = container.querySelector("[data-next]");
 
-    html += `<button class="join-item btn btn-sm${this._currentPage === 1 ? " btn-disabled" : ""}"
-      data-action="index-table-component#previousPage" ${this._currentPage === 1 ? "disabled" : ""}>«</button>`;
-
-    pages.forEach((page) => {
-      if (page === "gap") {
-        html += `<span class="join-item btn btn-sm btn-disabled">…</span>`;
-      } else {
-        const isActive = page === this._currentPage;
-        html += `<button class="join-item btn btn-sm${isActive ? " btn-active" : ""}"
-          data-action="index-table-component#goToPage" data-page="${page}">${page}</button>`;
-      }
-    });
-
-    html += `<button class="join-item btn btn-sm${this._currentPage === totalPages ? " btn-disabled" : ""}"
-      data-action="index-table-component#nextPage" ${this._currentPage === totalPages ? "disabled" : ""}>»</button>`;
-
-    container.innerHTML = html;
-  }
-
-  _pageSeries(totalPages) {
-    const current = this._currentPage;
-
-    if (totalPages <= 7) {
-      return Array.from({ length: totalPages }, (_, i) => i + 1);
+    if (prevBtn) {
+      prevBtn.disabled = this._page === 0;
+      prevBtn.classList.toggle("btn-disabled", this._page === 0);
     }
 
-    const pages = [];
-
-    pages.push(1);
-
-    if (current > 3) {
-      pages.push("gap");
+    if (nextBtn) {
+      nextBtn.disabled = this._page === lastPage;
+      nextBtn.classList.toggle("btn-disabled", this._page === lastPage);
     }
 
-    const rangeStart = Math.max(2, current - 1);
-    const rangeEnd = Math.min(totalPages - 1, current + 1);
-
-    for (let i = rangeStart; i <= rangeEnd; i++) {
-      pages.push(i);
+    if (this.hasPageInfoTarget) {
+      this.pageInfoTarget.textContent = `${this._page + 1} of ${lastPage + 1}`;
     }
-
-    if (current < totalPages - 2) {
-      pages.push("gap");
-    }
-
-    pages.push(totalPages);
-
-    return pages;
   }
 }

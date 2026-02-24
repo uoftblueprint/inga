@@ -46,6 +46,10 @@
   </div>
 
   <div class="flex justify-center mt-4">
-    <div class="join" data-index-table-component-target="pagination"></div>
+    <div class="join hidden" data-index-table-component-target="pagination">
+      <button class="join-item btn btn-sm" data-action="index-table-component#previousPage" data-prev>&lt;</button>
+      <span class="join-item btn btn-sm no-animation pointer-events-none" data-index-table-component-target="pageInfo"></span>
+      <button class="join-item btn btn-sm" data-action="index-table-component#nextPage" data-next>&gt;</button>
+    </div>
   </div>
 </div>
