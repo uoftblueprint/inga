@@ -1,4 +1,4 @@
-<div data-controller="index-table-component" data-index-table-component-per-page-value="<%= per_page %>">
+<div data-controller="index-table-component" data-index-table-component-per-page-value="<%= per_page %>" data-index-table-component-sort-column-value="<%= sort_column_index %>" data-index-table-component-sort-direction-value="<%= sort_direction %>">
   <% if searchable %>
     <div class="mb-4">
       <label class="input input-bordered w-full">
@@ -21,8 +21,15 @@
   <div class="mb-2">
     <div class="card bg-neutral rounded-lg">
       <div class="p-4 grid items-center gap-4" style="grid-template-columns: <%= column_sizes %>">
-        <% columns.each do |column| %>
-          <div class="text-sm font-semibold text-neutral-content"><%= column.header %></div>
+        <% columns.each_with_index do |column, index| %>
+          <% if column.sortable %>
+            <button class="text-sm font-semibold text-neutral-content flex items-center gap-1 text-left" data-action="index-table-component#sort" data-column-index="<%= index %>">
+              <%= column.header %>
+              <span data-sort-indicator="<%= index %>" class="opacity-0">▲</span>
+            </button>
+          <% else %>
+            <div class="text-sm font-semibold text-neutral-content"><%= column.header %></div>
+          <% end %>
         <% end %>
       </div>
     </div>
@@ -32,8 +39,9 @@
     <% records.each_with_index do |record, index| %>
       <div data-index-table-component-target="row" class="card bg-white rounded-lg shadow-sm">
         <div class="p-3 grid items-center gap-4" style="grid-template-columns: <%= column_sizes %>">
-          <% columns.each do |column| %>
-            <div class="text-sm text-base-content"><%= render_cell_content(record, column) %></div>
+          <% columns.each_with_index do |column, col_index| %>
+            <% sort_val = sort_value_for(record, column) %>
+            <div class="text-sm text-base-content" data-col-index="<%= col_index %>"<%= " data-sort-value=\"#{sort_val}\"" if sort_val %>><%= render_cell_content(record, column) %></div>
           <% end %>
         </div>
       </div>
