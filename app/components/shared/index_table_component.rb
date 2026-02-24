@@ -66,10 +66,7 @@ module Shared
     def empty? = records.empty?
 
     def sort_column_index
-      @sort_column_index ||= columns.find_index(&:default_sort) ||
-                             columns.find_index { |c| c.attribute == :created_at } ||
-                             columns.find_index(&:sortable) ||
-                             -1
+      @sort_column_index ||= columns.find_index(&:default_sort) || -1
     end
 
     def sort_direction
