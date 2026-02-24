@@ -5,6 +5,8 @@ es:
       build_admin_section:
         reports: Informes
   reports:
+    journal_card_component:
+      author: Autor
     create:
       success: El informe se creó correctamente.
     destroy:

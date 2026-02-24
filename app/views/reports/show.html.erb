@@ -1,0 +1,16 @@
+<div class="flex flex-col gap-3 p-4 items-center">
+  <%= render Reports::MarqueeComponent.new do |marquee| %>
+    <% @report.aggregated_data.each do |aggregated_datum| %>
+      <% marquee.with_slide do %>
+        <%= render Reports::AggregatedDatumCardComponent.new(aggregated_datum: aggregated_datum) %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <div class="flex flex-col gap-3 px-5">
+    <% @report.journals.each do |journal| %>
+      <%= render Reports::JournalCardComponent.new(journal: journal) %>
+    <% end %>
+  </div>
+  <%= render Reports::ThankYouCardComponent.new %>
+</div>

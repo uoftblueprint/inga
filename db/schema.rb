@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_03_234716) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_22_231800) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
@@ -55,7 +55,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_03_234716) do
     t.integer "report_id", null: false
     t.string "type"
     t.datetime "updated_at", null: false
-    t.float "value"
+    t.decimal "value", precision: 10, scale: 2
     t.index ["report_id"], name: "index_aggregated_data_on_report_id"
   end
 

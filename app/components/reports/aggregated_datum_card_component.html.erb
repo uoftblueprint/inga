@@ -1,0 +1,9 @@
+<div class="carousel-item border rounded-md p-1 w-48 text-center flex flex-col flex-none">
+  <h3 class="text-xl">
+    <% if @aggregated_datum.value.present? %>
+      <% value = @aggregated_datum.value %>
+      <%= value.to_f % 1 == 0 ? value.to_i : value %>
+    <% end %>
+  </h3>
+  <p class="text-base"><%= @aggregated_datum.additional_text %></p>
+</div>

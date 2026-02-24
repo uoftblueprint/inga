@@ -64,7 +64,7 @@
           <div class="flex flex-row gap-2 items-center">
             <%= render ActionButtonComponent.new(to: project_subproject_journal_path(journal_entry.subproject.project, journal_entry.subproject, journal_entry), icon: "view", turbo_stream: true) %>
             <%= render ActionButtonComponent.new(to: edit_project_subproject_journal_path(journal_entry.subproject.project, journal_entry.subproject, journal_entry), icon: "edit", turbo_stream: true, colour: :info) %>
-            <%= render ActionButtonComponent.new(to: project_subproject_journal_path(journal_entry.subproject.project, journal_entry.subproject, journal_entry), method: :delete, icon: "delete", colour: :error, confirm: t("journals.destroy.confirm")) %>
+            <%= render ActionButtonComponent.new(to: project_subproject_journal_path(journal_entry.subproject.project, journal_entry.subproject, journal_entry), method: :delete, icon: "delete", colour: :error, confirm: t("projects.subprojects.journals.destroy.confirm")) %>
           </div>
         <% end %>
       <% end %>

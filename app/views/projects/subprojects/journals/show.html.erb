@@ -5,7 +5,7 @@
       <%= render ActionButtonComponent.new(to: edit_project_subproject_journal_path(@project, @subproject, @journal), icon: "edit", colour: :info, size: :large) do %>
         <%= t(".actions.edit") %>
       <% end %>
-      <%= render ActionButtonComponent.new(to: project_subproject_journal_path(@project, @subproject, @journal), method: :delete, icon: "delete", colour: :error, size: :large, confirm: t("journals.destroy.confirm")) do %>
+      <%= render ActionButtonComponent.new(to: project_subproject_journal_path(@project, @subproject, @journal), method: :delete, icon: "delete", colour: :error, size: :large, confirm: t("projects.subprojects.journals.destroy.confirm")) do %>
         <%= t(".actions.delete") %>
       <% end %>
     </div>

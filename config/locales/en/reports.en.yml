@@ -5,6 +5,8 @@ en:
       build_admin_section:
         reports: Reports
   reports:
+    journal_card_component:
+      author: Author
     create:
       success: Report created successfully.
     destroy:
