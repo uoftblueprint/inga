@@ -60,7 +60,7 @@
           <div class="flex flex-row gap-2 items-center">
             <%= render ActionButtonComponent.new(to: project_subproject_journal_path(@project, @subproject, journal), icon: "view", turbo_stream: true) %>
             <%= render ActionButtonComponent.new(to: edit_project_subproject_journal_path(@project, @subproject, journal), icon: "edit", turbo_stream: true, colour: :info) %>
-            <%= render ActionButtonComponent.new(to: project_subproject_journal_path(@project, @subproject, journal), method: :delete, icon: "delete", colour: :error, confirm: t("journals.destroy.confirm")) %>
+            <%= render ActionButtonComponent.new(to: project_subproject_journal_path(@project, @subproject, journal), method: :delete, icon: "delete", colour: :error, confirm: t("projects.subprojects.journals.destroy.confirm")) %>
           </div>
         <% end %>
       <% end %>
