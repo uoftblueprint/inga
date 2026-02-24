@@ -19,6 +19,9 @@ Rails.application.routes.draw do
     # Region routes
     resources :regions, except: [:show]
 
+    # Report routes:
+    resources :reports, only: %i[index show edit destroy new create]
+
     root to: "projects#index"
 
     # User routes

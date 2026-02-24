@@ -21,7 +21,9 @@ class SidebarComponent < ViewComponent::Base
         SIDEBAR_ITEM.new(name: t("users", scope: "components.sidebar_component.build_admin_section"),
                          path: helpers.users_path, icon: "person-gear"),
         SIDEBAR_ITEM.new(name: t("regions", scope: "components.sidebar_component.build_admin_section"),
-                         path: helpers.regions_path, icon: "compass")
+                         path: helpers.regions_path, icon: "compass"),
+        SIDEBAR_ITEM.new(name: t("reports", scope: "components.sidebar_component.build_admin_section"),
+                         path: helpers.reports_path, icon: "reports-fill")
       ]
     )
   end

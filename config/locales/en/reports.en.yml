@@ -1,0 +1,23 @@
+---
+en:
+  components:
+    sidebar_component:
+      build_admin_section:
+        reports: Reports
+  reports:
+    create:
+      success: Report created successfully.
+    destroy:
+      confirm: Are you sure you want to delete this report?
+      success: Report deleted successfully.
+    index:
+      actions:
+        create: Create Report
+      columns:
+        created_at: Created At
+        end_date: End Date
+        start_date: Start Date
+      title: Reports
+    not_found: Report not found.
+    update:
+      success: Report updated successfully.
