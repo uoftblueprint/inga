@@ -52,7 +52,8 @@ export default class extends Controller {
     const col = parseInt(event.currentTarget.dataset.columnIndex);
 
     if (this.sortColumnValue === col) {
-      this.sortDirectionValue = this.sortDirectionValue === "asc" ? "desc" : "asc";
+      this.sortDirectionValue =
+        this.sortDirectionValue === "asc" ? "desc" : "asc";
     } else {
       this.sortColumnValue = col;
       this.sortDirectionValue = "desc";
@@ -83,7 +84,10 @@ export default class extends Controller {
       .slice(start, end)
       .forEach((row) => (row.style.display = ""));
 
-    this.emptyRowTarget.classList.toggle("hidden", this._filteredRows.length > 0);
+    this.emptyRowTarget.classList.toggle(
+      "hidden",
+      this._filteredRows.length > 0,
+    );
 
     // Update pagination
     if (this.hasPaginationTarget) {
@@ -151,16 +155,18 @@ export default class extends Controller {
   }
 
   _updateSortIndicators() {
-    this.element.querySelectorAll("[data-sort-indicator]").forEach((indicator) => {
-      const index = parseInt(indicator.dataset.sortIndicator);
+    this.element
+      .querySelectorAll("[data-sort-indicator]")
+      .forEach((indicator) => {
+        const index = parseInt(indicator.dataset.sortIndicator);
 
-      if (index === this.sortColumnValue) {
-        indicator.classList.remove("opacity-0");
-        indicator.textContent = this.sortDirectionValue === "asc" ? "▲" : "▼";
-      } else {
-        indicator.classList.add("opacity-0");
-        indicator.textContent = "▲";
-      }
-    });
+        if (index === this.sortColumnValue) {
+          indicator.classList.remove("opacity-0");
+          indicator.textContent = this.sortDirectionValue === "asc" ? "▲" : "▼";
+        } else {
+          indicator.classList.add("opacity-0");
+          indicator.textContent = "▲";
+        }
+      });
   }
 }
