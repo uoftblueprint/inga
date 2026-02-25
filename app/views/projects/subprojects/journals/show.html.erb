@@ -2,17 +2,33 @@
   <div class="flex items-center justify-between mb-5">
     <h1 class="text-4xl font-bold"><%= @journal.title %></h1>
     <div class="flex flex-row gap-4">
-      <%= render ActionButtonComponent.new(to: edit_project_subproject_journal_path(@project, @subproject, @journal), icon: "edit", colour: :info, size: :large) do %>
-        <%= t(".actions.edit") %>
+      <%= render ActionButtonComponent.new(
+            to: edit_project_subproject_journal_path(@project, @subproject, @journal),
+            icon: "edit",
+            colour: :info,
+            size: :large
+          ) do %>
+        <%= t("projects.subprojects.journals.show.actions.edit") %>
       <% end %>
-      <%= render ActionButtonComponent.new(to: project_subproject_journal_path(@project, @subproject, @journal), method: :delete, icon: "delete", colour: :error, size: :large, confirm: t("projects.subprojects.journals.destroy.confirm")) do %>
-        <%= t(".actions.delete") %>
+      <%= render ActionButtonComponent.new(
+            to: project_subproject_journal_path(@project, @subproject, @journal),
+            method: :delete,
+            icon: "delete",
+            colour: :error,
+            size: :large,
+            confirm: t("projects.subprojects.journals.destroy.confirm")
+          ) do %>
+        <%= t("projects.subprojects.journals.show.actions.delete") %>
       <% end %>
     </div>
   </div>
   <div class="flex flex-col">
-    <span class="text-lg text-base-content/60"><%= t(".created_on") %>: <%= @journal.created_at.to_fs(:long_ordinal) %></span>
-    <span class="text-lg text-base-content/60"><%= t(".author") %>: <%= @journal.user.username %></span>
+    <span class="text-lg text-base-content/60">
+      <%= t("projects.subprojects.journals.show.created_on") %>: <%= @journal.created_at.to_fs(:long_ordinal) %>
+    </span>
+    <span class="text-lg text-base-content/60">
+      <%= t("projects.subprojects.journals.show.author") %>: <%= @journal.user.username %>
+    </span>
   </div>
   <div class="divider m-0 mb-2"></div>
   <%= @journal.markdown_content %>

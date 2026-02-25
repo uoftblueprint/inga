@@ -15,7 +15,7 @@ class JournalsController < ApplicationController
     if @journal.save
       redirect_to(
         project_subproject_journal_path(@project, @subproject, @journal),
-        flash: { success: t(".success") }
+        flash: { success: t("projects.subprojects.journals.create.success") }
       )
     else
       @projects = Project.all
@@ -23,7 +23,7 @@ class JournalsController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   rescue ActiveRecord::RecordNotFound
-    redirect_to new_journal_path, flash: { error: t(".invalid_project_subproject") }
+    redirect_to new_journal_path, flash: { error: t("projects.subprojects.journals.create.invalid_project_subproject") }
   end
 
   private

@@ -4,28 +4,37 @@ es:
     attributes:
       journal:
         created_at: Creado en
-        markdown_content: Contenido
+        project: Proyecto
         subproject: Subproyecto
-        title: Título
         updated_at: Actualizado en
-        user: Autor
+        user: Usuario
   projects:
+    load_subprojects:
+      select_subproject: Seleccione un subproyecto
+      subproject: Subproyecto
     subprojects:
       journals:
         create:
-          success: El diario se creó correctamente.
+          invalid_project_subproject: Proyecto o subproyecto inválido seleccionado.
+          success: El journal se creó correctamente.
         destroy:
-          confirm: "¿Está seguro de que desea eliminar esta entrada de diario?"
-          success: El diario fue eliminado exitosamente.
+          confirm: "¿Está seguro de que desea eliminar este journal?"
+          success: El journal se eliminó correctamente.
         edit:
-          title: Editar entrada de diario
+          title: Editar Journal
         new:
-          title: Nueva entrada de diario
+          project: Proyecto
+          select_project: Seleccione un proyecto
+          select_project_first: Seleccione un proyecto primero
+          subproject: Subproyecto
+          title: Nuevo Journal
         show:
           actions:
-            delete: Eliminar entrada de diario
-            edit: Editar entrada de diario
+            delete: Eliminar
+            edit: Editar
           author: Autor
-          created_on: Creado el
+          close: Cerrar
+          created_on: Creado en
+          title: Detalles del Journal
         update:
-          success: El diario se actualizó correctamente.
+          success: El journal se actualizó correctamente.
