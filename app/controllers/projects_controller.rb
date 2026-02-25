@@ -51,6 +51,27 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def load_subprojects
+    @project = Project.find(params[:id])
+    @subprojects = @project.subprojects
+
+    respond_to do |format|
+      format.turbo_stream
+    end
+  end
+
+  def load_journal_form
+    @project = Project.find(params[:id])
+    @subproject = @project.subprojects.find(params[:subproject_id])
+    @journal = Journal.new
+
+    respond_to do |format|
+      format.turbo_stream
+    end
+  rescue ActiveRecord::RecordNotFound
+    head :not_found
+  end
+
   private
 
   def project_params

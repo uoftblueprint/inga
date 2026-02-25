@@ -6,6 +6,10 @@ Rails.application.routes.draw do
   scope "(:locale)", locale: /#{I18n.available_locales.join('|')}/ do
     # Project routes
     resources :projects do
+      member do
+        get :load_subprojects
+        get :load_journal_form
+      end
       resource :attributes_schema, controller: "project_attributes", only: %i[update edit] do
         get :new_row
       end
@@ -15,6 +19,9 @@ Rails.application.routes.draw do
         resources :log_entries, except: [:index], controller: "projects/subprojects/log_entries"
       end
     end
+
+    # Top-level journal entry creation
+    resources :journals, only: %i[new create]
 
     # Region routes
     resources :regions, except: [:show]

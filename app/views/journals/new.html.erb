@@ -1,0 +1,35 @@
+<section class="mx-4 my-6 md:mx-8 md:my-10">
+  <div class="flex flex-col gap-4">
+    <h1 class="text-4xl font-bold"><%= t(".title") %></h1>
+
+    <div class="card bg-base-100 border border-base-300 shadow-sm"
+         data-controller="subproject-loader">
+      <div class="card-body flex flex-col gap-4">
+
+        <div class="flex flex-col gap-1">
+          <label class="label">Project</label>
+          <%= select_tag :project_id,
+                options_from_collection_for_select(@projects, :id, :name),
+                include_blank: "Select a project",
+                class: "select select-bordered w-full",
+                data: {
+                  subproject_loader_target: "projectSelect",
+                  action: "change->subproject-loader#load"
+                } %>
+        </div>
+
+        <div id="subproject-select">
+          <div class="flex flex-col gap-1">
+            <label class="label">Subproject</label>
+            <select class="select select-bordered w-full" disabled>
+              <option>Select a project first</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="journal-fields"></div>
+
+      </div>
+    </div>
+  </div>
+</section>

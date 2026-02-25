@@ -1,0 +1,25 @@
+---
+es:
+  activerecord:
+    attributes:
+      journal:
+        created_at: Creado en
+        project: Proyecto
+        subproject: Subproyecto
+        updated_at: Actualizado en
+        user: Usuario
+  journals:
+    create:
+      success: El journal se creó correctamente.
+    destroy:
+      confirm: "¿Está seguro de que desea eliminar este journal?"
+      success: El journal se eliminó correctamente.
+    edit:
+      title: Editar Journal
+    new:
+      title: Nuevo Journal
+    show:
+      close: Cerrar
+      title: Detalles del Journal
+    update:
+      success: El journal se actualizó correctamente.
