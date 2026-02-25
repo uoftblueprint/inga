@@ -9,7 +9,6 @@ export default class extends Controller {
       this.journalFieldsTarget.innerHTML = "";
       return;
     }
-
     fetch(`/projects/${projectId}/load_subprojects`, {
       headers: { Accept: "text/vnd.turbo-stream.html" },
     })
@@ -21,22 +20,23 @@ export default class extends Controller {
     if (element.options.length > 1) {
       element.disabled = false;
     }
-
-    element.addEventListener("change", () => {
-      this.loadForm();
-    });
+    element.removeEventListener("change", this.handleSubprojectChange);
+    element.addEventListener("change", this.handleSubprojectChange);
   }
+
+  handleSubprojectChange = () => {
+    this.loadForm();
+  };
 
   loadForm() {
     const projectId = this.projectSelectTarget.value;
     const subprojectId = this.subprojectSelectTarget.value;
     if (!projectId || !subprojectId) return;
-
     fetch(
       `/projects/${projectId}/load_journal_form?subproject_id=${subprojectId}`,
       {
         headers: { Accept: "text/vnd.turbo-stream.html" },
-      }
+      },
     )
       .then((r) => r.text())
       .then((html) => Turbo.renderStreamMessage(html));

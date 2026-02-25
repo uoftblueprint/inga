@@ -10,6 +10,10 @@ en:
         updated_at: Updated At
         user: Author
   projects:
+    load_subprojects:
+      subproject: Subproject
+      select_subproject: Select a subproject
+
     subprojects:
       journals:
         create:

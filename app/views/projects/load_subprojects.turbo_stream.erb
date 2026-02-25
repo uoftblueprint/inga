@@ -1,9 +1,9 @@
 <%= turbo_stream.replace "subproject-select" do %>
   <div class="flex flex-col gap-1">
-    <label class="label">Subproject</label>
+<label class="label" for="subproject_id"><%= t("projects.load_subprojects.subproject") %></label>
     <select name="subproject_id" id="subproject_id" class="select select-bordered w-full"
             data-subproject-loader-target="subprojectSelect">
-      <option value="">Select a subproject</option>
+            <option value=""><%= t("projects.load_subprojects.select_subproject") %></option>
       <% @subprojects.each do |subproject| %>
         <option value="<%= subproject.id %>"><%= subproject.name %></option>
       <% end %>

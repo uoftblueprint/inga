@@ -11,6 +11,7 @@ en:
   journals:
     create:
       success: Journal was successfully created.
+      invalid_project_subproject: "Invalid project or subproject selected."
     destroy:
       confirm: Are you sure you want to delete this journal?
       success: Journal was successfully deleted.
@@ -18,6 +19,10 @@ en:
       title: Edit Journal
     new:
       title: New Journal
+      project: Project
+      subproject: Subproject
+      select_project: Select a project
+      select_project_first: Select a project first
     show:
       close: Close
       title: Journal Details

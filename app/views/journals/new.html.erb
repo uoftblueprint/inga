@@ -5,11 +5,11 @@
          data-controller="subproject-loader">
       <div class="card-body flex flex-col gap-4">
         <div class="flex flex-col gap-1">
-          <label class="label">Project</label>
+          <label class="label" for="project_id"><%= t(".project") %></label>
           <%= select_tag(
                 :project_id,
                 options_from_collection_for_select(@projects, :id, :name),
-                include_blank: "Select a project",
+                include_blank: t(".select_project"),
                 class: "select select-bordered w-full",
                 data: {
                   subproject_loader_target: "projectSelect",
@@ -19,9 +19,9 @@
         </div>
         <div id="subproject-select">
           <div class="flex flex-col gap-1">
-            <label class="label">Subproject</label>
+            <label class="label" for="subproject_id"><%= t(".subproject") %></label>
             <select class="select select-bordered w-full" disabled>
-              <option>Select a project first</option>
+              <option><%= t(".select_project_first") %></option>
             </select>
           </div>
         </div>

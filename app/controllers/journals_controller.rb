@@ -22,6 +22,8 @@ class JournalsController < ApplicationController
       flash.now[:error] = @journal.errors.full_messages.to_sentence
       render :new, status: :unprocessable_entity
     end
+  rescue ActiveRecord::RecordNotFound
+    redirect_to new_journal_path, flash: { error: t(".invalid_project_subproject") }
   end
 
   private
