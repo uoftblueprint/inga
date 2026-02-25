@@ -33,8 +33,6 @@ en:
             delete: Delete
             edit: Edit
           author: Author
-          close: Close
           created_on: Created on
-          title: Journal Details
         update:
           success: Journal was successfully updated.
