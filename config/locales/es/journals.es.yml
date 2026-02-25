@@ -3,13 +3,10 @@ es:
   activerecord:
     attributes:
       journal:
-        created_at: Creado en
         project: Proyecto
-        subproject: Subproyecto
-        updated_at: Actualizado en
-        user: Usuario
   journals:
     create:
+      invalid_project_subproject: Proyecto o subproyecto inválido seleccionado.
       success: El journal se creó correctamente.
     destroy:
       confirm: "¿Está seguro de que desea eliminar este journal?"
@@ -17,9 +14,17 @@ es:
     edit:
       title: Editar Journal
     new:
+      project: Proyecto
+      select_project: Seleccione un proyecto
+      select_project_first: Seleccione un proyecto primero
+      subproject: Subproyecto
       title: Nuevo Journal
     show:
       close: Cerrar
       title: Detalles del Journal
     update:
       success: El journal se actualizó correctamente.
+  projects:
+    load_subprojects:
+      select_subproject: Seleccione un subproyecto
+      subproject: Subproyecto
