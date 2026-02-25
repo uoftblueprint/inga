@@ -3,7 +3,7 @@
     <label class="label"><%= t('.subproject') %></label>
     <select name="subproject_id" id="subproject_id" class="select select-bordered w-full"
             data-subproject-loader-target="subprojectSelect">
-      <option value="">Select a subproject</option>
+      <option value=""><%= t('.select_subproject') %></option>
       <% @subprojects.each do |subproject| %>
         <option value="<%= subproject.id %>"><%= subproject.name %></option>
       <% end %>
