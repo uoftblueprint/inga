@@ -10,8 +10,11 @@ class DefaultFormBuilder < ActionView::Helpers::FormBuilder
     text_field: "input"
   }.freeze
 
+  NO_PLACEHOLDER_FIELDS = %i[file_field].freeze
+
   FIELD_CLASSES.each do |method_name, default_class|
     define_method(method_name) do |method, options = {}|
+      set_default_placeholder(options, method) unless NO_PLACEHOLDER_FIELDS.include?(method_name)
       add_class_to_options(options, default_class)
       super(method, options)
     end
@@ -74,5 +77,11 @@ class DefaultFormBuilder < ActionView::Helpers::FormBuilder
   def add_class_to_options(options, new_class)
     combined = [options[:class], new_class].compact.join(" ")
     options[:class] = TailwindMerge::Merger.new.merge(combined)
+  end
+
+  def set_default_placeholder(options, method)
+    return if options.key?(:placeholder)
+
+    options[:placeholder] = object&.class&.human_attribute_name(method) || method.to_s.humanize
   end
 end
