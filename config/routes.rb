@@ -19,6 +19,9 @@ Rails.application.routes.draw do
     # Region routes
     resources :regions, except: [:show]
 
+    # Generic Log Entry routes
+    resources :log_entries, only: %i[new]
+
     root to: "projects#index"
 
     # User routes
