@@ -1,0 +1,7 @@
+<%= turbo_stream.update "flash" do %>
+  <%= render "shared/flash" %>
+<% end %>
+
+<%= turbo_stream.replace "log_entry_new_form" do %>
+  <%= render LogEntries::FormComponent.new(project: @project, subproject: @subproject, log_entry: @log_entry) %>
+<% end %>

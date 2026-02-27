@@ -1,0 +1,18 @@
+<div class="text-sm p-4 flex flex-col gap-4">
+  <div class="grid gap-3">
+    <% 4.times do %>
+      <div class="flex items-center px-3 py-2 rounded-lg border border-base-300 bg-base-200/50">
+        <div class="w-1/2">
+          <div class="text-base-content/40"> ------- </div>
+        </div>
+        <div class="w-1/2">
+          <div class="input input-sm w-full opacity-40 cursor-not-allowed"></div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="flex justify-end gap-3">
+    <button class="btn btn-ghost btn-sm" disabled>Cancel</button>
+    <button class="btn btn-primary btn-sm" disabled>Create Log Entry</button>
+  </div>
+</div>
