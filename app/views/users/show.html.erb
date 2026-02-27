@@ -21,7 +21,7 @@
     <%= render ContentCardComponent.new do %>
       <h1 class="text-2xl font-bold"><%= t(".log_entries") %></h1>
       <%= render Shared::IndexTableComponent.new(records: @user.log_entries) do |table| %>
-        <% table.column :created_at do |log_entry| %>
+        <% table.column :created_at, default_sort: true do |log_entry| %>
           <%= l(log_entry.created_at) %>
         <% end %>
         <% table.column :updated_at do |log_entry| %>
@@ -48,7 +48,7 @@
         <% table.column :title do |journal| %>
           <%= journal.title %>
         <% end %>
-        <% table.column :created_at do |journal_entry| %>
+        <% table.column :created_at, default_sort: true do |journal_entry| %>
           <%= l(journal_entry.created_at) %>
         <% end %>
         <% table.column :updated_at do |journal_entry| %>

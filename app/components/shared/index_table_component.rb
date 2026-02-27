@@ -2,7 +2,7 @@ module Shared
   class IndexTableComponent < ViewComponent::Base
     attr_reader :records, :columns, :searchable, :per_page
 
-    Column = Struct.new(:attribute, :header, :cell_renderer, :col_size)
+    Column = Struct.new(:attribute, :header, :cell_renderer, :col_size, :sortable, :default_sort, :default_direction)
 
     def initialize(records:, searchable: true, per_page: 10)
       super()
@@ -12,9 +12,11 @@ module Shared
       @per_page = per_page
     end
 
-    def column(attribute, header: nil, col_size: nil, &cell_renderer)
+    def column(attribute, header: nil, col_size: nil, sortable: true, default_sort: false, default_direction: :desc,
+               &cell_renderer)
       label = header || default_header_for(attribute)
-      @columns << Column.new(attribute, label, cell_renderer, col_size)
+      sortable = false if attribute == :actions
+      @columns << Column.new(attribute, label, cell_renderer, col_size, sortable, default_sort, default_direction)
     end
 
     private
@@ -25,6 +27,19 @@ module Shared
       else
         record.send(column.attribute)
       end
+    end
+
+    def sort_value_for(record, column)
+      return nil if column.cell_renderer
+
+      value = record.send(column.attribute)
+      return value.to_i if value.is_a?(Time) || value.is_a?(DateTime) || value.is_a?(Date)
+
+      nil
+    end
+
+    def before_render
+      content
     end
 
     def model_class
@@ -50,8 +65,16 @@ module Shared
 
     def empty? = records.empty?
 
-    def before_render
-      content
+    def sort_column_index
+      @sort_column_index ||= columns.find_index(&:default_sort) || -1
+    end
+
+    def sort_direction
+      @sort_direction ||= if sort_column_index >= 0
+                            columns[sort_column_index].default_direction || :desc
+                          else
+                            :asc
+                          end
     end
   end
 end
