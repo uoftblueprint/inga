@@ -1,14 +1,15 @@
 module Shared
   class IndexTableComponent < ViewComponent::Base
-    attr_reader :records, :columns, :searchable
+    attr_reader :records, :columns, :searchable, :per_page
 
     Column = Struct.new(:attribute, :header, :cell_renderer, :col_size)
 
-    def initialize(records:, searchable: true)
+    def initialize(records:, searchable: true, per_page: 10)
       super()
       @records = records
       @columns = []
       @searchable = searchable
+      @per_page = per_page
     end
 
     def column(attribute, header: nil, col_size: nil, &cell_renderer)
