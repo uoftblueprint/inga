@@ -4,6 +4,7 @@ en:
     sidebar_component:
       build_admin_section:
         admin: Admin
+        new_report: New Report
         projects: Projects
         regions: Regions
         users: Users

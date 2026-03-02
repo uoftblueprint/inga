@@ -33,6 +33,10 @@ Rails.application.routes.draw do
     delete "/logout", to: "sessions#destroy"
 
     # Report routes
-    resources :reports, only: %i[show]
+    resources :reports, only: %i[show new create edit] do
+      collection do
+        get :filter
+      end
+    end
   end
 end

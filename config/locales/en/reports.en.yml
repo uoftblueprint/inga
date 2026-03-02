@@ -1,5 +1,15 @@
 ---
 en:
   reports:
+    create:
+      invalid: Please provide valid dates and select at least one subproject.
+      success: Report was successfully generated.
     journal_card_component:
       author: Author
+    new:
+      end_date: End Date
+      generate: Generate Report
+      projects: Projects
+      start_date: Start Date
+      subprojects: Subprojects
+      title: New Report
