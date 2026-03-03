@@ -38,8 +38,10 @@
           <% @project = Project.find_by(id: params[:project_id]) %>
           <% @subproject = @project&.subprojects&.find_by(id: params[:subproject_id]) %>
           <% if @project && @subproject %>
-            <%= turbo_frame_tag "journal_new_form",
-                                 src: new_project_subproject_journal_path(@project, @subproject) do %>
+            <%= turbo_frame_tag(
+                  "journal_new_form",
+                  src: new_project_subproject_journal_path(@project, @subproject)
+                ) do %>
               <%= render Journals::EmptyFormComponent.new %>
             <% end %>
           <% else %>
