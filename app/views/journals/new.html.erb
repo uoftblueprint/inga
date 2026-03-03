@@ -1,0 +1,52 @@
+<%# app/views/journals/new.html.erb %>
+<div class="mx-8 my-10">
+  <div class="flex items-center justify-between mb-5">
+    <h1 class="text-4xl font-bold"><%= t(".title") %></h1>
+  </div>
+
+  <%= render ContentCardComponent.new do %>
+    <div class="w-full max-w-2xl mx-auto space-y-6">
+      <div class="card bg-base-100 border border-base-300 shadow-sm rounded-xl">
+        <div class="card-body">
+          <%= form_with url: new_journal_path, method: :get, local: true, class: "space-y-4" do %>
+            <%= label_tag :project_id, t(".project_label"), class: "label" %>
+            <%= select_tag :project_id,
+                options_from_collection_for_select(@projects, :id, :name, params[:project_id]),
+                prompt: t(".select_project_prompt"),
+                class: "select select-bordered w-full",
+                onchange: "this.form.requestSubmit()" %>
+
+            <div class="min-h-[84px]">
+              <% if params[:project_id].present? %>
+                <% @project = Project.find_by(id: params[:project_id]) %>
+                <% if @project.present? %>
+                  <%= label_tag :subproject_id, t(".subproject_label"), class: "label" %>
+                  <%= select_tag :subproject_id,
+                      options_from_collection_for_select(@project.subprojects, :id, :name, params[:subproject_id]),
+                      prompt: t(".select_subproject_prompt"),
+                      class: "select select-bordered w-full",
+                      onchange: "this.form.requestSubmit()" %>
+                <% end %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="card bg-base-100 border border-base-300 shadow-sm rounded-xl min-h-60">
+        <div class="card-body">
+          <% @project = Project.find_by(id: params[:project_id]) %>
+          <% @subproject = @project&.subprojects&.find_by(id: params[:subproject_id]) %>
+          <% if @project && @subproject %>
+            <%= turbo_frame_tag "journal_new_form",
+                src: new_project_subproject_journal_path(@project, @subproject) do %>
+              <%= render Journals::EmptyFormComponent.new %>
+            <% end %>
+          <% else %>
+            <%= render Journals::EmptyFormComponent.new %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

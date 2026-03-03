@@ -1,0 +1,9 @@
+---
+es:
+  journals:
+    new:
+      project_label: Proyecto
+      select_project_prompt: Selecciona un proyecto
+      select_subproject_prompt: Selecciona un subproyecto
+      subproject_label: Subproyecto
+      title: Diarios

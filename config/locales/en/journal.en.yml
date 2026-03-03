@@ -1,0 +1,9 @@
+---
+en:
+  journals:
+    new:
+      project_label: Project
+      select_project_prompt: Select a project
+      subproject_label: Subproject
+      select_subproject_prompt: Select a subproject
+      title: Journal Entries
