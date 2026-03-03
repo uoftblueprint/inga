@@ -1,14 +1,5 @@
 ---
 es:
-  activerecord:
-    attributes:
-      journal:
-        created_at: Creado en
-        markdown_content: Contenido
-        subproject: Subproyecto
-        title: Título
-        updated_at: Actualizado en
-        user: Autor
   projects:
     subprojects:
       journals:
@@ -19,8 +10,6 @@ es:
           success: El diario fue eliminado exitosamente.
         edit:
           title: Editar entrada de diario
-        new:
-          title: Nueva entrada de diario
         show:
           actions:
             delete: Eliminar entrada de diario
