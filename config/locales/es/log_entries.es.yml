@@ -2,8 +2,4 @@
 es:
   log_entries:
     new:
-      project_label: Proyecto
-      select_project_prompt: Selecciona un proyecto
-      select_subproject_prompt: Selecciona un subproyecto
-      subproject_label: Subproyecto
       title: Entradas de registro

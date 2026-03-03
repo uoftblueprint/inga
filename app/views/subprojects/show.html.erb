@@ -12,15 +12,14 @@
         <%= render ActionButtonComponent.new(to: edit_project_subproject_path(@project, @subproject), icon: "edit", colour: :info, turbo_stream: true, size: :large) do %>
           <%= t(".actions.edit") %>
         <% end %>
-        <%= render ActionButtonComponent.new(to: new_log_entry_path, icon: "add", turbo_stream: true, size: :large, colour: :primary) do %>
+        <%= render ActionButtonComponent.new(to: new_project_subproject_log_entry_path(@project, @subproject), icon: "add", turbo_stream: true, size: :large, colour: :primary) do %>
           <%= t(".create_log_entry") %>
         <% end %>
-        <%= render ActionButtonComponent.new(to: new_journal_path, icon: "add", size: :large, colour: :primary) do %>
+        <%= render ActionButtonComponent.new(to: new_project_subproject_journal_path(@project, @subproject), icon: "add", size: :large, colour: :primary) do %>
           <%= t(".create_journal_entry") %>
         <% end %>
       </div>
     </div>
-
     <%= render ContentCardComponent.new do %>
       <h1 class="text-2xl font-bold"><%= t(".log_entries") %></h1>
       <%= render Shared::IndexTableComponent.new(records: @subproject.log_entries) do |table| %>
@@ -42,7 +41,6 @@
         <% end %>
       <% end %>
     <% end %>
-
     <%= render ContentCardComponent.new do %>
       <h1 class="text-2xl font-bold"><%= t(".journal_entries") %></h1>
       <%= render Shared::IndexTableComponent.new(records: @subproject.journals) do |table| %>
@@ -67,5 +65,4 @@
         <% end %>
       <% end %>
     <% end %>
-  </div>
 </section>

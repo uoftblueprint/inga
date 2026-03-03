@@ -1,5 +1,14 @@
 ---
 en:
+  activerecord:
+    attributes:
+      journal:
+        created_at: Created At
+        markdown_content: Content
+        subproject: Subproject
+        title: Title
+        updated_at: Updated At
+        user: Author
   projects:
     subprojects:
       journals:
@@ -10,6 +19,8 @@ en:
           success: Journal was successfully deleted.
         edit:
           title: Edit Journal Entry
+        new:
+          title: New Journal Entry
         show:
           actions:
             delete: Delete journal entry

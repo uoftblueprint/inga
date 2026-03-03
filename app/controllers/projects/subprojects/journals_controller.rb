@@ -18,16 +18,12 @@ module Projects
       def create
         @journal = @subproject.journals.build(journal_params)
         @journal.user = current_user
+
         if @journal.save
-          respond_to do |format|
-            format.turbo_stream
-            format.html do
-              redirect_to(
-                project_subproject_journal_path(@project, @subproject, @journal),
-                flash: { success: t(".success") }
-              )
-            end
-          end
+          redirect_to(
+            project_subproject_journal_path(@project, @subproject, @journal),
+            flash: { success: t(".success") }
+          )
         else
           flash.now[:error] = @journal.errors.full_messages.to_sentence
           respond_to do |format|
@@ -39,6 +35,7 @@ module Projects
 
       def update
         @journal = @subproject.journals.find(params[:id])
+
         if @journal.update(journal_params)
           redirect_to(
             project_subproject_journal_path(@project, @subproject, @journal),
@@ -52,6 +49,7 @@ module Projects
 
       def destroy
         @journal = @subproject.journals.find(params[:id])
+
         if @journal.destroy
           redirect_to(
             project_subproject_path(@project, @subproject),
