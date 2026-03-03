@@ -11,10 +11,10 @@
           <%= form_with url: new_journal_path, method: :get, local: true, class: "space-y-4" do %>
             <%= label_tag :project_id, t(".project_label"), class: "label" %>
             <%= select_tag :project_id,
-  options_from_collection_for_select(@projects, :id, :name, params[:project_id]),
-  prompt: t(".select_project_prompt"),
-  class: "select select-bordered w-full",
-  onchange: "this.form.requestSubmit()" %>
+                           options_from_collection_for_select(@projects, :id, :name, params[:project_id]),
+                           prompt: t(".select_project_prompt"),
+                           class: "select select-bordered w-full",
+                           onchange: "this.form.requestSubmit()" %>
 
             <div class="min-h-[84px]">
               <% if params[:project_id].present? %>
@@ -22,10 +22,10 @@
                 <% if @project.present? %>
                   <%= label_tag :subproject_id, t(".subproject_label"), class: "label" %>
                   <%= select_tag :subproject_id,
-    options_from_collection_for_select(@project.subprojects, :id, :name, params[:subproject_id]),
-    prompt: t(".select_subproject_prompt"),
-    class: "select select-bordered w-full",
-    onchange: "this.form.requestSubmit()" %>
+                                 options_from_collection_for_select(@project.subprojects, :id, :name, params[:subproject_id]),
+                                 prompt: t(".select_subproject_prompt"),
+                                 class: "select select-bordered w-full",
+                                 onchange: "this.form.requestSubmit()" %>
                 <% end %>
               <% end %>
             </div>
@@ -39,7 +39,7 @@
           <% @subproject = @project&.subprojects&.find_by(id: params[:subproject_id]) %>
           <% if @project && @subproject %>
             <%= turbo_frame_tag "journal_new_form",
-  src: new_project_subproject_journal_path(@project, @subproject) do %>
+                                 src: new_project_subproject_journal_path(@project, @subproject) do %>
               <%= render Journals::EmptyFormComponent.new %>
             <% end %>
           <% else %>
