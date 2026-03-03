@@ -26,7 +26,10 @@ module Projects
           )
         else
           flash.now[:error] = @journal.errors.full_messages.to_sentence
-          render :new, status: :unprocessable_content
+          respond_to do |format|
+            format.turbo_stream { render :create, status: :unprocessable_entity }
+            format.html { render :new, status: :unprocessable_content }
+          end
         end
       end
 

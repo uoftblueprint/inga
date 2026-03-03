@@ -22,6 +22,9 @@ Rails.application.routes.draw do
     # Generic Log Entry routes
     resources :log_entries, only: %i[new]
 
+    # Generic Journal Entry routes
+    resources :journals, only: %i[new]
+
     root to: "projects#index"
 
     # User routes

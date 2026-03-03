@@ -2,8 +2,4 @@
 en:
   log_entries:
     new:
-      project_label: Project
-      select_project_prompt: Select a project
-      select_subproject_prompt: Select a subproject
-      subproject_label: Subproject
       title: Log Entries
