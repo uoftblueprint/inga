@@ -4,11 +4,12 @@
   data-marquee-speed-value="25"
   data-marquee-hover-speed-value="50"
   data-marquee-direction-value="left"
+  data-marquee-clones-value="100"
   data-action="mouseenter->marquee#pauseAnimation mouseleave->marquee#resumeAnimation">
   <div data-marquee-target="track" class="w-full">
-    <div data-marquee-target="list" class="flex gap-6 px-4 py-3">
+    <div data-marquee-target="list" class="flex py-3">
       <% slides.each do |slide| %>
-        <div class="shrink-0">
+        <div class="shrink-0 mx-3">
           <%= slide %>
         </div>
       <% end %>

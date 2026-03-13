@@ -7,7 +7,7 @@
     <% end %>
   <% end %>
 
-  <div class="flex flex-col gap-3 px-5">
+  <div class="flex flex-col gap-3">
     <% @report.journals.each do |journal| %>
       <%= render Reports::JournalCardComponent.new(journal: journal) %>
     <% end %>
