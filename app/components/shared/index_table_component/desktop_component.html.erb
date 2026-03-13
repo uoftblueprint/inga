@@ -1,0 +1,37 @@
+<div class="hidden sm:block" data-index-table-component-layout="desktop">
+  <div class="mb-2">
+    <div class="card bg-neutral rounded-lg">
+      <div class="p-4 grid items-center gap-4" style="grid-template-columns: <%= column_sizes %>">
+        <% columns.each do |column| %>
+          <div class="text-sm font-semibold text-neutral-content"><%= column.header %></div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="space-y-2">
+    <% records.each do |record| %>
+      <div data-index-table-component-target="row" class="card bg-white rounded-lg shadow-sm">
+        <div class="p-3 grid items-center gap-4" style="grid-template-columns: <%= column_sizes %>">
+          <% columns.each do |column| %>
+            <div class="text-sm text-base-content"><%= cell_content_renderer.call(record, column) %></div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <div data-index-table-component-target="emptyRow" class="card bg-white rounded-lg shadow-sm hidden">
+      <div class="flex items-center justify-center p-3">
+        <div class="text-sm font-bold text-base-content/40"><%= empty_state_text %></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex justify-center mt-4">
+    <div class="join hidden" data-index-table-component-target="pagination">
+      <button class="join-item btn btn-sm" data-action="index-table-component#previousPage" data-prev>&lt;</button>
+      <span class="join-item btn btn-sm no-animation pointer-events-none" data-index-table-component-target="pageInfo"></span>
+      <button class="join-item btn btn-sm" data-action="index-table-component#nextPage" data-next>&gt;</button>
+    </div>
+  </div>
+</div>

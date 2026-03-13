@@ -5,26 +5,15 @@ export default class extends Controller {
   static values = { perPage: { type: Number, default: 10 } };
 
   connect() {
-    this._rows = this.rowTargets || [];
-    this._filteredRows = [...this._rows];
+    this._query = "";
     this._page = 0;
-    this._paginate();
+    this.refreshLayout();
   }
 
   filter() {
-    const query = (this.searchTarget?.value || "").trim().toLowerCase();
-
-    if (!query) {
-      this._filteredRows = [...this._rows];
-    } else {
-      this._filteredRows = this._rows.filter((row) => {
-        const text = row.textContent.replace(/\s+/g, " ").toLowerCase();
-        return text.includes(query);
-      });
-    }
-
+    this._query = (this.searchTarget?.value || "").trim().toLowerCase();
     this._page = 0;
-    this._paginate();
+    this._refreshRows();
   }
 
   previousPage() {
@@ -41,7 +30,34 @@ export default class extends Controller {
     }
   }
 
+  refreshLayout() {
+    this._refreshRows();
+  }
+
   // --- Private ---
+
+  _refreshRows() {
+    this._rows = this._activeRows();
+    this._filteredRows = this._filterRows(this._rows);
+    this._page = Math.min(this._page, this._lastPage());
+    this._paginate();
+  }
+
+  _activeRows() {
+    return this.rowTargets.filter((row) => {
+      const layout = row.closest("[data-index-table-component-layout]");
+      return layout && window.getComputedStyle(layout).display !== "none";
+    });
+  }
+
+  _filterRows(rows) {
+    if (!this._query) return [...rows];
+
+    return rows.filter((row) => {
+      const text = row.textContent.replace(/\s+/g, " ").toLowerCase();
+      return text.includes(this._query);
+    });
+  }
 
   _lastPage() {
     return Math.max(
@@ -55,49 +71,48 @@ export default class extends Controller {
     const start = this._page * perPage;
     const end = (this._page + 1) * perPage;
 
-    this._rows.forEach((row) => (row.style.display = "none"));
-    this._filteredRows
-      .slice(start, end)
-      .forEach((row) => (row.style.display = ""));
+    this.rowTargets.forEach((row) => (row.style.display = "none"));
+    this._filteredRows.slice(start, end).forEach((row) => (row.style.display = ""));
 
-    // Toggle empty state
-    this.emptyRowTarget.classList.toggle(
-      "hidden",
-      this._filteredRows.length > 0,
-    );
+    this.emptyRowTargets.forEach((emptyRow) => {
+      const layout = emptyRow.closest("[data-index-table-component-layout]");
+      const isActive = layout && window.getComputedStyle(layout).display !== "none";
+      emptyRow.classList.toggle("hidden", !isActive || this._filteredRows.length > 0);
+    });
 
-    // Update pagination
     if (this.hasPaginationTarget) {
-      this._updatePagination();
+      this._updatePagination(this._lastPage());
     }
   }
 
-  _updatePagination() {
-    const lastPage = this._lastPage();
-    const container = this.paginationTarget;
+  _updatePagination(lastPage) {
+    this.paginationTargets.forEach((container, index) => {
+      const layout = container.closest("[data-index-table-component-layout]");
+      const isActive = layout && window.getComputedStyle(layout).display !== "none";
 
-    if (lastPage === 0) {
-      container.classList.add("hidden");
-      return;
-    }
+      if (!isActive || lastPage === 0) {
+        container.classList.add("hidden");
+      } else {
+        container.classList.remove("hidden");
+      }
 
-    container.classList.remove("hidden");
+      const prevBtn = container.querySelector("[data-prev]");
+      const nextBtn = container.querySelector("[data-next]");
 
-    const prevBtn = container.querySelector("[data-prev]");
-    const nextBtn = container.querySelector("[data-next]");
+      if (prevBtn) {
+        prevBtn.disabled = this._page === 0;
+        prevBtn.classList.toggle("btn-disabled", this._page === 0);
+      }
 
-    if (prevBtn) {
-      prevBtn.disabled = this._page === 0;
-      prevBtn.classList.toggle("btn-disabled", this._page === 0);
-    }
+      if (nextBtn) {
+        nextBtn.disabled = this._page === lastPage;
+        nextBtn.classList.toggle("btn-disabled", this._page === lastPage);
+      }
 
-    if (nextBtn) {
-      nextBtn.disabled = this._page === lastPage;
-      nextBtn.classList.toggle("btn-disabled", this._page === lastPage);
-    }
-
-    if (this.hasPageInfoTarget) {
-      this.pageInfoTarget.textContent = `${this._page + 1} of ${lastPage + 1}`;
-    }
+      const pageInfo = this.pageInfoTargets[index];
+      if (pageInfo) {
+        pageInfo.textContent = `${this._page + 1} of ${lastPage + 1}`;
+      }
+    });
   }
 }

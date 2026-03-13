@@ -1,4 +1,7 @@
-<div data-controller="index-table-component" data-index-table-component-per-page-value="<%= per_page %>">
+<div
+  data-controller="index-table-component"
+  data-action="resize@window->index-table-component#refreshLayout"
+  data-index-table-component-per-page-value="<%= per_page %>">
   <% if searchable %>
     <div class="mb-4">
       <label class="input input-bordered w-full">
@@ -14,42 +17,18 @@
     </div>
   <% end %>
 
-  <!-- Construct columns sizes string from individual col_size parameters -->
-  <% column_sizes = columns.map { |c| c.col_size || "minmax(0, 1fr)" }.join(" ") %>
+  <%= render Shared::IndexTableComponent::DesktopComponent.new(
+    records: records,
+    columns: columns,
+    column_sizes: column_sizes,
+    empty_state_text: empty_state_text,
+    cell_content_renderer: cell_content_renderer
+  ) %>
 
-  <!-- Each row (including header) is its own rounded box -->
-  <div class="mb-2">
-    <div class="card bg-neutral rounded-lg">
-      <div class="p-4 grid items-center gap-4" style="grid-template-columns: <%= column_sizes %>">
-        <% columns.each do |column| %>
-          <div class="text-sm font-semibold text-neutral-content"><%= column.header %></div>
-        <% end %>
-      </div>
-    </div>
-  </div>
-
-  <div class="space-y-2">
-    <% records.each_with_index do |record, index| %>
-      <div data-index-table-component-target="row" class="card bg-white rounded-lg shadow-sm">
-        <div class="p-3 grid items-center gap-4" style="grid-template-columns: <%= column_sizes %>">
-          <% columns.each do |column| %>
-            <div class="text-sm text-base-content"><%= render_cell_content(record, column) %></div>
-          <% end %>
-        </div>
-      </div>
-    <% end %>
-    <div data-index-table-component-target="emptyRow" class="card bg-white rounded-lg shadow-sm <%= "hidden" unless empty? %>">
-      <div class="flex justify-center p-3 items-center">
-        <div class="text-sm text-base-content/40 font-bold"><%= t("shared.index_table_component.no_entries") %></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="flex justify-center mt-4">
-    <div class="join hidden" data-index-table-component-target="pagination">
-      <button class="join-item btn btn-sm" data-action="index-table-component#previousPage" data-prev>&lt;</button>
-      <span class="join-item btn btn-sm no-animation pointer-events-none" data-index-table-component-target="pageInfo"></span>
-      <button class="join-item btn btn-sm" data-action="index-table-component#nextPage" data-next>&gt;</button>
-    </div>
-  </div>
+  <%= render Shared::IndexTableComponent::MobileComponent.new(
+    records: records,
+    columns: columns,
+    empty_state_text: empty_state_text,
+    cell_content_renderer: cell_content_renderer
+  ) %>
 </div>

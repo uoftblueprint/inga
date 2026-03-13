@@ -17,6 +17,18 @@ module Shared
       @columns << Column.new(attribute, label, cell_renderer, col_size)
     end
 
+    def column_sizes
+      @column_sizes ||= columns.map { |column| column.col_size || "minmax(0, 1fr)" }.join(" ")
+    end
+
+    def empty_state_text
+      t("shared.index_table_component.no_entries")
+    end
+
+    def cell_content_renderer
+      method(:render_cell_content)
+    end
+
     private
 
     def render_cell_content(record, column)
