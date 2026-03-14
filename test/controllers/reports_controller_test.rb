@@ -6,6 +6,7 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
   end
 
   [
+    { route: "index", method: :get, url_helper: :reports_url, needs_report: false },
     { route: "show", method: :get, url_helper: :report_url, needs_report: true },
     { route: "new", method: :get, url_helper: :new_report_url, needs_report: false },
     { route: "edit", method: :get, url_helper: :edit_report_url, needs_report: true },
@@ -55,6 +56,15 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
 
     assert_match aggregated_datum.value.to_s, response.body
     assert_match aggregated_datum.additional_text, response.body
+  end
+
+  test "#index displays reports" do
+    report = create(:report)
+
+    get reports_path
+    assert_response :success
+    assert_match I18n.l(report.start_date.to_date), response.body
+    assert_match I18n.l(report.end_date.to_date), response.body
   end
 
   test "#filter displays projects when valid dates are provided" do
@@ -159,5 +169,47 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to new_report_path
     assert_equal I18n.t("reports.create.invalid"), flash[:error]
+  end
+
+  test "#create redirects with error when subproject_ids do not exist" do
+    assert_no_difference("Report.count") do
+      post reports_path, params: {
+        start_date: Time.zone.yesterday.to_s,
+        end_date: Time.zone.today.to_s,
+        subproject_ids: [0]
+      }
+    end
+
+    assert_redirected_to new_report_path
+    assert_equal I18n.t("reports.create.invalid"), flash[:error]
+  end
+
+  test "#destroy redirects to login route when a user is not authenticated" do
+    report = create(:report)
+    log_out_user
+
+    delete report_path(report)
+    assert_response :redirect
+    assert_redirected_to login_path
+  end
+
+  test "#destroy redirects to root route when a user is not authorized" do
+    report = create(:report)
+    create_logged_in_user
+
+    delete report_path(report)
+    assert_response :redirect
+    assert_redirected_to root_path
+  end
+
+  test "#destroy removes the report and redirects to index" do
+    report = create(:report)
+
+    assert_difference("Report.count", -1) do
+      delete report_path(report)
+    end
+
+    assert_redirected_to reports_path
+    assert_equal I18n.t("reports.destroy.success"), flash[:success]
   end
 end

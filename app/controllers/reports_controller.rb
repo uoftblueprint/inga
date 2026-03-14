@@ -1,6 +1,4 @@
 class ReportsController < ApplicationController
-  before_action :set_report, only: %i[show edit update destroy]
-
   def index
     @reports = Report.all
   end
@@ -15,30 +13,6 @@ class ReportsController < ApplicationController
   def edit
     @report = Report.find(params[:id])
     render :show
-  end
-
-  def filter
-    start_date = parse_date(params[:start_date])
-    end_date = parse_date(params[:end_date])
-
-    if start_date && end_date && start_date <= end_date
-      @start_date = params[:start_date]
-      @end_date = params[:end_date]
-
-      result = ReportFilterService.new.filter(
-        start_date: start_date,
-        end_date: end_date,
-        project_ids: Array(params[:project_ids]),
-        subproject_ids: Array(params[:subproject_ids])
-      )
-
-      @projects = result.projects
-      @selected_project_ids = result.selected_project_ids
-      @subprojects = result.subprojects
-      @selected_subproject_ids = result.selected_subproject_ids
-    end
-
-    render :new
   end
 
   def create
@@ -75,6 +49,40 @@ class ReportsController < ApplicationController
     end
 
     redirect_to edit_report_path(report), flash: { success: t(".success") }
+  end
+
+  def destroy
+    @report = Report.find(params[:id])
+
+    if @report.destroy
+      redirect_to reports_path, flash: { success: t(".success") }
+    else
+      redirect_to reports_path, flash: { error: @report.errors.full_messages.to_sentence }
+    end
+  end
+
+  def filter
+    start_date = parse_date(params[:start_date])
+    end_date = parse_date(params[:end_date])
+
+    if start_date && end_date && start_date <= end_date
+      @start_date = params[:start_date]
+      @end_date = params[:end_date]
+
+      result = ReportFilterService.new.filter(
+        start_date: start_date,
+        end_date: end_date,
+        project_ids: Array(params[:project_ids]),
+        subproject_ids: Array(params[:subproject_ids])
+      )
+
+      @projects = result.projects
+      @selected_project_ids = result.selected_project_ids
+      @subprojects = result.subprojects
+      @selected_subproject_ids = result.selected_subproject_ids
+    end
+
+    render :new
   end
 
   private

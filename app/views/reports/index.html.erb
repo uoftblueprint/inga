@@ -1,7 +1,7 @@
 <div class="mx-8 my-10">
   <div class="flex items-center justify-between mb-4">
     <h1 class="text-4xl font-bold"><%= t(".title") %></h1>
-    <%= render ActionButtonComponent.new(to: new_report_path, icon: "add", colour: :primary, size: :large, turbo_stream: true) do %>
+    <%= render ActionButtonComponent.new(to: new_report_path, icon: "add", colour: :primary, size: :large) do %>
       <%= t(".actions.create") %>
     <% end %>
   </div>
@@ -18,8 +18,8 @@
       <% end %>
       <% table.column :actions, header: t("shared.index_table_component.actions"), col_size: "90px" do |report| %>
         <div class="flex flex-row gap-2 items-center">
-          <%= render ActionButtonComponent.new(to: report_path(report), icon: "view", turbo_stream: true) %>
-          <%= render ActionButtonComponent.new(to: edit_report_path(report), icon: "edit", turbo_stream: true, colour: :info) %>
+          <%= render ActionButtonComponent.new(to: report_path(report), icon: "view") %>
+          <%= render ActionButtonComponent.new(to: edit_report_path(report), icon: "edit", colour: :info) %>
           <%= render ActionButtonComponent.new(to: report_path(report), method: :delete, icon: "delete", colour: :error, confirm: t("reports.destroy.confirm")) %>
         </div>
       <% end %>

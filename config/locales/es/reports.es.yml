@@ -1,13 +1,20 @@
 ---
 es:
-  components:
-    sidebar_component:
-      build_admin_section:
-        reports: Informes
   reports:
     create:
       invalid: Por favor proporcione fechas válidas y seleccione al menos un subproyecto.
       success: El reporte fue generado exitosamente.
+    destroy:
+      confirm: "¿Está seguro de que desea eliminar este informe?"
+      success: Informe eliminado exitosamente.
+    index:
+      actions:
+        create: Crear informe
+      columns:
+        created_at: Creado en
+        end_date: Fecha de finalizacion
+        start_date: Fecha de inicio
+      title: Informes
     journal_card_component:
       author: Autor
     new:
