@@ -18,6 +18,8 @@ class SidebarComponent < ViewComponent::Base
       items: [
         SIDEBAR_ITEM.new(name: t("projects", scope: "components.sidebar_component.build_admin_section"),
                          path: helpers.projects_path, icon: "journal-text"),
+        SIDEBAR_ITEM.new(name: t("new_report", scope: "components.sidebar_component.build_admin_section"),
+                         path: helpers.new_report_path, icon: "add"),
         SIDEBAR_ITEM.new(name: t("users", scope: "components.sidebar_component.build_admin_section"),
                          path: helpers.users_path, icon: "person-gear"),
         SIDEBAR_ITEM.new(name: t("regions", scope: "components.sidebar_component.build_admin_section"),

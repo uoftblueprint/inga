@@ -1,4 +1,4 @@
-<div data-controller="index-table-component">
+<div data-controller="index-table-component" data-index-table-component-per-page-value="<%= per_page %>">
   <% if searchable %>
     <div class="mb-4">
       <label class="input input-bordered w-full">
@@ -42,6 +42,14 @@
       <div class="flex justify-center p-3 items-center">
         <div class="text-sm text-base-content/40 font-bold"><%= t("shared.index_table_component.no_entries") %></div>
       </div>
+    </div>
+  </div>
+
+  <div class="flex justify-center mt-4">
+    <div class="join hidden" data-index-table-component-target="pagination">
+      <button class="join-item btn btn-sm" data-action="index-table-component#previousPage" data-prev>&lt;</button>
+      <span class="join-item btn btn-sm no-animation pointer-events-none" data-index-table-component-target="pageInfo"></span>
+      <button class="join-item btn btn-sm" data-action="index-table-component#nextPage" data-next>&gt;</button>
     </div>
   </div>
 </div>

@@ -28,7 +28,7 @@
     <%= render SidebarComponent.new %>
 
     <main class="flex-1 overflow-auto">
-      <%= render "shared/flash" %>
+      <div id="flash"> <%= render "shared/flash" %> </div>
       <%= yield %>
     <div id="modal"></div>
     </main>

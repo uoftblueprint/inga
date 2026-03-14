@@ -15,6 +15,7 @@ module Projects
         @log_entry = @subproject.log_entries.build
 
         respond_to do |format|
+          format.html
           format.turbo_stream
         end
       end
@@ -41,9 +42,22 @@ module Projects
         @log_entry.user = current_user
 
         if @log_entry.save
-          redirect_to(project_subproject_path(@project, @subproject), flash: { success: t(".success") })
+          flash.now[:success] = t(".success")
+          @log_entry = @subproject.log_entries.build
+
+          respond_to do |format|
+            format.turbo_stream
+            format.html do
+              redirect_to(project_subproject_path(@project, @subproject), flash: { success: t(".success") })
+            end
+          end
         else
-          render :new, status: :unprocessable_entity, formats: [:turbo_stream]
+          flash.now[:error] = @log_entry.errors.full_messages.to_sentence
+
+          respond_to do |format|
+            format.turbo_stream { render :create, status: :unprocessable_entity }
+            format.html { render :new, status: :unprocessable_entity }
+          end
         end
       end
 

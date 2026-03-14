@@ -1,0 +1,7 @@
+<%= turbo_stream.update "flash" do %>
+  <%= render "shared/flash" %>
+<% end %>
+
+<%= turbo_stream.replace "journal_new_form" do %>
+  <%= render Journals::FormComponent.new(project: @project, subproject: @subproject, journal: @journal) %>
+<% end %>

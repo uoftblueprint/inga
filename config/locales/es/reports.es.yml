@@ -6,20 +6,14 @@ es:
         reports: Informes
   reports:
     create:
-      success: El informe se creó correctamente.
-    destroy:
-      confirm: "¿Está seguro de que desea eliminar este informe?"
-      success: Informe eliminado exitosamente.
-    index:
-      actions:
-        create: Crear informe
-      columns:
-        created_at: Creado en
-        end_date: Fecha de finalización
-        start_date: Fecha de inicio
-      title: Informes
+      invalid: Por favor proporcione fechas válidas y seleccione al menos un subproyecto.
+      success: El reporte fue generado exitosamente.
     journal_card_component:
       author: Autor
-    not_found: Informe no encontrado.
-    update:
-      success: El informe se actualizó correctamente.
+    new:
+      end_date: Fecha de Fin
+      generate: Generar Reporte
+      projects: Proyectos
+      start_date: Fecha de Inicio
+      subprojects: Subproyectos
+      title: Nuevo Reporte

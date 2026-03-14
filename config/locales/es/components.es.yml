@@ -4,6 +4,7 @@ es:
     sidebar_component:
       build_admin_section:
         admin: Admin
+        new_report: Nuevo Reporte
         projects: Proyectos
         regions: Regiones
         users: Usuarios
@@ -11,3 +12,15 @@ es:
         projects: Proyectos
       logout_item:
         logout: Cerrar Sesión
+  journals:
+    empty_form_component:
+      create_journal_button: Crear diario
+      markdown_content_label: Contenido en markdown
+      title_label: Título
+  projects:
+    subprojects:
+      unified_form_component:
+        project_label: Proyecto
+        select_project_prompt: Selecciona un proyecto
+        select_subproject_prompt: Selecciona un subproyecto
+        subproject_label: Subproyecto

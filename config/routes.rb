@@ -19,8 +19,11 @@ Rails.application.routes.draw do
     # Region routes
     resources :regions, except: [:show]
 
-    # Report routes:
-    resources :reports, only: %i[index show edit destroy new create]
+    # Generic Log Entry routes
+    resources :log_entries, only: %i[new]
+
+    # Generic Journal Entry routes
+    resources :journals, only: %i[new]
 
     root to: "projects#index"
 
@@ -33,6 +36,10 @@ Rails.application.routes.draw do
     delete "/logout", to: "sessions#destroy"
 
     # Report routes
-    resources :reports, only: %i[show]
+    resources :reports, only: %i[show new create edit] do
+      collection do
+        get :filter
+      end
+    end
   end
 end
