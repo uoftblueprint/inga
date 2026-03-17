@@ -60,7 +60,7 @@ class ReportsController < ApplicationController
     ActiveRecord::Base.transaction do
       @report.journal_ids = journals.pluck(:id)
 
-      @report.aggregated_data.where.not(id: retained_aggregated_datum_ids).destroy_all
+      @report.aggregated_data.where.not(id: retained_aggregated_datum_ids).delete_all
 
       aggregated_data.each do |datum|
         @report.aggregated_data.create!(
@@ -116,18 +116,22 @@ class ReportsController < ApplicationController
     nil
   end
 
+  def update_params
+    params.permit(journal_ids: [], retained_aggregated_datum_ids: [], new_aggregated_data: {})
+  end
+
   def selected_journal_ids
-    Array(params[:journal_ids]).map(&:to_i)
+    Array(update_params[:journal_ids]).map(&:to_i)
   end
 
   def retained_aggregated_datum_ids
-    Array(params[:retained_aggregated_datum_ids]).map(&:to_i)
+    Array(update_params[:retained_aggregated_datum_ids]).map(&:to_i)
   end
 
   def parse_new_aggregated_data
     parsed = []
 
-    raw_entries_param = params[:new_aggregated_data]
+    raw_entries_param = update_params[:new_aggregated_data]
 
     return [] if raw_entries_param.nil?
 
