@@ -16,13 +16,13 @@
           </button>
         </div>
 
-        <div class="flex flex-wrap" data-report-editor-target="aggregatedDataList">
+        <div class="flex flex-wrap gap-4 justify-center" data-report-editor-target="aggregatedDataList">
           <% @report.aggregated_data.each do |aggregated_datum| %>
             <div class="relative w-48" data-report-editor-target="aggregatedDatumCard">
               <%= hidden_field_tag "retained_aggregated_datum_ids[]", aggregated_datum.id %>
               <button
                   type="button"
-                  class="btn btn-xs btn-error btn-square absolute right-1 top-1 z-10 shadow-none"
+                  class="btn btn-xs btn-outline btn-square absolute right-1 top-1 z-10 shadow-none border-white text-white hover:bg-white hover:text-black"
                   data-action="report-editor#removeAggregatedDatum"
                   aria-label="<%= t(".remove") %>">
                   <%= render IconComponent.new(icon: "close", size: :xs) %>
@@ -34,7 +34,7 @@
 
         <template data-report-editor-target="aggregatedDatumTemplate">
           <div class="relative w-48" data-report-editor-target="newAggregatedDatumCard">
-            <button type="button" class="btn btn-xs btn-error btn-square absolute right-1 top-1 z-10 shadow-none" data-action="report-editor#removeNewAggregatedDatum" aria-label="<%= t(".remove") %>">
+            <button type="button" class="btn btn-xs btn-outline btn-square absolute right-1 top-1 z-10 shadow-none border-white text-white hover:bg-white hover:text-black" data-action="report-editor#removeNewAggregatedDatum" aria-label="<%= t(".remove") %>">
               <%= render IconComponent.new(icon: "close", size: :xs) %>
             </button>
             <div class="border rounded-md px-4 py-4 w-full text-left flex flex-col bg-gray-900 text-white">
@@ -75,10 +75,10 @@
               <%= hidden_field_tag "journal_ids[]", journal.id %>
               <button
                   type="button"
-                  class="btn btn-xs btn-error btn-square absolute right-2 top-2 z-10 shadow-none"
+                  class="btn btn-sm btn-outline btn-error absolute right-2 top-2 z-10 shadow-none"
                   data-action="report-editor#removeJournal"
                   aria-label="<%= t(".remove") %>">
-                  <%= render IconComponent.new(icon: "close", size: :xs) %>
+                  <%= t(".remove") %>
               </button>
               <%= render Reports::JournalCardComponent.new(journal: journal) %>
             </div>
@@ -101,7 +101,7 @@
               class="btn btn-xs btn-error btn-circle absolute right-2 top-2 z-10"
               data-action="report-editor#removeJournal"
               aria-label="<%= t(".remove") %>">
-              <%= render IconComponent.new(icon: "close", size: :xs) %>
+              <%= t(".remove") %>
           </button>
           <%= render Reports::JournalCardComponent.new(journal: journal) %>
         </div>
