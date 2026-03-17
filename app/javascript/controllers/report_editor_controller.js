@@ -56,10 +56,16 @@ export default class extends Controller {
     const locale = this.element.dataset.locale || "en";
     const cardUrl = `/${locale}/journals/${journalId}/form_card`;
 
-    fetch(cardUrl)
-      .then((response) => response.text())
+    fetch(cardUrl, {
+      headers: {
+        Accept: "text/vnd.turbo-stream.html",
+        "X-CSRF-Token": document.querySelector("meta[name='csrf-token']")
+          .content,
+      },
+    })
+      .then((r) => r.text())
       .then((html) => {
-        this.selectedJournalsListTarget.insertAdjacentHTML("beforeend", html);
+        Turbo.renderStreamMessage(html);
         this._markJournalButtonSelected(addButton);
         this._syncSelectedJournalEmptyState();
       })
@@ -76,7 +82,9 @@ export default class extends Controller {
 
     if (journalId) {
       const addButton = this.element.querySelector(
-        `[data-action~="report-editor#addJournal"][data-journal-id="${journalId}"]`,
+        `[data-action~="report-editor#addJournal"][data-journal-id="${
+          journalId
+        }"]`,
       );
 
       if (addButton) {
@@ -100,7 +108,9 @@ export default class extends Controller {
 
     selectedIds.forEach((journalId) => {
       const addButton = this.element.querySelector(
-        `[data-action~="report-editor#addJournal"][data-journal-id="${journalId}"]`,
+        `[data-action~="report-editor#addJournal"][data-journal-id="${
+          journalId
+        }"]`,
       );
 
       if (addButton) {

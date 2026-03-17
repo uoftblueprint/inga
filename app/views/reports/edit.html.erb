@@ -69,7 +69,7 @@
           <%= t(".add_journal") %>
         </button>
 
-        <div class="flex flex-col gap-3" data-report-editor-target="selectedJournalsList">
+        <div id="selected-journals-list" class="flex flex-col gap-3" data-report-editor-target="selectedJournalsList">
           <% @selected_journals.each do |journal| %>
             <div class="relative" data-journal-id="<%= journal.id %>">
               <%= hidden_field_tag "journal_ids[]", journal.id %>
