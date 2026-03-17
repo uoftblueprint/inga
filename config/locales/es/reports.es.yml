@@ -17,10 +17,6 @@ es:
       save: Guardar Cambios
       selected_journals: Diarios Seleccionados
       title: Editar Reporte
-      value: Valor
-    update:
-      invalid: Proporcione valores y etiquetas validos para los datos agregados.
-      success: El reporte fue actualizado exitosamente.
     journal_card_component:
       author: Autor
     new:
@@ -30,3 +26,6 @@ es:
       start_date: Fecha de Inicio
       subprojects: Subproyectos
       title: Nuevo Reporte
+    update:
+      invalid: Proporcione valores y etiquetas validos para los datos agregados.
+      success: El reporte fue actualizado exitosamente.

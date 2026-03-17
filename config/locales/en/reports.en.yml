@@ -17,10 +17,6 @@ en:
       save: Save Changes
       selected_journals: Selected Journals
       title: Edit Report
-      value: Value
-    update:
-      invalid: Please provide valid aggregated data values and labels.
-      success: Report was updated successfully.
     journal_card_component:
       author: Author
     new:
@@ -30,3 +26,6 @@ en:
       start_date: Start Date
       subprojects: Subprojects
       title: New Report
+    update:
+      invalid: Please provide valid aggregated data values and labels.
+      success: Report was updated successfully.

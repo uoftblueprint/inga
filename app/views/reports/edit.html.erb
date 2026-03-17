@@ -21,11 +21,11 @@
             <div class="relative w-48" data-report-editor-target="aggregatedDatumCard">
               <%= hidden_field_tag "retained_aggregated_datum_ids[]", aggregated_datum.id %>
               <button
-                type="button"
-                class="btn btn-xs btn-error btn-square absolute right-1 top-1 z-10 shadow-none"
-                data-action="report-editor#removeAggregatedDatum"
-                aria-label="<%= t(".remove") %>">
-                <%= render IconComponent.new(icon: "close", size: :xs) %>
+                  type="button"
+                  class="btn btn-xs btn-error btn-square absolute right-1 top-1 z-10 shadow-none"
+                  data-action="report-editor#removeAggregatedDatum"
+                  aria-label="<%= t(".remove") %>">
+                  <%= render IconComponent.new(icon: "close", size: :xs) %>
               </button>
               <%= render Reports::AggregatedDatumCardComponent.new(aggregated_datum: aggregated_datum, static: true) %>
             </div>
@@ -39,18 +39,20 @@
             </button>
             <div class="border rounded-md px-4 py-4 w-full text-left flex flex-col bg-gray-900 text-white">
               <input
-                type="number"
-                step="0.01"
-                name="new_aggregated_data[__INDEX__][value]"
-                required
-                placeholder="0"
-                class="text-4xl font-bold bg-transparent border-none outline-none w-full text-white placeholder-white/40 p-0 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" />
+                  type="number"
+                  step="0.01"
+                  name="new_aggregated_data[__INDEX__][value]"
+                  required
+                  placeholder="0"
+                  class="text-4xl font-bold bg-transparent border-none outline-none w-full text-white placeholder-white/40 p-0 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                  autocomplete="off">
               <input
-                type="text"
-                name="new_aggregated_data[__INDEX__][additional_text]"
-                placeholder="<%= t(".content") %>"
-                required
-                class="text-lg mt-2 bg-transparent border-none outline-none w-full text-white placeholder-white/40 p-0" />
+                  type="text"
+                  name="new_aggregated_data[__INDEX__][additional_text]"
+                  placeholder="<%= t(".content") %>"
+                  required
+                  class="text-lg mt-2 bg-transparent border-none outline-none w-full text-white placeholder-white/40 p-0"
+                  autocomplete="off">
             </div>
           </div>
         </template>
@@ -60,9 +62,9 @@
         <h1 class="text-2xl font-bold mb-4"><%= t(".selected_journals") %></h1>
 
         <button
-          type="button"
-          class="btn btn-primary w-full gap-2 mb-4"
-          data-action="report-editor#openJournalModal">
+            type="button"
+            class="btn btn-primary w-full gap-2 mb-4"
+            data-action="report-editor#openJournalModal">
           <%= render IconComponent.new(icon: "add", size: :sm) %>
           <%= t(".add_journal") %>
         </button>
@@ -72,11 +74,11 @@
             <div class="relative" data-journal-id="<%= journal.id %>">
               <%= hidden_field_tag "journal_ids[]", journal.id %>
               <button
-                type="button"
-                class="btn btn-xs btn-error btn-square absolute right-2 top-2 z-10 shadow-none"
-                data-action="report-editor#removeJournal"
-                aria-label="<%= t(".remove") %>">
-                <%= render IconComponent.new(icon: "close", size: :xs) %>
+                  type="button"
+                  class="btn btn-xs btn-error btn-square absolute right-2 top-2 z-10 shadow-none"
+                  data-action="report-editor#removeJournal"
+                  aria-label="<%= t(".remove") %>">
+                  <%= render IconComponent.new(icon: "close", size: :xs) %>
               </button>
               <%= render Reports::JournalCardComponent.new(journal: journal) %>
             </div>
@@ -84,7 +86,7 @@
         </div>
 
         <p class="text-sm text-center text-base-content/70 mt-2 hidden" data-report-editor-target="emptySelectedJournals">
-          <%= t(".empty_journals") %>
+        <%= t(".empty_journals") %>
         </p>
       <% end %>
 
@@ -95,11 +97,11 @@
         <div class="relative" data-journal-id="<%= journal.id %>">
           <%= hidden_field_tag "journal_ids[]", journal.id %>
           <button
-            type="button"
-            class="btn btn-xs btn-error btn-circle absolute right-2 top-2 z-10"
-            data-action="report-editor#removeJournal"
-            aria-label="<%= t(".remove") %>">
-            <%= render IconComponent.new(icon: "close", size: :xs) %>
+              type="button"
+              class="btn btn-xs btn-error btn-circle absolute right-2 top-2 z-10"
+              data-action="report-editor#removeJournal"
+              aria-label="<%= t(".remove") %>">
+              <%= render IconComponent.new(icon: "close", size: :xs) %>
           </button>
           <%= render Reports::JournalCardComponent.new(journal: journal) %>
         </div>
@@ -113,9 +115,9 @@
       <div class="flex items-center justify-between mb-4">
         <h3 class="font-bold text-lg"><%= t(".available_journals") %></h3>
         <button
-          type="button"
-          class="btn btn-sm btn-circle btn-ghost"
-          data-action="report-editor#closeJournalModal">
+            type="button"
+            class="btn btn-sm btn-circle btn-ghost"
+            data-action="report-editor#closeJournalModal">
           <%= render IconComponent.new(icon: "close", size: :sm) %>
         </button>
       </div>
@@ -130,13 +132,13 @@
         <% end %>
         <% table.column :actions, header: "", col_size: "auto" do |journal| %>
           <button
-            type="button"
-            class="btn btn-xs btn-primary"
-            data-action="report-editor#addJournal"
-            data-add-label="<%= t("reports.edit.add_journal") %>"
-            data-added-label="<%= t("reports.edit.added_journal") %>"
-            data-journal-id="<%= journal.id %>">
-            <%= t("reports.edit.add_journal") %>
+              type="button"
+              class="btn btn-xs btn-primary"
+              data-action="report-editor#addJournal"
+              data-add-label="<%= t("reports.edit.add_journal") %>"
+              data-added-label="<%= t("reports.edit.added_journal") %>"
+              data-journal-id="<%= journal.id %>">
+              <%= t("reports.edit.add_journal") %>
           </button>
         <% end %>
       <% end %>
