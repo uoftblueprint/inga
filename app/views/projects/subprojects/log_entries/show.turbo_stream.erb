@@ -4,7 +4,7 @@
       <div class="grid gap-3">
         <% @project.log_schema.each do |title, type| %>
           <div class="flex items-center px-3 py-2 rounded-lg border border-base-300 bg-base-200/50">
-            <div class="w-1/2">
+            <div class="w-1/2 min-w-0">
               <div class="text-base-content"><%= title %></div>
             </div>
 
@@ -14,7 +14,7 @@
               <% if type == "boolean" %>
                 <div class="text-sm"><%= (value == true) ? t('shared.yes') : t('shared.no') %></div>
               <% else %>
-                <div class="text-sm"><%= value %></div>
+                <div class="text-sm wrap-break-word whitespace-normal" style="overflow-wrap: anywhere;"><%= value %></div>
               <% end %>
             </div>
           </div>
