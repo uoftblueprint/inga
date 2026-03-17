@@ -1,11 +1,11 @@
 <div
   class="w-full border border-base-300 rounded-lg bg-base-100 shadow-sm overflow-hidden"
   data-controller="marquee"
-  data-marquee-speed-value="25"
-  data-marquee-hover-speed-value="50"
+  data-marquee-speed-value="50"
+  data-marquee-hover-speed-value="100"
   data-marquee-direction-value="left"
   data-marquee-clones-value="100"
-  data-action="mouseenter->marquee#pauseAnimation mouseleave->marquee#resumeAnimation">
+  data-action="mouseenter->marquee#slowAnimation mouseleave->marquee#resumeAnimationFromSlow click->marquee#togglePauseAnimation">
   <div data-marquee-target="track" class="w-full">
     <div data-marquee-target="list" class="flex py-3">
       <% slides.each do |slide| %>
