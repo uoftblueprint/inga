@@ -1,4 +1,4 @@
-<section class="mx-8 my-10" data-controller="report-editor">
+<section class="mx-8 my-10" data-controller="report-editor" data-locale="<%= I18n.locale %>">
   <%= form_with url: report_path(@report), method: :patch, local: true do %>
     <div class="flex flex-col gap-4">
 
@@ -91,27 +91,11 @@
       <% end %>
 
     </div>
-
-    <% @available_journals.each do |journal| %>
-      <template data-report-editor-target="journalTemplate" data-journal-id="<%= journal.id %>">
-        <div class="relative" data-journal-id="<%= journal.id %>">
-          <%= hidden_field_tag "journal_ids[]", journal.id %>
-          <button
-              type="button"
-              class="btn btn-xs btn-error btn-circle absolute right-2 top-2 z-10"
-              data-action="report-editor#removeJournal"
-              aria-label="<%= t(".remove") %>">
-              <%= t(".remove") %>
-          </button>
-          <%= render Reports::JournalCardComponent.new(journal: journal) %>
-        </div>
-      </template>
-    <% end %>
   <% end %>
 
   <%# journal picker modal — outside form so dialog close doesn't trigger form submit %>
   <dialog data-report-editor-target="journalModal" class="modal">
-    <div class="modal-box max-w-4xl w-full">
+    <div class="modal-box h-[90vh] max-w-4xl w-full">
       <div class="flex items-center justify-between mb-4">
         <h3 class="font-bold text-lg"><%= t(".available_journals") %></h3>
         <button
@@ -122,7 +106,7 @@
         </button>
       </div>
 
-      <%= render Shared::IndexTableComponent.new(records: @available_journals, per_page: 8) do |table| %>
+      <%= render Shared::IndexTableComponent.new(records: @available_journals, per_page: 6) do |table| %>
         <% table.column :title %>
         <% table.column :author, header: t(".author") do |journal| %>
           <%= journal.user.username %>
@@ -144,7 +128,7 @@
       <% end %>
     </div>
     <form method="dialog" class="modal-backdrop">
-      <button type="submit" aria-label="<%= t('.close') %>"></button>
+      <button type="submit" aria-label="<%= t(".close") %>"></button>
     </form>
   </dialog>
 </section>

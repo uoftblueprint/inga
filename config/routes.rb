@@ -23,7 +23,11 @@ Rails.application.routes.draw do
     resources :log_entries, only: %i[new]
 
     # Generic Journal Entry routes
-    resources :journals, only: %i[new]
+    resources :journals, only: %i[new] do
+      member do
+        get :form_card
+      end
+    end
 
     root to: "projects#index"
 

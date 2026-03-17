@@ -11,13 +11,13 @@ es:
       aggregated_data: Datos Agregados
       author: Autor
       available_journals: Diarios Disponibles
+      close: Cerrar
       content: Contenido
       empty_journals: No hay diarios seleccionados todavía.
       remove: Eliminar
       save: Guardar Cambios
       selected_journals: Diarios Seleccionados
       title: Editar Reporte
-      close: Cerrar
     journal_card_component:
       author: Autor
     new:

@@ -11,13 +11,13 @@ en:
       aggregated_data: Aggregated Data
       author: Author
       available_journals: Available Journals
+      close: Close
       content: Content
       empty_journals: No journals selected yet.
       remove: Remove
       save: Save Changes
       selected_journals: Selected Journals
       title: Edit Report
-      close: Close
     journal_card_component:
       author: Author
     new:

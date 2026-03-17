@@ -6,7 +6,6 @@ export default class extends Controller {
     "aggregatedDatumTemplate",
     "selectedJournalsList",
     "emptySelectedJournals",
-    "journalTemplate",
     "journalModal",
   ];
 
@@ -54,20 +53,17 @@ export default class extends Controller {
       return;
     }
 
-    const template = this.journalTemplateTargets.find(
-      (templateTarget) => templateTarget.dataset.journalId === journalId,
-    );
+    const locale = this.element.dataset.locale || "en";
+    const cardUrl = `/${locale}/journals/${journalId}/form_card`;
 
-    if (!template) {
-      return;
-    }
-
-    const clonedCard = template.content.firstElementChild.cloneNode(true);
-    this.selectedJournalsListTarget.appendChild(clonedCard);
-
-    this._markJournalButtonSelected(addButton);
-
-    this._syncSelectedJournalEmptyState();
+    fetch(cardUrl)
+      .then((response) => response.text())
+      .then((html) => {
+        this.selectedJournalsListTarget.insertAdjacentHTML("beforeend", html);
+        this._markJournalButtonSelected(addButton);
+        this._syncSelectedJournalEmptyState();
+      })
+      .catch((error) => console.error("Failed to fetch journal card:", error));
   }
 
   removeJournal(event) {
