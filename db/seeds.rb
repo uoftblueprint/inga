@@ -6,3 +6,4 @@ Seeds::Users.run
 Seeds::Projects.run
 Seeds::LogEntries.run
 Seeds::Journals.run
+Seeds::Reports.run

@@ -154,23 +154,40 @@ export default class extends Controller {
     document.head.appendChild(style);
   }
 
+  togglePauseAnimation() {
+    if (this.isPaused) {
+      this.resumeAnimationFromPause();
+    } else {
+      this.pauseAnimation();
+    }
+  }
+
   pauseAnimation() {
+    this.trackTarget.style.animationPlayState = "paused";
+    this.isPaused = true;
+  }
+
+  slowAnimation() {
+    if (this.isPaused) {
+      return;
+    }
+
     if (this.hoverSpeedValue === 0) {
-      // Pause completely
-      this.trackTarget.style.animationPlayState = "paused";
-      this.isPaused = true;
+      this.pauseAnimation();
     } else {
       // Smoothly slow down
       this.smoothSpeedChange(this.hoverSpeedValue);
     }
   }
 
-  resumeAnimation() {
-    if (this.hoverSpeedValue === 0 && this.isPaused) {
-      // Resume from pause
-      this.trackTarget.style.animationPlayState = "running";
-      this.isPaused = false;
-    } else if (this.hoverSpeedValue > 0) {
+  resumeAnimationFromPause() {
+    // Resume from pause
+    this.trackTarget.style.animationPlayState = "running";
+    this.isPaused = false;
+  }
+
+  resumeAnimationFromSlow() {
+    if (!this.isPaused && this.hoverSpeedValue > 0) {
       // Return to normal speed
       this.smoothSpeedChange(this.speedValue);
     }

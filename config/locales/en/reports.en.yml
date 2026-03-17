@@ -4,6 +4,20 @@ en:
     create:
       invalid: Please provide valid dates and select at least one subproject.
       success: Report was successfully generated.
+    edit:
+      add_aggregated_datum: Add Aggregated Data Box
+      add_journal: Add Journal
+      added_journal: Added
+      aggregated_data: Aggregated Data
+      author: Author
+      available_journals: Available Journals
+      close: Close
+      content: Content
+      empty_journals: No journals selected yet.
+      remove: Remove
+      save: Save Changes
+      selected_journals: Selected Journals
+      title: Edit Report
     journal_card_component:
       author: Author
     new:
@@ -13,3 +27,6 @@ en:
       start_date: Start Date
       subprojects: Subprojects
       title: New Report
+    update:
+      invalid: Please provide valid aggregated data values and labels.
+      success: Report was updated successfully.

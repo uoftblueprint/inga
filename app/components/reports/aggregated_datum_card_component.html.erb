@@ -1,9 +1,9 @@
-<div class="carousel-item border rounded-md p-1 w-48 text-center flex flex-col flex-none">
-  <h3 class="text-xl">
+<div class="border rounded-md px-4 py-4 text-left flex flex-col bg-gray-900 text-white <%= @static ? "w-full" : "carousel-item w-48 flex-none" %>">
+  <h3 class="text-4xl font-bold">
     <% if @aggregated_datum.value.present? %>
       <% value = @aggregated_datum.value %>
       <%= value.to_f % 1 == 0 ? value.to_i : value %>
     <% end %>
   </h3>
-  <p class="text-base"><%= @aggregated_datum.additional_text %></p>
+  <p class="text-lg mt-2"><%= @aggregated_datum.additional_text %></p>
 </div>
