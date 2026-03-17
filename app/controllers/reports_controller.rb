@@ -63,7 +63,8 @@ class ReportsController < ApplicationController
       @report.aggregated_data.where.not(id: retained_aggregated_datum_ids).destroy_all
 
       aggregated_data.each do |datum|
-        @report.aggregated_data << AggregatedNumericalDatum.new(
+        @report.aggregated_data.create!(
+          type: "AggregatedNumericalDatum",
           additional_text: datum[:additional_text],
           value: datum[:value]
         )

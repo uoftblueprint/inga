@@ -17,6 +17,7 @@ en:
       save: Save Changes
       selected_journals: Selected Journals
       title: Edit Report
+      close: Close
     journal_card_component:
       author: Author
     new:

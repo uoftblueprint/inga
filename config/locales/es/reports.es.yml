@@ -12,11 +12,12 @@ es:
       author: Autor
       available_journals: Diarios Disponibles
       content: Contenido
-      empty_journals: No hay diarios seleccionados todavia.
+      empty_journals: No hay diarios seleccionados todavía.
       remove: Eliminar
       save: Guardar Cambios
       selected_journals: Diarios Seleccionados
       title: Editar Reporte
+      close: Cerrar
     journal_card_component:
       author: Autor
     new:
@@ -27,5 +28,5 @@ es:
       subprojects: Subproyectos
       title: Nuevo Reporte
     update:
-      invalid: Proporcione valores y etiquetas validos para los datos agregados.
+      invalid: Proporcione valores y etiquetas válidos para los datos agregados.
       success: El reporte fue actualizado exitosamente.
