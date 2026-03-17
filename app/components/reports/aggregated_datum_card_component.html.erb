@@ -1,4 +1,4 @@
-<div class="carousel-item border rounded-md px-4 py-4 w-48 text-left flex flex-col flex-none bg-gray-900 text-white">
+<div class="border rounded-md px-4 py-4 text-left flex flex-col bg-gray-900 text-white <%= @static ? 'w-full' : 'carousel-item w-48 flex-none' %>">
   <h3 class="text-4xl font-bold">
     <% if @aggregated_datum.value.present? %>
       <% value = @aggregated_datum.value %>

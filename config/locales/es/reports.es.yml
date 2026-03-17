@@ -4,6 +4,23 @@ es:
     create:
       invalid: Por favor proporcione fechas válidas y seleccione al menos un subproyecto.
       success: El reporte fue generado exitosamente.
+    edit:
+      add_aggregated_datum: Agregar Caja de Datos Agregados
+      add_journal: Agregar Diario
+      added_journal: Agregado
+      aggregated_data: Datos Agregados
+      author: Autor
+      available_journals: Diarios Disponibles
+      content: Contenido
+      empty_journals: No hay diarios seleccionados todavia.
+      remove: Eliminar
+      save: Guardar Cambios
+      selected_journals: Diarios Seleccionados
+      title: Editar Reporte
+      value: Valor
+    update:
+      invalid: Proporcione valores y etiquetas validos para los datos agregados.
+      success: El reporte fue actualizado exitosamente.
     journal_card_component:
       author: Autor
     new:
