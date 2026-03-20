@@ -1,47 +1,22 @@
-<%= form_with model: [@project, @subproject, @log_entry], builder: DefaultFormBuilder do |form| %>
+<%= form_with model: [project, subproject, log_entry], builder: DefaultFormBuilder do |form| %>
   <div class="text-sm p-4 flex flex-col gap-4">
     <div class="grid gap-3">
-      <% @project.log_schema.each do |title, type| %>
-        <div class="flex items-center px-3 py-2 rounded-lg border border-base-300 bg-base-200/50">
-          <div class="w-1/2">
-            <div class="text-base-content"><%= title %></div>
+      <% project.log_schema.each do |title, type| %>
+        <div class="rounded-lg border border-base-300 bg-base-200/50 px-3 py-3 sm:flex sm:items-center sm:px-3 sm:py-2">
+          <div class="flex flex-col gap-2 sm:w-1/2 sm:flex-row sm:items-center sm:gap-0">
+            <div class="text-base-content font-medium sm:font-normal"><%= title %></div>
           </div>
 
-          <div class="w-1/2">
-            <% value = @log_entry.metadata && @log_entry.metadata[title] %>
-
-            <% if type == "numerical" %>
-              <input
-                  class="input input-sm w-full"
-                  autocomplete="off"
-                  type="number"
-                  step="any"
-                  name="log_entry[metadata][<%= title %>]"
-                  value="<%= value %>">
-            <% elsif type == "boolean" %>
-              <input type="hidden" name="log_entry[metadata][<%= title %>]" value="off">
-              <label class="flex items-center gap-2">
-                <input
-                    type="checkbox"
-                    class="checkbox"
-                    name="log_entry[metadata][<%= title %>]"
-                    <%= "checked" if value == true %>>
-              </label>
-            <% else %>
-              <input
-                  class="input input-sm w-full"
-                  type="text"
-                  autocomplete="off"
-                  name="log_entry[metadata][<%= title %>]"
-                  value="<%= value %>">
-            <% end %>
-                </div>
-              </div>
-            <% end %>
-          </div>
-          <div class="flex justify-end gap-3">
-            <%= form.modal_cancel %>
-            <%= form.submit %>
-          </div>
+          <div class="mt-2 sm:mt-0 sm:w-1/2">
+            <%= render LogEntries::MetadataInputComponent.new(title: title, type: type, log_entry: log_entry) %>
+One component with responsive classes          </div>
         </div>
       <% end %>
+    </div>
+
+    <div class="flex justify-end gap-3">
+      <%= form.modal_cancel %>
+      <%= form.submit %>
+    </div>
+  </div>
+<% end %>
