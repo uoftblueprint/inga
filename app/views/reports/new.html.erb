@@ -6,7 +6,7 @@
     <div class="w-full max-w-2xl mx-auto space-y-6">
       <div class="card bg-base-100 border border-base-300 shadow-sm rounded-xl">
         <div class="card-body">
-          <%= form_with url: filter_reports_path, method: :get, local: true, class: "space-y-4" do %>
+          <%= form_with url: new_report_path, method: :get, local: true, class: "space-y-4" do %>
             <div class="grid grid-cols-2 gap-4">
               <div>
                 <%= label_tag :start_date, t(".start_date"), class: "label font-semibold text-base-content" %>

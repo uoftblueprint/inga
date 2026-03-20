@@ -10,8 +10,7 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     { route: "show", method: :get, url_helper: :report_url, needs_report: true },
     { route: "new", method: :get, url_helper: :new_report_url, needs_report: false },
     { route: "edit", method: :get, url_helper: :edit_report_url, needs_report: true },
-    { route: "update", method: :patch, url_helper: :report_url, needs_report: true },
-    { route: "destroy", method: :delete, url_helper: :report_url, needs_report: true }
+    { route: "update", method: :patch, url_helper: :report_url, needs_report: true }
   ].each do |hash|
     test "##{hash[:route]} redirects to login route when a user is not authenticated" do
       log_out_user

@@ -7,13 +7,13 @@
   </div>
   <%= render ContentCardComponent.new do %>
     <%= render Shared::IndexTableComponent.new(records: @reports) do |table| %>
-      <% table.column :start_date, header: t(".columns.start_date") do |report| %>
+      <% table.column :start_date do |report| %>
         <%= l(report.start_date) if report.start_date %>
       <% end %>
-      <% table.column :end_date, header: t(".columns.end_date") do |report| %>
+      <% table.column :end_date do |report| %>
         <%= l(report.end_date) if report.end_date %>
       <% end %>
-      <% table.column :created_at, header: t(".columns.created_at") do |report| %>
+      <% table.column :created_at do |report| %>
         <%= l(report.created_at) %>
       <% end %>
       <% table.column :actions, header: t("shared.index_table_component.actions"), col_size: "90px" do |report| %>
