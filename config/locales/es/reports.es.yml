@@ -7,13 +7,23 @@ es:
     destroy:
       confirm: "¿Está seguro de que desea eliminar este informe?"
       success: Informe eliminado exitosamente.
+    edit:
+      add_aggregated_datum: Agregar Caja de Datos Agregados
+      add_journal: Agregar Diario
+      added_journal: Agregado
+      aggregated_data: Datos Agregados
+      author: Autor
+      available_journals: Diarios Disponibles
+      close: Cerrar
+      content: Contenido
+      empty_journals: No hay diarios seleccionados todavía.
+      remove: Eliminar
+      save: Guardar Cambios
+      selected_journals: Diarios Seleccionados
+      title: Editar Reporte
     index:
       actions:
         create: Crear informe
-      columns:
-        created_at: Creado en
-        end_date: Fecha de finalizacion
-        start_date: Fecha de inicio
       title: Informes
     journal_card_component:
       author: Autor
@@ -24,3 +34,6 @@ es:
       start_date: Fecha de Inicio
       subprojects: Subproyectos
       title: Nuevo Reporte
+    update:
+      invalid: Proporcione valores y etiquetas válidos para los datos agregados.
+      success: El reporte fue actualizado exitosamente.

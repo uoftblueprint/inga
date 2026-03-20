@@ -23,7 +23,11 @@ Rails.application.routes.draw do
     resources :log_entries, only: %i[new]
 
     # Generic Journal Entry routes
-    resources :journals, only: %i[new]
+    resources :journals, only: %i[new] do
+      member do
+        get :form_card
+      end
+    end
 
     root to: "projects#index"
 
@@ -36,10 +40,6 @@ Rails.application.routes.draw do
     delete "/logout", to: "sessions#destroy"
 
     # Report routes
-    resources :reports, only: %i[index show new create edit destroy] do
-      collection do
-        get :filter
-      end
-    end
+    resources :reports, only: %i[index show new create edit update destroy]
   end
 end

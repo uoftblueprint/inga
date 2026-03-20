@@ -10,7 +10,8 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     { route: "show", method: :get, url_helper: :report_url, needs_report: true },
     { route: "new", method: :get, url_helper: :new_report_url, needs_report: false },
     { route: "edit", method: :get, url_helper: :edit_report_url, needs_report: true },
-    { route: "filter", method: :get, url_helper: :filter_reports_url, needs_report: false }
+    { route: "update", method: :patch, url_helper: :report_url, needs_report: true },
+    { route: "destroy", method: :delete, url_helper: :report_url, needs_report: true }
   ].each do |hash|
     test "##{hash[:route]} redirects to login route when a user is not authenticated" do
       log_out_user
@@ -31,7 +32,13 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
       assert_response :redirect
       assert_redirected_to root_path
     end
+  end
 
+  [
+    { route: "show", method: :get, url_helper: :report_url, needs_report: true },
+    { route: "new", method: :get, url_helper: :new_report_url, needs_report: false },
+    { route: "edit", method: :get, url_helper: :edit_report_url, needs_report: true }
+  ].each do |hash|
     test "##{hash[:route]} renders successfully when a user is an admin" do
       args = create(:report) if hash[:needs_report]
 
@@ -67,20 +74,20 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     assert_match I18n.l(report.end_date.to_date), response.body
   end
 
-  test "#filter displays projects when valid dates are provided" do
+  test "#new displays projects when valid dates are provided" do
     subproject = create(:subproject)
     create(:log_entry, subproject: subproject, created_at: 1.day.ago)
 
-    get filter_reports_path, params: { start_date: 2.days.ago.to_date.to_s, end_date: Time.zone.today.to_s }
+    get new_report_path, params: { start_date: 2.days.ago.to_date.to_s, end_date: Time.zone.today.to_s }
     assert_response :success
     assert_match subproject.project.name, response.body
   end
 
-  test "#filter displays subprojects when projects are selected" do
+  test "#new displays subprojects when projects are selected" do
     subproject = create(:subproject)
     create(:log_entry, subproject: subproject, created_at: 1.day.ago)
 
-    get filter_reports_path, params: {
+    get new_report_path, params: {
       start_date: 2.days.ago.to_date.to_s,
       end_date: Time.zone.today.to_s,
       project_ids: [subproject.project.id]
@@ -89,16 +96,16 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     assert_match subproject.name, response.body
   end
 
-  test "#filter handles invalid dates gracefully" do
-    get filter_reports_path, params: { start_date: "invalid", end_date: "also-invalid" }
+  test "#new handles invalid dates gracefully" do
+    get new_report_path, params: { start_date: "invalid", end_date: "also-invalid" }
     assert_response :success
   end
 
-  test "#filter includes log entries from end date" do
+  test "#new includes log entries from end date" do
     subproject = create(:subproject)
     create(:log_entry, subproject: subproject, created_at: Time.zone.today.noon)
 
-    get filter_reports_path, params: {
+    get new_report_path, params: {
       start_date: 2.days.ago.to_date.to_s,
       end_date: Time.zone.today.to_s,
       project_ids: [subproject.project.id]
@@ -211,5 +218,64 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to reports_path
     assert_equal I18n.t("reports.destroy.success"), flash[:success]
+  end
+
+  test "#update replaces journals and aggregated data in one save" do
+    report = create(:report)
+    existing_journal = create(:journal)
+    removed_journal = create(:journal)
+    added_journal = create(:journal)
+
+    report.journals << [existing_journal, removed_journal]
+
+    retained_datum = create(:aggregated_datum, report: report, additional_text: "Keep me", value: 10)
+    removed_datum = create(:aggregated_datum, report: report, additional_text: "Remove me", value: 5)
+
+    patch report_path(report), params: {
+      journal_ids: [existing_journal.id, added_journal.id],
+      retained_aggregated_datum_ids: [retained_datum.id],
+      new_aggregated_data: {
+        "0" => { value: "12.50", additional_text: "New entry" }
+      }
+    }
+
+    assert_response :redirect
+    assert_redirected_to report_path(report)
+    assert_equal I18n.t("reports.update.success"), flash[:success]
+
+    report.reload
+
+    assert_equal [existing_journal.id, added_journal.id].sort, report.journal_ids.sort
+    assert_includes report.aggregated_data.ids, retained_datum.id
+    assert_not_includes report.aggregated_data.ids, removed_datum.id
+
+    created = report.aggregated_data.find_by(additional_text: "New entry")
+
+    assert_not_nil created
+    assert_equal "AggregatedNumericalDatum", created.type
+    assert_equal 12.5, created.value.to_f
+  end
+
+  test "#update rejects malformed aggregated data" do
+    report = create(:report)
+    report_journal = create(:journal)
+    report.journals << report_journal
+    retained_datum = create(:aggregated_datum, report: report, additional_text: "Retain", value: 3)
+
+    patch report_path(report), params: {
+      journal_ids: [report_journal.id],
+      retained_aggregated_datum_ids: [retained_datum.id],
+      new_aggregated_data: {
+        "0" => { value: "", additional_text: "Missing value" }
+      }
+    }
+
+    assert_response :redirect
+    assert_redirected_to edit_report_path(report)
+    assert_equal I18n.t("reports.update.invalid"), flash[:error]
+
+    report.reload
+    assert_equal [report_journal.id], report.journal_ids
+    assert_equal [retained_datum.id], report.aggregated_data.ids
   end
 end

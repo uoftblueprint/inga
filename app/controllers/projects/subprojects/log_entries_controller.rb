@@ -42,12 +42,8 @@ module Projects
         @log_entry.user = current_user
 
         if @log_entry.save
-          flash.now[:success] = t(".success")
-          @log_entry = @subproject.log_entries.build
-
           respond_to do |format|
-            format.turbo_stream
-            format.html do
+            format.any(:turbo_stream, :html) do
               redirect_to(project_subproject_path(@project, @subproject), flash: { success: t(".success") })
             end
           end
