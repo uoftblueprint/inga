@@ -10,30 +10,29 @@
 @plugin "./daisyui-theme.mjs" {
   name: "light";
   default: true;
-
-  --color-primary: oklch(54% 0.18 149);
+  --color-primary: oklch(52% 0.09 142);
   --color-primary-content: oklch(98% 0 0);
 
-  --color-secondary: oklch(46% 0.098 169);
-  --color-secondary-content: oklch(98% 0 0);
+  --color-secondary: oklch(81% 0.09 133);
+  --color-secondary-content: oklch(17% 0.02 95);
 
-  --color-accent: oklch(58% 0.12 185);
-  --color-accent-content: oklch(98% 0 0);
+  --color-accent: oklch(62% 0.07 220);
+  --color-accent-content: oklch(17% 0.02 95);
 
-  --color-neutral: oklch(15% 0.038 174);
-  --color-accent-content: oklch(98% 0 0);
+  --color-neutral: oklch(5% 0.02 162);
+  --color-neutral-content: oklch(98% 0 0);
 
   --color-info: oklch(73% 0.16 236);
-  --color-info-content: oklch(30% 0.065 243);
+  --color-info-content: oklch(22% 0.06 234);
 
   --color-success: oklch(72% 0.15 159);
-  --color-success-content: oklch(28% 0.074 169);
+  --color-success-content: oklch(20% 0.07 164);
 
   --color-warning: oklch(84% 0.17 84);
-  --color-warning-content: oklch(43% 0.11 46);
+  --color-warning-content: oklch(44% 0.1 51);
 
   --color-error: oklch(69% 0.19 22);
-  --color-error-content: oklch(28% 0.11 12);
+  --color-error-content: oklch(18% 0.07 14);
 }
 
 @keyframes fade-in-out {
