@@ -17,7 +17,7 @@ en:
     index:
       actions:
         create: Create Project
-      description: Click on a project or subproject to view and manage details.
+      description: Create and manage projects in the Inga Foundation.
       title: Projects
     log_schema_component:
       attributes_count:
@@ -30,15 +30,19 @@ en:
     new:
       title: New Project
     projects_card_component:
+      no_subprojects: No subprojects yet.
       search_placeholder: Search project title
       status:
         active: Active
         inactive: Inactive
+      view_project: View Project
     show:
       actions:
         delete: Delete project
         edit: Edit project
       create_subproject: Create subproject
       subprojects: Subprojects
+    subproject_card_component:
+      no_region: No region
     update:
       success: Project updated successfully

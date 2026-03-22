@@ -74,8 +74,7 @@
 .ui-enter,
 .ui-enter-page,
 .ui-enter-section,
-.ui-enter-item,
-.project-card-enter {
+.ui-enter-item {
   opacity: 0;
   animation-name: ui-enter;
   animation-duration: var(--ui-enter-duration, 520ms);
@@ -104,20 +103,11 @@
   --ui-enter-from-scale: 0.992;
 }
 
-/* Backwards-compatible alias for existing markup */
-.project-card-enter {
-  --ui-enter-duration: 520ms;
-  --ui-enter-from-y: 14px;
-  --ui-enter-from-scale: 0.985;
-  animation-delay: var(--card-enter-delay, var(--ui-enter-delay, 0ms));
-}
-
 @media (prefers-reduced-motion: reduce) {
   .ui-enter,
   .ui-enter-page,
   .ui-enter-section,
-  .ui-enter-item,
-  .project-card-enter {
+  .ui-enter-item {
     opacity: 1;
     animation: none;
     transform: none;

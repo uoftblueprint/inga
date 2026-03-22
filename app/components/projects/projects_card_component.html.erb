@@ -8,18 +8,17 @@
     </div>
     <div class="grid grid-cols-[repeat(auto-fill,minmax(285px,1fr))] gap-6 w-full">
       <% projects.each_with_index do |project, index| %>
-             <div class="card ui-enter-item relative w-full flex flex-col justify-between gap-2 bg-base-100 border border-base-300 shadow-md p-4 rounded-xl transition-shadow hover:shadow-lg hover:border-primary/50"
-               style="--ui-enter-delay: <%= 60 + ((index % 12) * 45) %>ms;"
+        <div class="card ui-enter-item w-full flex flex-col justify-between gap-2 bg-base-100 border border-base-300 shadow-md p-4 rounded-xl transition-shadow hover:shadow-lg hover:border-primary/50"
+             style="--ui-enter-delay: <%= 60 + ((index % 12) * 45) %>ms;"
              data-project-card-search-target="card"
              data-project-name="<%= project.name %>">
 
              <div class="flex flex-col">
                <div class="flex justify-between items-center mb-1">
                  <h2 class="text-base-content text-xl font-semibold">
-                   <%= link_to project.name, project_path(project),
-                               class: "after:absolute after:inset-0 after:content-['']" %>
+                   <%= project.name %>
                  </h2>
-                 <div class="z-10">
+                 <div>
                    <%= render BadgeComponent.new(**project_badge_args(project), style: :soft, size: :sm) %>
                  </div>
                </div>
@@ -27,15 +26,17 @@
                <div class="divider m-0 p-0"></div>
 
                <% if project.subprojects.any? %>
-                 <div class="flex flex-col gap-0.5 z-10">
+                 <div class="flex flex-col gap-0.5">
                    <% project.subprojects.each do |subproject| %>
                      <%= render Projects::SubprojectCardComponent.new(subproject: subproject) %>
                    <% end %>
                  </div>
                <% else %>
-                  <div class="text-base-content/60 italic text-sm py-2 text-center">No subprojects yet.</div>
+                 <div class="text-base-content/60 italic text-sm py-2 text-center"><%= t(".no_subprojects") %></div>
                <% end %>
              </div>
+
+             <%= link_to t(".view_project"), project_path(project), class: "w-full mt-1 text-sm bg-base-300 hover:bg-secondary/70 rounded-md py-2 flex flex-row justify-center items-center transition-colors" %>
         </div>
       <% end %>
     </div>
