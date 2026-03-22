@@ -1,7 +1,7 @@
 <div data-controller="index-table-component" data-index-table-component-per-page-value="<%= per_page %>">
   <% if searchable %>
     <div class="mb-4">
-      <label class="input input-bordered w-full">
+      <label class="ui-enter-item input input-bordered w-full" style="--ui-enter-delay: 40ms;">
         <%= render IconComponent.new(icon: "search", size: :sm, classes: "h-[1em] opacity-50") %>
         <input
             type="search"
@@ -19,7 +19,7 @@
 
   <!-- Each row (including header) is its own rounded box -->
   <div class="mb-2">
-    <div class="card bg-neutral rounded-lg">
+    <div class="card ui-enter-item bg-neutral rounded-lg" style="--ui-enter-delay: 80ms;">
       <div class="p-4 grid items-center gap-4" style="grid-template-columns: <%= column_sizes %>">
         <% columns.each do |column| %>
           <div class="text-sm font-semibold text-neutral-content"><%= column.header %></div>
@@ -30,7 +30,11 @@
 
   <div class="space-y-2">
     <% records.each_with_index do |record, index| %>
-      <div data-index-table-component-target="row" class="card bg-white rounded-lg shadow-sm">
+      <div
+        data-index-table-component-target="row"
+        class="card ui-enter-item bg-white rounded-lg shadow-sm"
+        style="--ui-enter-delay: <%= 120 + ((index % 15) * 35) %>ms;"
+      >
         <div class="p-3 grid items-center gap-4" style="grid-template-columns: <%= column_sizes %>">
           <% columns.each do |column| %>
             <div class="text-sm text-base-content"><%= render_cell_content(record, column) %></div>
@@ -38,7 +42,7 @@
         </div>
       </div>
     <% end %>
-    <div data-index-table-component-target="emptyRow" class="card bg-white rounded-lg shadow-sm <%= "hidden" unless empty? %>">
+    <div data-index-table-component-target="emptyRow" class="card ui-enter-item bg-white rounded-lg shadow-sm <%= "hidden" unless empty? %>" style="--ui-enter-delay: 120ms;">
       <div class="flex justify-center p-3 items-center">
         <div class="text-sm text-base-content/40 font-bold"><%= t("shared.index_table_component.no_entries") %></div>
       </div>
