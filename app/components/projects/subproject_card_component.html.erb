@@ -1,6 +1,7 @@
-<%= link_to subproject_path, class: "w-full flex items-center justify-between hover:bg-base-300 p-2 rounded-md" do %>
+<%# Add z-10 and relative so it stays clickable on top of the parent link %>
+<%= link_to subproject_path, class: "group relative z-10 w-full flex items-center justify-between hover:bg-secondary/70 p-2 rounded-md" do %>
   <div class="flex items-center gap-3 min-w-0">
-    <div class="w-8 h-8 rounded-full border border-base-300 flex items-center justify-center shrink-0">
+    <div class="w-8 h-8 rounded-full border border-base-300 group-hover:border-secondary flex items-center justify-center shrink-0">
       <%= render IconComponent.new(icon: "tree-fill", classes: "text-gray-11") %>
     </div>
     <div class="flex flex-col min-w-0">
@@ -13,3 +14,4 @@
     </div>
   </div>
 <% end %>
+
