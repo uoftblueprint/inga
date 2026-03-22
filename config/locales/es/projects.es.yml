@@ -17,6 +17,7 @@ es:
     index:
       actions:
         create: Crear proyecto
+      description: Haz clic en un proyecto o subproyecto para ver y administrar los detalles.
       title: Proyectos
     log_schema_component:
       attributes_count:
@@ -33,7 +34,6 @@ es:
       status:
         active: Activo
         inactive: Inactivo
-      view_project: Ver proyecto
     show:
       actions:
         delete: Eliminar proyecto

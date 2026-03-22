@@ -58,6 +58,72 @@
   animation: fade-in-out 4s ease-in-out forwards;
 }
 
+/* Shared enter animations for page, section, and item reveals */
+
+@keyframes ui-enter {
+  from {
+    opacity: 0;
+    transform: translateY(var(--ui-enter-from-y, 14px)) scale(var(--ui-enter-from-scale, 0.985));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.ui-enter,
+.ui-enter-page,
+.ui-enter-section,
+.ui-enter-item,
+.project-card-enter {
+  opacity: 0;
+  animation-name: ui-enter;
+  animation-duration: var(--ui-enter-duration, 520ms);
+  animation-timing-function: var(--ui-enter-easing, cubic-bezier(0.22, 1, 0.36, 1));
+  animation-fill-mode: forwards;
+  animation-delay: var(--ui-enter-delay, 0ms);
+  will-change: transform, opacity;
+}
+
+.ui-enter,
+.ui-enter-section {
+  --ui-enter-duration: 520ms;
+  --ui-enter-from-y: 14px;
+  --ui-enter-from-scale: 0.985;
+}
+
+.ui-enter-page {
+  --ui-enter-duration: 340ms;
+  --ui-enter-from-y: 8px;
+  --ui-enter-from-scale: 0.996;
+}
+
+.ui-enter-item {
+  --ui-enter-duration: 280ms;
+  --ui-enter-from-y: 8px;
+  --ui-enter-from-scale: 0.992;
+}
+
+/* Backwards-compatible alias for existing markup */
+.project-card-enter {
+  --ui-enter-duration: 520ms;
+  --ui-enter-from-y: 14px;
+  --ui-enter-from-scale: 0.985;
+  animation-delay: var(--card-enter-delay, var(--ui-enter-delay, 0ms));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ui-enter,
+  .ui-enter-page,
+  .ui-enter-section,
+  .ui-enter-item,
+  .project-card-enter {
+    opacity: 1;
+    animation: none;
+    transform: none;
+  }
+}
+
 /* Styles to exempt Lexxy Markdown editor from DaisyUI */
 
 /* Take out unnecessary buttons from toolbar */

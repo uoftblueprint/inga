@@ -17,6 +17,7 @@ en:
     index:
       actions:
         create: Create Project
+      description: Click on a project or subproject to view and manage details.
       title: Projects
     log_schema_component:
       attributes_count:
@@ -33,7 +34,6 @@ en:
       status:
         active: Active
         inactive: Inactive
-      view_project: View project
     show:
       actions:
         delete: Delete project
