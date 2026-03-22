@@ -35,6 +35,7 @@ es:
       status:
         active: Activo
         inactive: Inactivo
+      updated_at: Actualizado el
       view_project: Ver proyecto
     show:
       actions:

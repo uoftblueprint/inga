@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   def index
-    @projects = Project.includes(subprojects: :region).all
+    @projects = Project.includes(subprojects: :region).order(active: :desc, updated_at: :desc)
   end
 
   def show

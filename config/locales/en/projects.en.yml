@@ -35,6 +35,7 @@ en:
       status:
         active: Active
         inactive: Inactive
+      updated_at: Updated at
       view_project: View Project
     show:
       actions:
