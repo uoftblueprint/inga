@@ -7,7 +7,7 @@ class LogEntry < ApplicationRecord
   private
 
   def at_least_one_metadata_field_present
-    return if metadata.is_a?(Hash) && metadata.values.any?(&:present?)
+    return if metadata.is_a?(Hash) && metadata.values.any? { |value| value == false || value.present? }
 
     errors.add(:base, "At least one field must be filled in before saving.")
   end
