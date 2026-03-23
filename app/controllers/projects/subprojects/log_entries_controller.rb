@@ -107,7 +107,6 @@ module Projects
           Float(raw)
         when "boolean"
           return true if raw == "on"
-          return false if raw == "off"
 
           nil
         else
