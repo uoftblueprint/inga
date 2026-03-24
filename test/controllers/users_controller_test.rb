@@ -69,6 +69,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   test "#create successfully creates a user with valid parameters" do
     user_params = {
       username: "newuser",
+      name: "New User",
       password: "password",
       password_confirmation: "password",
       roles: %w[admin reporter]
@@ -80,6 +81,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
     created_user = User.find_by(username: "newuser")
     assert created_user.authenticate("password")
+    assert_equal "New User", created_user.name
     assert_equal %w[admin reporter], created_user.user_roles.pluck(:role)
   end
 
@@ -107,11 +109,13 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   test "#update successfully updates a user's username" do
     updated_username = "Updated user"
+    updated_name = "Updated Name"
 
-    patch user_url(@user), params: { user: { username: updated_username } }
+    patch user_url(@user), params: { user: { username: updated_username, name: updated_name } }
 
     assert_redirected_to users_path
     assert_equal updated_username, @user.reload.username
+    assert_equal updated_name, @user.reload.name
   end
 
   test "#update does not update a user with invalid params" do

@@ -66,6 +66,6 @@ class UsersController < ApplicationController
   def has_required_roles? = current_user.has_roles?(:admin)
 
   def user_params
-    params.expect(user: [:username, :password, :password_confirmation, { roles: [] }])
+    params.expect(user: [:username, :name, :password, :password_confirmation, { roles: [] }])
   end
 end
