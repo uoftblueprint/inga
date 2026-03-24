@@ -26,12 +26,11 @@ es:
     new:
       title: Nuevo usuario
     role_badge_component:
-      role_badge_args:
-        roles:
-          admin: Administrador
-          analyst: Analista
-          reporter: Reportero
-          unknown: Desconocido
+      roles:
+        admin: Administrador
+        analyst: Analista
+        reporter: Reportero
+        unknown: Desconocido
     show:
       actions:
         delete: Eliminar usuario
