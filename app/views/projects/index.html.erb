@@ -1,7 +1,10 @@
 <div class="mx-8 my-10">
   <div class="flex flex-col gap-4">
     <div class="flex items-center justify-between">
-      <h1 class="text-4xl font-bold"><%= t(".title") %></h1>
+      <div class="flex flex-col gap-1">
+        <h1 class="text-4xl font-bold"><%= t(".title") %></h1>
+        <span class="text-lg text-base-content/60"><%= t(".description") %></span>
+      </div>
       <%= render ActionButtonComponent.new(to: new_project_path, icon: "add", colour: :primary, size: :large, turbo_stream: true) do %>
         <%= t(".actions.create") %>
       <% end %>
