@@ -6,20 +6,23 @@
     <% end %>
   </div>
   <%= render ContentCardComponent.new do %>
-    <%= render Shared::IndexTableComponent.new(records: @regions) do |table| %>
-      <% table.column :name %>
-      <% table.column :latitude do |region| %>
-        <%= "#{region.latitude.abs.round(4)}° #{region.latitude >= 0 ? 'N' : 'S'}" %>
-      <% end %>
-      <% table.column :longitude do |region| %>
-        <%= "#{region.longitude.abs.round(4)}° #{region.longitude >= 0 ? 'E' : 'W'}" %>
-      <% end %>
-      <% table.column :actions, header: t("shared.index_table_component.actions"), col_size: "67px" do |region| %>
-        <div class="flex items-center gap-2">
-          <%= render ActionButtonComponent.new(to: edit_region_path(region), icon: "edit", colour: :info, turbo_stream: true) %>
-          <%= render ActionButtonComponent.new(to: region_path(region), method: :delete, icon: "delete", colour: :error, confirm: t("regions.destroy.confirm")) %>
-        </div>
-      <% end %>
+    <%= render Shared::IndexTableComponent.new(
+          records: @regions,
+          actions: lambda { |region|
+            [
+              { icon: "edit", label: t("shared.index_table_component.actions.edit"), path: edit_region_path(region), turbo_stream: true, colour: :info },
+              { icon: "delete", label: t("shared.index_table_component.actions.delete"), path: region_path(region), method: :delete, colour: :error, confirm: t("regions.destroy.confirm") }
+            ]
+          },
+          clickable_rows: false
+        ) do |table| %>
+    <% table.column :name %>
+    <% table.column :latitude do |region| %>
+      <%= "#{region.latitude.abs.round(4)}° #{region.latitude >= 0 ? 'N' : 'S'}" %>
+    <% end %>
+    <% table.column :longitude do |region| %>
+      <%= "#{region.longitude.abs.round(4)}° #{region.longitude >= 0 ? 'E' : 'W'}" %>
     <% end %>
   <% end %>
+<% end %>
 </div>

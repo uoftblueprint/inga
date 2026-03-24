@@ -20,7 +20,16 @@
     </div>
     <%= render ContentCardComponent.new do %>
       <h1 class="text-2xl font-bold"><%= t(".log_entries") %></h1>
-      <%= render Shared::IndexTableComponent.new(records: @user.log_entries) do |table| %>
+      <%= render Shared::IndexTableComponent.new(
+            records: @user.log_entries,
+            actions: lambda { |log_entry|
+              [
+                { icon: "edit", label: t("shared.index_table_component.actions.edit"), path: edit_project_subproject_log_entry_path(log_entry.subproject.project, log_entry.subproject, log_entry), turbo_stream: true },
+                { icon: "delete", label: t("shared.index_table_component.actions.delete"), path: project_subproject_log_entry_path(log_entry.subproject.project, log_entry.subproject, log_entry), method: :delete, confirm: t("projects.subprojects.log_entries.destroy.confirm") }
+              ]
+            },
+            turbo_stream_rows: true
+          ) do |table| %>
         <% table.column :created_at do |log_entry| %>
           <%= l(log_entry.created_at) %>
         <% end %>
@@ -32,13 +41,6 @@
         <% end %>
         <% table.column :subproject do |log_entry| %>
           <%= log_entry.subproject.name %>
-        <% end %>
-        <% table.column :actions, header: t("shared.index_table_component.actions"), col_size: "90px" do |log_entry| %>
-          <div class="flex flex-row gap-2 items-center">
-            <%= render ActionButtonComponent.new(to: project_subproject_log_entry_path(log_entry.subproject.project, log_entry.subproject, log_entry), icon: "view", turbo_stream: true) %>
-            <%= render ActionButtonComponent.new(to: edit_project_subproject_log_entry_path(log_entry.subproject.project, log_entry.subproject, log_entry), icon: "edit", turbo_stream: true, colour: :info) %>
-            <%= render ActionButtonComponent.new(to: project_subproject_log_entry_path(log_entry.subproject.project, log_entry.subproject, log_entry), method: :delete, icon: "delete", colour: :error, confirm: t("projects.subprojects.log_entries.destroy.confirm")) %>
-          </div>
         <% end %>
       <% end %>
     <% end %>
@@ -60,7 +62,7 @@
         <% table.column :subproject do |journal_entry| %>
           <%= journal_entry.subproject.name %>
         <% end %>
-        <% table.column :actions, header: t("shared.index_table_component.actions"), col_size: "90px" do |journal_entry| %>
+        <% table.column :actions, header: t("shared.index_table_component.actions.label"), col_size: "90px" do |journal_entry| %>
           <div class="flex flex-row gap-2 items-center">
             <%= render ActionButtonComponent.new(to: project_subproject_journal_path(journal_entry.subproject.project, journal_entry.subproject, journal_entry), icon: "view", turbo_stream: true) %>
             <%= render ActionButtonComponent.new(to: edit_project_subproject_journal_path(journal_entry.subproject.project, journal_entry.subproject, journal_entry), icon: "edit", turbo_stream: true, colour: :info) %>
