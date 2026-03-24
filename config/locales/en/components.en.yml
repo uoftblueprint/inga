@@ -7,6 +7,7 @@ en:
         new_report: New Report
         projects: Projects
         regions: Regions
+        reports: Reports
         users: Users
       build_projects_section:
         projects: Projects
