@@ -7,7 +7,7 @@
           <%= render IconComponent.new(icon: "search", size: :sm) %>
         </span>
 
-        <input id="search" type="search" name="q" required
+        <input id="search" type="search" name="q"
                                          placeholder="<%= t(".search_placeholder") %>"
                                          class="grow"
                                          autocomplete="off"
@@ -36,7 +36,7 @@
     </div>
   </div>
 
-  <div class="space-y-2" data-controller="table-actions-dropdown">
+  <div class="space-y-2" data-controller="table-actions-dropdown" data-action="click@window->table-actions-dropdown#handleDocumentClick">
     <% records.each_with_index do |record, index| %>
       <% record_actions = actions_for(record) %>
       <div

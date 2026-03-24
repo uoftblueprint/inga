@@ -3,15 +3,6 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   static targets = ["menu"];
 
-  connect() {
-    this.boundDocumentClick = this.handleDocumentClick.bind(this);
-    document.addEventListener("click", this.boundDocumentClick);
-  }
-
-  disconnect() {
-    document.removeEventListener("click", this.boundDocumentClick);
-  }
-
   openMenu(event) {
     event.stopPropagation();
 

@@ -17,11 +17,8 @@ module Shared
     end
 
     def row_path_for(record)
-      if @turbo_stream_rows
-        polymorphic_path(record.to_polymorphic_path, format: :turbo_stream)
-      else
-        polymorphic_path(record.to_polymorphic_path)
-      end
+      options = @turbo_stream_rows ? { format: :turbo_stream } : {}
+      polymorphic_path(record.to_polymorphic_path, **options)
     end
 
     def column(attribute, header: nil, col_size: nil, &cell_renderer)
