@@ -1,20 +1,42 @@
 module Shared
   class IndexTableComponent < ViewComponent::Base
-    attr_reader :records, :columns, :searchable, :per_page
+    attr_reader :records, :columns, :searchable, :per_page, :actions, :clickable_rows, :turbo_stream_rows
 
     Column = Struct.new(:attribute, :header, :cell_renderer, :col_size)
 
-    def initialize(records:, searchable: true, per_page: 10)
+    def initialize(records:, searchable: true, per_page: 10, actions: nil, clickable_rows: true,
+                   turbo_stream_rows: false)
       super()
       @records = records
       @columns = []
       @searchable = searchable
       @per_page = per_page
+      @actions = actions
+      @clickable_rows = clickable_rows
+      @turbo_stream_rows = turbo_stream_rows
+    end
+
+    def row_path_for(record)
+      if @turbo_stream_rows
+        polymorphic_path(record.to_polymorphic_path, format: :turbo_stream)
+      else
+        polymorphic_path(record.to_polymorphic_path)
+      end
     end
 
     def column(attribute, header: nil, col_size: nil, &cell_renderer)
       label = header || default_header_for(attribute)
       @columns << Column.new(attribute, label, cell_renderer, col_size)
+    end
+
+    def has_actions?
+      @actions.present?
+    end
+
+    def actions_for(record)
+      return [] unless has_actions?
+
+      @actions.call(record)
     end
 
     private

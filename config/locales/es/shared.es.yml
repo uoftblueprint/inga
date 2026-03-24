@@ -2,7 +2,11 @@
 es:
   shared:
     index_table_component:
-      actions: Acciones
+      actions:
+        delete: Borrar
+        edit: Editar
+        label: Acciones
       no_entries: No se encontraron entradas
+      search_placeholder: Buscar
     'no': 'No'
     'yes': Sí
