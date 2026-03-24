@@ -8,13 +8,13 @@ module Users
     def role_badge_args
       case @role_name.downcase
       when "admin"
-        { text: t(".roles.admin"), colour: :info }
+        { text: t("users.role_badge_component.roles.admin"), colour: :info }
       when "reporter"
-        { text: t(".roles.reporter"), colour: :primary }
+        { text: t("users.role_badge_component.roles.reporter"), colour: :primary }
       when "analyst"
-        { text: t(".roles.analyst"), colour: :accent }
+        { text: t("users.role_badge_component.roles.analyst"), colour: :accent }
       else
-        { text: t(".roles.unknown"), colour: :neutral }
+        { text: t("users.role_badge_component.roles.unknown"), colour: :neutral }
       end
     end
   end
