@@ -8,8 +8,4 @@ class Journal < ApplicationRecord
   has_rich_text :markdown_content
 
   validates :title, presence: true
-
-  def to_polymorphic_path
-    [subproject.project, subproject, self]
-  end
 end

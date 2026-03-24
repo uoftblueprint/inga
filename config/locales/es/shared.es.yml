@@ -3,8 +3,6 @@ es:
   shared:
     index_table_component:
       actions:
-        delete: Borrar
-        edit: Editar
         label: Acciones
       no_entries: No se encontraron entradas
       search_placeholder: Buscar

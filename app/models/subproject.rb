@@ -6,8 +6,4 @@ class Subproject < ApplicationRecord
 
   has_many :log_entries, dependent: :destroy
   has_many :journals, dependent: :destroy
-
-  def to_polymorphic_path
-    [project, self]
-  end
 end

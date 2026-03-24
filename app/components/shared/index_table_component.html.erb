@@ -17,80 +17,54 @@
     </div>
   <% end %>
 
-  <!-- Construct columns sizes string from individual col_size parameters, include actions if present -->
-  <% col_list = columns.map { |c| c.col_size || "minmax(0, 1fr)" }.to_a %>
-  <% col_list << "50px" if has_actions? %>
-  <% column_sizes = col_list.join(" ") %>
+  <!-- Construct columns sizes string from individual col_size parameters -->
+  <% column_sizes = columns.map { |c| c.col_size || "minmax(0, 1fr)" }.join(" ") %>
 
   <!-- Each row (including header) is its own rounded box -->
   <div class="mb-2">
     <div class="card ui-enter-item bg-neutral rounded-lg" style="--ui-enter-delay: 80ms;">
-      <div class="p-4 grid items-center gap-4" style="grid-template-columns: <%= column_sizes %>">
+      <div class="p-4 grid items-stretch gap-4" style="grid-template-columns: <%= column_sizes %>">
         <% columns.each do |column| %>
-          <div class="text-sm font-semibold text-neutral-content"><%= column.header %></div>
-        <% end %>
-        <% if has_actions? %>
-          <div class="text-sm font-semibold text-neutral-content text-center"><%= t("shared.index_table_component.actions.label") %></div>
+          <div class="text-sm font-semibold text-neutral-content flex items-center"><%= column.header %></div>
         <% end %>
       </div>
     </div>
   </div>
 
-  <div class="space-y-2" data-controller="table-actions-dropdown" data-action="click@window->table-actions-dropdown#handleDocumentClick">
+  <div class="space-y-2">
     <% records.each_with_index do |record, index| %>
-      <% record_actions = actions_for(record) %>
       <div
         data-index-table-component-target="row"
         class="card ui-enter-item bg-white rounded-lg group transition-shadow relative overflow-visible shadow-sm<%= " cursor-pointer hover:shadow-md" if clickable_rows %>"
-        style="--ui-enter-delay: <%= 120 + ((index % 15) * 35) %>ms;"
-        <% if clickable_rows %>
-          data-action="click->table-actions-dropdown#navigateToRecord"
-        data-record-path="<%= row_path_for(record) %>"
-      <% end %>>
-      <div class="p-3 grid items-center gap-4 rounded-lg<%= " group-hover:bg-secondary/30 transition-colors" if clickable_rows %>" style="grid-template-columns: <%= column_sizes %>">
-        <% columns.each do |column| %>
-          <div class="text-sm text-base-content"><%= render_cell_content(record, column) %></div>
-        <% end %>
-        <% if has_actions? %>
-          <button type="button"
-                  class="flex items-center justify-center w-full hover:text-base-content transition-colors"
-                  data-action="click->table-actions-dropdown#openMenu">
-            <%= render IconComponent.new(icon: "ellipsis-v", size: :sm, classes: "text-base-content/50 hover:text-base-content transition-colors") %>
-          </button>
-        <% end %>
-      </div>
-
-      <% if has_actions? && record_actions.any? %>
-        <div class="hidden ui-enter-item absolute top-full right-0 mt-1 z-50 bg-base-100 rounded-lg border border-base-300 shadow-lg min-w-48 py-1" data-table-actions-dropdown-target="menu">
-          <% record_actions.each do |action| %>
-            <% turbo_data = { turbo_method: action[:method] }.compact %>
-            <% turbo_data[:turbo_confirm] = action[:confirm] if action[:confirm] %>
-            <% if action[:turbo_stream] %>
-              <% turbo_data[:turbo_stream] = true %>
-            <% end %>
-            <%= link_to(action[:path], data: turbo_data, class: "group/menu-item flex items-center gap-3 px-4 py-2 text-sm text-base-content hover:bg-primary/30 transition-colors") do %>
-              <% if action[:icon] %>
-                <%= render IconComponent.new(icon: action[:icon], size: :sm, classes: "text-base-content/50 group-hover/menu-item:text-primary transition-colors") %>
-              <% end %>
-              <span><%= action[:label] %></span>
+        style="--ui-enter-delay: <%= 120 + ((index % 15) * 35) %>ms;">
+        <div class="p-3 grid items-stretch gap-4 rounded-lg<%= " group-hover:bg-secondary/30 transition-colors" if clickable_rows %>" style="grid-template-columns: <%= column_sizes %>">
+          <% columns.each do |column| %>
+            <%= render_cell_wrapper(
+                  record,
+                  column,
+                  classes: class_names(
+                    "text-sm text-base-content min-w-0 w-full h-full flex items-center",
+                    row_clickable_for?(record, column) && "block"
+                  )
+                ) do %>
+              <%= render_cell_content(record, column) %>
             <% end %>
           <% end %>
         </div>
-      <% end %>
-    </div>
-  <% end %>
-  <div data-index-table-component-target="emptyRow" class="card ui-enter-item bg-white rounded-lg shadow-sm <%= "hidden" unless empty? %>" style="--ui-enter-delay: 120ms;">
-    <div class="flex justify-center p-3 items-center">
-      <div class="text-sm text-base-content/40 font-bold"><%= t("shared.index_table_component.no_entries") %></div>
+      </div>
+    <% end %>
+    <div data-index-table-component-target="emptyRow" class="card ui-enter-item bg-white rounded-lg shadow-sm <%= "hidden" unless empty? %>" style="--ui-enter-delay: 120ms;">
+      <div class="flex justify-center p-3 items-center">
+        <div class="text-sm text-base-content/40 font-bold"><%= t("shared.index_table_component.no_entries") %></div>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="flex justify-center mt-4">
-  <div class="join hidden" data-index-table-component-target="pagination">
-    <button class="join-item btn btn-sm" data-action="index-table-component#previousPage" data-prev>&lt;</button>
-    <span class="join-item btn btn-sm no-animation pointer-events-none" data-index-table-component-target="pageInfo"></span>
-    <button class="join-item btn btn-sm" data-action="index-table-component#nextPage" data-next>&gt;</button>
+  <div class="flex justify-center mt-4">
+    <div class="join hidden" data-index-table-component-target="pagination">
+      <button class="join-item btn btn-sm" data-action="index-table-component#previousPage" data-prev>&lt;</button>
+      <span class="join-item btn btn-sm no-animation pointer-events-none" data-index-table-component-target="pageInfo"></span>
+      <button class="join-item btn btn-sm" data-action="index-table-component#nextPage" data-next>&gt;</button>
+    </div>
   </div>
-</div>
 </div>

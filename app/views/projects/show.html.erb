@@ -26,12 +26,7 @@
         <h1 class="text-2xl font-bold"><%= t(".subprojects") %></h1>
         <%= render Shared::IndexTableComponent.new(
               records: @project.subprojects,
-              actions: lambda { |subproject|
-                [
-                  { icon: "edit", label: t("shared.index_table_component.actions.edit"), path: edit_project_subproject_path(@project, subproject), turbo_stream: true },
-                  { icon: "delete", label: t("shared.index_table_component.actions.delete"), path: project_subproject_path(@project, subproject), method: :delete, confirm: t("subprojects.destroy.confirm") }
-                ]
-              }
+              record_path: ->(subproject) { project_subproject_path(@project, subproject) }
             ) do |table| %>
           <% table.column :name do |subproject| %>
             <%= subproject.name %>
@@ -44,6 +39,12 @@
           <% end %>
           <% table.column :created_at do |subproject| %>
             <%= l(subproject.created_at) %>
+          <% end %>
+          <% table.column :actions, header: t("shared.index_table_component.actions.label"), col_size: "90px" do |subproject| %>
+            <div class="flex flex-row gap-2 items-center justify-center">
+              <%= render ActionButtonComponent.new(to: edit_project_subproject_path(@project, subproject), icon: "edit", turbo_stream: true, colour: :info) %>
+              <%= render ActionButtonComponent.new(to: project_subproject_path(@project, subproject), method: :delete, icon: "delete", colour: :error, confirm: t("subprojects.destroy.confirm")) %>
+            </div>
           <% end %>
         <% end %>
       <% end %>

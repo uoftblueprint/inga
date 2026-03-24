@@ -24,13 +24,8 @@
       <h1 class="text-2xl font-bold"><%= t(".log_entries") %></h1>
       <%= render Shared::IndexTableComponent.new(
             records: @subproject.log_entries,
-            actions: lambda { |log_entry|
-              [
-                { icon: "edit", label: t("shared.index_table_component.actions.edit"), path: edit_project_subproject_log_entry_path(@project, @subproject, log_entry), turbo_stream: true },
-                { icon: "delete", label: t("shared.index_table_component.actions.delete"), path: project_subproject_log_entry_path(@project, @subproject, log_entry), method: :delete, confirm: t("projects.subprojects.log_entries.destroy.confirm") }
-              ]
-            },
-            turbo_stream_rows: true
+            turbo_stream_rows: true,
+            record_path: ->(log_entry) { project_subproject_log_entry_path(@project, @subproject, log_entry) }
           ) do |table| %>
         <% table.column :created_at do |log_entry| %>
           <%= l(log_entry.created_at) %>
@@ -41,18 +36,19 @@
         <% table.column :user do |log_entry| %>
           <%= log_entry.user.username %>
         <% end %>
+        <% table.column :actions, header: t("shared.index_table_component.actions.label"), col_size: "90px" do |log_entry| %>
+          <div class="flex flex-row gap-2 items-center justify-center">
+            <%= render ActionButtonComponent.new(to: edit_project_subproject_log_entry_path(@project, @subproject, log_entry), icon: "edit", turbo_stream: true, colour: :info) %>
+            <%= render ActionButtonComponent.new(to: project_subproject_log_entry_path(@project, @subproject, log_entry), method: :delete, icon: "delete", colour: :error, confirm: t("projects.subprojects.log_entries.destroy.confirm")) %>
+          </div>
+        <% end %>
       <% end %>
     <% end %>
     <%= render ContentCardComponent.new do %>
       <h1 class="text-2xl font-bold"><%= t(".journal_entries") %></h1>
       <%= render Shared::IndexTableComponent.new(
             records: @subproject.journals,
-            actions: lambda { |journal|
-              [
-                { icon: "edit", label: t("shared.index_table_component.actions.edit"), path: edit_project_subproject_journal_path(@project, @subproject, journal), turbo_stream: true },
-                { icon: "delete", label: t("shared.index_table_component.actions.delete"), path: project_subproject_journal_path(@project, @subproject, journal), method: :delete, confirm: t("projects.subprojects.journals.destroy.confirm") }
-              ]
-            }
+            record_path: ->(journal) { project_subproject_journal_path(@project, @subproject, journal) }
           ) do |table| %>
         <% table.column :title do |journal| %>
           <%= journal.title %>
@@ -65,6 +61,12 @@
         <% end %>
         <% table.column :user do |journal| %>
           <%= journal.user.username %>
+        <% end %>
+        <% table.column :actions, header: t("shared.index_table_component.actions.label"), col_size: "90px" do |journal| %>
+          <div class="flex flex-row gap-2 items-center justify-center">
+            <%= render ActionButtonComponent.new(to: edit_project_subproject_journal_path(@project, @subproject, journal), icon: "edit", colour: :info) %>
+            <%= render ActionButtonComponent.new(to: project_subproject_journal_path(@project, @subproject, journal), method: :delete, icon: "delete", colour: :error, confirm: t("projects.subprojects.journals.destroy.confirm")) %>
+          </div>
         <% end %>
       <% end %>
     <% end %>
