@@ -1,4 +1,8 @@
 class ReportsController < ApplicationController
+  def index
+    @reports = Report.order(created_at: :desc)
+  end
+
   def show
     @report = Report.find(params[:id])
   end
@@ -96,6 +100,16 @@ class ReportsController < ApplicationController
     end
 
     render :new
+  end
+
+  def destroy
+    @report = Report.find(params[:id])
+
+    if @report.destroy
+      redirect_to reports_path, flash: { success: t(".success") }
+    else
+      redirect_to reports_path, flash: { error: @report.errors.full_messages.to_sentence }
+    end
   end
 
   private

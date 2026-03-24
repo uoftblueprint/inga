@@ -1,9 +1,17 @@
 ---
 es:
+  activerecord:
+    attributes:
+      report:
+        end_date: Fecha de fin
+        start_date: Fecha de inicio
   reports:
     create:
       invalid: Por favor proporcione fechas válidas y seleccione al menos un subproyecto.
       success: El reporte fue generado exitosamente.
+    destroy:
+      confirm: "¿Estás seguro que deseas eliminar este reporte?"
+      success: Reporte eliminado exitosamente.
     edit:
       add_aggregated_datum: Agregar Caja de Datos Agregados
       add_journal: Agregar Diario
@@ -18,6 +26,14 @@ es:
       save: Guardar Cambios
       selected_journals: Diarios Seleccionados
       title: Editar Reporte
+    index:
+      actions:
+        create: Crear reporte
+      columns:
+        end_date: Fecha de fin
+        id: ID
+        start_date: Fecha de inicio
+      title: Reportes
     journal_card_component:
       author: Autor
     new:

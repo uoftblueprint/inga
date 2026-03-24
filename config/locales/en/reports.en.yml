@@ -1,9 +1,17 @@
 ---
 en:
+  activerecord:
+    attributes:
+      report:
+        end_date: End date
+        start_date: Start date
   reports:
     create:
       invalid: Please provide valid dates and select at least one subproject.
       success: Report was successfully generated.
+    destroy:
+      confirm: Are you sure you want to delete this report?
+      success: Report deleted successfully.
     edit:
       add_aggregated_datum: Add Aggregated Data Box
       add_journal: Add Journal
@@ -18,6 +26,14 @@ en:
       save: Save Changes
       selected_journals: Selected Journals
       title: Edit Report
+    index:
+      actions:
+        create: Create Report
+      columns:
+        end_date: End date
+        id: ID
+        start_date: Start date
+      title: Reports
     journal_card_component:
       author: Author
     new:
