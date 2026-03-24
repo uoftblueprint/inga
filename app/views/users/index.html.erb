@@ -10,8 +10,8 @@
           records: @users,
           actions: lambda { |user|
             [
-              { icon: "edit", label: t("shared.index_table_component.actions.edit"), path: edit_user_path(user), turbo_stream: true, colour: :info },
-              { icon: "delete", label: t("shared.index_table_component.actions.delete"), path: user_path(user), method: :delete, colour: :error, confirm: t("users.destroy.confirm") }
+              { icon: "edit", label: t("shared.index_table_component.actions.edit"), path: edit_user_path(user), turbo_stream: true },
+              { icon: "delete", label: t("shared.index_table_component.actions.delete"), path: user_path(user), method: :delete, confirm: t("users.destroy.confirm") }
             ]
           }
         ) do |table| %>

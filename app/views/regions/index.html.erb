@@ -10,8 +10,8 @@
           records: @regions,
           actions: lambda { |region|
             [
-              { icon: "edit", label: t("shared.index_table_component.actions.edit"), path: edit_region_path(region), turbo_stream: true, colour: :info },
-              { icon: "delete", label: t("shared.index_table_component.actions.delete"), path: region_path(region), method: :delete, colour: :error, confirm: t("regions.destroy.confirm") }
+              { icon: "edit", label: t("shared.index_table_component.actions.edit"), path: edit_region_path(region), turbo_stream: true },
+              { icon: "delete", label: t("shared.index_table_component.actions.delete"), path: region_path(region), method: :delete, confirm: t("regions.destroy.confirm") }
             ]
           },
           clickable_rows: false
