@@ -18,6 +18,7 @@ es:
       actions:
         create: Crear región
       title: Regiones
+      subtitle: Administra las regiones de los subproyectos para Inga Internals.
     new:
       title: Crear región
     update:
