@@ -20,6 +20,8 @@ es:
     new:
       title: Nuevo subproyecto
     show:
+      title: Detalles del subproyecto
+      subtitle: Descripción
       actions:
         delete: Eliminar subproyecto
         edit: Editar subproyecto

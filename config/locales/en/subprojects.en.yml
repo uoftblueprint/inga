@@ -20,6 +20,8 @@ en:
     new:
       title: New Subproject
     show:
+      title: Subproject Details
+      subtitle: Description
       actions:
         delete: Delete subproject
         edit: Edit subproject
