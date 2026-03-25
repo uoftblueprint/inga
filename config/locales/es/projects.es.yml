@@ -38,13 +38,13 @@ es:
       updated_at: Actualizado el
       view_project: Ver proyecto
     show:
-      title: Detalles del proyecto
-      subtitle: Descripción
       actions:
         delete: Eliminar proyecto
         edit: Editar proyecto
       create_subproject: Crear subproyecto
       subprojects: Subproyectos
+      subtitle: Descripción
+      title: Detalles del proyecto
     subproject_card_component:
       no_region: Sin región
     update:

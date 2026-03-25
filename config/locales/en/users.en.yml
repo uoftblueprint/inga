@@ -22,17 +22,17 @@ en:
     index:
       actions:
         create: Create User
-      title: Users
       subtitle: Create and manage users for Inga Internals.
+      title: Users
     new:
       title: New User
     show:
-      title: User Details
-      roles: Roles
       actions:
         delete: Delete user
         edit: Edit user
       journal_entries: Journal Entries
       log_entries: Log Entries
+      roles: Roles
+      title: User Details
     update:
       success: Account updated successfully.

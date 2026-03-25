@@ -22,17 +22,17 @@ es:
     index:
       actions:
         create: Crear usuario
-      title: Administrar usuarios
       subtitle: Crea y administra usuarios para Inga Internals.
+      title: Administrar usuarios
     new:
       title: Nuevo usuario
     show:
-      title: Detalles del usario
-      roles: Roles
       actions:
         delete: Eliminar usuario
         edit: Editar usuario
       journal_entries: Entradas de diario
       log_entries: Entradas de registro
+      roles: Roles
+      title: Detalles del usuario
     update:
       success: Cuenta actualizada exitosamente.

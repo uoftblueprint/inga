@@ -20,8 +20,6 @@ en:
     new:
       title: New Subproject
     show:
-      title: Subproject Details
-      subtitle: Description
       actions:
         delete: Delete subproject
         edit: Edit subproject
@@ -29,5 +27,7 @@ en:
       create_log_entry: Create log entry
       journal_entries: Journal Entries
       log_entries: Log Entries
+      subtitle: Description
+      title: Subproject Details
     update:
       success: Subproject updated successfully

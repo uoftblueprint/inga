@@ -20,8 +20,6 @@ es:
     new:
       title: Nuevo subproyecto
     show:
-      title: Detalles del subproyecto
-      subtitle: Descripción
       actions:
         delete: Eliminar subproyecto
         edit: Editar subproyecto
@@ -29,5 +27,7 @@ es:
       create_log_entry: Crear entrada de registro
       journal_entries: Entradas de diario
       log_entries: Entradas de registro
+      subtitle: Descripción
+      title: Detalles del subproyecto
     update:
       success: Subproyecto actualizado exitosamente
