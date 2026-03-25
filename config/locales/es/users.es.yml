@@ -25,13 +25,9 @@ es:
       title: Administrar usuarios
     new:
       title: Nuevo usuario
-    role_badge_component:
-      roles:
-        admin: Administrador
-        analyst: Analista
-        reporter: Reportero
-        unknown: Desconocido
     show:
+      title: Detalles del usario
+      roles: Roles
       actions:
         delete: Eliminar usuario
         edit: Editar usuario

@@ -25,13 +25,9 @@ en:
       title: Manage Users
     new:
       title: New User
-    role_badge_component:
-      roles:
-        admin: Admin
-        analyst: Analyst
-        reporter: Reporter
-        unknown: Unknown
     show:
+      title: User Details
+      roles: Roles
       actions:
         delete: Delete user
         edit: Edit user
