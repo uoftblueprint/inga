@@ -6,7 +6,6 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
   end
 
   [
-    { route: "show", method: :get, url_helper: :report_url, needs_report: true },
     { route: "new", method: :get, url_helper: :new_report_url, needs_report: false },
     { route: "edit", method: :get, url_helper: :edit_report_url, needs_report: true },
     { route: "filter", method: :get, url_helper: :filter_reports_url, needs_report: false },
@@ -44,6 +43,14 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
       public_send(hash[:method], public_send(hash[:url_helper], *args))
       assert_response :success
     end
+  end
+
+  test "#show renders successfully when a user is not authenticated" do
+    log_out_user
+    report = create(:report)
+
+    get report_path(report)
+    assert_response :success
   end
 
   test "#show renders the report correctly" do
