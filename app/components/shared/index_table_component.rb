@@ -23,6 +23,15 @@ module Shared
 
     private
 
+    def turbo_stream_url_for(path)
+      uri = URI.parse(path.to_s)
+      params = Rack::Utils.parse_nested_query(uri.query).merge("format" => "turbo_stream")
+
+      uri.query = params.to_query.presence
+
+      uri.to_s
+    end
+
     def row_path_for(record)
       return nil unless @record_path
 
@@ -30,23 +39,27 @@ module Shared
 
       return path unless @turbo_stream_rows
 
-      path.include?("?") ? "#{path}&format=turbo_stream" : "#{path}?format=turbo_stream"
+      turbo_stream_url_for(path)
     end
 
     def row_link_data
       { turbo_stream: (@turbo_stream_rows ? true : nil) }.compact
     end
 
-    def render_cell_wrapper(record, column, classes:, &)
-      if row_clickable_for?(record, column)
-        link_to(row_path_for(record), data: row_link_data, class: classes, &)
-      else
-        content_tag(:div, class: classes, &)
-      end
+    def row_clickable?(record)
+      clickable_rows && row_path_for(record).present?
     end
 
-    def row_clickable_for?(record, column)
-      clickable_rows && row_path_for(record).present? && column.attribute != :actions
+    def row_overlay_link(record)
+      return unless row_clickable?(record)
+
+      link_to(
+        row_path_for(record),
+        data: row_link_data,
+        class: "absolute inset-0 rounded-lg z-10"
+      ) do
+        content_tag(:span)
+      end
     end
 
     def render_cell_content(record, column)

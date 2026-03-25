@@ -6,7 +6,7 @@
     <%= render BadgeComponent.new(text: t(".attributes_count", count: project.log_schema.size), colour: :warning, size: :sm) %>
   </div>
   <div>
-    <%= render ActionButtonComponent.new(to: edit_project_attributes_schema_path(project), icon: "edit", colour: :info, turbo_stream: true, size: :medium) do %>
+    <%= render ActionButtonComponent.new(to: edit_project_attributes_schema_path(project), icon: "edit", colour: :primary, turbo_stream: true, size: :medium) do %>
       <%= t(".edit_attributes") %>
     <% end %>
   </div>
@@ -24,7 +24,7 @@
           <%= name %>
         </span>
       </div>
-      <%= render BadgeComponent.new(text: type.to_s, size: :xs, colour: :info, html_classes: "min-w-[65px] text-base-100") %>
+      <%= render BadgeComponent.new(text: type.to_s, size: :xs, colour: :primary, html_classes: "min-w-[65px] text-base-100") %>
     </div>
   <% end %>
 </div>
