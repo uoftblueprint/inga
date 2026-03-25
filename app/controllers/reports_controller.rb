@@ -157,4 +157,6 @@ class ReportsController < ApplicationController
   def has_required_roles?
     action_name == "show" || current_user.has_roles?(:admin)
   end
+
+  def show_sidebar? = action_name != "show"
 end

@@ -67,7 +67,7 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     assert_match journal.title, response.body
     assert_match journal.markdown_content.to_plain_text, response.body
 
-    assert_match aggregated_datum.value.to_s, response.body
+    assert_match aggregated_datum.value.to_i.to_s, response.body
     assert_match aggregated_datum.additional_text, response.body
   end
 
