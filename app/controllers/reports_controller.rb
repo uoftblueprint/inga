@@ -1,4 +1,6 @@
 class ReportsController < ApplicationController
+  skip_before_action :require_login, only: %i[show]
+
   def show
     @report = Report.find(params[:id])
   end
@@ -153,6 +155,6 @@ class ReportsController < ApplicationController
   end
 
   def has_required_roles?
-    current_user.has_roles?(:admin)
+    action_name == "show" || current_user.has_roles?(:admin)
   end
 end
