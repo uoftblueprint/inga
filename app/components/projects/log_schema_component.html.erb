@@ -3,7 +3,7 @@
     <h3 class="text-2xl font-bold">
       <%= t(".title") %>
     </h3>
-    <%= render BadgeComponent.new(text: t(".attributes_count", count: project.log_schema.size), colour: :warning, size: :sm) %>
+    <%= render BadgeComponent.new(text: t(".attributes_count", count: project.log_schema.size), colour: :secondary, size: :sm) %>
   </div>
   <div>
     <%= render ActionButtonComponent.new(to: edit_project_attributes_schema_path(project), icon: "edit", colour: :primary, turbo_stream: true, size: :medium) do %>
@@ -17,8 +17,8 @@
 
 <div class="divider -my-1 opacity-60"></div>
 <div class="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-3 w-full">
-  <% project.log_schema.each do |name, type| %>
-    <div class="flex items-center justify-between px-3 py-2 rounded-lg shadow border border-base-100 bg-base-100">
+  <% project.log_schema.each_with_index do |(name, type), index| %>
+    <div class="flex items-center justify-between px-3 py-2 rounded-lg shadow border border-base-100 bg-base-100 ui-enter-item" style="--ui-enter-delay: <%= 60 + ((index % 15) * 35) %>ms;">
       <div class="flex items-center gap-2">
         <span class="font-mono text-xs text-base-content">
           <%= name %>
