@@ -38,6 +38,8 @@ es:
       updated_at: Actualizado el
       view_project: Ver proyecto
     show:
+      title: Detalles del proyecto
+      subtitle: Descripción
       actions:
         delete: Eliminar proyecto
         edit: Editar proyecto
