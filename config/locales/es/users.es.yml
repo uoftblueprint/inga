@@ -23,6 +23,7 @@ es:
       actions:
         create: Crear usuario
       title: Administrar usuarios
+      subtitle: Crea y administra usuarios para Inga Internals.
     new:
       title: Nuevo usuario
     show:

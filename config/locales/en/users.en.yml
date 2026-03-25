@@ -22,7 +22,8 @@ en:
     index:
       actions:
         create: Create User
-      title: Manage Users
+      title: Users
+      subtitle: Create and manage users for Inga Internals.
     new:
       title: New User
     show:
