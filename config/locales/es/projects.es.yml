@@ -17,6 +17,7 @@ es:
     index:
       actions:
         create: Crear proyecto
+      description: Crear y administrar proyectos en la Fundación Inga.
       title: Proyectos
     log_schema_component:
       attributes_count:
@@ -29,10 +30,12 @@ es:
     new:
       title: Nuevo proyecto
     projects_card_component:
+      no_subprojects: Aún no hay subproyectos.
       search_placeholder: Buscar título del proyecto
       status:
         active: Activo
         inactive: Inactivo
+      updated_at: Actualizado el
       view_project: Ver proyecto
     show:
       actions:
@@ -40,5 +43,9 @@ es:
         edit: Editar proyecto
       create_subproject: Crear subproyecto
       subprojects: Subproyectos
+      subtitle: Descripción
+      title: Detalles del proyecto
+    subproject_card_component:
+      no_region: Sin región
     update:
       success: Proyecto actualizado exitosamente

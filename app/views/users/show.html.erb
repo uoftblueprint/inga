@@ -1,26 +1,33 @@
-<section class="mx-8 my-10">
+<section class="mx-4 my-8 lg:mx-8 lg:my-10">
   <div class="flex flex-col gap-4">
-    <div class="flex flex-row justify-between items-start">
-      <div class="flex flex-col gap-1">
-        <h1 class="text-4xl font-bold"><%= @user.username %></h1>
-        <div class="flex flex-row gap-2">
+    <header class="flex flex-col gap-2">
+      <h1 class="text-3xl font-bold leading-tight sm:text-4xl"><%= t(".title") %>: <%= @user.username %></h1>
+      <div class="flex flex-col gap-2 sm:flex-row sm:items-center">
+        <span class="text-base text-base-content/60 sm:text-lg"><%= t(".roles") %>:</span>
+        <div class="flex flex-row flex-wrap items-center gap-2">
           <% @user.user_roles.each do |user_role| %>
-            <%= render Users::RoleBadgeComponent.new(role_name: user_role.role) %>
+            <%= render BadgeComponent.new(text: user_role.role.humanize, colour: :secondary) %>
           <% end %>
         </div>
       </div>
-      <div class="flex flex-row gap-4">
-        <%= render ActionButtonComponent.new(to: edit_user_path(@user), icon: "edit", colour: :primary, size: :large, turbo_stream: true) do %>
-          <%= t(".actions.edit") %>
-        <% end %>
-        <%= render ActionButtonComponent.new(to: user_path(@user), method: :delete, icon: "delete", colour: :error, size: :large, confirm: t("users.destroy.confirm")) do %>
-          <%= t(".actions.delete") %>
-        <% end %>
-      </div>
+    </header>
+
+    <div class="grid w-full grid-cols-1 gap-2 sm:grid-cols-2 [&_.btn]:w-full [&_form]:w-full">
+      <%= render ActionButtonComponent.new(to: edit_user_path(@user), icon: "edit", colour: :primary, size: :large, turbo_stream: true) do %>
+        <%= t(".actions.edit") %>
+      <% end %>
+      <%= render ActionButtonComponent.new(to: user_path(@user), method: :delete, icon: "delete", colour: :error, size: :large, confirm: t("users.destroy.confirm")) do %>
+        <%= t(".actions.delete") %>
+      <% end %>
     </div>
+
     <%= render ContentCardComponent.new do %>
       <h1 class="text-2xl font-bold"><%= t(".log_entries") %></h1>
-      <%= render Shared::IndexTableComponent.new(records: @user.log_entries) do |table| %>
+      <%= render Shared::IndexTableComponent.new(
+            records: @user.log_entries,
+            turbo_stream_rows: true,
+            record_path: ->(log_entry) { project_subproject_log_entry_path(log_entry.subproject.project, log_entry.subproject, log_entry) }
+          ) do |table| %>
         <% table.column :created_at do |log_entry| %>
           <%= l(log_entry.created_at) %>
         <% end %>
@@ -33,10 +40,9 @@
         <% table.column :subproject do |log_entry| %>
           <%= log_entry.subproject.name %>
         <% end %>
-        <% table.column :actions, header: t("shared.index_table_component.actions"), col_size: "90px" do |log_entry| %>
-          <div class="flex flex-row gap-2 items-center">
-            <%= render ActionButtonComponent.new(to: project_subproject_log_entry_path(log_entry.subproject.project, log_entry.subproject, log_entry), icon: "view", turbo_stream: true) %>
-            <%= render ActionButtonComponent.new(to: edit_project_subproject_log_entry_path(log_entry.subproject.project, log_entry.subproject, log_entry), icon: "edit", turbo_stream: true, colour: :info) %>
+        <% table.column :actions, header: t("shared.index_table_component.actions.label"), col_size: "65px" do |log_entry| %>
+          <div class="flex flex-row gap-2 items-center justify-center">
+            <%= render ActionButtonComponent.new(to: edit_project_subproject_log_entry_path(log_entry.subproject.project, log_entry.subproject, log_entry), icon: "edit", turbo_stream: true, colour: :primary) %>
             <%= render ActionButtonComponent.new(to: project_subproject_log_entry_path(log_entry.subproject.project, log_entry.subproject, log_entry), method: :delete, icon: "delete", colour: :error, confirm: t("projects.subprojects.log_entries.destroy.confirm")) %>
           </div>
         <% end %>
@@ -44,7 +50,8 @@
     <% end %>
     <%= render ContentCardComponent.new do %>
       <h1 class="text-2xl font-bold"><%= t(".journal_entries") %></h1>
-      <%= render Shared::IndexTableComponent.new(records: @user.journals) do |table| %>
+      <%= render Shared::IndexTableComponent.new(records: @user.journals,
+                                                 record_path: ->(journal) { project_subproject_journal_path(journal.subproject.project, journal.subproject, journal) }) do |table| %>
         <% table.column :title do |journal| %>
           <%= journal.title %>
         <% end %>
@@ -60,10 +67,9 @@
         <% table.column :subproject do |journal_entry| %>
           <%= journal_entry.subproject.name %>
         <% end %>
-        <% table.column :actions, header: t("shared.index_table_component.actions"), col_size: "90px" do |journal_entry| %>
+        <% table.column :actions, header: t("shared.index_table_component.actions.label"), col_size: "65px" do |journal_entry| %>
           <div class="flex flex-row gap-2 items-center">
-            <%= render ActionButtonComponent.new(to: project_subproject_journal_path(journal_entry.subproject.project, journal_entry.subproject, journal_entry), icon: "view", turbo_stream: true) %>
-            <%= render ActionButtonComponent.new(to: edit_project_subproject_journal_path(journal_entry.subproject.project, journal_entry.subproject, journal_entry), icon: "edit", turbo_stream: true, colour: :info) %>
+            <%= render ActionButtonComponent.new(to: edit_project_subproject_journal_path(journal_entry.subproject.project, journal_entry.subproject, journal_entry), icon: "edit", turbo_stream: true, colour: :primary) %>
             <%= render ActionButtonComponent.new(to: project_subproject_journal_path(journal_entry.subproject.project, journal_entry.subproject, journal_entry), method: :delete, icon: "delete", colour: :error, confirm: t("projects.subprojects.journals.destroy.confirm")) %>
           </div>
         <% end %>

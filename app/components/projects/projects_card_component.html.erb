@@ -1,36 +1,62 @@
 <%= render ContentCardComponent.new do %>
   <section class="flex flex-col gap-6" data-controller="project-card-search">
     <div class="flex flex-row justify-between">
-      <label for="search" class="input rounded-full w-full">
-        <%= render IconComponent.new(icon: "search", size: :sm) %>
-        <input id="search" type="search" name="q" required placeholder="<%= t(".search_placeholder") %>" autocomplete="off" data-project-card-search-target="input" data-action="input->project-card-search#filter">
+      <label for="search"
+             class="group ui-enter-item input input-bordered w-full focus-within:border-primary focus-within:outline-none"
+             style="--ui-enter-delay: 40ms;">
+        <span class="text-base-content/50 group-focus-within:text-primary transition-colors">
+          <%= render IconComponent.new(icon: "search", size: :sm) %>
+        </span>
+
+        <input id="search" type="search" name="q" required
+                                         placeholder="<%= t(".search_placeholder") %>"
+                                         class="grow"
+                                         autocomplete="off"
+                                         data-project-card-search-target="input"
+                                         data-action="input->project-card-search#filter">
       </label>
     </div>
     <div class="grid grid-cols-[repeat(auto-fill,minmax(285px,1fr))] gap-6 w-full">
-      <% projects.each do |project| %>
-        <div
-          class="card w-full flex flex-col justify-between gap-2 bg-base-100 border border-base-300 shadow-md p-4 rounded-xl"
-          data-project-card-search-target="card"
-          data-project-name="<%= project.name %>">
-          <div class="flex flex-col">
-            <div class="flex justify-between items-center pb-2 mb-2">
-              <h2
-                class="text-color-base-content text-lg font-semibold">
-                <%= project.name %>
-              </h2>
-              <div>
-                <%= render BadgeComponent.new(**project_badge_args(project), style: :soft, size: :sm) %>
-              </div>
-            </div>
-            <div class="flex flex-col gap-0.5">
-              <% project.subprojects.each do |subproject| %>
-                <%= render Projects::SubprojectCardComponent.new(subproject: subproject) %>
-              <% end %>
-            </div>
-          </div>
-          <%= link_to t(".view_project"), project_path(project), class: "text-sm bg-base-300 rounded-md py-2 flex flex-row justify-center items-center" %>
+      <% projects.each_with_index do |project, index| %>
+        <div class="card ui-enter-item w-full flex flex-col justify-between gap-2 bg-base-100 border border-base-300 shadow-md p-4 rounded-xl transition-shadow hover:shadow-lg hover:border-primary"
+             style="--ui-enter-delay: <%= 60 + ((index % 12) * 45) %>ms;"
+             data-project-card-search-target="card"
+             data-project-name="<%= project.name %>">
+
+             <div class="flex flex-col flex-1">
+               <div class="flex justify-between items-center mb-1">
+                 <div class="flex flex-col">
+                   <h2 class="text-base-content text-xl font-semibold">
+                     <%= project.name %>
+                   </h2>
+                   <h3 class="text-base-content">
+                     <%= t(".updated_at") %>: <%= l(project.updated_at) %>
+                   </h3>
+                 </div>
+                 <div>
+                   <%= render BadgeComponent.new(**project_badge_args(project), style: :soft, size: :sm) %>
+                 </div>
+               </div>
+
+               <div class="divider m-0 p-0"></div>
+
+               <% if project.subprojects.any? %>
+                 <div class="flex flex-col gap-0.5">
+                   <% project.subprojects.each do |subproject| %>
+                     <%= render Projects::SubprojectCardComponent.new(subproject: subproject) %>
+                   <% end %>
+                 </div>
+               <% else %>
+                 <div class="flex-1 flex items-center justify-center">
+                   <div class="text-base-content/60 italic text-sm text-center"><%= t(".no_subprojects") %></div>
+                 </div>
+               <% end %>
+             </div>
+
+             <%= link_to t(".view_project"), project_path(project), class: "w-full mt-1 text-sm bg-base-300 hover:bg-secondary/70 rounded-md py-2 flex flex-row justify-center items-center transition-colors" %>
         </div>
       <% end %>
     </div>
+
   </section>
 <% end %>
