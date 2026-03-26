@@ -1,4 +1,3 @@
-
 require "test_helper"
 
 class ReportsControllerTest < ActionDispatch::IntegrationTest
@@ -84,8 +83,10 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
 
     assert_select "div", text: report_a.id.to_s
     assert_select "div", text: report_b.id.to_s
-    assert_select "div", text: report_a.start_date.to_s
-    assert_select "div", text: report_b.start_date.to_s
+    assert_select "div", text: I18n.l(report_a.start_date)
+    assert_select "div", text: I18n.l(report_b.start_date)
+    assert_select "div", text: I18n.l(report_a.end_date)
+    assert_select "div", text: I18n.l(report_b.end_date)
   end
 
   test "#filter displays projects when valid dates are provided" do
