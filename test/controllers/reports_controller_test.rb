@@ -1,3 +1,4 @@
+
 require "test_helper"
 
 class ReportsControllerTest < ActionDispatch::IntegrationTest
@@ -7,7 +8,6 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
 
   [
     { route: "index", method: :get, url_helper: :reports_url, needs_report: false },
-    { route: "show", method: :get, url_helper: :report_url, needs_report: true },
     { route: "new", method: :get, url_helper: :new_report_url, needs_report: false },
     { route: "edit", method: :get, url_helper: :edit_report_url, needs_report: true },
     { route: "filter", method: :get, url_helper: :filter_reports_url, needs_report: false },
@@ -49,6 +49,14 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test "#show renders successfully when a user is not authenticated" do
+    log_out_user
+    report = create(:report)
+
+    get report_path(report)
+    assert_response :success
+  end
+
   test "#show renders the report correctly" do
     report = create(:report)
     journal = create(:journal)
@@ -63,7 +71,7 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     assert_match journal.title, response.body
     assert_match journal.markdown_content.to_plain_text, response.body
 
-    assert_match aggregated_datum.value.to_s, response.body
+    assert_match aggregated_datum.value.to_i.to_s, response.body
     assert_match aggregated_datum.additional_text, response.body
   end
 

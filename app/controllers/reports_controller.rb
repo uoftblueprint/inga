@@ -1,4 +1,6 @@
 class ReportsController < ApplicationController
+  skip_before_action :require_login, only: %i[show]
+
   def index
     @reports = Report.order(created_at: :desc)
   end
@@ -167,6 +169,8 @@ class ReportsController < ApplicationController
   end
 
   def has_required_roles?
-    current_user.has_roles?(:admin)
+    action_name == "show" || current_user.has_roles?(:admin)
   end
+
+  def show_sidebar? = action_name != "show"
 end

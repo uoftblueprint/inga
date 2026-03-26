@@ -27,5 +27,7 @@ es:
       create_log_entry: Crear entrada de registro
       journal_entries: Entradas de diario
       log_entries: Entradas de registro
+      subtitle: Descripción
+      title: Detalles del subproyecto
     update:
       success: Subproyecto actualizado exitosamente

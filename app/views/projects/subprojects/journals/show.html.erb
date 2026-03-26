@@ -2,7 +2,7 @@
   <div class="flex items-center justify-between mb-5">
     <h1 class="text-4xl font-bold"><%= @journal.title %></h1>
     <div class="flex flex-row gap-4">
-      <%= render ActionButtonComponent.new(to: edit_project_subproject_journal_path(@project, @subproject, @journal), icon: "edit", colour: :info, size: :large) do %>
+      <%= render ActionButtonComponent.new(to: edit_project_subproject_journal_path(@project, @subproject, @journal), icon: "edit", colour: :primary, size: :large) do %>
         <%= t(".actions.edit") %>
       <% end %>
       <%= render ActionButtonComponent.new(to: project_subproject_journal_path(@project, @subproject, @journal), method: :delete, icon: "delete", colour: :error, size: :large, confirm: t("projects.subprojects.journals.destroy.confirm")) do %>

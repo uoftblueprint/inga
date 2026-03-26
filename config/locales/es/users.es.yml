@@ -22,20 +22,17 @@ es:
     index:
       actions:
         create: Crear usuario
+      subtitle: Crea y administra usuarios para Inga Internals.
       title: Administrar usuarios
     new:
       title: Nuevo usuario
-    role_badge_component:
-      roles:
-        admin: Administrador
-        analyst: Analista
-        reporter: Reportero
-        unknown: Desconocido
     show:
       actions:
         delete: Eliminar usuario
         edit: Editar usuario
       journal_entries: Entradas de diario
       log_entries: Entradas de registro
+      roles: Roles
+      title: Detalles del usuario
     update:
       success: Cuenta actualizada exitosamente.

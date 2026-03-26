@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
 
   default_form_builder DefaultFormBuilder
   allow_browser versions: :modern
+  helper_method :show_sidebar?
   before_action :require_login
   before_action :check_required_roles
   before_action :set_locale
@@ -29,6 +30,8 @@ class ApplicationController < ActionController::Base
   def check_required_roles
     redirect_to root_path, flash: { error: "You do not have permission to access this page" } unless has_required_roles?
   end
+
+  def show_sidebar? = true
 
   # All controllers must override this method
   def has_required_roles? = false

@@ -106,7 +106,7 @@
         </button>
       </div>
 
-      <%= render Shared::IndexTableComponent.new(records: @available_journals, per_page: 6) do |table| %>
+      <%= render Shared::IndexTableComponent.new(records: @available_journals, per_page: 6, clickable_rows: false) do |table| %>
         <% table.column :title %>
         <% table.column :author, header: t(".author") do |journal| %>
           <%= journal.user.username %>
