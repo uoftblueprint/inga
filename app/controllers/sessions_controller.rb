@@ -19,5 +19,7 @@ class SessionsController < ApplicationController
 
   private
 
+  def show_sidebar? = action_name != "login"
+
   def has_required_roles? = true
 end

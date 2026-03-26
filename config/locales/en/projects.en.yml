@@ -43,6 +43,8 @@ en:
         edit: Edit project
       create_subproject: Create subproject
       subprojects: Subprojects
+      subtitle: Description
+      title: Project Details
     subproject_card_component:
       no_region: No region
     update:

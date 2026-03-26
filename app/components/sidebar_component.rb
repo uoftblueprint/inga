@@ -49,6 +49,4 @@ class SidebarComponent < ViewComponent::Base
     @logout_item ||= SIDEBAR_ITEM.new(name: t("logout", scope: "components.sidebar_component.logout_item"),
                                       path: helpers.logout_path, icon: "box-arrow-left")
   end
-
-  def render? = !current_page?(helpers.login_path)
 end

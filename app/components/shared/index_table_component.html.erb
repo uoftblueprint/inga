@@ -1,15 +1,18 @@
 <div data-controller="index-table-component" data-index-table-component-per-page-value="<%= per_page %>">
   <% if searchable %>
     <div class="mb-4">
-      <label class="input input-bordered w-full">
-        <%= render IconComponent.new(icon: "search", size: :sm, classes: "h-[1em] opacity-50") %>
-        <input
-            type="search"
-            class="grow focus:outline-none"
-            placeholder="Search..."
-            autocomplete="off"
-            data-index-table-component-target="search"
-            data-action="input->index-table-component#filter">
+      <label class="group ui-enter-item input input-bordered w-full focus-within:border-primary focus-within:outline-none"
+             style="--ui-enter-delay: 40ms;">
+        <span class="text-base-content/50 group-focus-within:text-primary transition-colors">
+          <%= render IconComponent.new(icon: "search", size: :sm) %>
+        </span>
+
+        <input type="search" name="q"
+                             placeholder="<%= t(".search_placeholder") %>"
+                             class="grow"
+                             autocomplete="off"
+                             data-index-table-component-target="search"
+                             data-action="input->index-table-component#filter">
       </label>
     </div>
   <% end %>
@@ -19,10 +22,10 @@
 
   <!-- Each row (including header) is its own rounded box -->
   <div class="mb-2">
-    <div class="card bg-neutral rounded-lg">
-      <div class="p-4 grid items-center gap-4" style="grid-template-columns: <%= column_sizes %>">
+    <div class="card ui-enter-item bg-neutral rounded-lg" style="--ui-enter-delay: 80ms;">
+      <div class="p-4 grid items-stretch gap-4" style="grid-template-columns: <%= column_sizes %>">
         <% columns.each do |column| %>
-          <div class="text-sm font-semibold text-neutral-content"><%= column.header %></div>
+          <div class="text-sm font-semibold text-neutral-content flex items-center"><%= column.header %></div>
         <% end %>
       </div>
     </div>
@@ -30,15 +33,21 @@
 
   <div class="space-y-2">
     <% records.each_with_index do |record, index| %>
-      <div data-index-table-component-target="row" class="card bg-white rounded-lg shadow-sm">
-        <div class="p-3 grid items-center gap-4" style="grid-template-columns: <%= column_sizes %>">
+      <div
+          data-index-table-component-target="row"
+          class="card ui-enter-item bg-white rounded-lg group transition-shadow relative overflow-visible shadow-sm<%= " cursor-pointer hover:shadow-md" if row_clickable?(record) %>"
+          style="--ui-enter-delay: <%= 120 + ((index % 15) * 35) %>ms;">
+        <%= row_overlay_link(record) %>
+        <div class="p-3 grid items-stretch gap-4 rounded-lg<%= " group-hover:bg-secondary/30 transition-colors" if row_clickable?(record) %>" style="grid-template-columns: <%= column_sizes %>">
           <% columns.each do |column| %>
-            <div class="text-sm text-base-content"><%= render_cell_content(record, column) %></div>
+            <div class="text-sm text-base-content min-w-0 w-full h-full flex items-center <%= "relative z-20" if column.attribute == :actions %>">
+              <%= render_cell_content(record, column) %>
+            </div>
           <% end %>
         </div>
       </div>
     <% end %>
-    <div data-index-table-component-target="emptyRow" class="card bg-white rounded-lg shadow-sm <%= "hidden" unless empty? %>">
+    <div data-index-table-component-target="emptyRow" class="card ui-enter-item bg-white rounded-lg shadow-sm <%= "hidden" unless empty? %>" style="--ui-enter-delay: 120ms;">
       <div class="flex justify-center p-3 items-center">
         <div class="text-sm text-base-content/40 font-bold"><%= t("shared.index_table_component.no_entries") %></div>
       </div>

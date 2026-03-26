@@ -1,15 +1,19 @@
 module Shared
   class IndexTableComponent < ViewComponent::Base
-    attr_reader :records, :columns, :searchable, :per_page
+    attr_reader :records, :columns, :searchable, :per_page, :clickable_rows, :turbo_stream_rows
 
     Column = Struct.new(:attribute, :header, :cell_renderer, :col_size)
 
-    def initialize(records:, searchable: true, per_page: 10)
+    def initialize(records:, searchable: true, per_page: 10, clickable_rows: true,
+                   turbo_stream_rows: false, record_path: nil)
       super()
       @records = records
       @columns = []
       @searchable = searchable
       @per_page = per_page
+      @clickable_rows = clickable_rows
+      @turbo_stream_rows = turbo_stream_rows
+      @record_path = record_path
     end
 
     def column(attribute, header: nil, col_size: nil, &cell_renderer)
@@ -18,6 +22,45 @@ module Shared
     end
 
     private
+
+    def turbo_stream_url_for(path)
+      uri = URI.parse(path.to_s)
+      params = Rack::Utils.parse_nested_query(uri.query).merge("format" => "turbo_stream")
+
+      uri.query = params.to_query.presence
+
+      uri.to_s
+    end
+
+    def row_path_for(record)
+      return nil unless @record_path
+
+      path = @record_path.call(record)
+
+      return path unless @turbo_stream_rows
+
+      turbo_stream_url_for(path)
+    end
+
+    def row_link_data
+      { turbo_stream: (@turbo_stream_rows ? true : nil) }.compact
+    end
+
+    def row_clickable?(record)
+      clickable_rows && row_path_for(record).present?
+    end
+
+    def row_overlay_link(record)
+      return unless row_clickable?(record)
+
+      link_to(
+        row_path_for(record),
+        data: row_link_data,
+        class: "absolute inset-0 rounded-lg z-10"
+      ) do
+        content_tag(:span)
+      end
+    end
 
     def render_cell_content(record, column)
       if column.cell_renderer

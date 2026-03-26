@@ -22,20 +22,17 @@ en:
     index:
       actions:
         create: Create User
-      title: Manage Users
+      subtitle: Create and manage users for Inga Internals.
+      title: Users
     new:
       title: New User
-    role_badge_component:
-      roles:
-        admin: Admin
-        analyst: Analyst
-        reporter: Reporter
-        unknown: Unknown
     show:
       actions:
         delete: Delete user
         edit: Edit user
       journal_entries: Journal Entries
       log_entries: Log Entries
+      roles: Roles
+      title: User Details
     update:
       success: Account updated successfully.
