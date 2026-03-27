@@ -30,10 +30,6 @@ en:
     index:
       actions:
         create: Create Report
-      columns:
-        end_date: End date
-        id: ID
-        start_date: Start date
       title: Reports
     journal_card_component:
       author: Author
