@@ -4,6 +4,7 @@ es:
     attributes:
       report:
         end_date: Fecha de fin
+        id: ID
         start_date: Fecha de inicio
   reports:
     create:
@@ -29,10 +30,6 @@ es:
     index:
       actions:
         create: Crear reporte
-      columns:
-        end_date: Fecha de fin
-        id: ID
-        start_date: Fecha de inicio
       title: Reportes
     journal_card_component:
       author: Autor
