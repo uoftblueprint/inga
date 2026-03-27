@@ -2,13 +2,19 @@ import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
   static targets = ["search", "row", "emptyRow", "pagination", "pageInfo"];
-  static values = { perPage: { type: Number, default: 10 } };
+  static values = {
+    perPage: { type: Number, default: 10 },
+    sortColumn: { type: Number, default: -1 },
+    sortDirection: { type: String, default: "desc" },
+  };
 
   connect() {
     this._rows = this.rowTargets || [];
     this._filteredRows = [...this._rows];
     this._page = 0;
+    this._applySort();
     this._paginate();
+    this._updateSortIndicators();
   }
 
   filter() {
@@ -24,6 +30,7 @@ export default class extends Controller {
     }
 
     this._page = 0;
+    this._applySort();
     this._paginate();
   }
 
@@ -41,7 +48,22 @@ export default class extends Controller {
     }
   }
 
-  // --- Private ---
+  sort(event) {
+    const col = parseInt(event.currentTarget.dataset.columnIndex);
+
+    if (this.sortColumnValue === col) {
+      this.sortDirectionValue =
+        this.sortDirectionValue === "asc" ? "desc" : "asc";
+    } else {
+      this.sortColumnValue = col;
+      this.sortDirectionValue = "desc";
+    }
+
+    this._applySort();
+    this._page = 0;
+    this._paginate();
+    this._updateSortIndicators();
+  }
 
   _lastPage() {
     return Math.max(
@@ -60,13 +82,11 @@ export default class extends Controller {
       .slice(start, end)
       .forEach((row) => (row.style.display = ""));
 
-    // Toggle empty state
     this.emptyRowTarget.classList.toggle(
       "hidden",
       this._filteredRows.length > 0,
     );
 
-    // Update pagination
     if (this.hasPaginationTarget) {
       this._updatePagination();
     }
@@ -99,5 +119,56 @@ export default class extends Controller {
     if (this.hasPageInfoTarget) {
       this.pageInfoTarget.textContent = `${this._page + 1} of ${lastPage + 1}`;
     }
+  }
+
+  _applySort() {
+    if (this.sortColumnValue < 0) return;
+
+    const col = this.sortColumnValue;
+    const dir = this.sortDirectionValue === "asc" ? 1 : -1;
+
+    this._filteredRows.sort((a, b) => {
+      const aVal = this._cellSortValue(a, col);
+      const bVal = this._cellSortValue(b, col);
+      const aNum = parseFloat(aVal);
+      const bNum = parseFloat(bVal);
+
+      if (!isNaN(aNum) && !isNaN(bNum)) return (aNum - bNum) * dir;
+
+      return aVal.localeCompare(bVal, undefined, { numeric: true }) * dir;
+    });
+
+    this._reorderDom();
+  }
+
+  _reorderDom() {
+    if (!this._rows.length) return;
+    const container = this._rows[0].parentElement;
+    if (!container) return;
+
+    this._filteredRows.forEach((row) => container.appendChild(row));
+  }
+
+  _cellSortValue(row, colIndex) {
+    const cell = row.querySelector(`[data-col-index="${colIndex}"]`);
+    if (!cell) return "";
+
+    return (cell.dataset.sortValue ?? cell.textContent).trim();
+  }
+
+  _updateSortIndicators() {
+    this.element
+      .querySelectorAll("[data-sort-indicator]")
+      .forEach((indicator) => {
+        const index = parseInt(indicator.dataset.sortIndicator);
+
+        if (index === this.sortColumnValue) {
+          indicator.classList.remove("opacity-0");
+          indicator.textContent = this.sortDirectionValue === "asc" ? "▲" : "▼";
+        } else {
+          indicator.classList.add("opacity-0");
+          indicator.textContent = "▲";
+        }
+      });
   }
 }

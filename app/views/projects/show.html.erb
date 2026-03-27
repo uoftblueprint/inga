@@ -34,7 +34,7 @@
         <% table.column :region do |subproject| %>
           <%= subproject.region.name %>
         <% end %>
-        <% table.column :created_at do |subproject| %>
+        <% table.column :created_at, default_sort: true do |subproject| %>
           <%= l(subproject.created_at) %>
         <% end %>
         <% table.column :actions, header: t("shared.index_table_component.actions.label"), col_size: "65px" do |subproject| %>
