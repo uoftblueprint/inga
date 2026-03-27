@@ -39,7 +39,7 @@
         <% table.column :user do |log_entry| %>
           <%= log_entry.user.username %>
         <% end %>
-        <% table.column :actions, header: t("shared.index_table_component.actions.label"), col_size: "65px" do |log_entry| %>
+        <% table.column :actions, header: t("shared.index_table_component.actions"), col_size: "65px" do |log_entry| %>
           <div class="flex flex-row gap-2 items-center justify-center">
             <%= render ActionButtonComponent.new(to: edit_project_subproject_log_entry_path(@project, @subproject, log_entry), icon: "edit", turbo_stream: true, colour: :primary) %>
             <%= render ActionButtonComponent.new(to: project_subproject_log_entry_path(@project, @subproject, log_entry), method: :delete, icon: "delete", colour: :error, confirm: t("projects.subprojects.log_entries.destroy.confirm")) %>
@@ -65,7 +65,7 @@
         <% table.column :user do |journal| %>
           <%= journal.user.username %>
         <% end %>
-        <% table.column :actions, header: t("shared.index_table_component.actions.label"), col_size: "65px" do |journal| %>
+        <% table.column :actions, header: t("shared.index_table_component.actions"), col_size: "65px" do |journal| %>
           <div class="flex flex-row gap-2 items-center justify-center">
             <%= render ActionButtonComponent.new(to: edit_project_subproject_journal_path(@project, @subproject, journal), icon: "edit", colour: :primary) %>
             <%= render ActionButtonComponent.new(to: project_subproject_journal_path(@project, @subproject, journal), method: :delete, icon: "delete", colour: :error, confirm: t("projects.subprojects.journals.destroy.confirm")) %>

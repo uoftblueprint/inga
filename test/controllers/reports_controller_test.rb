@@ -6,10 +6,12 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
   end
 
   [
+    { route: "index", method: :get, url_helper: :reports_url, needs_report: false },
     { route: "new", method: :get, url_helper: :new_report_url, needs_report: false },
     { route: "edit", method: :get, url_helper: :edit_report_url, needs_report: true },
     { route: "filter", method: :get, url_helper: :filter_reports_url, needs_report: false },
-    { route: "update", method: :patch, url_helper: :report_url, needs_report: true }
+    { route: "update", method: :patch, url_helper: :report_url, needs_report: true },
+    { route: "destroy", method: :delete, url_helper: :report_url, needs_report: true }
   ].each do |hash|
     test "##{hash[:route]} redirects to login route when a user is not authenticated" do
       log_out_user
@@ -33,6 +35,7 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
   end
 
   [
+    { route: "index", method: :get, url_helper: :reports_url, needs_report: false },
     { route: "show", method: :get, url_helper: :report_url, needs_report: true },
     { route: "new", method: :get, url_helper: :new_report_url, needs_report: false },
     { route: "edit", method: :get, url_helper: :edit_report_url, needs_report: true }
@@ -69,6 +72,21 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
 
     assert_match aggregated_datum.value.to_i.to_s, response.body
     assert_match aggregated_datum.additional_text, response.body
+  end
+
+  test "#index displays all reports" do
+    report_a = create(:report, start_date: Date.new(2025, 1, 1), end_date: Date.new(2025, 1, 31))
+    report_b = create(:report, start_date: Date.new(2025, 2, 1), end_date: Date.new(2025, 2, 28))
+
+    get reports_path
+    assert_response :success
+
+    assert_select "div", text: report_a.id.to_s
+    assert_select "div", text: report_b.id.to_s
+    assert_select "div", text: I18n.l(report_a.start_date)
+    assert_select "div", text: I18n.l(report_b.start_date)
+    assert_select "div", text: I18n.l(report_a.end_date)
+    assert_select "div", text: I18n.l(report_b.end_date)
   end
 
   test "#filter displays projects when valid dates are provided" do
@@ -232,5 +250,16 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     report.reload
     assert_equal [report_journal.id], report.journal_ids
     assert_equal [retained_datum.id], report.aggregated_data.ids
+  end
+
+  test "#destroy deletes report when user is an admin" do
+    report = create(:report)
+
+    assert_difference("Report.count", -1) do
+      delete report_path(report)
+    end
+
+    assert_redirected_to reports_path
+    assert_equal I18n.t("reports.destroy.success"), flash[:success]
   end
 end

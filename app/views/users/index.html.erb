@@ -23,7 +23,7 @@
           <% end %>
         </div>
       <% end %>
-      <% table.column :actions, header: t("shared.index_table_component.actions.label"), col_size: "65px" do |user| %>
+      <% table.column :actions, header: t("shared.index_table_component.actions"), col_size: "65px" do |user| %>
         <div class="flex flex-row gap-2 items-center justify-center">
           <%= render ActionButtonComponent.new(to: edit_user_path(user), icon: "edit", turbo_stream: true, colour: :primary) %>
           <%= render ActionButtonComponent.new(to: user_path(user), method: :delete, icon: "delete", colour: :error, confirm: t("users.destroy.confirm")) %>

@@ -2,8 +2,7 @@
 en:
   shared:
     index_table_component:
-      actions:
-        label: Actions
+      actions: Actions
       no_entries: No Entries Found
       search_placeholder: Search
     'no': 'No'

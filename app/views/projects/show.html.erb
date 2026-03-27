@@ -37,7 +37,7 @@
         <% table.column :created_at do |subproject| %>
           <%= l(subproject.created_at) %>
         <% end %>
-        <% table.column :actions, header: t("shared.index_table_component.actions.label"), col_size: "65px" do |subproject| %>
+        <% table.column :actions, header: t("shared.index_table_component.actions"), col_size: "65px" do |subproject| %>
           <div class="flex flex-row items-center justify-center gap-2">
             <%= render ActionButtonComponent.new(to: edit_project_subproject_path(@project, subproject), icon: "edit", turbo_stream: true, colour: :primary) %>
             <%= render ActionButtonComponent.new(to: project_subproject_path(@project, subproject), method: :delete, icon: "delete", colour: :error, confirm: t("subprojects.destroy.confirm")) %>
