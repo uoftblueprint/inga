@@ -4,6 +4,7 @@ en:
     attributes:
       report:
         end_date: End date
+        id: ID
         start_date: Start date
   reports:
     create:
