@@ -56,12 +56,12 @@ class DefaultFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def submit(value = nil, options = {})
-    add_class_to_options(options, "btn bg-success text-white border-success hover:bg-success/90")
+    add_class_to_options(options, "btn bg-primary text-primary-content hover:bg-primary/90")
     super
   end
 
   def modal_cancel(value = "Cancel", options = {})
-    add_class_to_options(options, "btn btn-ghost text-base font-medium text-base-content/70")
+    add_class_to_options(options, "btn btn-ghost text-base text-base-content/70")
 
     options[:type] ||= "button"
 
