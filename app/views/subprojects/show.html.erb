@@ -30,7 +30,7 @@
             turbo_stream_rows: true,
             record_path: ->(log_entry) { project_subproject_log_entry_path(@project, @subproject, log_entry) }
           ) do |table| %>
-        <% table.column :created_at do |log_entry| %>
+        <% table.column :created_at, default_sort: true do |log_entry| %>
           <%= l(log_entry.created_at) %>
         <% end %>
         <% table.column :updated_at do |log_entry| %>
@@ -56,7 +56,7 @@
         <% table.column :title do |journal| %>
           <%= journal.title %>
         <% end %>
-        <% table.column :created_at do |journal| %>
+        <% table.column :created_at, default_sort: true do |journal| %>
           <%= l(journal.created_at) %>
         <% end %>
         <% table.column :updated_at do |journal| %>
