@@ -2,10 +2,18 @@
   <% items.each do |item| %>
     <%= link_to item.path,
                 class: wrapper_classes do %>
-        <%= render IconComponent.new(icon: item.icon, size: :md,
-                                     classes: icon_classes) %>
+      <%= render IconComponent.new(icon: item.icon, size: :md,
+                                   classes: icon_classes) %>
       <span class="dock-label text-center"><%= item.name %></span>
     <% end %>
+  <% end %>
+  <%= link_to url_for(locale: I18n.locale == :en ? :es : :en),
+              class: wrapper_classes do %>
+    <%= render IconComponent.new(icon: "globe", size: :md, classes: icon_classes) %>
+    <span class="dock-label text-center">
+      <% next_locale = I18n.locale == :en ? :es : :en %>
+      <%= t(next_locale, scope: "locales") %>
+    </span>
   <% end %>
   <%= button_to logout_item.path, method: :delete, class: wrapper_classes do %>
     <%= render IconComponent.new(icon: logout_item.icon, size: :md, classes: icon_classes) %>
