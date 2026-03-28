@@ -2,13 +2,13 @@ class LogEntry < ApplicationRecord
   belongs_to :subproject
   belongs_to :user
 
-  validate :at_least_one_metadata_field_present
+  validate :not_empty
 
   private
 
-  def at_least_one_metadata_field_present
+  def not_empty
     return if metadata.is_a?(Hash) && metadata.values.any?(&:present?)
 
-    errors.add(:base, "At least one field must be filled in before saving.")
+    errors.add(:base, :not_empty)
   end
 end
