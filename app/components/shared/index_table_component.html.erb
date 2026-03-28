@@ -39,11 +39,10 @@
   </div>
 
   <div class="space-y-2">
-    <% records.each_with_index do |record, index| %>
+    <% records.each do |record| %>
       <div
           data-index-table-component-target="row"
-          class="card ui-enter-item bg-white rounded-lg group transition-shadow relative overflow-visible shadow-sm<%= " cursor-pointer hover:shadow-md" if row_clickable?(record) %>"
-          style="--ui-enter-delay: <%= 120 + ((index % 15) * 35) %>ms;">
+          class="card ui-enter-item bg-white rounded-lg group transition-shadow relative overflow-visible shadow-sm<%= " cursor-pointer hover:shadow-md" if row_clickable?(record) %>">
         <%= row_overlay_link(record) %>
         <div class="p-3 grid items-stretch gap-4 rounded-lg<%= " group-hover:bg-secondary/30 transition-colors" if row_clickable?(record) %>" style="grid-template-columns: <%= column_sizes %>">
           <% columns.each_with_index do |column, col_index| %>

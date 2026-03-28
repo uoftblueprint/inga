@@ -78,9 +78,10 @@ export default class extends Controller {
     const end = (this._page + 1) * perPage;
 
     this._rows.forEach((row) => (row.style.display = "none"));
-    this._filteredRows
-      .slice(start, end)
-      .forEach((row) => (row.style.display = ""));
+    this._filteredRows.slice(start, end).forEach((row, index) => {
+      row.style.setProperty("--ui-enter-delay", `${120 + (index % 15) * 35}ms`);
+      row.style.display = "";
+    });
 
     this.emptyRowTarget.classList.toggle(
       "hidden",
