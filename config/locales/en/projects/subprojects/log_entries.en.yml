@@ -8,6 +8,12 @@ en:
         subproject: Subproject
         updated_at: Updated At
         user: User
+    errors:
+      models:
+        log_entry:
+          attributes:
+            base:
+              not_empty: At least one field must be filled in before saving.
   projects:
     subprojects:
       log_entries:

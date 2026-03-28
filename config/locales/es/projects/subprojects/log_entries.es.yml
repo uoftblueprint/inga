@@ -8,6 +8,12 @@ es:
         subproject: Subproyecto
         updated_at: Actualizado en
         user: Usuario
+    errors:
+      models:
+        log_entry:
+          attributes:
+            base:
+              not_empty: Al menos un campo debe estar completado antes de guardar.
   projects:
     subprojects:
       log_entries:

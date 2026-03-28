@@ -99,8 +99,14 @@ module Shared
       return nil unless record.respond_to?(column.attribute)
 
       value = record.send(column.attribute)
-      return value.to_i.to_s if value.is_a?(Time) || value.is_a?(DateTime) || value.is_a?(Date)
-      return value.to_f.to_s if value.is_a?(Numeric)
+      case value
+      when Time, DateTime
+        return value.to_i.to_s
+      when Date
+        return value.to_time.to_i.to_s
+      when Numeric
+        return value.to_f.to_s
+      end
 
       nil
     end
