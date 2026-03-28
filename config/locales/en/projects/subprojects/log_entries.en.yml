@@ -13,7 +13,7 @@ en:
         log_entry:
           attributes:
             base:
-              not_empty: "At least one field must be filled in before saving."
+              not_empty: At least one field must be filled in before saving.
   projects:
     subprojects:
       log_entries:

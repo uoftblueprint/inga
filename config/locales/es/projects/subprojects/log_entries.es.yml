@@ -13,7 +13,7 @@ es:
         log_entry:
           attributes:
             base:
-              not_empty: "Al menos un campo debe estar completado antes de guardar."
+              not_empty: Al menos un campo debe estar completado antes de guardar.
   projects:
     subprojects:
       log_entries:
