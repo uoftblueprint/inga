@@ -56,7 +56,7 @@ class DefaultFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def submit(value = nil, options = {})
-    add_class_to_options(options, "btn bg-primary text-primary-content hover:bg-primary/90")
+    add_class_to_options(options, "btn bg-primary border-primary text-primary-content hover:bg-primary/90")
     super
   end
 
