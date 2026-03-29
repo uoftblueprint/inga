@@ -1,49 +1,41 @@
-<div class="w-full space-y-4 sm:space-y-6">
-  <section class="card bg-base-100 border border-base-300 shadow-sm rounded-xl <%= step_1_animation_class %>">
-    <div class="card-body p-4 sm:p-6 space-y-4">
+<div class="w-full space-y-6 sm:space-y-8">
+  <section class="space-y-4 <%= step_1_animation_class %>">
+    <div class="space-y-1">
+      <p class="text-xs font-semibold uppercase tracking-wide text-base-content/60"><%= t(".step_1_badge") %></p>
+      <h2 class="text-lg sm:text-xl font-semibold text-base-content"><%= t(".step_1_title") %></h2>
+    </div>
+
+    <%= form_with url: form_url, method: :get, data: { turbo: true, turbo_frame: "unified_form", turbo_action: "replace" }, class: "space-y-4" do %>
       <div class="space-y-1">
-        <p class="text-xs font-semibold uppercase tracking-wide text-base-content/60"><%= t(".step_1_badge") %></p>
-        <h2 class="text-lg sm:text-xl font-semibold text-base-content"><%= t(".step_1_title") %></h2>
-        <p class="text-sm text-base-content/70"><%= t(".step_1_subtitle") %></p>
+        <%= label_tag :project_id, t(".project_label"), class: "label font-medium" %>
+        <%= select_tag :project_id,
+                       options_from_collection_for_select(projects, :id, :name, selected_project_id),
+                       prompt: t(".select_project_prompt"),
+                       class: "select select-bordered w-full",
+                       onchange: "this.form.requestSubmit()" %>
       </div>
 
-      <%= form_with url: form_url, method: :get, data: { turbo: true, turbo_frame: "unified_form", turbo_action: "replace" }, class: "space-y-4" do %>
-        <div class="space-y-1">
-          <%= label_tag :project_id, t(".project_label"), class: "label font-medium" %>
-          <%= select_tag :project_id,
-                         options_from_collection_for_select(projects, :id, :name, selected_project_id),
-                         prompt: t(".select_project_prompt"),
+      <div class="space-y-1">
+        <% if selected_project_id.present? && selected_project.present? %>
+          <%= label_tag :subproject_id, t(".subproject_label"), class: "label font-medium" %>
+          <%= select_tag :subproject_id,
+                         options_from_collection_for_select(selected_project.subprojects, :id, :name, selected_subproject_id),
+                         prompt: t(".select_subproject_prompt"),
                          class: "select select-bordered w-full",
                          onchange: "this.form.requestSubmit()" %>
-        </div>
-
-        <div class="space-y-1">
-          <% if selected_project_id.present? && selected_project.present? %>
-            <%= label_tag :subproject_id, t(".subproject_label"), class: "label font-medium" %>
-            <%= select_tag :subproject_id,
-                           options_from_collection_for_select(selected_project.subprojects, :id, :name, selected_subproject_id),
-                           prompt: t(".select_subproject_prompt"),
-                           class: "select select-bordered w-full",
-                           onchange: "this.form.requestSubmit()" %>
-          <% end %>
-        </div>
-      <% end %>
-    </div>
+        <% end %>
+      </div>
+    <% end %>
   </section>
 
   <% if selection_complete? %>
-    <section class="card ui-enter-item bg-base-100 border border-base-300 shadow-sm rounded-xl min-h-60" data-controller="form-reveal-scroll">
-      <div class="card-body p-4 sm:p-6 space-y-4">
-        <div class="space-y-1">
-          <p class="text-xs font-semibold uppercase tracking-wide text-base-content/60"><%= t(".step_2_badge") %></p>
-          <h2 class="text-lg sm:text-xl font-semibold text-base-content"><%= t(".step_2_title") %></h2>
-          <p class="text-sm text-base-content/70"><%= t(".step_2_subtitle_ready") %></p>
-        </div>
-
-        <div>
-          <%= form_body %>
-        </div>
+    <section class="ui-enter-item space-y-4" data-controller="form-reveal-scroll">
+      <div class="space-y-1">
+        <p class="text-xs font-semibold uppercase tracking-wide text-base-content/60"><%= t(".step_2_badge") %></p>
+        <h2 class="text-lg sm:text-xl font-semibold text-base-content"><%= t(".step_2_title") %></h2>
       </div>
+
+      <%= form_body %>
     </section>
   <% end %>
 </div>

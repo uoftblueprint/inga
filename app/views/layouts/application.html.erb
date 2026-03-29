@@ -27,7 +27,7 @@
   <div class="flex min-h-screen">
     <%= render SidebarComponent.new if show_sidebar? %>
 
-    <main class="flex-1 overflow-auto">
+    <main class="flex-1 overflow-auto pb-24 sm:pb-0">
       <div id="flash"> <%= render "shared/flash" %> </div>
       <%= yield %>
     <div id="modal"></div>
