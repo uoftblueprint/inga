@@ -2,4 +2,5 @@
 en:
   log_entries:
     new:
-      title: Log Entries
+      title: New Log Entry
+      subtitle: Create a new log entry for a project and subproject.

@@ -1,5 +1,5 @@
-<%= form_with model: [project, subproject, log_entry], builder: DefaultFormBuilder do |form| %>
-  <div class="text-sm p-4 flex flex-col gap-4">
+<%= form_with model: [project, subproject, log_entry], builder: DefaultFormBuilder, data: { turbo_frame: "_top" } do |form| %>
+  <div class="text-sm flex flex-col gap-4">
     <div class="grid gap-3">
       <% project.log_schema.each do |title, type| %>
         <div class="rounded-lg border border-base-300 bg-base-200/50 px-3 py-3 sm:flex sm:items-center sm:px-3 sm:py-2">

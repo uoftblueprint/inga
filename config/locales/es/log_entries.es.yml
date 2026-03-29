@@ -2,4 +2,5 @@
 es:
   log_entries:
     new:
-      title: Entradas de registro
+      title: Nueva entrada de registro
+      subtitle: Crea una nueva entrada de registro para un proyecto y subproyecto.

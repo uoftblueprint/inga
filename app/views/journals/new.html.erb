@@ -5,7 +5,7 @@
   </div>
 
   <%= render ContentCardComponent.new do %>
-    <%= turbo_frame_tag "unified_journal_form" do %>
+    <%= turbo_frame_tag "unified_form" do %>
       <%= render Projects::Subprojects::UnifiedFormComponent.new(
             projects: @projects,
             form_url: new_journal_path,
@@ -17,7 +17,6 @@
           <% subproject = project&.subprojects&.find_by(id: params[:subproject_id]) %>
           <% if project && subproject %>
             <%= turbo_frame_tag "journal_new_form", src: new_project_subproject_journal_path(project, subproject) do %>
-              <%= render Journals::EmptyFormComponent.new %>
             <% end %>
           <% end %>
         <% end %>

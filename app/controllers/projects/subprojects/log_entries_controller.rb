@@ -42,11 +42,7 @@ module Projects
         @log_entry.user = current_user
 
         if @log_entry.save
-          respond_to do |format|
-            format.any(:turbo_stream, :html) do
-              redirect_to(project_subproject_path(@project, @subproject), flash: { success: t(".success") })
-            end
-          end
+          redirect_to(project_subproject_path(@project, @subproject), flash: { success: t(".success") })
         else
           flash.now[:error] = @log_entry.errors.full_messages.to_sentence
 

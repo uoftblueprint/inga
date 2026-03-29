@@ -7,7 +7,7 @@
         <p class="text-sm text-base-content/70"><%= t(".step_1_subtitle") %></p>
       </div>
 
-      <%= form_with url: form_url, method: :get, data: { turbo: true, turbo_frame: "unified_journal_form", turbo_action: "replace" }, class: "space-y-4" do %>
+      <%= form_with url: form_url, method: :get, data: { turbo: true, turbo_frame: "unified_form", turbo_action: "replace" }, class: "space-y-4" do %>
         <div class="space-y-1">
           <%= label_tag :project_id, t(".project_label"), class: "label font-medium" %>
           <%= select_tag :project_id,

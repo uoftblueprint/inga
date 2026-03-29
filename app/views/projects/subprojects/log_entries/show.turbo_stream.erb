@@ -1,6 +1,6 @@
 <%= turbo_stream.replace "modal" do %>
   <%= render ModalComponent.new(title: t(".title")) do %>
-    <div class="text-sm p-4 flex flex-col gap-4">
+    <div class="text-sm flex flex-col gap-4">
       <div class="grid gap-3">
         <% @project.log_schema.each do |title, type| %>
           <div class="flex items-center px-3 py-2 rounded-lg border border-base-300 bg-base-200/50">
