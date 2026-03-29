@@ -24,4 +24,11 @@ en:
         project_label: Project
         select_project_prompt: Select a project
         select_subproject_prompt: Select a subproject
+        step_1_badge: Step 1
+        step_1_subtitle: Choose where this entry belongs.
+        step_1_title: Select project and subproject
+        step_2_badge: Step 2
+        step_2_subtitle_ready: Add your entry details below.
+        step_2_subtitle_waiting: Select a project and subproject to unlock the entry form.
+        step_2_title: Write the entry
         subproject_label: Subproject

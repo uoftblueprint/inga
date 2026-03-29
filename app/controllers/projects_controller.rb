@@ -11,7 +11,6 @@ class ProjectsController < ApplicationController
     @project = Project.new(active: true)
 
     respond_to do |format|
-      format.html
       format.turbo_stream
     end
   end

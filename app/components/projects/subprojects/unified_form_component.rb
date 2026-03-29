@@ -16,6 +16,26 @@ module Projects
       def selected_project
         Project.find_by(id: selected_project_id)
       end
+
+      def selected_subproject
+        return unless selected_project
+
+        selected_project.subprojects.find_by(id: selected_subproject_id)
+      end
+
+      def selection_complete?
+        selected_project.present? && selected_subproject.present?
+      end
+
+      def step_1_animation_class
+        turbo_frame_request? ? nil : "ui-enter-item"
+      end
+
+      private
+
+      def turbo_frame_request?
+        helpers.request.headers["Turbo-Frame"].present?
+      end
     end
   end
 end
