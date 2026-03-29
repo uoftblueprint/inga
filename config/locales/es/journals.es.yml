@@ -2,7 +2,5 @@
 es:
   journals:
     new:
-      selection_required_subtitle: Elige ambos campos en el Paso 1 y el formulario del diario aparecera aqui automaticamente.
-      selection_required_title: Selecciona un proyecto y subproyecto para continuar
-      title: Crear Nueva Entrada de Diario
       subtitle: Crear una nueva entrada de diario para un proyecto y subproyecto.
+      title: Crear Nueva Entrada de Diario

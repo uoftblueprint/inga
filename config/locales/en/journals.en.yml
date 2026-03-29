@@ -2,7 +2,5 @@
 en:
   journals:
     new:
-      title: Create New Journal Entry
       subtitle: Create a new journal entry for a project and subproject.
-      selection_required_subtitle: Choose both fields in Step 1 and the journal form will appear here automatically.
-      selection_required_title: Select a project and subproject to continue
+      title: Create New Journal Entry

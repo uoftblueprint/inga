@@ -17,6 +17,10 @@ class ProjectsController < ApplicationController
 
   def edit
     @project = Project.find(params[:id])
+
+    respond_to do |format|
+      format.turbo_stream
+    end
   end
 
   def create

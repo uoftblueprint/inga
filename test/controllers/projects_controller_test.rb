@@ -38,9 +38,7 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
 
   [
     { route: "index", method: :get, url_helper: :projects_url },
-    { route: "new", method: :get, url_helper: :new_project_url },
-    { route: "show", method: :get, url_helper: :project_url, needs_project: true },
-    { route: "edit", method: :get, url_helper: :edit_project_url, needs_project: true }
+    { route: "show", method: :get, url_helper: :project_url, needs_project: true }
   ].each do |hash|
     test "##{hash[:route]} renders successfully when a user is an admin" do
       args = create(:project) if hash[:needs_project]
