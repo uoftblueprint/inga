@@ -10,17 +10,13 @@ module Projects
         @form_url = form_url
         @selected_project_id = selected_project_id
         @selected_subproject_id = selected_subproject_id
+
+        @selected_project = selected_project_id.present? ? Project.find_by(id: selected_project_id) : nil
+        @selected_subproject = if @selected_project && selected_subproject_id.present?
+                                 @selected_project.subprojects.find_by(id: selected_subproject_id)
+                               end
+
         super()
-      end
-
-      def selected_project
-        Project.find_by(id: selected_project_id)
-      end
-
-      def selected_subproject
-        return unless selected_project
-
-        selected_project.subprojects.find_by(id: selected_subproject_id)
       end
 
       def selection_complete?

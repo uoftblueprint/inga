@@ -12,10 +12,8 @@
             selected_subproject_id: params[:subproject_id]
           ) do |component| %>
         <% component.with_form_body do %>
-          <% project = Project.find_by(id: params[:project_id]) %>
-          <% subproject = project&.subprojects&.find_by(id: params[:subproject_id]) %>
-          <% if project && subproject %>
-            <%= turbo_frame_tag "journal_new_form", src: new_project_subproject_journal_path(project, subproject) do %>
+          <% if component.selection_complete? %>
+            <%= turbo_frame_tag "journal_new_form", src: new_project_subproject_journal_path(component.selected_project, component.selected_subproject) do %>
             <% end %>
           <% end %>
         <% end %>

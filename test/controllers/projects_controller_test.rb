@@ -48,6 +48,19 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  [
+    { route: "new", method: :get, url_helper: :new_project_url },
+    { route: "edit", method: :get, url_helper: :edit_project_url, needs_project: true }
+  ].each do |hash|
+    test "##{hash[:route]} renders successfully when a user is an admin" do
+      args = create(:project) if hash[:needs_project]
+
+      public_send(hash[:method], public_send(hash[:url_helper], *args), as: :turbo_stream)
+      assert_response :success
+      assert_equal "text/vnd.turbo-stream.html", @response.media_type
+    end
+  end
+
   test "#index shows all projects" do
     project1 = create(:project, name: "First Project")
     project2 = create(:project, name: "Second Project")
@@ -86,20 +99,26 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
 
   test "#create does not create a project with invalid params" do
     assert_no_difference("Project.count") do
-      post projects_path, params: { project: { name: "", description: "", active: true } }
+      post projects_path,
+           params: { project: { name: "", description: "", active: true } },
+           as: :turbo_stream
     end
 
     assert_response :unprocessable_entity
+    assert_equal "text/vnd.turbo-stream.html", @response.media_type
   end
 
   test "#create enforces uniqueness of project name" do
     existing = create(:project, name: "Unique Project")
 
     assert_no_difference("Project.count") do
-      post projects_path, params: { project: { name: existing.name, description: "Another description", active: true } }
+      post projects_path,
+           params: { project: { name: existing.name, description: "Another description", active: true } },
+           as: :turbo_stream
     end
 
     assert_response :unprocessable_entity
+    assert_equal "text/vnd.turbo-stream.html", @response.media_type
   end
 
   test "#update successfully updates a project" do
@@ -118,9 +137,10 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
   test "#update does not update a project with invalid params" do
     original_name = @project.name
 
-    patch project_path(@project), params: { project: { name: "" } }
+    patch project_path(@project), params: { project: { name: "" } }, as: :turbo_stream
 
     assert_response :unprocessable_entity
+    assert_equal "text/vnd.turbo-stream.html", @response.media_type
     assert_equal original_name, @project.reload.name
   end
 
@@ -130,9 +150,10 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
 
     patch project_path(@project), params: {
       project: { name: existing_project.name }
-    }
+    }, as: :turbo_stream
 
     assert_response :unprocessable_entity
+    assert_equal "text/vnd.turbo-stream.html", @response.media_type
     assert_equal original_name, @project.reload.name
   end
 
