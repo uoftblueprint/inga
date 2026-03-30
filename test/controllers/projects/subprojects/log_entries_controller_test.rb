@@ -46,6 +46,14 @@ module Projects
         { route: "new", method: :get, url_helper: :new_project_subproject_log_entry_url },
         { route: "edit", method: :get, url_helper: :edit_project_subproject_log_entry_url, needs_log_entry: true }
       ].each do |hash|
+        test "##{hash[:route]} returns not found for html when a user is an admin" do
+          args = [@project, @subproject]
+          args << @log_entry if hash[:needs_log_entry]
+
+          public_send(hash[:method], public_send(hash[:url_helper], *args))
+          assert_response :not_found
+        end
+
         test "##{hash[:route]} renders turbo_stream successfully when a user is an admin" do
           args = [@project, @subproject]
           args << @log_entry if hash[:needs_log_entry]

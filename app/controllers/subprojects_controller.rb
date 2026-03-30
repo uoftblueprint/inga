@@ -9,7 +9,7 @@ class SubprojectsController < ApplicationController
     @subproject = @project.subprojects.build
 
     respond_to do |format|
-      format.html
+      format.html { head :not_found }
       format.turbo_stream
     end
   end
@@ -18,7 +18,7 @@ class SubprojectsController < ApplicationController
     @subproject = @project.subprojects.find(params[:id])
 
     respond_to do |format|
-      format.html
+      format.html { head :not_found }
       format.turbo_stream
     end
   end
@@ -32,8 +32,13 @@ class SubprojectsController < ApplicationController
         flash: { success: t(".success") }
       )
     else
-      flash.now[:error] = @subproject.errors.full_messages.to_sentence
-      render :new, status: :unprocessable_entity
+      respond_to do |format|
+        format.html { head :not_found }
+        format.turbo_stream do
+          flash.now[:error] = @subproject.errors.full_messages.to_sentence
+          render :new, status: :unprocessable_entity
+        end
+      end
     end
   end
 
@@ -46,8 +51,13 @@ class SubprojectsController < ApplicationController
         flash: { success: t(".success") }
       )
     else
-      flash.now[:error] = @subproject.errors.full_messages.to_sentence
-      render :edit, status: :unprocessable_entity
+      respond_to do |format|
+        format.html { head :not_found }
+        format.turbo_stream do
+          flash.now[:error] = @subproject.errors.full_messages.to_sentence
+          render :edit, status: :unprocessable_entity
+        end
+      end
     end
   end
 

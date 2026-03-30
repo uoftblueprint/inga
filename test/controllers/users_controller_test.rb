@@ -37,15 +37,33 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   [
     { route: "index", method: :get, url_helper: :users_url },
-    { route: "new", method: :get, url_helper: :new_user_url },
-    { route: "show", method: :get, url_helper: :user_url, needs_user: true },
-    { route: "edit", method: :get, url_helper: :edit_user_url, needs_user: true }
+    { route: "show", method: :get, url_helper: :user_url, needs_user: true }
   ].each do |hash|
     test "##{hash[:route]} renders successfully when a user is an admin" do
       args = create(:user) if hash[:needs_user]
 
       public_send(hash[:method], public_send(hash[:url_helper], *args))
       assert_response :success
+    end
+  end
+
+  [
+    { route: "new", method: :get, url_helper: :new_user_url },
+    { route: "edit", method: :get, url_helper: :edit_user_url, needs_user: true }
+  ].each do |hash|
+    test "##{hash[:route]} returns not found for html when a user is an admin" do
+      args = create(:user) if hash[:needs_user]
+
+      public_send(hash[:method], public_send(hash[:url_helper], *args))
+      assert_response :not_found
+    end
+
+    test "##{hash[:route]} renders turbo_stream successfully when a user is an admin" do
+      args = create(:user) if hash[:needs_user]
+
+      public_send(hash[:method], public_send(hash[:url_helper], *args), as: :turbo_stream)
+      assert_response :success
+      assert_equal "text/vnd.turbo-stream.html", @response.media_type
     end
   end
 
@@ -85,10 +103,13 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   test "#create does not create a user with invalid params" do
     assert_no_difference("User.count") do
-      post users_url, params: { user: { username: "", password: "", password_confirmation: "" } }
+      post users_url,
+           params: { user: { username: "", password: "", password_confirmation: "" } },
+           as: :turbo_stream
     end
 
     assert_response :unprocessable_entity
+    assert_equal "text/vnd.turbo-stream.html", @response.media_type
   end
 
   test "#create enforces uniqueness of username" do
@@ -99,10 +120,12 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
     assert_no_difference("User.count") do
       post users_url,
-           params: { user: { username: existing.username, password: "password", password_confirmation: "password" } }
+           params: { user: { username: existing.username, password: "password", password_confirmation: "password" } },
+           as: :turbo_stream
     end
 
     assert_response :unprocessable_entity
+    assert_equal "text/vnd.turbo-stream.html", @response.media_type
   end
 
   test "#update successfully updates a user's username" do
@@ -117,9 +140,10 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   test "#update does not update a user with invalid params" do
     original_username = @user.username
 
-    patch user_url(@user), params: { user: { username: "" } }
+    patch user_url(@user), params: { user: { username: "" } }, as: :turbo_stream
 
     assert_response :unprocessable_entity
+    assert_equal "text/vnd.turbo-stream.html", @response.media_type
     assert_equal original_username, @user.reload.username
   end
 
@@ -127,9 +151,10 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     existing_user = create(:user, username: "uniqueuser")
     original_name = @user.username
 
-    patch user_url(@user), params: { user: { username: existing_user.username } }
+    patch user_url(@user), params: { user: { username: existing_user.username } }, as: :turbo_stream
 
     assert_response :unprocessable_entity
+    assert_equal "text/vnd.turbo-stream.html", @response.media_type
     assert_equal original_name, @user.reload.username
   end
 

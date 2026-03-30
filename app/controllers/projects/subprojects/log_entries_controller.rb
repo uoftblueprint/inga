@@ -15,7 +15,7 @@ module Projects
         @log_entry = @subproject.log_entries.build
 
         respond_to do |format|
-          format.html
+          format.html { head :not_found }
           format.turbo_stream
         end
       end
@@ -24,6 +24,7 @@ module Projects
         @log_entry = @subproject.log_entries.find(params[:id])
 
         respond_to do |format|
+          format.html { head :not_found }
           format.turbo_stream
         end
       end
@@ -44,11 +45,12 @@ module Projects
         if @log_entry.save
           redirect_to(project_subproject_path(@project, @subproject), flash: { success: t(".success") })
         else
-          flash.now[:error] = @log_entry.errors.full_messages.to_sentence
-
           respond_to do |format|
-            format.turbo_stream { render :create, status: :unprocessable_entity }
-            format.html { render :new, status: :unprocessable_entity }
+            format.html { head :not_found }
+            format.turbo_stream do
+              flash.now[:error] = @log_entry.errors.full_messages.to_sentence
+              render :create, status: :unprocessable_entity
+            end
           end
         end
       end
@@ -68,7 +70,13 @@ module Projects
         if @log_entry.update(metadata: converted)
           redirect_to(project_subproject_path(@project, @subproject), flash: { success: t(".success") })
         else
-          render :edit, status: :unprocessable_entity, formats: [:turbo_stream]
+          respond_to do |format|
+            format.html { head :not_found }
+            format.turbo_stream do
+              flash.now[:error] = @log_entry.errors.full_messages.to_sentence
+              render :edit, status: :unprocessable_entity
+            end
+          end
         end
       end
 

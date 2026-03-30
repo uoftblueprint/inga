@@ -52,6 +52,13 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     { route: "new", method: :get, url_helper: :new_project_url },
     { route: "edit", method: :get, url_helper: :edit_project_url, needs_project: true }
   ].each do |hash|
+    test "##{hash[:route]} returns not found for html when a user is an admin" do
+      args = create(:project) if hash[:needs_project]
+
+      public_send(hash[:method], public_send(hash[:url_helper], *args))
+      assert_response :not_found
+    end
+
     test "##{hash[:route]} renders successfully when a user is an admin" do
       args = create(:project) if hash[:needs_project]
 

@@ -1,7 +1,8 @@
 module Projects
   module Subprojects
     class UnifiedFormComponent < ViewComponent::Base
-      attr_reader :projects, :form_url, :selected_project_id, :selected_subproject_id
+      attr_reader :projects, :form_url, :selected_project_id, :selected_subproject_id, :selected_project,
+                  :selected_subproject
 
       renders_one :form_body
 

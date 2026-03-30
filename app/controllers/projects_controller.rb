@@ -11,6 +11,7 @@ class ProjectsController < ApplicationController
     @project = Project.new(active: true)
 
     respond_to do |format|
+      format.html { head :not_found }
       format.turbo_stream
     end
   end
@@ -19,6 +20,7 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
 
     respond_to do |format|
+      format.html { head :not_found }
       format.turbo_stream
     end
   end
@@ -30,6 +32,7 @@ class ProjectsController < ApplicationController
       redirect_to(project_path(@project), flash: { success: t(".success") })
     else
       respond_to do |format|
+        format.html { head :not_found }
         format.turbo_stream do
           flash.now[:error] = @project.errors.full_messages.to_sentence
           render :new, status: :unprocessable_entity
@@ -45,6 +48,7 @@ class ProjectsController < ApplicationController
       redirect_to(project_path(@project), flash: { success: t(".success") })
     else
       respond_to do |format|
+        format.html { head :not_found }
         format.turbo_stream do
           flash.now[:error] = @project.errors.full_messages.to_sentence
           render :edit, status: :unprocessable_entity

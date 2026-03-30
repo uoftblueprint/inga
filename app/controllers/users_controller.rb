@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     @user = User.new
 
     respond_to do |format|
-      format.html
+      format.html { head :not_found }
       format.turbo_stream
     end
   end
@@ -21,7 +21,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     respond_to do |format|
-      format.html
+      format.html { head :not_found }
       format.turbo_stream
     end
   end
@@ -33,8 +33,13 @@ class UsersController < ApplicationController
       @user.roles = user_params[:roles]
       redirect_to users_path, flash: { success: t(".success") }
     else
-      flash.now[:error] = @user.errors.full_messages.to_sentence
-      render :new, status: :unprocessable_entity
+      respond_to do |format|
+        format.html { head :not_found }
+        format.turbo_stream do
+          flash.now[:error] = @user.errors.full_messages.to_sentence
+          render :new, status: :unprocessable_entity
+        end
+      end
     end
   end
 
@@ -45,8 +50,13 @@ class UsersController < ApplicationController
       @user.roles = user_params[:roles]
       redirect_to users_path, flash: { success: t(".success") }
     else
-      flash.now[:error] = @user.errors.full_messages.to_sentence
-      render :edit, status: :unprocessable_entity
+      respond_to do |format|
+        format.html { head :not_found }
+        format.turbo_stream do
+          flash.now[:error] = @user.errors.full_messages.to_sentence
+          render :edit, status: :unprocessable_entity
+        end
+      end
     end
   end
 
