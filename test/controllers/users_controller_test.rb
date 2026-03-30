@@ -115,9 +115,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   test "#create enforces uniqueness of username" do
     existing = create(:user, username: "uniqueuser")
 
-    post users_url,
-         params: { user: { username: existing.username, password: "password", password_confirmation: "password" } }
-
     assert_no_difference("User.count") do
       post users_url,
            params: { user: { username: existing.username, password: "password", password_confirmation: "password" } },

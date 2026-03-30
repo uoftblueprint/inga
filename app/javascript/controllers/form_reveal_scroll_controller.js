@@ -4,6 +4,7 @@ export default class extends Controller {
   connect() {
     // delay one frame to ensure layout is stable after Turbo frame replacement.
     requestAnimationFrame(() => {
+      if (!this.element?.isConnected) return;
       if (this.isFullyVisible()) return;
 
       const prefersReducedMotion = window.matchMedia(

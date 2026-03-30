@@ -1,6 +1,9 @@
 module Projects
   module Subprojects
     class LogEntriesController < ApplicationController
+      LOG_ENTRY_NEW_FRAME_ID = "log_entry_new_form".freeze
+      private_constant :LOG_ENTRY_NEW_FRAME_ID
+
       before_action :set_project_subproject
 
       def show
@@ -15,7 +18,14 @@ module Projects
         @log_entry = @subproject.log_entries.build
 
         respond_to do |format|
-          format.html { head :not_found }
+          format.html do
+            return head :not_found unless log_entry_new_frame_request?
+
+            render html: helpers.turbo_frame_tag(LOG_ENTRY_NEW_FRAME_ID) {
+              view_context.render(LogEntries::FormComponent.new(project: @project, subproject: @subproject,
+                                                                log_entry: @log_entry))
+            }
+          end
           format.turbo_stream
         end
       end
@@ -121,6 +131,10 @@ module Projects
 
       def has_required_roles?
         current_user.has_roles?(:admin)
+      end
+
+      def log_entry_new_frame_request?
+        request.headers["Turbo-Frame"] == LOG_ENTRY_NEW_FRAME_ID
       end
     end
   end

@@ -64,6 +64,15 @@ module Projects
         end
       end
 
+      test "#new renders html successfully for the unified turbo frame request" do
+        get new_project_subproject_log_entry_url(@project, @subproject),
+            headers: { "Turbo-Frame" => "log_entry_new_form" }
+
+        assert_response :success
+        assert_equal "text/html", @response.media_type
+        assert_includes response.body, '<turbo-frame id="log_entry_new_form">'
+      end
+
       test "#show renders a log_entry's content" do
         get project_subproject_log_entry_url(@project, @subproject, @log_entry), as: :turbo_stream
         assert_response :success
