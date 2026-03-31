@@ -1,0 +1,6 @@
+---
+en:
+  journals:
+    new:
+      subtitle: Create a new journal entry for a project and subproject.
+      title: Create New Journal Entry

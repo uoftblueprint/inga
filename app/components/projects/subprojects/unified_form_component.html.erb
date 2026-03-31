@@ -1,33 +1,41 @@
-<div class="w-full max-w-2xl mx-auto space-y-6">
-  <div class="card bg-base-100 border border-base-300 shadow-sm rounded-xl">
-    <div class="card-body">
-      <%= form_with url: form_url, method: :get, local: true, class: "space-y-4" do %>
-        <%= label_tag :project_id, t(".project_label"), class: "label" %>
+<div class="w-full space-y-6 sm:space-y-8">
+  <section class="space-y-4 <%= step_1_animation_class %>">
+    <div class="space-y-1">
+      <p class="text-xs font-semibold uppercase tracking-wide text-base-content/60"><%= t(".step_1_badge") %></p>
+      <h2 class="text-lg sm:text-xl font-semibold text-base-content"><%= t(".step_1_title") %></h2>
+    </div>
+
+    <%= form_with url: form_url, method: :get, local: true, class: "space-y-4" do %>
+      <div class="space-y-1">
+        <%= label_tag :project_id, t(".project_label"), class: "label font-medium" %>
         <%= select_tag :project_id,
                        options_from_collection_for_select(projects, :id, :name, selected_project_id),
                        prompt: t(".select_project_prompt"),
                        class: "select select-bordered w-full",
                        onchange: "this.form.requestSubmit()" %>
+      </div>
 
-        <div class="min-h-[84px]">
-          <% if selected_project_id.present? %>
-            <% if selected_project.present? %>
-              <%= label_tag :subproject_id, t(".subproject_label"), class: "label" %>
-              <%= select_tag :subproject_id,
-                             options_from_collection_for_select(selected_project.subprojects, :id, :name, selected_subproject_id),
-                             prompt: t(".select_subproject_prompt"),
-                             class: "select select-bordered w-full",
-                             onchange: "this.form.requestSubmit()" %>
-            <% end %>
-          <% end %>
-        </div>
-      <% end %>
-    </div>
-  </div>
+      <div class="space-y-1">
+        <% if selected_project_id.present? && selected_project.present? %>
+          <%= label_tag :subproject_id, t(".subproject_label"), class: "label font-medium" %>
+          <%= select_tag :subproject_id,
+                         options_from_collection_for_select(selected_project.subprojects, :id, :name, selected_subproject_id),
+                         prompt: t(".select_subproject_prompt"),
+                         class: "select select-bordered w-full",
+                         onchange: "this.form.requestSubmit()" %>
+        <% end %>
+      </div>
+    <% end %>
+  </section>
 
-  <div class="card bg-base-100 border border-base-300 shadow-sm rounded-xl min-h-60">
-    <div class="card-body">
+  <% if selection_complete? %>
+    <section class="ui-enter-item space-y-4" data-controller="form-reveal-scroll">
+      <div class="space-y-1">
+        <p class="text-xs font-semibold uppercase tracking-wide text-base-content/60"><%= t(".step_2_badge") %></p>
+        <h2 class="text-lg sm:text-xl font-semibold text-base-content"><%= t(".step_2_title") %></h2>
+      </div>
+
       <%= form_body %>
-    </div>
-  </div>
+    </section>
+  <% end %>
 </div>

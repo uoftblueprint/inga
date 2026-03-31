@@ -46,6 +46,14 @@ module Projects
         { route: "new", method: :get, url_helper: :new_project_subproject_log_entry_url },
         { route: "edit", method: :get, url_helper: :edit_project_subproject_log_entry_url, needs_log_entry: true }
       ].each do |hash|
+        test "##{hash[:route]} returns not found for html when a user is an admin" do
+          args = [@project, @subproject]
+          args << @log_entry if hash[:needs_log_entry]
+
+          public_send(hash[:method], public_send(hash[:url_helper], *args))
+          assert_response :not_found
+        end
+
         test "##{hash[:route]} renders turbo_stream successfully when a user is an admin" do
           args = [@project, @subproject]
           args << @log_entry if hash[:needs_log_entry]
@@ -54,6 +62,15 @@ module Projects
           assert_response :success
           assert_equal "text/vnd.turbo-stream.html", @response.media_type
         end
+      end
+
+      test "#new renders html successfully for the unified turbo frame request" do
+        get new_project_subproject_log_entry_url(@project, @subproject),
+            headers: { "Turbo-Frame" => "log_entry_new_form" }
+
+        assert_response :success
+        assert_equal "text/html", @response.media_type
+        assert_includes response.body, '<turbo-frame id="log_entry_new_form">'
       end
 
       test "#show renders a log_entry's content" do

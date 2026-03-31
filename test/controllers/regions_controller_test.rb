@@ -36,15 +36,33 @@ class RegionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   [
-    { route: "index", method: :get, url_helper: :regions_url },
-    { route: "new", method: :get, url_helper: :new_region_url },
-    { route: "edit", method: :get, url_helper: :edit_region_url, needs_region: true }
+    { route: "index", method: :get, url_helper: :regions_url }
   ].each do |hash|
     test "##{hash[:route]} renders successfully when a user is an admin" do
       args = create(:region) if hash[:needs_region]
 
       public_send(hash[:method], public_send(hash[:url_helper], *args))
       assert_response :success
+    end
+  end
+
+  [
+    { route: "new", method: :get, url_helper: :new_region_url },
+    { route: "edit", method: :get, url_helper: :edit_region_url, needs_region: true }
+  ].each do |hash|
+    test "##{hash[:route]} returns not found for html when a user is an admin" do
+      args = create(:region) if hash[:needs_region]
+
+      public_send(hash[:method], public_send(hash[:url_helper], *args))
+      assert_response :not_found
+    end
+
+    test "##{hash[:route]} renders turbo_stream successfully when a user is an admin" do
+      args = create(:region) if hash[:needs_region]
+
+      public_send(hash[:method], public_send(hash[:url_helper], *args), as: :turbo_stream)
+      assert_response :success
+      assert_equal "text/vnd.turbo-stream.html", @response.media_type
     end
   end
 
@@ -79,10 +97,11 @@ class RegionsControllerTest < ActionDispatch::IntegrationTest
 
   test "#create does not create a region with invalid params" do
     assert_no_difference("Region.count") do
-      post regions_path, params: { region: { name: "" } }
+      post regions_path, params: { region: { name: "" } }, as: :turbo_stream
     end
 
     assert_response :unprocessable_entity
+    assert_equal "text/vnd.turbo-stream.html", @response.media_type
   end
 
   test "#create enforces uniqueness of region name" do
@@ -95,10 +114,11 @@ class RegionsControllerTest < ActionDispatch::IntegrationTest
     } }
 
     assert_no_difference("Region.count") do
-      post regions_path, params: params
+      post regions_path, params: params, as: :turbo_stream
     end
 
     assert_response :unprocessable_entity
+    assert_equal "text/vnd.turbo-stream.html", @response.media_type
   end
 
   test "#update successfully updates a region" do
@@ -117,9 +137,10 @@ class RegionsControllerTest < ActionDispatch::IntegrationTest
   test "#update does not update a region with invalid params" do
     original_name = @region.name
 
-    patch region_path(@region), params: { region: { name: "" } }
+    patch region_path(@region), params: { region: { name: "" } }, as: :turbo_stream
 
     assert_response :unprocessable_entity
+    assert_equal "text/vnd.turbo-stream.html", @response.media_type
     assert_equal original_name, @region.reload.name
   end
 
@@ -129,9 +150,10 @@ class RegionsControllerTest < ActionDispatch::IntegrationTest
 
     patch region_path(@region), params: {
       region: { name: existing_region.name }
-    }
+    }, as: :turbo_stream
 
     assert_response :unprocessable_entity
+    assert_equal "text/vnd.turbo-stream.html", @response.media_type
     assert_equal original_name, @region.reload.name
   end
 

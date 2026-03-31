@@ -1,6 +1,9 @@
 module Projects
   module Subprojects
     class LogEntriesController < ApplicationController
+      LOG_ENTRY_NEW_FRAME_ID = "log_entry_new_form".freeze
+      private_constant :LOG_ENTRY_NEW_FRAME_ID
+
       before_action :set_project_subproject
 
       def show
@@ -15,7 +18,14 @@ module Projects
         @log_entry = @subproject.log_entries.build
 
         respond_to do |format|
-          format.html
+          format.html do
+            return head :not_found unless log_entry_new_frame_request?
+
+            render html: helpers.turbo_frame_tag(LOG_ENTRY_NEW_FRAME_ID) {
+              view_context.render(LogEntries::FormComponent.new(project: @project, subproject: @subproject,
+                                                                log_entry: @log_entry))
+            }
+          end
           format.turbo_stream
         end
       end
@@ -24,6 +34,7 @@ module Projects
         @log_entry = @subproject.log_entries.find(params[:id])
 
         respond_to do |format|
+          format.html { head :not_found }
           format.turbo_stream
         end
       end
@@ -42,17 +53,14 @@ module Projects
         @log_entry.user = current_user
 
         if @log_entry.save
-          respond_to do |format|
-            format.any(:turbo_stream, :html) do
-              redirect_to(project_subproject_path(@project, @subproject), flash: { success: t(".success") })
-            end
-          end
+          redirect_to(project_subproject_path(@project, @subproject), flash: { success: t(".success") })
         else
-          flash.now[:error] = @log_entry.errors.full_messages.to_sentence
-
           respond_to do |format|
-            format.turbo_stream { render :create, status: :unprocessable_entity }
-            format.html { render :new, status: :unprocessable_entity }
+            format.html { head :not_found }
+            format.turbo_stream do
+              flash.now[:error] = @log_entry.errors.full_messages.to_sentence
+              render :create, status: :unprocessable_entity
+            end
           end
         end
       end
@@ -72,7 +80,13 @@ module Projects
         if @log_entry.update(metadata: converted)
           redirect_to(project_subproject_path(@project, @subproject), flash: { success: t(".success") })
         else
-          render :edit, status: :unprocessable_entity, formats: [:turbo_stream]
+          respond_to do |format|
+            format.html { head :not_found }
+            format.turbo_stream do
+              flash.now[:error] = @log_entry.errors.full_messages.to_sentence
+              render :edit, status: :unprocessable_entity
+            end
+          end
         end
       end
 
@@ -117,6 +131,10 @@ module Projects
 
       def has_required_roles?
         current_user.has_roles?(:admin)
+      end
+
+      def log_entry_new_frame_request?
+        request.headers["Turbo-Frame"] == LOG_ENTRY_NEW_FRAME_ID
       end
     end
   end

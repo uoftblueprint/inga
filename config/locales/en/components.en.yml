@@ -4,7 +4,6 @@ en:
     sidebar_component:
       build_admin_section:
         admin: Admin
-        new_report: New Report
         projects: Projects
         regions: Regions
         reports: Reports
@@ -13,15 +12,14 @@ en:
         projects: Projects
       logout_item:
         logout: Logout
-  journals:
-    empty_form_component:
-      create_journal_button: Create Journal
-      markdown_content_label: Markdown content
-      title_label: Title
   projects:
     subprojects:
       unified_form_component:
         project_label: Project
         select_project_prompt: Select a project
         select_subproject_prompt: Select a subproject
+        step_1_badge: Step 1
+        step_1_title: Select project and subproject
+        step_2_badge: Step 2
+        step_2_title: Write the entry
         subproject_label: Subproject

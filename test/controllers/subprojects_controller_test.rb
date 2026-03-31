@@ -40,9 +40,7 @@ class SubprojectsControllerTest < ActionDispatch::IntegrationTest
   end
 
   [
-    { route: "new", method: :get, url_helper: :new_project_subproject_url },
-    { route: "show", method: :get, url_helper: :project_subproject_url, needs_subproject: true },
-    { route: "edit", method: :get, url_helper: :edit_project_subproject_url, needs_subproject: true }
+    { route: "show", method: :get, url_helper: :project_subproject_url, needs_subproject: true }
   ].each do |hash|
     test "##{hash[:route]} renders successfully when a user is an admin" do
       args = [@project]
@@ -50,6 +48,28 @@ class SubprojectsControllerTest < ActionDispatch::IntegrationTest
 
       public_send(hash[:method], public_send(hash[:url_helper], *args))
       assert_response :success
+    end
+  end
+
+  [
+    { route: "new", method: :get, url_helper: :new_project_subproject_url },
+    { route: "edit", method: :get, url_helper: :edit_project_subproject_url, needs_subproject: true }
+  ].each do |hash|
+    test "##{hash[:route]} returns not found for html when a user is an admin" do
+      args = [@project]
+      args << create(:subproject, project: @project, region: @region) if hash[:needs_subproject]
+
+      public_send(hash[:method], public_send(hash[:url_helper], *args))
+      assert_response :not_found
+    end
+
+    test "##{hash[:route]} renders turbo_stream successfully when a user is an admin" do
+      args = [@project]
+      args << create(:subproject, project: @project, region: @region) if hash[:needs_subproject]
+
+      public_send(hash[:method], public_send(hash[:url_helper], *args), as: :turbo_stream)
+      assert_response :success
+      assert_equal "text/vnd.turbo-stream.html", @response.media_type
     end
   end
 
@@ -98,10 +118,11 @@ class SubprojectsControllerTest < ActionDispatch::IntegrationTest
           address: "",
           region_id: @region.id
         }
-      }
+      }, as: :turbo_stream
     end
 
     assert_response :unprocessable_entity
+    assert_equal "text/vnd.turbo-stream.html", @response.media_type
   end
 
   test "#create enforces uniqueness of subproject name" do
@@ -115,10 +136,11 @@ class SubprojectsControllerTest < ActionDispatch::IntegrationTest
           address: "Another address",
           region_id: @region.id
         }
-      }
+      }, as: :turbo_stream
     end
 
     assert_response :unprocessable_entity
+    assert_equal "text/vnd.turbo-stream.html", @response.media_type
   end
 
   test "#update successfully updates a subproject" do
@@ -140,9 +162,10 @@ class SubprojectsControllerTest < ActionDispatch::IntegrationTest
 
     patch project_subproject_path(@project, @subproject), params: {
       subproject: { name: "" }
-    }
+    }, as: :turbo_stream
 
     assert_response :unprocessable_entity
+    assert_equal "text/vnd.turbo-stream.html", @response.media_type
     assert_equal original_name, @subproject.reload.name
   end
 
@@ -152,9 +175,10 @@ class SubprojectsControllerTest < ActionDispatch::IntegrationTest
 
     patch project_subproject_path(@project, @subproject), params: {
       subproject: { name: existing_subproject.name }
-    }
+    }, as: :turbo_stream
 
     assert_response :unprocessable_entity
+    assert_equal "text/vnd.turbo-stream.html", @response.media_type
     assert_equal @subproject.reload.name, original_name
   end
 

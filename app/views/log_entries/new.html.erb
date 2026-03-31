@@ -1,25 +1,22 @@
-<div class="mx-2 my-10 sm:mx-8">
-  <div class="flex items-center justify-between mb-5">
-    <h1 class="text-4xl font-bold"><%= t(".title") %></h1>
+<div class="mx-2 my-4 sm:mx-8 sm:my-10">
+  <div class="flex flex-col gap-1 mb-5 sm:mb-6">
+    <h1 class="text-3xl sm:text-4xl font-bold leading-tight"><%= t(".title") %></h1>
+    <span class="text-base sm:text-lg text-base-content/60"><%= t(".subtitle") %></span>
   </div>
-  <%= render ContentCardComponent.new do %>
-    <%= render Projects::Subprojects::UnifiedFormComponent.new(
-          projects: @projects,
-          form_url: new_log_entry_path,
-          selected_project_id: params[:project_id],
-          selected_subproject_id: params[:subproject_id]
-        ) do |component| %>
-      <% component.with_form_body do %>
-        <% project = Project.find_by(id: params[:project_id]) %>
-        <% subproject = project&.subprojects&.find_by(id: params[:subproject_id]) %>
-        <% if project && subproject %>
-          <%= turbo_frame_tag "log_entry_new_form", src: new_project_subproject_log_entry_path(project, subproject) do %>
-            <%= render LogEntries::EmptyFormComponent.new %>
+
+  <%= turbo_frame_tag "unified_form" do %>
+      <%= render Projects::Subprojects::UnifiedFormComponent.new(
+            projects: @projects,
+            form_url: new_log_entry_path,
+            selected_project_id: params[:project_id],
+            selected_subproject_id: params[:subproject_id]
+          ) do |component| %>
+        <% component.with_form_body do %>
+          <% if component.selection_complete? %>
+            <%= turbo_frame_tag "log_entry_new_form", src: new_project_subproject_log_entry_path(component.selected_project, component.selected_subproject) do %>
+            <% end %>
           <% end %>
-        <% else %>
-          <%= render LogEntries::EmptyFormComponent.new %>
         <% end %>
       <% end %>
-    <% end %>
   <% end %>
 </div>
