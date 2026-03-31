@@ -5,7 +5,7 @@
       <h2 class="text-lg sm:text-xl font-semibold text-base-content"><%= t(".step_1_title") %></h2>
     </div>
 
-    <%= form_with url: form_url, method: :get, data: { turbo: true, turbo_frame: "unified_form", turbo_action: "replace" }, class: "space-y-4" do %>
+    <%= form_with url: form_url, method: :get, local: true, class: "space-y-4" do %>
       <div class="space-y-1">
         <%= label_tag :project_id, t(".project_label"), class: "label font-medium" %>
         <%= select_tag :project_id,
