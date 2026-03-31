@@ -9,3 +9,18 @@ en:
   locales:
     en: English
     es: Español
+  reporter_dashboard:
+    show:
+      title: Reporter Dashboard
+      description: Capture daily context quickly and keep field data flowing.
+      quick_actions_title: Quick Actions
+      quick_actions_hint: Start with one of these
+      journal:
+        title: Journal Entry
+        description: Record narrative updates, observations, and context for the day.
+      log_entry:
+        title: Log Entry
+        description: Add structured measurements and operational data points.
+      actions:
+        new_journal: New Journal Entry
+        new_log_entry: New Log Entry

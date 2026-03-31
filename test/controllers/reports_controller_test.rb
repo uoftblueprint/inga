@@ -48,12 +48,13 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "#show renders successfully when a user is not authenticated" do
+  test "#show redirects to login route when a user is not authenticated" do
     log_out_user
     report = create(:report)
 
     get report_path(report)
-    assert_response :success
+    assert_response :redirect
+    assert_redirected_to login_path
   end
 
   test "#show renders the report correctly" do

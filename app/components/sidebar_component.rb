@@ -6,8 +6,13 @@ class SidebarComponent < ViewComponent::Base
 
   def before_render
     @sections = []
-    build_admin_section
-    build_projects_section
+
+    if reporter?
+      build_reporter_section
+    else
+      build_admin_section
+      build_projects_section
+    end
   end
 
   private
@@ -41,6 +46,20 @@ class SidebarComponent < ViewComponent::Base
       title: t("projects", scope: "components.sidebar_component.build_projects_section"),
       items:
     )
+  end
+
+  def build_reporter_section
+    @sections << SIDEBAR_SECTION.new(
+      title: t("home", scope: "components.sidebar_component.build_reporter_section"),
+      items: [
+        SIDEBAR_ITEM.new(name: t("home", scope: "components.sidebar_component.build_reporter_section"),
+                         path: helpers.reporter_dashboard_path, icon: "house")
+      ]
+    )
+  end
+
+  def reporter?
+    helpers.current_user&.has_roles?(:reporter) && !helpers.current_user&.has_roles?(:admin)
   end
 
   def logout_item

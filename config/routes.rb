@@ -29,7 +29,9 @@ Rails.application.routes.draw do
       end
     end
 
-    root to: "projects#index"
+    resource :reporter_dashboard, only: :show, controller: "reporter_dashboards"
+
+    root to: "home#index"
 
     # User routes
     resources :users

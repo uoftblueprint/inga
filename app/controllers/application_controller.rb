@@ -28,7 +28,24 @@ class ApplicationController < ActionController::Base
   end
 
   def check_required_roles
-    redirect_to root_path, flash: { error: "You do not have permission to access this page" } unless has_required_roles?
+    return if has_required_roles?
+
+    target_path = unauthorized_redirect_path
+
+    # Prevent redirect loops when the fallback destination is also unauthorized.
+    if request.path == target_path
+      render plain: "You do not have permission to access this page", status: :forbidden
+      return
+    end
+
+    redirect_to target_path, flash: { error: "You do not have permission to access this page" }
+  end
+
+  def unauthorized_redirect_path
+    return projects_path if current_user&.has_roles?(:admin)
+    return reporter_dashboard_path if current_user&.has_roles?(:reporter)
+
+    root_path
   end
 
   def show_sidebar? = true

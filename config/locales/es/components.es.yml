@@ -2,6 +2,8 @@
 es:
   components:
     sidebar_component:
+      build_reporter_section:
+        home: Inicio
       build_admin_section:
         admin: Admin
         projects: Proyectos

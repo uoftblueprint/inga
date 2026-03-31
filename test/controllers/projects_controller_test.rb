@@ -171,4 +171,14 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to projects_path
   end
+
+  test "#index redirects reporters to reporter dashboard" do
+    reporter = create(:user, :reporter)
+    post login_url, params: { username: reporter.username, password: reporter.password }
+
+    get projects_path
+
+    assert_response :redirect
+    assert_redirected_to reporter_dashboard_path
+  end
 end
