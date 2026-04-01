@@ -34,5 +34,5 @@ class ProjectAttributesController < ApplicationController
     params.require(:project).permit(log_attributes: %i[title type]) # rubocop:disable Rails/StrongParametersExpect
   end
 
-  def has_required_roles? = current_user.has_roles?(:admin)
+  def has_required_roles? = admin?
 end

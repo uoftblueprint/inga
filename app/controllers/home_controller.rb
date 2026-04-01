@@ -1,16 +1,21 @@
 class HomeController < ApplicationController
   def index
-    if current_user.has_roles?(:admin)
+    if admin?
       redirect_to projects_path
       return
     end
 
-    if current_user.has_roles?(:reporter)
+    if reporter?
       redirect_to reporter_dashboard_path
       return
     end
 
-    render plain: "You do not have permission to access this page", status: :forbidden
+    if analyst?
+      redirect_to reports_path
+      return
+    end
+
+    redirect_with_authorization_error
   end
 
   private

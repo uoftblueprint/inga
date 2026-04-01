@@ -24,28 +24,60 @@ class ApplicationController < ActionController::Base
   end
 
   def require_login
-    redirect_to login_path, flash: { error: "You must be logged in to access this page" } unless logged_in?
+    return if logged_in?
+
+    redirect_to login_path, flash: { error: t("application_controller.require_login.error") }
   end
 
   def check_required_roles
     return if has_required_roles?
 
-    target_path = unauthorized_redirect_path
+    redirect_with_authorization_error
+  end
 
-    # Prevent redirect loops when the fallback destination is also unauthorized.
-    if request.path == target_path
-      render plain: "You do not have permission to access this page", status: :forbidden
-      return
-    end
+  def redirect_with_authorization_error
+    clear_invalid_session if logged_in? && no_roles?
 
-    redirect_to target_path, flash: { error: "You do not have permission to access this page" }
+    redirect_to authorization_redirect_path, flash: { error: t("application_controller.check_required_roles.error") }
   end
 
   def unauthorized_redirect_path
-    return projects_path if current_user&.has_roles?(:admin)
-    return reporter_dashboard_path if current_user&.has_roles?(:reporter)
+    return projects_path if admin?
+    return reporter_dashboard_path if reporter?
+    return reports_path if analyst?
 
     root_path
+  end
+
+  def authorization_redirect_path
+    return login_path unless logged_in?
+
+    target_path = unauthorized_redirect_path
+
+    return login_path if request.path == target_path
+
+    target_path
+  end
+
+  def clear_invalid_session
+    session.delete(:user_id)
+    @current_user = nil
+  end
+
+  def no_roles?
+    !admin? && !reporter? && !analyst?
+  end
+
+  def admin?
+    current_user&.has_roles?(:admin)
+  end
+
+  def reporter?
+    current_user&.has_roles?(:reporter)
+  end
+
+  def analyst?
+    current_user&.has_roles?(:analyst)
   end
 
   def show_sidebar? = true

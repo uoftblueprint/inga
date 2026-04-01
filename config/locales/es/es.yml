@@ -1,27 +1,16 @@
 ---
 es:
+  application_controller:
+    check_required_roles:
+      error: No tienes permiso para acceder a esta página.
+    require_login:
+      error: Debes iniciar sesión para acceder a esta página.
   date:
     formats:
       default: "%d-%m-%Y"
-  time:
-    formats:
-      default: "%d-%m-%Y, %H:%M:%S"
   locales:
     en: English
     es: Español
-  reporter_dashboard:
-    show:
-      badge: Espacio del reportero
-      title: Panel de reportero
-      description: Envia una entrada de registro o diario para documentar tu día y compartir perspectivas.
-      quick_actions_title: Acciones rapidas
-      quick_actions_hint: Comienza con una de estas
-      journal:
-        title: Entrada de diario
-        description: Registra novedades narrativas, observaciones y contexto del dia.
-      log_entry:
-        title: Entrada de registro
-        description: Agrega mediciones estructuradas y datos operativos.
-      actions:
-        new_journal: Nueva entrada de diario
-        new_log_entry: Nueva entrada de registro
+  time:
+    formats:
+      default: "%d-%m-%Y, %H:%M:%S"

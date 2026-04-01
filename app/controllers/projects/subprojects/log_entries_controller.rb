@@ -130,13 +130,13 @@ module Projects
       end
 
       def has_required_roles?
-        return true if current_user.has_roles?(:admin)
+        return true if admin?
 
-        current_user.has_roles?(:reporter) && %w[new create].include?(action_name)
+        reporter? && %w[new create].include?(action_name)
       end
 
       def log_entry_success_path
-        return project_subproject_path(@project, @subproject) if current_user.has_roles?(:admin)
+        return project_subproject_path(@project, @subproject) if admin?
 
         reporter_dashboard_path
       end

@@ -2,7 +2,7 @@ require "test_helper"
 
 class ProjectsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    create_logged_in_admin_user
+    create_logged_in_user_with_roles(:admin)
     @project = create(:project)
   end
 
@@ -23,16 +23,17 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
       public_send(hash[:method], public_send(hash[:url_helper], *args))
       assert_response :redirect
       assert_redirected_to login_path
+      assert_equal I18n.t("application_controller.require_login.error"), flash[:error]
     end
 
-    test "##{hash[:route]} redirects to root route when a user is not authorized" do
-      create_logged_in_user
+    test "##{hash[:route]} redirects when a user is not authorized" do
+      create_logged_in_user_with_roles
 
       args = create(:project) if hash[:needs_project]
 
       public_send(hash[:method], public_send(hash[:url_helper], *args))
       assert_response :redirect
-      assert_redirected_to root_path
+      assert_equal I18n.t("application_controller.check_required_roles.error"), flash[:error]
     end
   end
 
@@ -173,8 +174,7 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "#index redirects reporters to reporter dashboard" do
-    reporter = create(:user, :reporter)
-    post login_url, params: { username: reporter.username, password: reporter.password }
+    create_logged_in_user_with_roles(:reporter)
 
     get projects_path
 

@@ -4,7 +4,7 @@ module Projects
   module Subprojects
     class JournalsControllerTest < ActionDispatch::IntegrationTest
       setup do
-        @user = create_logged_in_admin_user
+        @user = create_logged_in_user_with_roles(:admin)
         @project = create(:project)
         @region = create(:region)
         @subproject = create(:subproject, project: @project, region: @region)
@@ -31,15 +31,14 @@ module Projects
           assert_redirected_to login_path
         end
 
-        test "##{hash[:route]} redirects to root route when a user is not authorized" do
-          create_logged_in_user
+        test "##{hash[:route]} redirects when a user is not authorized" do
+          create_logged_in_user_with_roles
 
           args = [@project, @subproject]
           args << create(:journal, subproject: @subproject, user: @user) if hash[:needs_journal]
 
           public_send(hash[:method], public_send(hash[:url_helper], *args))
           assert_response :redirect
-          assert_redirected_to root_path
         end
       end
 

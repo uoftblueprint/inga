@@ -1,26 +1,16 @@
 ---
 en:
+  application_controller:
+    check_required_roles:
+      error: You do not have permission to access this page.
+    require_login:
+      error: You must be logged in to access this page.
   date:
     formats:
       default: "%m-%d-%Y"
-  time:
-    formats:
-      default: "%m-%d-%Y, %H:%M:%S"
   locales:
     en: English
     es: Español
-  reporter_dashboard:
-    show:
-      title: Reporter Dashboard
-      description: Submit a log or journal entry to document your day and share insights.
-      quick_actions_title: Quick Actions
-      quick_actions_hint: Start with one of these
-      journal:
-        title: Journal Entry
-        description: Record narrative updates, observations, and context for the day.
-      log_entry:
-        title: Log Entry
-        description: Add structured measurements and operational data points.
-      actions:
-        new_journal: New Journal Entry
-        new_log_entry: New Log Entry
+  time:
+    formats:
+      default: "%m-%d-%Y, %H:%M:%S"

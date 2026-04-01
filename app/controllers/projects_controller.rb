@@ -73,6 +73,6 @@ class ProjectsController < ApplicationController
   end
 
   def has_required_roles?
-    current_user.has_roles?(:admin)
+    admin?
   end
 end

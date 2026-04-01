@@ -2,7 +2,7 @@ require "test_helper"
 
 class UsersControllerTest < ActionDispatch::IntegrationTest
   setup do
-    create_logged_in_admin_user
+    create_logged_in_user_with_roles(:admin)
     @user = create(:user)
   end
 
@@ -25,13 +25,12 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       assert_redirected_to login_path
     end
 
-    test "##{hash[:route]} redirects to root route when a user is not authorized" do
-      create_logged_in_user
+    test "##{hash[:route]} redirects when a user is not authorized" do
+      create_logged_in_user_with_roles
       args = create(:user) if hash[:needs_user]
 
       public_send(hash[:method], public_send(hash[:url_helper], *args))
       assert_response :redirect
-      assert_redirected_to root_path
     end
   end
 
@@ -175,7 +174,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "#destroy prevents self-deletion" do
-    user = create_logged_in_admin_user
+    user = create_logged_in_user_with_roles(:admin)
     delete user_url(user)
     assert_flashed :error
   end

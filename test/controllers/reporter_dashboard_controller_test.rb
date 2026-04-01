@@ -6,20 +6,21 @@ class ReporterDashboardControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :redirect
     assert_redirected_to login_path
+    assert_equal I18n.t("application_controller.require_login.error"), flash[:error]
   end
 
   test "#show redirects admins to projects when a user is not authorized" do
-    create_logged_in_admin_user
+    create_logged_in_user_with_roles(:admin)
 
     get reporter_dashboard_url
 
     assert_response :redirect
     assert_redirected_to projects_path
+    assert_equal I18n.t("application_controller.check_required_roles.error"), flash[:error]
   end
 
   test "#show renders successfully for reporters" do
-    reporter = create(:user, :reporter)
-    post login_url, params: { username: reporter.username, password: reporter.password }
+    create_logged_in_user_with_roles(:reporter)
 
     get reporter_dashboard_url
 

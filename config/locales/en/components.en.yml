@@ -2,16 +2,18 @@
 en:
   components:
     sidebar_component:
-      build_reporter_section:
-        home: Home
       build_admin_section:
         admin: Admin
         projects: Projects
         regions: Regions
-        reports: Reports
         users: Users
       build_projects_section:
-        projects: Projects
+        projects: Recent Projects
+      build_reporter_section:
+        home: Home
+      build_reports_section:
+        create_new_report: Create New Report
+        reports: Reports
       logout_item:
         logout: Logout
   projects:

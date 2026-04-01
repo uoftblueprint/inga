@@ -16,6 +16,7 @@ data:
   # Locale files or `Dir.glob` patterns where translations are read from:
   read:
     - config/locales/%{locale}.yml
+    - config/locales/**/%{locale}.yml
     - config/locales/**/*.%{locale}.yml
 
   # Locale files to write new keys to, based on a list of key pattern => file rules. Matched from top to bottom:
@@ -158,6 +159,7 @@ ignore_unused:
 - 'activerecord.attributes.*'
 - date.*
 - time.*
+- locales.*
 - 'number.nth.ordinalized'
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'

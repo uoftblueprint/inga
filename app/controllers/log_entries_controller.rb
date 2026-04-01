@@ -3,5 +3,5 @@ class LogEntriesController < ApplicationController
     @projects = Project.all
   end
 
-  def has_required_roles? = current_user.has_roles?(:reporter)
+  def has_required_roles? = reporter?
 end
