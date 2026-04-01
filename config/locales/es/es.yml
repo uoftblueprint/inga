@@ -13,7 +13,7 @@ es:
     show:
       badge: Espacio del reportero
       title: Panel de reportero
-      description: Captura contexto diario rapidamente y manten el flujo de datos de campo.
+      description: Envia una entrada de registro o diario para documentar tu día y compartir perspectivas.
       quick_actions_title: Acciones rapidas
       quick_actions_hint: Comienza con una de estas
       journal:

@@ -12,7 +12,7 @@ en:
   reporter_dashboard:
     show:
       title: Reporter Dashboard
-      description: Capture daily context quickly and keep field data flowing.
+      description: Submit a log or journal entry to document your day and share insights.
       quick_actions_title: Quick Actions
       quick_actions_hint: Start with one of these
       journal:

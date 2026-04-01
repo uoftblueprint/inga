@@ -36,7 +36,9 @@
   </div>
   <div class="border-t border-base-300 py-2">
     <li>
-      <%= button_to logout_item.path, method: :delete, class: "flex gap-3" do %>
+      <%= link_to logout_item.path,
+                  data: { turbo_method: :delete },
+                  class: "flex w-full items-center gap-3" do %>
         <%= render IconComponent.new(icon: logout_item.icon, size: :md, classes: "w-5 h-5") %>
         <span> <%= logout_item.name %> </span>
       <% end %>
