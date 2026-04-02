@@ -14,32 +14,75 @@ en:
       confirm: Are you sure you want to delete this report?
       success: Report deleted successfully.
     edit:
-      add_aggregated_datum: Add Aggregated Data Box
+      active: Report Active Status
+      active_description: Turn this off to hide the public report page.
+      add_aggregated_datum: Add Displayed Statistic
       add_journal: Add Journal
       added_journal: Added
-      aggregated_data: Aggregated Data
+      aggregated_data: Displayed Statistics
+      aggregated_data_description: Add, adjust, or remove statistics that will appear in the final report. Default values were automatically calculated based on the projects, subprojects, and date range provided during report creation.
       author: Author
       available_journals: Available Journals
+      available_journals_description: Pick journals to include in this report.
       close: Close
       content: Content
-      empty_journals: No journals selected yet.
+      empty_aggregated_data: No displayed statistics yet. Add one to start summarizing key values.
+      empty_journals: No displayed journals yet.
       remove: Remove
       save: Save Changes
-      selected_journals: Selected Journals
+      selected_journals: Displayed Journals
+      selected_journals_description: 'Add or remove journal entries whose title and content should be displayed in the report. Note: images in journals are also rendered on the report.'
+      subtitle: Refine displayed statistics and choose the exact journals that appear in this report.
       title: Edit Report
     index:
       actions:
         create: Create Report
+      active: Active
+      id: ID
+      inactive: Inactive
+      subtitle: View, review, and manage generated reports presented to external parties.
       title: Reports
     journal_card_component:
       author: Author
+      project: Project
+      subproject: Subproject
     new:
+      date_range:
+        title: Date Range
       end_date: End Date
       generate: Generate Report
       projects: Projects
+      scope:
+        no_subprojects: No projects with entries made in this range. Please select a date range where entries were made to see relevant projects and subprojects.
+        title: Scope Selection
       start_date: Start Date
+      steps:
+        step_one:
+          description: Pick the start and end dates that define the report window.
+        step_three:
+          description: Generate report and continue editing to refine details.
+        step_two:
+          description: Choose the projects and subprojects whose entries you want to include in the report. The specific data used can be refined at a later stage.
       subprojects: Subprojects
+      subtitle: Build reports for external stakeholders based on log and journal entries made under projects and subprojects.
+      summary:
+        selected_subprojects: "%{count} subproject(s) selected. All data from these subprojects will be automatically added to the generated report, but in the next step you will be able to drop or add data you want to display in the final report."
+        title: Ready to Generate?
       title: New Report
+    show:
+      displayed_journals: Journal Entries
+      displayed_journals_description: Written updates and field notes from the team.
+      displayed_statistics: Key Statistics
+      displayed_statistics_description: A summary of measurable outcomes and progress.
+      empty_journals: No journal entries are included in this report.
+      empty_statistics: No key statistics are included in this report.
+      inactive_warning_description: This report is not publicly accessible.
+      inactive_warning_title: This report is inactive.
+      not_found: The report you were looking for does not exist.
+      not_found_description: This report may have been deactivated or removed.
+      title: 'Inga Foundation Report: %{start_date} to %{end_date}'
+    thank_you_card_component:
+      message: Thank you!
     update:
       invalid: Please provide valid aggregated data values and labels.
       success: Report was updated successfully.

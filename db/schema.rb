@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_22_231800) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_02_050126) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
@@ -107,10 +107,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_22_231800) do
   end
 
   create_table "reports", force: :cascade do |t|
+    t.boolean "active", default: true, null: false
     t.datetime "created_at", null: false
     t.date "end_date"
     t.date "start_date"
     t.datetime "updated_at", null: false
+    t.string "uuid", null: false
+    t.index ["uuid"], name: "index_reports_on_uuid", unique: true
   end
 
   create_table "subprojects", force: :cascade do |t|

@@ -4,6 +4,7 @@ export default class extends Controller {
   static targets = [
     "aggregatedDataList",
     "aggregatedDatumTemplate",
+    "emptyAggregatedData",
     "selectedJournalsList",
     "emptySelectedJournals",
     "journalModal",
@@ -12,6 +13,7 @@ export default class extends Controller {
   connect() {
     this.newAggregatedIndex = 0;
     this._markAlreadySelectedJournalButtons();
+    this._syncAggregatedDataEmptyState();
     this._syncSelectedJournalEmptyState();
   }
 
@@ -31,18 +33,33 @@ export default class extends Controller {
 
     this.newAggregatedIndex += 1;
     this.aggregatedDataListTarget.insertAdjacentHTML("beforeend", html);
+
+    const card = this.aggregatedDataListTarget.lastElementChild;
+    if (card) {
+      card.style.setProperty(
+        "--report-item-delay",
+        `${this.aggregatedDataListTarget.children.length * 30}ms`,
+      );
+      card.classList.add("report-item-enter");
+    }
+
+    this._syncAggregatedDataEmptyState();
   }
 
   removeAggregatedDatum(event) {
-    event.currentTarget
-      .closest('[data-report-editor-target="aggregatedDatumCard"]')
-      .remove();
+    const card = event.currentTarget.closest(
+      '[data-report-editor-target="aggregatedDatumCard"]',
+    );
+
+    this._animateRemove(card);
   }
 
   removeNewAggregatedDatum(event) {
-    event.currentTarget
-      .closest('[data-report-editor-target="newAggregatedDatumCard"]')
-      .remove();
+    const card = event.currentTarget.closest(
+      '[data-report-editor-target="newAggregatedDatumCard"]',
+    );
+
+    this._animateRemove(card);
   }
 
   addJournal(event) {
@@ -66,6 +83,7 @@ export default class extends Controller {
       .then((r) => r.text())
       .then((html) => {
         Turbo.renderStreamMessage(html);
+        this._animateJournalAdd(journalId);
         this._markJournalButtonSelected(addButton);
         this._syncSelectedJournalEmptyState();
       })
@@ -77,7 +95,11 @@ export default class extends Controller {
     const journalId = journalCard?.dataset.journalId;
 
     if (journalCard) {
-      journalCard.remove();
+      this._animateRemove(journalCard, () =>
+        this._syncSelectedJournalEmptyState(),
+      );
+    } else {
+      this._syncSelectedJournalEmptyState();
     }
 
     if (journalId) {
@@ -91,8 +113,6 @@ export default class extends Controller {
         this._markJournalButtonAvailable(addButton);
       }
     }
-
-    this._syncSelectedJournalEmptyState();
   }
 
   _hasSelectedJournal(journalId) {
@@ -136,5 +156,45 @@ export default class extends Controller {
       this.selectedJournalsListTarget.querySelector("[data-journal-id]");
 
     this.emptySelectedJournalsTarget.classList.toggle("hidden", !!hasSelected);
+  }
+
+  _syncAggregatedDataEmptyState() {
+    if (!this.hasEmptyAggregatedDataTarget) {
+      return;
+    }
+
+    const hasCards = this.aggregatedDataListTarget.querySelector(
+      "[data-report-editor-target$='DatumCard']",
+    );
+    this.emptyAggregatedDataTarget.classList.toggle("hidden", !!hasCards);
+  }
+
+  _animateJournalAdd(journalId) {
+    const journalCard = this.selectedJournalsListTarget.querySelector(
+      `[data-journal-id="${journalId}"]`,
+    );
+
+    if (journalCard) {
+      journalCard.style.setProperty(
+        "--report-item-delay",
+        `${this.selectedJournalsListTarget.children.length * 30}ms`,
+      );
+      journalCard.classList.add("report-item-enter");
+    }
+  }
+
+  _animateRemove(card, onRemoved = null) {
+    if (!card) {
+      return;
+    }
+
+    card.classList.add("report-item-exit");
+    window.setTimeout(() => {
+      card.remove();
+      this._syncAggregatedDataEmptyState();
+      if (onRemoved) {
+        onRemoved();
+      }
+    }, 220);
   }
 }

@@ -88,6 +88,34 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     assert_match aggregated_datum.additional_text, response.body
   end
 
+  test "#show returns not found for inactive reports on public requests" do
+    log_out_user
+    report = create(:report, active: false)
+
+    get report_path(report)
+
+    assert_response :not_found
+  end
+
+  test "#show renders inactive reports for analysts" do
+    report = create(:report, active: false)
+
+    get report_path(report)
+
+    assert_response :success
+    assert_match I18n.t("reports.show.inactive_warning_title"), response.body
+    assert_match I18n.t("reports.show.inactive_warning_description"), response.body
+  end
+
+  test "#show returns not found for non-privileged logged-in users when report is inactive" do
+    create_logged_in_user_with_roles(:reporter)
+    report = create(:report, active: false)
+
+    get report_path(report)
+
+    assert_response :not_found
+  end
+
   test "#index displays all reports" do
     report_a = create(:report, start_date: Date.new(2025, 1, 1), end_date: Date.new(2025, 1, 31))
     report_b = create(:report, start_date: Date.new(2025, 2, 1), end_date: Date.new(2025, 2, 28))
@@ -95,8 +123,8 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     get reports_path
     assert_response :success
 
-    assert_select "div", text: report_a.id.to_s
-    assert_select "div", text: report_b.id.to_s
+    assert_select "div", text: report_a.uuid
+    assert_select "div", text: report_b.uuid
     assert_select "div", text: I18n.l(report_a.start_date)
     assert_select "div", text: I18n.l(report_b.start_date)
     assert_select "div", text: I18n.l(report_a.end_date)
@@ -218,6 +246,7 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     removed_datum = create(:aggregated_datum, report: report, additional_text: "Remove me", value: 5)
 
     patch report_path(report), params: {
+      active: "1",
       journal_ids: [existing_journal.id, added_journal.id],
       retained_aggregated_datum_ids: [retained_datum.id],
       new_aggregated_data: {

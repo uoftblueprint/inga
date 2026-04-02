@@ -14,32 +14,75 @@ es:
       confirm: "¿Estás seguro que deseas eliminar este reporte?"
       success: Reporte eliminado exitosamente.
     edit:
-      add_aggregated_datum: Agregar Caja de Datos Agregados
+      active: Estado del Reporte
+      active_description: Desactiva esto para ocultar la página pública del reporte.
+      add_aggregated_datum: Agregar estadistica mostrada
       add_journal: Agregar Diario
       added_journal: Agregado
-      aggregated_data: Datos Agregados
+      aggregated_data: Estadisticas mostradas
+      aggregated_data_description: Agrega, ajusta o elimina valores que apareceran en el reporte final. Los valores predeterminados se calcularon automaticamente segun los proyectos, subproyectos y el rango de fechas definidos durante la creacion del reporte.
       author: Autor
       available_journals: Diarios Disponibles
+      available_journals_description: Selecciona los diarios que deseas incluir en este reporte.
       close: Cerrar
       content: Contenido
-      empty_journals: No hay diarios seleccionados todavía.
+      empty_aggregated_data: Aun no hay estadisticas mostradas. Agrega una para comenzar a resumir valores clave.
+      empty_journals: Aun no hay diarios mostrados.
       remove: Eliminar
       save: Guardar Cambios
-      selected_journals: Diarios Seleccionados
+      selected_journals: Diarios mostrados
+      selected_journals_description: Agrega o elimina entradas de diario que deben mostrarse en el reporte.
+      subtitle: Ajusta las estadisticas mostradas y elige exactamente los diarios que apareceran en este reporte.
       title: Editar Reporte
     index:
       actions:
         create: Crear reporte
+      active: Activo
+      id: ID
+      inactive: Inactivo
+      subtitle: Ver, revisar y gestionar informes generados presentados a partes externas.
       title: Reportes
     journal_card_component:
       author: Autor
+      project: Proyecto
+      subproject: Subproyecto
     new:
+      date_range:
+        title: Rango de fechas
       end_date: Fecha de Fin
       generate: Generar Reporte
       projects: Proyectos
+      scope:
+        no_subprojects: No hay proyectos con entradas en este rango. Selecciona un rango de fechas donde existan entradas para ver proyectos y subproyectos relevantes.
+        title: Seleccion de alcance
       start_date: Fecha de Inicio
+      steps:
+        step_one:
+          description: Define la fecha de inicio y la fecha de fin que delimitan la ventana del reporte.
+        step_three:
+          description: Generar informe y continuar editando para refinar los detalles.
+        step_two:
+          description: Elige los proyectos y subproyectos cuyas entradas deseas incluir en el reporte. Los datos especificos utilizados se pueden refinar en una etapa posterior.
       subprojects: Subproyectos
+      subtitle: Crea reportes para partes interesadas externas basados en entradas de bitacora y diario registradas en proyectos y subproyectos.
+      summary:
+        selected_subprojects: "%{count} subproyecto(s) seleccionado(s). Todos los datos de estos subproyectos se agregaran automaticamente al reporte generado, pero en el siguiente paso podras quitar o agregar la informacion que deseas mostrar en el reporte final."
+        title: Listo para generar?
       title: Nuevo Reporte
+    show:
+      displayed_journals: Entradas de Diario
+      displayed_journals_description: Actualizaciones escritas y notas de campo del equipo.
+      displayed_statistics: Estadisticas Clave
+      displayed_statistics_description: Un resumen de resultados medibles y progreso.
+      empty_journals: No hay entradas de diario incluidas en este reporte.
+      empty_statistics: No hay estadisticas clave incluidas en este reporte.
+      inactive_warning_description: Este reporte no es accesible públicamente.
+      inactive_warning_title: Este reporte esta inactivo.
+      not_found: El reporte que estabas buscando no existe.
+      not_found_description: Este reporte puede haber sido desactivado o eliminado.
+      title: 'Reporte de Inga Foundation: %{start_date} a %{end_date}'
+    thank_you_card_component:
+      message: Gracias.
     update:
       invalid: Proporcione valores y etiquetas válidos para los datos agregados.
       success: El reporte fue actualizado exitosamente.

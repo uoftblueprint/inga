@@ -3,11 +3,14 @@
   <div class="flex-1">
     <div class="px-4 py-4 border-b border-base-300">
       <%= link_to root_path do %>
-        <div class="flex items-center gap-3">
-          <%= render IconComponent.new(icon: "tree", size: :md) %>
-          <span class="font-semibold text-sm text-base-content">
-            INGA INTERNALS
-          </span>
+        <div class="flex flex-col items-center gap-2 text-center">
+          <%= image_tag "inga-logo.svg", alt: "Inga Foundation", class: "h-10 w-auto" %>
+          <div class="flex items-center gap-2">
+            <%= render IconComponent.new(icon: "tree", size: "20") %>
+            <span class="font-semibold text-sm tracking-wide text-base-content">
+              INGA INTERNALS
+            </span>
+          </div>
         </div>
       <% end %>
     </div>

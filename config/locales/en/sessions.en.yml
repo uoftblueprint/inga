@@ -6,3 +6,13 @@ en:
       success: Logged in successfully.
     destroy:
       success: Logged out successfully.
+    login:
+      brand_description: Track projects, review field journals, and generate external reports — all in one place.
+      brand_title: Inga Internals
+      password: Password
+      password_placeholder: Enter your password
+      sign_in: Sign in
+      username: Username
+      username_placeholder: Enter your username
+      welcome_description: Sign in to your account to continue.
+      welcome_title: Welcome back

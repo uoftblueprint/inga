@@ -6,3 +6,13 @@ es:
       success: Inició sesión exitosamente.
     destroy:
       success: Se cerró sesión exitosamente.
+    login:
+      brand_description: Gestiona proyectos, revisa diarios de campo y genera reportes externos, todo en un solo lugar.
+      brand_title: Inga Internals
+      password: Contraseña
+      password_placeholder: Ingresa tu contraseña
+      sign_in: Iniciar sesión
+      username: Nombre de usuario
+      username_placeholder: Ingresa tu nombre de usuario
+      welcome_description: Inicia sesión en tu cuenta para continuar.
+      welcome_title: Bienvenido de nuevo

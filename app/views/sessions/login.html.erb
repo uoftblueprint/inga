@@ -1,19 +1,49 @@
-<fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4 mt-10 mx-auto">
-  <legend class="fieldset-legend text-lg font-semibold">Login</legend>
-
-  <%= form_with url: login_path, local: true do |form| %>
-    <div>
-      <label class="label mb-1">Username</label>
-      <%= form.text_field :username, required: true, class: "input w-full", placeholder: "Username" %>
+<div class="min-h-screen grid grid-cols-1 md:grid-cols-2">
+  <%# Left panel — branding %>
+  <div class="hidden md:flex flex-col justify-center bg-primary px-12 py-14">
+    <div class="flex flex-col gap-3">
+      <h1 class="text-3xl font-bold text-primary-content leading-snug"><%= t(".brand_title") %></h1>
+      <p class="text-primary-content/70 text-base max-w-sm mt-1">
+        <%= t(".brand_description") %>
+      </p>
     </div>
+  </div>
 
-    <div class="mt-2">
-      <label class="label mb-1">Password</label>
-      <%= form.password_field :password, required: true, class: "input w-full", placeholder: "Password" %>
-    </div>
+  <%# Right panel — form %>
+  <div class="flex flex-col justify-center items-center px-6 py-14 sm:px-10 bg-base-100">
+    <div class="w-full max-w-sm">
+      <div class="flex justify-center mb-9">
+        <%= image_tag "inga-logo.svg", alt: "Inga Foundation", class: "h-16 w-auto" %>
+      </div>
 
-    <div class="mt-4">
-      <%= form.submit "Login", class: "btn btn-neutral w-full" %>
+      <div class="mb-8">
+        <h2 class="text-3xl font-bold text-base-content"><%= t(".welcome_title") %></h2>
+        <p class="text-base-content/50 text-sm mt-1"><%= t(".welcome_description") %></p>
+      </div>
+
+      <%= form_with url: login_path, local: true do |form| %>
+        <div class="flex flex-col gap-4">
+          <div class="flex flex-col gap-1">
+            <label class="text-sm font-medium text-base-content"><%= t(".username") %></label>
+            <%= form.text_field :username, required: true,
+                                           class: "input input-bordered w-full focus:input-primary",
+                                           placeholder: t(".username_placeholder"),
+                                           autocomplete: "username" %>
+          </div>
+
+          <div class="flex flex-col gap-1">
+            <label class="text-sm font-medium text-base-content"><%= t(".password") %></label>
+            <%= form.password_field :password, required: true,
+                                               class: "input input-bordered w-full focus:input-primary",
+                                               placeholder: t(".password_placeholder"),
+                                               autocomplete: "current-password" %>
+          </div>
+
+          <div class="mt-2">
+            <%= form.submit t(".sign_in"), class: "btn btn-primary w-full" %>
+          </div>
+        </div>
+      <% end %>
     </div>
-  <% end %>
-</fieldset>
+  </div>
+</div>
