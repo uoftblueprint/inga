@@ -35,12 +35,41 @@ en:
     journal_card_component:
       author: Author
     new:
+      configuration:
+        subtitle: Select a date range, refine the project scope, and generate your report package.
+        title: Report Configuration
       end_date: End Date
       generate: Generate Report
       projects: Projects
+      scope:
+        awaiting_range: Select a valid date range to load available projects and subprojects.
+        no_subprojects: No projects with entries made in this range. Please select a date range where entries were made to see relevant projects and subprojects.
+        title: Scope Selection
+      steps:
+        step_one:
+          description: Pick the start and end dates that define the report window.
+          label: Step 1
+          title: Set Date Range
+        step_three:
+          description: Generate report and continue editing to refine details.
+          label: Step 3
+          title: Generate Report
+        step_two:
+          description: Choose the projects and subprojects whose entries you want to include in the report. The specific data used can be refined at a later stage.
+          label: Step 2
+          title: Choose Scope
+        title: How It Works
       start_date: Start Date
       subprojects: Subprojects
+      subtitle: Build reports for external stakeholders based on log and journal entries made under projecst and subprojects.
+      summary:
+        empty: Select one or more subprojects to unlock report generation.
+        select_to_generate: Select Subprojects
+        selected_subprojects: "%{count} subproject(s) selected. All data from these subprojects will be automatically added to the generated report, but in the next step you will be able to drop or add data you want to display in the final report."
+        title: Ready to Generate?
       title: New Report
+      date_range:
+        title: Date Range
     update:
       invalid: Please provide valid aggregated data values and labels.
       success: Report was updated successfully.

@@ -35,12 +35,41 @@ es:
     journal_card_component:
       author: Autor
     new:
+      configuration:
+        subtitle: Selecciona un rango de fechas, ajusta el alcance por proyecto y genera tu paquete de reporte.
+        title: Configuracion del reporte
       end_date: Fecha de Fin
       generate: Generar Reporte
       projects: Proyectos
+      scope:
+        awaiting_range: Selecciona un rango de fechas valido para cargar proyectos y subproyectos disponibles.
+        no_subprojects: No hay proyectos con entradas en este rango. Selecciona un rango de fechas donde existan entradas para ver proyectos y subproyectos relevantes.
+        title: Seleccion de alcance
+      steps:
+        step_one:
+          description: Define la fecha de inicio y la fecha de fin para la ventana del reporte.
+          label: Paso 1
+          title: Definir rango de fechas
+        step_three:
+          description: Generar informe y continuar editando para refinar los detalles.
+          label: Paso 3
+          title: Generar reporte
+        step_two:
+          description: Elige los proyectos y subproyectos que deseas incluir en el resultado.
+          label: Paso 2
+          title: Elegir alcance
+        title: Como funciona
       start_date: Fecha de Inicio
       subprojects: Subproyectos
+      subtitle: Crea reportes claros y profesionales ajustando fechas y seleccionando exactamente lo que deseas incluir.
+      summary:
+        empty: Selecciona uno o mas subproyectos para habilitar la generacion del reporte.
+        select_to_generate: Seleccionar subproyectos
+        selected_subprojects: "%{count} subproyecto(s) seleccionado(s) y listo(s) para generar el reporte."
+        title: Listo para generar?
       title: Nuevo Reporte
+      date_range:
+        title: Rango de fechas
     update:
       invalid: Proporcione valores y etiquetas válidos para los datos agregados.
       success: El reporte fue actualizado exitosamente.

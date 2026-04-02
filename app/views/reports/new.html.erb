@@ -1,72 +1,102 @@
-<div class="mx-8 my-10">
-  <div class="flex items-center justify-between mb-5">
-    <h1 class="text-4xl font-bold"><%= t(".title") %></h1>
+<div class="mx-2 my-4 sm:mx-8 sm:my-10">
+  <% step_one_complete = params[:start_date].present? && params[:end_date].present? && !@projects.nil? %>
+  <% selected_count = @selected_subproject_ids&.size.to_i %>
+  <% step_two_complete = selected_count.positive? %>
+
+  <div class="flex flex-col gap-2 mb-5 sm:mb-6">
+    <h1 class="text-3xl sm:text-4xl font-bold leading-tight">
+      <%= t(".title") %>
+    </h1>
+    <p class="text-base sm:text-lg text-base-content/70">
+      <%= t(".subtitle") %>
+    </p>
   </div>
-  <%= render ContentCardComponent.new do %>
-    <div class="w-full max-w-2xl mx-auto space-y-6">
-      <div class="card bg-base-100 border border-base-300 shadow-sm rounded-xl">
-        <div class="card-body">
-          <%= form_with url: filter_reports_path, method: :get, local: true, class: "space-y-4" do %>
-            <div class="grid grid-cols-2 gap-4">
+
+  <div class="ui-enter-item" style="--ui-enter-delay: 120ms;">
+    <%= turbo_frame_tag "report_generator" do %>
+      <div>
+        <%= render ContentCardComponent.new do %>
+        <%= form_with url: filter_reports_path, method: :get, data: { turbo: true, turbo_frame: "report_generator" }, class: "space-y-4" do %>
+          <section class="rounded-xl border border-base-300 bg-base-100 p-4 sm:p-5 space-y-3">
+            <h3 class="text-lg font-semibold">1. <%= t(".date_range.title") %></h3>
+            <p class="text-sm text-base-content/70"><%= t(".steps.step_one.description") %></p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <%= label_tag :start_date, t(".start_date"), class: "label font-semibold text-base-content" %>
+                <%= label_tag :start_date, t(".start_date"), class: "label font-semibold text-base-content mb-2" %>
                 <%= date_field_tag :start_date, params[:start_date], class: "input w-full", autocomplete: "off", onchange: "this.form.requestSubmit()" %>
               </div>
               <div>
-                <%= label_tag :end_date, t(".end_date"), class: "label font-semibold text-base-content" %>
+                <%= label_tag :end_date, t(".end_date"), class: "label font-semibold text-base-content mb-2" %>
                 <%= date_field_tag :end_date, params[:end_date], class: "input w-full", autocomplete: "off", onchange: "this.form.requestSubmit()" %>
               </div>
             </div>
+          </section>
 
-            <% if @projects&.any? %>
-              <div>
-                <%= label_tag nil, t(".projects"), class: "label font-semibold text-base-content" %>
-                <div class="grid gap-2">
-                  <% @projects.each do |project| %>
-                    <label class="flex items-center gap-2 cursor-pointer">
-                      <%= check_box_tag "project_ids[]", project.id,
-                                        @selected_project_ids&.include?(project.id),
-                                        class: "checkbox",
-                                        onchange: "this.form.requestSubmit()" %>
-                      <span><%= project.name %></span>
-                    </label>
-                  <% end %>
+          <% if step_one_complete %>
+            <section class="rounded-xl border border-base-300 bg-base-100 p-4 sm:p-5 space-y-3">
+              <h3 class="text-lg font-semibold">2. <%= t(".scope.title") %></h3>
+              <p class="text-sm text-base-content/70"><%= t(".steps.step_two.description") %></p>
+
+              <% if @projects&.any? %>
+                <div class="rounded-xl border border-base-300 bg-base-100 p-4">
+                  <%= label_tag nil, t(".projects"), class: "label font-semibold text-base-content mb-2" %>
+                  <div class="grid gap-2 sm:grid-cols-2">
+                    <% @projects.each do |project| %>
+                      <label class="flex items-center gap-2 cursor-pointer">
+                        <%= check_box_tag "project_ids[]", project.id,
+                                          @selected_project_ids&.include?(project.id),
+                                          class: "checkbox",
+                                          onchange: "this.form.requestSubmit()" %>
+                        <span><%= project.name %></span>
+                      </label>
+                    <% end %>
+                  </div>
                 </div>
-              </div>
+              <% end %>
 
               <% if @subprojects&.any? %>
-                <div>
-                  <%= label_tag nil, t(".subprojects"), class: "label font-semibold text-base-content" %>
-                  <div class="grid gap-2">
+                <div class="rounded-xl border border-base-300 bg-base-100 p-4">
+                  <%= label_tag nil, t(".subprojects"), class: "label font-semibold text-base-content mb-2" %>
+                  <div class="grid gap-2 sm:grid-cols-2">
                     <% @subprojects.each do |subproject| %>
                       <label class="flex items-center gap-2 cursor-pointer">
                         <%= check_box_tag "subproject_ids[]", subproject.id,
                                           @selected_subproject_ids&.include?(subproject.id),
                                           class: "checkbox",
                                           onchange: "this.form.requestSubmit()" %>
-                        <span><%= subproject.name %></span>
+                        <span>
+                          <%= subproject.name %>
+                          <span class="text-base-content/60">[<%= subproject.project&.name %>]</span>
+                        </span>
                       </label>
                     <% end %>
                   </div>
                 </div>
+              <% elsif @projects.blank? %>
+                <p class="text-sm text-base-content/70"><%= t(".scope.no_subprojects") %></p>
               <% end %>
-            <% end %>
+            </section>
           <% end %>
-        </div>
-      </div>
+        <% end %>
 
-      <% if @selected_subproject_ids&.any? %>
-        <div class="flex justify-end">
-          <%= form_with url: reports_path, method: :post do %>
-            <%= hidden_field_tag :start_date, params[:start_date] %>
-            <%= hidden_field_tag :end_date, params[:end_date] %>
-            <% @selected_subproject_ids.each do |id| %>
-              <%= hidden_field_tag "subproject_ids[]", id %>
+        <% if step_two_complete %>
+          <section class="rounded-xl border border-base-300 bg-base-100 p-4 sm:p-5 mt-4 space-y-3">
+            <h2 class="text-xl font-semibold">3. <%= t(".summary.title") %></h2>
+            <p class="text-sm text-base-content/70"><%= t(".steps.step_three.description") %></p>
+            <p class="text-sm text-base-content/70"><%= t(".summary.selected_subprojects", count: selected_count) %></p>
+
+            <%= form_with url: reports_path, method: :post, data: { turbo_frame: "_top" } do %>
+              <%= hidden_field_tag :start_date, params[:start_date] %>
+              <%= hidden_field_tag :end_date, params[:end_date] %>
+              <% @selected_subproject_ids.each do |id| %>
+                <%= hidden_field_tag "subproject_ids[]", id %>
+              <% end %>
+              <%= submit_tag t(".generate"), class: "btn btn-primary" %>
             <% end %>
-            <%= submit_tag t(".generate"), class: "btn bg-success text-white border-success hover:bg-success/90" %>
-          <% end %>
-        </div>
-      <% end %>
-    </div>
-  <% end %>
+          </section>
+        <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 </div>
