@@ -30,6 +30,7 @@ es:
     index:
       actions:
         create: Crear reporte
+      subtitle: Ver, revisar y gestionar informes generados presentados a partes externas.
       title: Reportes
     journal_card_component:
       author: Autor

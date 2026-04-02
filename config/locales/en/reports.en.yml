@@ -30,6 +30,7 @@ en:
     index:
       actions:
         create: Create Report
+      subtitle: View, review, and manage generated reports presented to external parties.
       title: Reports
     journal_card_component:
       author: Author
