@@ -1,9 +1,14 @@
 <section class="mx-2 my-4 sm:mx-8 sm:my-10">
-  <div class="flex flex-col gap-1 mb-5 sm:mb-6">
-    <p class="text-xs sm:text-sm text-primary font-medium uppercase tracking-wide">
-      <%= t(".report_period", start_date: l(@report.start_date), end_date: l(@report.end_date)) %>
-    </p>
-    <h1 class="text-3xl sm:text-4xl font-bold leading-tight"><%= t(".title") %></h1>
+  <div class="mb-5 sm:mb-6">
+    <div class="rounded-xl border border-primary/20 bg-primary/5 px-4 py-3 sm:px-5 sm:py-4">
+      <%= image_tag "inga-logo.svg", alt: "Inga Foundation", class: "h-10 w-auto sm:h-14" %>
+
+      <div class="mt-3 flex flex-col gap-0.5">
+        <h1 class="text-3xl sm:text-4xl font-bold leading-tight">
+          <%= t(".title", start_date: l(@report.start_date), end_date: l(@report.end_date)) %>
+        </h1>
+      </div>
+    </div>
   </div>
 
   <div class="ui-enter-item border-y border-base-300 py-5" style="--ui-enter-delay: 60ms;">

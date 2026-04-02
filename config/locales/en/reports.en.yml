@@ -86,7 +86,7 @@ en:
       empty_statistics: No key statistics are included in this report.
       report_period: "Report period: %{start_date} to %{end_date}"
       subtitle: This report presents key statistics and journal entries.
-      title: Report
+      title: "Inga Foundation Report: %{start_date} to %{end_date}"
     thank_you_card_component:
       message: Thank you!
     update:

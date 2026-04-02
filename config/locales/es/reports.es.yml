@@ -86,7 +86,7 @@ es:
       empty_statistics: No hay estadisticas clave incluidas en este reporte.
       report_period: "Periodo del reporte: %{start_date} a %{end_date}"
       subtitle: Este reporte presenta estadisticas clave y entradas de diario.
-      title: Reporte
+      title: "Reporte de Inga Foundation: %{start_date} a %{end_date}"
     thank_you_card_component:
       message: Gracias.
     update:
