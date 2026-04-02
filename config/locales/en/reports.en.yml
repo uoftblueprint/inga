@@ -14,6 +14,8 @@ en:
       confirm: Are you sure you want to delete this report?
       success: Report deleted successfully.
     edit:
+      active: Report Active Status
+      active_description: Turn this off to hide the public report page.
       add_aggregated_datum: Add Displayed Statistic
       add_journal: Add Journal
       added_journal: Added
@@ -29,12 +31,15 @@ en:
       remove: Remove
       save: Save Changes
       selected_journals: Displayed Journals
-      selected_journals_description: "Add or remove journal entries whose title and content should be displayed in the report. Note: images in journals are also rendered on the report."
+      selected_journals_description: 'Add or remove journal entries whose title and content should be displayed in the report. Note: images in journals are also rendered on the report.'
       subtitle: Refine displayed statistics and choose the exact journals that appear in this report.
       title: Edit Report
     index:
       actions:
         create: Create Report
+      active: Active
+      id: ID
+      inactive: Inactive
       subtitle: View, review, and manage generated reports presented to external parties.
       title: Reports
     journal_card_component:
@@ -42,41 +47,28 @@ en:
       project: Project
       subproject: Subproject
     new:
-      configuration:
-        subtitle: Select a date range, refine the project scope, and generate your report package.
-        title: Report Configuration
+      date_range:
+        title: Date Range
       end_date: End Date
       generate: Generate Report
       projects: Projects
       scope:
-        awaiting_range: Select a valid date range to load available projects and subprojects.
         no_subprojects: No projects with entries made in this range. Please select a date range where entries were made to see relevant projects and subprojects.
         title: Scope Selection
+      start_date: Start Date
       steps:
         step_one:
           description: Pick the start and end dates that define the report window.
-          label: Step 1
-          title: Set Date Range
         step_three:
           description: Generate report and continue editing to refine details.
-          label: Step 3
-          title: Generate Report
         step_two:
           description: Choose the projects and subprojects whose entries you want to include in the report. The specific data used can be refined at a later stage.
-          label: Step 2
-          title: Choose Scope
-        title: How It Works
-      start_date: Start Date
       subprojects: Subprojects
-      subtitle: Build reports for external stakeholders based on log and journal entries made under projecst and subprojects.
+      subtitle: Build reports for external stakeholders based on log and journal entries made under projects and subprojects.
       summary:
-        empty: Select one or more subprojects to unlock report generation.
-        select_to_generate: Select Subprojects
         selected_subprojects: "%{count} subproject(s) selected. All data from these subprojects will be automatically added to the generated report, but in the next step you will be able to drop or add data you want to display in the final report."
         title: Ready to Generate?
       title: New Report
-      date_range:
-        title: Date Range
     show:
       displayed_journals: Journal Entries
       displayed_journals_description: Written updates and field notes from the team.
@@ -84,9 +76,9 @@ en:
       displayed_statistics_description: A summary of measurable outcomes and progress.
       empty_journals: No journal entries are included in this report.
       empty_statistics: No key statistics are included in this report.
-      report_period: "Report period: %{start_date} to %{end_date}"
-      subtitle: This report presents key statistics and journal entries.
-      title: "Inga Foundation Report: %{start_date} to %{end_date}"
+      not_found: The report you were looking for does not exist.
+      not_found_description: This report may have been deactivated or removed.
+      title: 'Inga Foundation Report: %{start_date} to %{end_date}'
     thank_you_card_component:
       message: Thank you!
     update:

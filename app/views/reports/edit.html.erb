@@ -10,6 +10,20 @@
         <%= submit_tag t(".save"), class: "btn btn-primary" %>
       </div>
 
+      <div class="rounded-xl border border-primary/20 bg-primary/5 px-4 py-3 sm:px-5 sm:py-4">
+        <div class="flex items-center justify-between gap-4">
+          <div class="flex flex-col gap-0.5">
+            <h2 class="text-lg sm:text-xl font-bold text-primary"><%= t(".active") %></h2>
+            <p class="text-sm text-base-content/70"><%= t(".active_description") %></p>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <%= hidden_field_tag :active, "0" %>
+            <%= check_box_tag :active, "1", @report.active, class: "toggle toggle-primary toggle-lg" %>
+          </div>
+        </div>
+      </div>
+
       <%= render ContentCardComponent.new do %>
         <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between mb-4">
           <div>
@@ -38,7 +52,7 @@
           <% end %>
         </div>
 
-        <p class="text-sm text-base-content/70 mt-3 <%= @report.aggregated_data.any? ? 'hidden' : '' %>" data-report-editor-target="emptyAggregatedData">
+        <p class="text-sm text-base-content/70 mt-3 <%= @report.aggregated_data.any? ? "hidden" : "" %>" data-report-editor-target="emptyAggregatedData">
         <%= t(".empty_aggregated_data") %>
         </p>
 
@@ -81,7 +95,7 @@
           <%= render IconComponent.new(icon: "add", size: :sm) %>
           <%= t(".add_journal") %>
         </button>
-        
+
         <div id="selected-journals-list" class="flex flex-col gap-3" data-report-editor-target="selectedJournalsList">
           <% @selected_journals.each_with_index do |journal, idx| %>
             <div class="relative report-item-enter" style="--report-item-delay: <%= idx * 45 %>ms;" data-journal-id="<%= journal.id %>">

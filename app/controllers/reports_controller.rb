@@ -6,13 +6,19 @@ class ReportsController < ApplicationController
   end
 
   def show
-    @report = Report.includes(journals: [:user, { subproject: :project }]).find(params[:id])
+    @report = Report.active
+                    .includes(journals: [:user, { subproject: :project }])
+                    .find_by(uuid: params[:id])
+
+    return if @report
+
+    render :not_found, status: :not_found
   end
 
   def new; end
 
   def edit
-    @report = Report.find(params[:id])
+    @report = Report.find_by!(uuid: params[:id])
     load_edit_context
   end
 
@@ -53,7 +59,7 @@ class ReportsController < ApplicationController
   end
 
   def update
-    @report = Report.find(params[:id])
+    @report = Report.find_by!(uuid: params[:id])
 
     journals = Journal.where(id: selected_journal_ids)
     aggregated_data = parse_new_aggregated_data
@@ -64,6 +70,7 @@ class ReportsController < ApplicationController
     end
 
     ActiveRecord::Base.transaction do
+      @report.update!(active: active_param)
       @report.journal_ids = journals.pluck(:id)
 
       @report.aggregated_data.where.not(id: retained_aggregated_datum_ids).delete_all
@@ -77,7 +84,8 @@ class ReportsController < ApplicationController
       end
     end
 
-    redirect_to report_path(@report), flash: { success: t(".success") }
+    redirect_target = @report.active? ? report_path(@report) : reports_path
+    redirect_to redirect_target, flash: { success: t(".success") }
   end
 
   def filter
@@ -105,7 +113,7 @@ class ReportsController < ApplicationController
   end
 
   def destroy
-    @report = Report.find(params[:id])
+    @report = Report.find_by!(uuid: params[:id])
 
     if @report.destroy
       redirect_to reports_path, flash: { success: t(".success") }
@@ -120,11 +128,11 @@ class ReportsController < ApplicationController
     selected_ids = @report.journal_ids
 
     @selected_journals = @report.journals.with_rich_text_markdown_content
-                  .includes(:user, { subproject: :project })
-                  .order(created_at: :desc)
+                                .includes(:user, { subproject: :project })
+                                .order(created_at: :desc)
     @available_journals = Journal.where.not(id: selected_ids)
                                  .with_rich_text_markdown_content
-                   .includes(:user, { subproject: :project })
+                                 .includes(:user, { subproject: :project })
                                  .order(created_at: :desc)
   end
 
@@ -135,7 +143,11 @@ class ReportsController < ApplicationController
   end
 
   def update_params
-    params.permit(journal_ids: [], retained_aggregated_datum_ids: [], new_aggregated_data: {})
+    params.permit(:active, journal_ids: [], retained_aggregated_datum_ids: [], new_aggregated_data: {})
+  end
+
+  def active_param
+    update_params.key?(:active) ? ActiveModel::Type::Boolean.new.cast(update_params[:active]) : @report.active
   end
 
   def selected_journal_ids

@@ -95,7 +95,9 @@ export default class extends Controller {
     const journalId = journalCard?.dataset.journalId;
 
     if (journalCard) {
-      this._animateRemove(journalCard, () => this._syncSelectedJournalEmptyState());
+      this._animateRemove(journalCard, () =>
+        this._syncSelectedJournalEmptyState(),
+      );
     } else {
       this._syncSelectedJournalEmptyState();
     }
@@ -111,7 +113,6 @@ export default class extends Controller {
         this._markJournalButtonAvailable(addButton);
       }
     }
-
   }
 
   _hasSelectedJournal(journalId) {
@@ -162,7 +163,9 @@ export default class extends Controller {
       return;
     }
 
-    const hasCards = this.aggregatedDataListTarget.querySelector("[data-report-editor-target$='DatumCard']");
+    const hasCards = this.aggregatedDataListTarget.querySelector(
+      "[data-report-editor-target$='DatumCard']",
+    );
     this.emptyAggregatedDataTarget.classList.toggle("hidden", !!hasCards);
   }
 

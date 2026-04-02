@@ -95,8 +95,8 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     get reports_path
     assert_response :success
 
-    assert_select "div", text: report_a.id.to_s
-    assert_select "div", text: report_b.id.to_s
+    assert_select "div", text: report_a.uuid
+    assert_select "div", text: report_b.uuid
     assert_select "div", text: I18n.l(report_a.start_date)
     assert_select "div", text: I18n.l(report_b.start_date)
     assert_select "div", text: I18n.l(report_a.end_date)
@@ -218,6 +218,7 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     removed_datum = create(:aggregated_datum, report: report, additional_text: "Remove me", value: 5)
 
     patch report_path(report), params: {
+      active: "1",
       journal_ids: [existing_journal.id, added_journal.id],
       retained_aggregated_datum_ids: [retained_datum.id],
       new_aggregated_data: {
