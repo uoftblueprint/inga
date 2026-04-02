@@ -6,7 +6,7 @@ class ReportsController < ApplicationController
   end
 
   def show
-    @report = Report.find(params[:id])
+    @report = Report.includes(journals: [:user, { subproject: :project }]).find(params[:id])
   end
 
   def new; end
@@ -119,10 +119,12 @@ class ReportsController < ApplicationController
   def load_edit_context
     selected_ids = @report.journal_ids
 
-    @selected_journals = @report.journals.with_rich_text_markdown_content.includes(:user).order(created_at: :desc)
+    @selected_journals = @report.journals.with_rich_text_markdown_content
+                  .includes(:user, { subproject: :project })
+                  .order(created_at: :desc)
     @available_journals = Journal.where.not(id: selected_ids)
                                  .with_rich_text_markdown_content
-                                 .includes(:user)
+                   .includes(:user, { subproject: :project })
                                  .order(created_at: :desc)
   end
 
@@ -174,5 +176,5 @@ class ReportsController < ApplicationController
     analyst?
   end
 
-  def show_sidebar? = action_name != "show"
+  def show_sidebar? = action_name != "show" || logged_in?
 end

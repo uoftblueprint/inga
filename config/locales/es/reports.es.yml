@@ -29,8 +29,8 @@ es:
       remove: Eliminar
       save: Guardar Cambios
       selected_journals: Diarios mostrados
-      selected_journals_description: Agrega o elimina tarjetas de diario que deben mostrarse en el reporte.
-      subtitle: Ajusta los datos agregados y elige exactamente los diarios que apareceran en este reporte.
+      selected_journals_description: Agrega o elimina entradas de diario que deben mostrarse en el reporte.
+      subtitle: Ajusta las estadisticas mostradas y elige exactamente los diarios que apareceran en este reporte.
       title: Editar Reporte
     index:
       actions:
@@ -39,6 +39,8 @@ es:
       title: Reportes
     journal_card_component:
       author: Autor
+      project: Proyecto
+      subproject: Subproyecto
     new:
       configuration:
         subtitle: Selecciona un rango de fechas, ajusta el alcance por proyecto y genera tu paquete de reporte.
@@ -75,6 +77,18 @@ es:
       title: Nuevo Reporte
       date_range:
         title: Rango de fechas
+    show:
+      displayed_journals: Entradas de Diario
+      displayed_journals_description: Actualizaciones escritas y notas de campo del equipo.
+      displayed_statistics: Estadisticas Clave
+      displayed_statistics_description: Un resumen de resultados medibles y progreso.
+      empty_journals: No hay entradas de diario incluidas en este reporte.
+      empty_statistics: No hay estadisticas clave incluidas en este reporte.
+      report_period: "Periodo del reporte: %{start_date} a %{end_date}"
+      subtitle: Este reporte presenta estadisticas clave y entradas de diario.
+      title: Reporte
+    thank_you_card_component:
+      message: Gracias.
     update:
       invalid: Proporcione valores y etiquetas válidos para los datos agregados.
       success: El reporte fue actualizado exitosamente.

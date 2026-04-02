@@ -1,16 +1,54 @@
-<div class="flex flex-col gap-3 p-4 items-center">
-  <%= render Reports::MarqueeComponent.new do |marquee| %>
-    <% @report.aggregated_data.each do |aggregated_datum| %>
-      <% marquee.with_slide do %>
-        <%= render Reports::AggregatedDatumCardComponent.new(aggregated_datum: aggregated_datum) %>
-      <% end %>
-    <% end %>
-  <% end %>
-
-  <div class="flex flex-col gap-3">
-    <% @report.journals.each do |journal| %>
-      <%= render Reports::JournalCardComponent.new(journal: journal) %>
-    <% end %>
+<section class="mx-2 my-4 sm:mx-8 sm:my-10">
+  <div class="flex flex-col gap-1 mb-5 sm:mb-6">
+    <p class="text-xs sm:text-sm text-primary font-medium uppercase tracking-wide">
+      <%= t(".report_period", start_date: l(@report.start_date), end_date: l(@report.end_date)) %>
+    </p>
+    <h1 class="text-3xl sm:text-4xl font-bold leading-tight"><%= t(".title") %></h1>
   </div>
-  <%= render Reports::ThankYouCardComponent.new %>
-</div>
+
+  <div class="ui-enter-item border-y border-base-300 py-5" style="--ui-enter-delay: 60ms;">
+    <section>
+      <div class="mb-4">
+        <h2 class="text-2xl font-bold text-primary"><%= t(".displayed_statistics") %></h2>
+        <p class="text-sm text-base-content/70 mt-1"><%= t(".displayed_statistics_description") %></p>
+      </div>
+
+      <% if @report.aggregated_data.any? %>
+        <%= render Reports::MarqueeComponent.new do |marquee| %>
+          <% @report.aggregated_data.each do |aggregated_datum| %>
+            <% marquee.with_slide do %>
+              <%= render Reports::AggregatedDatumCardComponent.new(aggregated_datum: aggregated_datum) %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% else %>
+        <p class="text-sm text-base-content/70"><%= t(".empty_statistics") %></p>
+      <% end %>
+    </section>
+  </div>
+
+  <div class="ui-enter-item mt-5 border-b border-base-300 pb-5" style="--ui-enter-delay: 110ms;">
+    <section>
+      <div class="mb-4">
+        <h2 class="text-2xl font-bold text-primary"><%= t(".displayed_journals") %></h2>
+        <p class="text-sm text-base-content/70 mt-1"><%= t(".displayed_journals_description") %></p>
+      </div>
+
+      <% if @report.journals.any? %>
+        <div class="flex flex-col gap-3">
+          <% @report.journals.each_with_index do |journal, idx| %>
+            <div class="ui-enter-item" style="--ui-enter-delay: <%= 140 + (idx * 35) %>ms;">
+              <%= render Reports::JournalCardComponent.new(journal: journal) %>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="text-sm text-base-content/70"><%= t(".empty_journals") %></p>
+      <% end %>
+    </section>
+  </div>
+
+  <div class="ui-enter-item mt-5" style="--ui-enter-delay: 160ms;">
+    <%= render Reports::ThankYouCardComponent.new %>
+  </div>
+</section>

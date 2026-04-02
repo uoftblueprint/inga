@@ -39,6 +39,8 @@ en:
       title: Reports
     journal_card_component:
       author: Author
+      project: Project
+      subproject: Subproject
     new:
       configuration:
         subtitle: Select a date range, refine the project scope, and generate your report package.
@@ -75,6 +77,18 @@ en:
       title: New Report
       date_range:
         title: Date Range
+    show:
+      displayed_journals: Journal Entries
+      displayed_journals_description: Written updates and field notes from the team.
+      displayed_statistics: Key Statistics
+      displayed_statistics_description: A summary of measurable outcomes and progress.
+      empty_journals: No journal entries are included in this report.
+      empty_statistics: No key statistics are included in this report.
+      report_period: "Report period: %{start_date} to %{end_date}"
+      subtitle: This report presents key statistics and journal entries.
+      title: Report
+    thank_you_card_component:
+      message: Thank you!
     update:
       invalid: Please provide valid aggregated data values and labels.
       success: Report was updated successfully.
