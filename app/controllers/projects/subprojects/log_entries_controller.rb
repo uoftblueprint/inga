@@ -138,7 +138,7 @@ module Projects
       def log_entry_success_path
         return project_subproject_path(@project, @subproject) if admin?
 
-        reporter_dashboard_path
+        root_path
       end
 
       def log_entry_new_frame_request?

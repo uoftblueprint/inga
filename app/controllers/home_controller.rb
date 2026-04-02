@@ -6,7 +6,7 @@ class HomeController < ApplicationController
     end
 
     if reporter?
-      redirect_to reporter_dashboard_path
+      render "reporter_dashboards/show"
       return
     end
 

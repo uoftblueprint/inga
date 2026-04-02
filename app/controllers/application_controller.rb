@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
   default_form_builder DefaultFormBuilder
   allow_browser versions: :modern
-  helper_method :show_sidebar?
+  helper_method :show_sidebar?, :admin?, :reporter?, :analyst?
   before_action :require_login
   before_action :check_required_roles
   before_action :set_locale
@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
 
   def unauthorized_redirect_path
     return projects_path if admin?
-    return reporter_dashboard_path if reporter?
+    return root_path if reporter?
     return reports_path if analyst?
 
     root_path
@@ -53,8 +53,14 @@ class ApplicationController < ActionController::Base
     return login_path unless logged_in?
 
     target_path = unauthorized_redirect_path
+    target_fullpath = begin
+      uri = URI.parse(target_path)
+      uri.query.present? ? "#{uri.path}?#{uri.query}" : uri.path
+    rescue URI::InvalidURIError
+      target_path
+    end
 
-    return login_path if request.path == target_path
+    return login_path if request.fullpath == target_fullpath
 
     target_path
   end
