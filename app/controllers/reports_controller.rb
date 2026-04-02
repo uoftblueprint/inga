@@ -6,7 +6,9 @@ class ReportsController < ApplicationController
   end
 
   def show
-    @report = Report.active
+    report_scope = privileged_report_viewer? ? Report.all : Report.active
+
+    @report = report_scope
                     .includes(journals: [:user, { subproject: :project }])
                     .find_by(uuid: params[:id])
 
@@ -186,6 +188,10 @@ class ReportsController < ApplicationController
     return true if action_name == "show"
 
     analyst?
+  end
+
+  def privileged_report_viewer?
+    logged_in? && analyst?
   end
 
   def show_sidebar? = action_name != "show" || logged_in?

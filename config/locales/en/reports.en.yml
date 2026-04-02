@@ -76,6 +76,8 @@ en:
       displayed_statistics_description: A summary of measurable outcomes and progress.
       empty_journals: No journal entries are included in this report.
       empty_statistics: No key statistics are included in this report.
+      inactive_warning_title: This report is inactive.
+      inactive_warning_description: This report is not publicly accessible.
       not_found: The report you were looking for does not exist.
       not_found_description: This report may have been deactivated or removed.
       title: 'Inga Foundation Report: %{start_date} to %{end_date}'

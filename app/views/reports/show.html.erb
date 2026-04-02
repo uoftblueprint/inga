@@ -1,4 +1,13 @@
 <section class="mx-2 my-4 sm:mx-8 sm:my-10">
+  <% if logged_in? && !@report.active? %>
+    <div class="mb-5 sm:mb-6">
+      <div class="rounded-xl border border-error/30 bg-error/10 px-4 py-3 sm:px-5 sm:py-4">
+        <p class="text-sm font-semibold text-error"><%= t(".inactive_warning_title") %></p>
+        <p class="mt-1 text-sm text-error/90"><%= t(".inactive_warning_description") %></p>
+      </div>
+    </div>
+  <% end %>
+
   <div class="mb-5 sm:mb-6">
     <div class="rounded-xl border border-primary/20 bg-primary/5 px-4 py-3 sm:px-5 sm:py-4">
       <%= image_tag "inga-logo.svg", alt: "Inga Foundation", class: "h-10 w-auto sm:h-14" %>
