@@ -1,15 +1,21 @@
-<section class="mx-8 my-10" data-controller="report-editor" data-locale="<%= I18n.locale %>">
+<section class="mx-2 my-4 sm:mx-8 sm:my-10" data-controller="report-editor" data-locale="<%= I18n.locale %>">
   <%= form_with url: report_path(@report), method: :patch, local: true do %>
-    <div class="flex flex-col gap-4">
+    <div class="flex flex-col gap-5">
 
-      <div class="flex flex-row justify-between items-start">
-        <h1 class="text-4xl font-bold"><%= t(".title") %></h1>
-        <%= submit_tag t(".save"), class: "btn bg-success text-base-100 border-success hover:bg-success/90" %>
+      <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+        <div class="flex flex-col gap-1">
+          <h1 class="text-3xl sm:text-4xl font-bold leading-tight"><%= t(".title") %></h1>
+          <p class="text-base sm:text-lg text-base-content/70 max-w-4xl"><%= t(".subtitle") %></p>
+        </div>
+        <%= submit_tag t(".save"), class: "btn btn-primary" %>
       </div>
 
       <%= render ContentCardComponent.new do %>
-        <div class="flex items-center justify-between mb-4">
-          <h1 class="text-2xl font-bold"><%= t(".aggregated_data") %></h1>
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between mb-4">
+          <div>
+            <h2 class="text-2xl font-bold"><%= t(".aggregated_data") %></h2>
+            <p class="text-sm text-base-content/70 mt-1"><%= t(".aggregated_data_description") %></p>
+          </div>
           <button type="button" class="btn btn-sm btn-primary gap-2" data-action="report-editor#addAggregatedDatum">
             <%= render IconComponent.new(icon: "add", size: :sm) %>
             <%= t(".add_aggregated_datum") %>
@@ -17,20 +23,24 @@
         </div>
 
         <div class="flex flex-wrap gap-4 justify-center" data-report-editor-target="aggregatedDataList">
-          <% @report.aggregated_data.each do |aggregated_datum| %>
-            <div class="relative w-48" data-report-editor-target="aggregatedDatumCard">
+          <% @report.aggregated_data.each_with_index do |aggregated_datum, idx| %>
+            <div class="relative w-48 report-item-enter" style="--report-item-delay: <%= idx * 40 %>ms;" data-report-editor-target="aggregatedDatumCard">
               <%= hidden_field_tag "retained_aggregated_datum_ids[]", aggregated_datum.id %>
               <button
-                  type="button"
-                  class="btn btn-xs btn-outline btn-square absolute right-1 top-1 z-10 shadow-none border-base-100 text-base-100 hover:bg-base-100 hover:text-black"
-                  data-action="report-editor#removeAggregatedDatum"
-                  aria-label="<%= t(".remove") %>">
-                  <%= render IconComponent.new(icon: "close", size: :xs) %>
+                type="button"
+                class="btn btn-xs btn-outline btn-square absolute right-1 top-1 z-10 shadow-none border-base-100 text-base-100 hover:bg-base-100 hover:text-black"
+                data-action="report-editor#removeAggregatedDatum"
+                aria-label="<%= t(".remove") %>">
+                <%= render IconComponent.new(icon: "close", size: :xs) %>
               </button>
               <%= render Reports::AggregatedDatumCardComponent.new(aggregated_datum: aggregated_datum, static: true) %>
             </div>
           <% end %>
         </div>
+
+        <p class="text-sm text-base-content/70 mt-3 <%= @report.aggregated_data.any? ? 'hidden' : '' %>" data-report-editor-target="emptyAggregatedData">
+        <%= t(".empty_aggregated_data") %>
+        </p>
 
         <template data-report-editor-target="aggregatedDatumTemplate">
           <div class="relative w-48" data-report-editor-target="newAggregatedDatumCard">
@@ -59,19 +69,22 @@
       <% end %>
 
       <%= render ContentCardComponent.new do %>
-        <h1 class="text-2xl font-bold mb-4"><%= t(".selected_journals") %></h1>
+        <div class="flex flex-col gap-1 mb-4">
+          <h2 class="text-2xl font-bold"><%= t(".selected_journals") %></h2>
+          <p class="text-sm text-base-content/70"><%= t(".selected_journals_description") %></p>
+        </div>
 
         <button
             type="button"
-            class="btn btn-primary w-full gap-2 mb-4"
+            class="btn btn-primary gap-2"
             data-action="report-editor#openJournalModal">
           <%= render IconComponent.new(icon: "add", size: :sm) %>
           <%= t(".add_journal") %>
         </button>
-
+        
         <div id="selected-journals-list" class="flex flex-col gap-3" data-report-editor-target="selectedJournalsList">
-          <% @selected_journals.each do |journal| %>
-            <div class="relative" data-journal-id="<%= journal.id %>">
+          <% @selected_journals.each_with_index do |journal, idx| %>
+            <div class="relative report-item-enter" style="--report-item-delay: <%= idx * 45 %>ms;" data-journal-id="<%= journal.id %>">
               <%= hidden_field_tag "journal_ids[]", journal.id %>
               <button
                   type="button"
@@ -97,7 +110,10 @@
   <dialog data-report-editor-target="journalModal" class="modal">
     <div class="modal-box h-[90vh] max-w-4xl w-full">
       <div class="flex items-center justify-between mb-4">
-        <h3 class="font-bold text-lg"><%= t(".available_journals") %></h3>
+        <div>
+          <h3 class="font-bold text-lg"><%= t(".available_journals") %></h3>
+          <p class="text-sm text-base-content/70 mt-1"><%= t(".available_journals_description") %></p>
+        </div>
         <button
             type="button"
             class="btn btn-sm btn-circle btn-ghost"

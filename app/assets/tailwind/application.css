@@ -103,6 +103,40 @@
   --ui-enter-from-scale: 0.992;
 }
 
+@keyframes report-item-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.report-item-enter {
+  opacity: 0;
+  animation: report-item-enter 260ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--report-item-delay, 0ms);
+  animation-fill-mode: both;
+}
+
+@keyframes report-item-exit {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.97);
+  }
+}
+
+.report-item-exit {
+  pointer-events: none;
+  animation: report-item-exit 220ms ease forwards;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .ui-enter,
   .ui-enter-page,
@@ -111,6 +145,13 @@
     opacity: 1;
     animation: none;
     transform: none;
+  }
+
+  .report-item-enter,
+  .report-item-exit {
+    animation: none;
+    transform: none;
+    opacity: 1;
   }
 }
 

@@ -14,18 +14,23 @@ es:
       confirm: "¿Estás seguro que deseas eliminar este reporte?"
       success: Reporte eliminado exitosamente.
     edit:
-      add_aggregated_datum: Agregar Caja de Datos Agregados
+      add_aggregated_datum: Agregar estadistica mostrada
       add_journal: Agregar Diario
       added_journal: Agregado
-      aggregated_data: Datos Agregados
+      aggregated_data: Estadisticas mostradas
+      aggregated_data_description: Agrega, ajusta o elimina valores que apareceran en el reporte final. Los valores predeterminados se calcularon automaticamente segun los proyectos, subproyectos y el rango de fechas definidos durante la creacion del reporte.
       author: Autor
       available_journals: Diarios Disponibles
+      available_journals_description: Selecciona los diarios que deseas incluir en este reporte.
       close: Cerrar
       content: Contenido
-      empty_journals: No hay diarios seleccionados todavía.
+      empty_aggregated_data: Aun no hay estadisticas mostradas. Agrega una para comenzar a resumir valores clave.
+      empty_journals: Aun no hay diarios mostrados.
       remove: Eliminar
       save: Guardar Cambios
-      selected_journals: Diarios Seleccionados
+      selected_journals: Diarios mostrados
+      selected_journals_description: Agrega o elimina tarjetas de diario que deben mostrarse en el reporte.
+      subtitle: Ajusta los datos agregados y elige exactamente los diarios que apareceran en este reporte.
       title: Editar Reporte
     index:
       actions:
@@ -47,7 +52,7 @@ es:
         title: Seleccion de alcance
       steps:
         step_one:
-          description: Define la fecha de inicio y la fecha de fin para la ventana del reporte.
+          description: Define la fecha de inicio y la fecha de fin que delimitan la ventana del reporte.
           label: Paso 1
           title: Definir rango de fechas
         step_three:
@@ -55,17 +60,17 @@ es:
           label: Paso 3
           title: Generar reporte
         step_two:
-          description: Elige los proyectos y subproyectos que deseas incluir en el resultado.
+          description: Elige los proyectos y subproyectos cuyas entradas deseas incluir en el reporte. Los datos especificos utilizados se pueden refinar en una etapa posterior.
           label: Paso 2
           title: Elegir alcance
         title: Como funciona
       start_date: Fecha de Inicio
       subprojects: Subproyectos
-      subtitle: Crea reportes claros y profesionales ajustando fechas y seleccionando exactamente lo que deseas incluir.
+      subtitle: Crea reportes para partes interesadas externas basados en entradas de bitacora y diario registradas en proyectos y subproyectos.
       summary:
         empty: Selecciona uno o mas subproyectos para habilitar la generacion del reporte.
         select_to_generate: Seleccionar subproyectos
-        selected_subprojects: "%{count} subproyecto(s) seleccionado(s) y listo(s) para generar el reporte."
+        selected_subprojects: "%{count} subproyecto(s) seleccionado(s). Todos los datos de estos subproyectos se agregaran automaticamente al reporte generado, pero en el siguiente paso podras quitar o agregar la informacion que deseas mostrar en el reporte final."
         title: Listo para generar?
       title: Nuevo Reporte
       date_range:
