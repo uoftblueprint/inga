@@ -9,8 +9,8 @@ class ReportsController < ApplicationController
     report_scope = privileged_report_viewer? ? Report.all : Report.active
 
     @report = report_scope
-                    .includes(journals: [:user, { subproject: :project }])
-                    .find_by(uuid: params[:id])
+              .includes(journals: [:user, { subproject: :project }])
+              .find_by(uuid: params[:id])
 
     return if @report
 

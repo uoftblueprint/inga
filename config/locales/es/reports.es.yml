@@ -15,7 +15,7 @@ es:
       success: Reporte eliminado exitosamente.
     edit:
       active: Estado del Reporte
-      active_description: Desactiva esto para ocultar la página publica del reporte.
+      active_description: Desactiva esto para ocultar la página pública del reporte.
       add_aggregated_datum: Agregar estadistica mostrada
       add_journal: Agregar Diario
       added_journal: Agregado
@@ -76,8 +76,8 @@ es:
       displayed_statistics_description: Un resumen de resultados medibles y progreso.
       empty_journals: No hay entradas de diario incluidas en este reporte.
       empty_statistics: No hay estadisticas clave incluidas en este reporte.
+      inactive_warning_description: Este reporte no es accesible públicamente.
       inactive_warning_title: Este reporte esta inactivo.
-      inactive_warning_description: Este reporte no es accesible publicamente.
       not_found: El reporte que estabas buscando no existe.
       not_found_description: Este reporte puede haber sido desactivado o eliminado.
       title: 'Reporte de Inga Foundation: %{start_date} a %{end_date}'

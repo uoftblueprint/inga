@@ -2,9 +2,9 @@
   <%# Left panel — branding %>
   <div class="hidden md:flex flex-col justify-center bg-primary px-12 py-14">
     <div class="flex flex-col gap-3">
-      <h1 class="text-3xl font-bold text-primary-content leading-snug">Inga Internals</h1>
+      <h1 class="text-3xl font-bold text-primary-content leading-snug"><%= t(".brand_title") %></h1>
       <p class="text-primary-content/70 text-base max-w-sm mt-1">
-        Track projects, review field journals, and generate external reports — all in one place.
+        <%= t(".brand_description") %>
       </p>
     </div>
   </div>
@@ -17,30 +17,30 @@
       </div>
 
       <div class="mb-8">
-        <h2 class="text-3xl font-bold text-base-content">Welcome back</h2>
-        <p class="text-base-content/50 text-sm mt-1">Sign in to your account to continue.</p>
+        <h2 class="text-3xl font-bold text-base-content"><%= t(".welcome_title") %></h2>
+        <p class="text-base-content/50 text-sm mt-1"><%= t(".welcome_description") %></p>
       </div>
 
       <%= form_with url: login_path, local: true do |form| %>
         <div class="flex flex-col gap-4">
           <div class="flex flex-col gap-1">
-            <label class="text-sm font-medium text-base-content">Username</label>
+            <label class="text-sm font-medium text-base-content"><%= t(".username") %></label>
             <%= form.text_field :username, required: true,
-                  class: "input input-bordered w-full focus:input-primary",
-                  placeholder: "Enter your username",
-                  autocomplete: "username" %>
+                                           class: "input input-bordered w-full focus:input-primary",
+                                           placeholder: t(".username_placeholder"),
+                                           autocomplete: "username" %>
           </div>
 
           <div class="flex flex-col gap-1">
-            <label class="text-sm font-medium text-base-content">Password</label>
+            <label class="text-sm font-medium text-base-content"><%= t(".password") %></label>
             <%= form.password_field :password, required: true,
-                  class: "input input-bordered w-full focus:input-primary",
-                  placeholder: "Enter your password",
-                  autocomplete: "current-password" %>
+                                               class: "input input-bordered w-full focus:input-primary",
+                                               placeholder: t(".password_placeholder"),
+                                               autocomplete: "current-password" %>
           </div>
 
           <div class="mt-2">
-            <%= form.submit "Sign in", class: "btn btn-primary w-full" %>
+            <%= form.submit t(".sign_in"), class: "btn btn-primary w-full" %>
           </div>
         </div>
       <% end %>
