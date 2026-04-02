@@ -1,11 +1,16 @@
 ---
 es:
+  application_controller:
+    check_required_roles:
+      error: No tienes permiso para acceder a esta página.
+    require_login:
+      error: Debes iniciar sesión para acceder a esta página.
   date:
     formats:
       default: "%d-%m-%Y"
-  time:
-    formats:
-      default: "%d-%m-%Y, %H:%M:%S"
   locales:
     en: English
     es: Español
+  time:
+    formats:
+      default: "%d-%m-%Y, %H:%M:%S"

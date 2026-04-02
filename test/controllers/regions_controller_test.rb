@@ -2,7 +2,7 @@ require "test_helper"
 
 class RegionsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    create_logged_in_admin_user
+    create_logged_in_user_with_roles(:admin)
     @region = create(:region, name: "region1")
   end
 
@@ -24,14 +24,13 @@ class RegionsControllerTest < ActionDispatch::IntegrationTest
       assert_redirected_to login_path
     end
 
-    test "##{hash[:route]} redirects to root route when a user is not authorized" do
-      create_logged_in_user
+    test "##{hash[:route]} redirects when a user is not authorized" do
+      create_logged_in_user_with_roles
 
       args = create(:region) if hash[:needs_region]
 
       public_send(hash[:method], public_send(hash[:url_helper], *args))
       assert_response :redirect
-      assert_redirected_to root_path
     end
   end
 

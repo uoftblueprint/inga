@@ -53,7 +53,7 @@ module Projects
         @log_entry.user = current_user
 
         if @log_entry.save
-          redirect_to(project_subproject_path(@project, @subproject), flash: { success: t(".success") })
+          redirect_to(log_entry_success_path, flash: { success: t(".success") })
         else
           respond_to do |format|
             format.html { head :not_found }
@@ -130,7 +130,15 @@ module Projects
       end
 
       def has_required_roles?
-        current_user.has_roles?(:admin)
+        return true if admin?
+
+        reporter? && %w[new create].include?(action_name)
+      end
+
+      def log_entry_success_path
+        return project_subproject_path(@project, @subproject) if admin?
+
+        root_path
       end
 
       def log_entry_new_frame_request?

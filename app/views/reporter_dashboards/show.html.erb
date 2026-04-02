@@ -1,0 +1,48 @@
+<div class="mx-2 my-4 sm:mx-8 sm:my-10 ui-enter-page">
+  <section class="ui-enter-section rounded-2xl border border-base-300 bg-gradient-to-br from-base-200 via-base-100 to-base-200 p-5 shadow-sm sm:p-8">
+    <div class="flex flex-col gap-2">
+      <h1 class="text-3xl font-bold leading-tight sm:text-4xl ui-enter-item" style="--ui-enter-delay: 80ms;">
+        <%= t("reporter_dashboard.show.title") %>
+      </h1>
+      <p class="max-w-2xl text-base text-base-content/70 sm:text-lg ui-enter-item" style="--ui-enter-delay: 120ms;">
+        <%= t("reporter_dashboard.show.description") %>
+      </p>
+    </div>
+  </section>
+
+  <div class="mt-5 ui-enter-item" style="--ui-enter-delay: 160ms;">
+    <%= render ContentCardComponent.new do %>
+      <div class="mb-5 flex items-center justify-between gap-3 border-b border-base-300/70 pb-3">
+        <h2 class="text-xl font-semibold"><%= t("reporter_dashboard.show.quick_actions_title") %></h2>
+      </div>
+
+      <div class="grid gap-4 md:grid-cols-2">
+        <article class="ui-enter-item rounded-xl border border-base-300 bg-base-100 p-4 shadow-sm" style="--ui-enter-delay: 220ms;">
+          <div class="mb-2 flex items-center gap-2">
+            <%= render IconComponent.new(icon: "journal-text", size: :md, classes: "text-primary") %>
+            <h3 class="text-lg font-semibold"><%= t("reporter_dashboard.show.journal.title") %></h3>
+          </div>
+          <p class="mb-4 text-sm text-base-content/70">
+            <%= t("reporter_dashboard.show.journal.description") %>
+          </p>
+          <%= render ActionButtonComponent.new(to: new_journal_path, icon: "add", colour: :primary, size: :large) do %>
+            <%= t("reporter_dashboard.show.actions.new_journal") %>
+          <% end %>
+        </article>
+
+        <article class="ui-enter-item rounded-xl border border-base-300 bg-base-100 p-4 shadow-sm" style="--ui-enter-delay: 280ms;">
+          <div class="mb-2 flex items-center gap-2">
+            <%= render IconComponent.new(icon: "vector-pen", size: :md, classes: "text-secondary") %>
+            <h3 class="text-lg font-semibold"><%= t("reporter_dashboard.show.log_entry.title") %></h3>
+          </div>
+          <p class="mb-4 text-sm text-base-content/70">
+            <%= t("reporter_dashboard.show.log_entry.description") %>
+          </p>
+          <%= render ActionButtonComponent.new(to: new_log_entry_path, icon: "add", colour: :secondary, size: :large) do %>
+            <%= t("reporter_dashboard.show.actions.new_log_entry") %>
+          <% end %>
+        </article>
+      </div>
+    <% end %>
+  </div>
+</div>

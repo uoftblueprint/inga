@@ -1,0 +1,16 @@
+---
+en:
+  reporter_dashboard:
+    show:
+      actions:
+        new_journal: New Journal Entry
+        new_log_entry: New Log Entry
+      description: Submit a log or journal entry to document your day and share insights.
+      journal:
+        description: Record narrative updates, observations, and context for the day.
+        title: Journal Entry
+      log_entry:
+        description: Add structured measurements and operational data points.
+        title: Log Entry
+      quick_actions_title: Quick Actions
+      title: Reporter Dashboard

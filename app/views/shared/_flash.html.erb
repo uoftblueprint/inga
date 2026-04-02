@@ -1,5 +1,5 @@
 <% if flash.any? %>
-  <div class="fixed bottom-4 left-4 right-4 sm:left-auto sm:w-96 space-y-1 z-[9999] animate-fade-in-out">
+  <div class="fixed bottom-4 left-4 right-4 sm:left-auto sm:w-96 space-y-1 z-[9999] animate-fade-in-out pointer-events-none">
     <% flash.each do |key, message| %>
       <% case key.to_sym %>
       <% when :info %>

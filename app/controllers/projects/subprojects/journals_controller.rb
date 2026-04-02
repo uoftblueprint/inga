@@ -20,10 +20,7 @@ module Projects
         @journal.user = current_user
 
         if @journal.save
-          redirect_to(
-            project_subproject_journal_path(@project, @subproject, @journal),
-            flash: { success: t(".success") }
-          )
+          redirect_to(journal_success_path, flash: { success: t(".success") })
         else
           flash.now[:error] = @journal.errors.full_messages.to_sentence
           respond_to do |format|
@@ -75,7 +72,15 @@ module Projects
       end
 
       def has_required_roles?
-        current_user.has_roles?(:admin)
+        return true if admin?
+
+        reporter? && %w[new create].include?(action_name)
+      end
+
+      def journal_success_path
+        return project_subproject_path(@project, @subproject) if admin?
+
+        root_path
       end
     end
   end

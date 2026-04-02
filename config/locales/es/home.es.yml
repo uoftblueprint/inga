@@ -1,0 +1,16 @@
+---
+es:
+  reporter_dashboard:
+    show:
+      actions:
+        new_journal: Nueva entrada de diario
+        new_log_entry: Nueva entrada de registro
+      description: Envía una entrada de registro o diario para documentar tu día y compartir perspectivas.
+      journal:
+        description: Registra novedades narrativas, observaciones y contexto del día.
+        title: Entrada de diario
+      log_entry:
+        description: Agrega mediciones estructuradas y datos operativos.
+        title: Entrada de registro
+      quick_actions_title: Acciones rápidas
+      title: Panel de reportero

@@ -1,18 +1,32 @@
 require "test_helper"
 
 class ReportsControllerTest < ActionDispatch::IntegrationTest
-  setup do
-    create_logged_in_admin_user
-  end
-
-  [
+  ANALYST_ONLY_ROUTES = [
     { route: "index", method: :get, url_helper: :reports_url, needs_report: false },
     { route: "new", method: :get, url_helper: :new_report_url, needs_report: false },
     { route: "edit", method: :get, url_helper: :edit_report_url, needs_report: true },
     { route: "filter", method: :get, url_helper: :filter_reports_url, needs_report: false },
     { route: "update", method: :patch, url_helper: :report_url, needs_report: true },
     { route: "destroy", method: :delete, url_helper: :report_url, needs_report: true }
-  ].each do |hash|
+  ].freeze
+
+  ANALYST_RENDER_ROUTES = [
+    { route: "index", method: :get, url_helper: :reports_url, needs_report: false },
+    { route: "new", method: :get, url_helper: :new_report_url, needs_report: false },
+    { route: "edit", method: :get, url_helper: :edit_report_url, needs_report: true }
+  ].freeze
+
+  NON_ANALYST_ROLE_CASES = [
+    { roles: [:admin], label: "admins" },
+    { roles: [:reporter], label: "reporters" },
+    { roles: [], label: "users without roles" }
+  ].freeze
+
+  setup do
+    create_logged_in_user_with_roles(:analyst)
+  end
+
+  ANALYST_ONLY_ROUTES.each do |hash|
     test "##{hash[:route]} redirects to login route when a user is not authenticated" do
       log_out_user
 
@@ -23,24 +37,18 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
       assert_redirected_to login_path
     end
 
-    test "##{hash[:route]} redirects to root route when a user is not authorized" do
-      create_logged_in_user
+    test "##{hash[:route]} redirects when a user is not authorized" do
+      create_logged_in_user_with_roles
 
       args = create(:report) if hash[:needs_report]
 
       public_send(hash[:method], public_send(hash[:url_helper], *args))
       assert_response :redirect
-      assert_redirected_to root_path
     end
   end
 
-  [
-    { route: "index", method: :get, url_helper: :reports_url, needs_report: false },
-    { route: "show", method: :get, url_helper: :report_url, needs_report: true },
-    { route: "new", method: :get, url_helper: :new_report_url, needs_report: false },
-    { route: "edit", method: :get, url_helper: :edit_report_url, needs_report: true }
-  ].each do |hash|
-    test "##{hash[:route]} renders successfully when a user is an admin" do
+  ANALYST_RENDER_ROUTES.each do |hash|
+    test "##{hash[:route]} renders successfully when a user is an analyst" do
       args = create(:report) if hash[:needs_report]
 
       public_send(hash[:method], public_send(hash[:url_helper], *args))
@@ -48,15 +56,21 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "#show renders successfully when a user is not authenticated" do
-    log_out_user
-    report = create(:report)
+  NON_ANALYST_ROLE_CASES.each do |role_case|
+    ANALYST_ONLY_ROUTES.each do |hash|
+      test "##{hash[:route]} redirects #{role_case[:label]} when they are not analysts" do
+        create_logged_in_user_with_roles(*role_case[:roles])
 
-    get report_path(report)
-    assert_response :success
+        args = create(:report) if hash[:needs_report]
+
+        public_send(hash[:method], public_send(hash[:url_helper], *args))
+        assert_response :redirect
+      end
+    end
   end
 
   test "#show renders the report correctly" do
+    log_out_user
     report = create(:report)
     journal = create(:journal)
     aggregated_datum = create(:aggregated_datum, report: report)
@@ -138,13 +152,12 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to login_path
   end
 
-  test "#create redirects to root route when a user is not authorized" do
-    create_logged_in_user
+  test "#create redirects when a user is not authorized" do
+    create_logged_in_user_with_roles
 
     post reports_url,
          params: { start_date: Time.zone.yesterday.to_s, end_date: Time.zone.today.to_s, subproject_ids: [1] }
     assert_response :redirect
-    assert_redirected_to root_path
   end
 
   test "#create creates a report and redirects on success" do
@@ -252,7 +265,7 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     assert_equal [retained_datum.id], report.aggregated_data.ids
   end
 
-  test "#destroy deletes report when user is an admin" do
+  test "#destroy deletes report when user is an analyst" do
     report = create(:report)
 
     assert_difference("Report.count", -1) do

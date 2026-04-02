@@ -11,10 +11,11 @@
         </div>
       <% end %>
     </div>
-    <li class="py-6">
+    <div class="py-6">
       <% sections.each do |section| %>
-        <h2 class="menu-title uppercase"> <%= section.title %></h2>
-        <ul>
+        <li class="<%= section_classes(section) %>">
+          <h2 class="menu-title uppercase"> <%= section.title %></h2>
+          <ul>
           <% section.items.each do |item| %>
             <li> <%= link_to item.path do %>
               <%= render IconComponent.new(icon: item.icon, size: :md, classes: "w-5 h-5") %>
@@ -22,9 +23,10 @@
               <% end %>
             </li>
           <% end %>
-        </ul>
+          </ul>
+        </li>
       <% end %>
-    </li>
+    </div>
   </div>
   <div class="border-t border-base-300 py-2">
     <% I18n.available_locales.each do |locale| %>
@@ -36,7 +38,9 @@
   </div>
   <div class="border-t border-base-300 py-2">
     <li>
-      <%= button_to logout_item.path, method: :delete, class: "flex gap-3" do %>
+      <%= link_to logout_item.path,
+                  data: { turbo_method: :delete },
+                  class: "flex w-full items-center gap-3" do %>
         <%= render IconComponent.new(icon: logout_item.icon, size: :md, classes: "w-5 h-5") %>
         <span> <%= logout_item.name %> </span>
       <% end %>
@@ -45,5 +49,5 @@
 </ul>
 </div>
 <div class="sm:hidden">
-  <%= render DockComponent.new(items: sections.first.items, logout_item: logout_item) %>
+  <%= render DockComponent.new(items: mobile_dock_items, logout_item: logout_item) %>
 </div>

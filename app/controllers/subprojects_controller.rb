@@ -28,7 +28,7 @@ class SubprojectsController < ApplicationController
 
     if @subproject.save
       redirect_to(
-        new_project_subproject_path(@project),
+        project_path(@project),
         flash: { success: t(".success") }
       )
     else
@@ -88,6 +88,6 @@ class SubprojectsController < ApplicationController
   end
 
   def has_required_roles?
-    current_user.has_roles?(:admin)
+    admin?
   end
 end

@@ -2,7 +2,7 @@ require "test_helper"
 
 class ProjectAttributesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    create_logged_in_admin_user
+    create_logged_in_user_with_roles(:admin)
     @project = create(:project)
   end
 
@@ -18,12 +18,11 @@ class ProjectAttributesControllerTest < ActionDispatch::IntegrationTest
       assert_redirected_to login_path
     end
 
-    test "##{hash[:route]} redirects to root route when a user is not authorized" do
-      create_logged_in_user
+    test "##{hash[:route]} redirects when a user is not authorized" do
+      create_logged_in_user_with_roles
 
       public_send(hash[:method], public_send(hash[:url_helper], @project))
       assert_response :redirect
-      assert_redirected_to root_path
     end
   end
 

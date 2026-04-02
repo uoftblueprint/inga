@@ -14,15 +14,13 @@ module ActiveSupport
     # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
     fixtures :all
 
-    def create_logged_in_user
+    def create_logged_in_user_with_roles(*roles)
       create(:user).tap do |user|
-        post login_url, params: { username: user.username, password: user.password }
-      end
-    end
+        roles.each do |role|
+          create("#{role}_role", user:)
+        end
 
-    def create_logged_in_admin_user
-      create_logged_in_user.tap do |user|
-        create(:admin_role, user:)
+        post login_url, params: { username: user.username, password: user.password }
       end
     end
 

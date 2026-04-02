@@ -11,5 +11,9 @@ class JournalsController < ApplicationController
     end
   end
 
-  def has_required_roles? = current_user.has_roles?(:admin)
+  def has_required_roles?
+    return reporter? if action_name == "new"
+
+    admin?
+  end
 end
